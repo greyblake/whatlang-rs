@@ -41,7 +41,51 @@ pub fn count_trigrams(s : String) -> HashMap<String, u32> {
 // Replace punctuations and digits  with space.
 fn to_trigram_char(ch : char) -> char {
     match ch {
-        '\u{0020}'...'\u{0040}' => ' ',
+        '\u{0000}'...'\u{0040}' | '\u{005B}'...'\u{0060}' | '\u{007B}'...'\u{007E}' => ' ',
         _ => ch
+    }
+}
+
+
+
+#[cfg(test)]
+mod tests {
+    use super::to_trigram_char;
+    //use super::count_trigrams;
+
+    //fn assert_trigram_chars(chars : [char]) {
+    //}
+
+    #[test]
+    fn test_to_trigram_char() {
+        assert_eq!(to_trigram_char('a'), 'a');
+        assert_eq!(to_trigram_char('z'), 'z');
+        assert_eq!(to_trigram_char('A'), 'A');
+        assert_eq!(to_trigram_char('Z'), 'Z');
+        assert_eq!(to_trigram_char('Ж'), 'Ж');
+        assert_eq!(to_trigram_char('ß'), 'ß');
+
+        // 0x00 - 0x40
+        assert_eq!(to_trigram_char('\t'), ' ');
+        assert_eq!(to_trigram_char('\n'), ' ');
+        assert_eq!(to_trigram_char(' '), ' ');
+        assert_eq!(to_trigram_char('.'), ' ');
+        assert_eq!(to_trigram_char('0'), ' ');
+        assert_eq!(to_trigram_char('9'), ' ');
+        assert_eq!(to_trigram_char(','), ' ');
+        assert_eq!(to_trigram_char('@'), ' ');
+
+        // 0x5B - 0x60
+        assert_eq!(to_trigram_char('['), ' ');
+        assert_eq!(to_trigram_char(']'), ' ');
+        assert_eq!(to_trigram_char('^'), ' ');
+        assert_eq!(to_trigram_char('\\'), ' ');
+        assert_eq!(to_trigram_char('`'), ' ');
+
+        // 0x7B - 0x7E
+        assert_eq!(to_trigram_char('|'), ' ');
+        assert_eq!(to_trigram_char('{'), ' ');
+        assert_eq!(to_trigram_char('}'), ' ');
+        assert_eq!(to_trigram_char('~'), ' ');
     }
 }

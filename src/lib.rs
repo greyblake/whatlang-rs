@@ -2,20 +2,14 @@ use std::collections::HashMap;
 
 mod lang;
 mod trigrams;
-mod script;
 
-pub use lang::Lang;
-pub use lang::LangProfile;
-pub use lang::LANGS;
-pub use trigrams::count_trigrams;
+use lang::Lang;
+use lang::LangProfile;
+use lang::LANGS;
+use trigrams::count_trigrams;
 
-fn detect_lang(text : String) -> Lang {
-    //let mut distances : HashMap<Lang, u32> = HashMap::new();
-
+pub fn detect_lang(text : String) -> Lang {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
-
-    let mut dists : Vec<(Lang, u32)> = vec![];
-
     let trigrams = count_trigrams(text);
 
     for &(ref lang, lang_trigrams) in LANGS {
@@ -44,7 +38,7 @@ fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<Strin
 
 #[cfg(test)]
 mod tests {
-    use super::Lang;
+    use lang::Lang;
     use super::detect_lang;
 
     #[test]

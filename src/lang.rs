@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 #[derive(PartialEq, Eq, Debug, Hash, Clone)]
 pub enum Lang {
     RUS,
