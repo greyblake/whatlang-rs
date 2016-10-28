@@ -13,7 +13,7 @@ pub enum Lang {
     KAT // Georgian
 }
 
-type LangProfile = &'static [&'static str];
+pub type LangProfile = &'static [&'static str];
 
 //const PROFILE_ENG : LangProfile = &[" th", "the", " an", "he ", "nd ", "and", "ion", " of", "of ", "tio", " to", "to ", "on ", " in", "al ", "ati", "igh", "ght", "rig", " ri", "or ", "ent", "as ", "ed ", "is ", "ll ", "in ", " be", "e r", "ne ", "one", "ver", "all", "s t", "eve", "t t", " fr", "s a", " ha", " re", "ty ", "ery", " or", "d t", " pr", "ht ", " co", " ev", "e h", "e a", "ng ", "ts ", "his", "ing", "be ", "yon", " sh", "ce ", "ree", "fre", "ryo", "n t", "her", "men", "nat", "sha", "pro", "nal", "y a", "has", "es ", "for", " hi", "hal", "f t", "n a", "n o", "nt ", " pe", "s o", " fo", "d i", "nce", "er ", "ons", "res", "e s", "ect", "ity", "ly ", "l b", "ry ", "e e", "ers", "e i", "an ", "e o", " de", "cti", "dom", "edo", "eed", "hts", "ter", "ona", "re ", " no", " wh", " a ", " un", "d f", " as", "ny ", "l a", "e p", "ere", " en", " na", " wi", "nit", "nte", "d a", "any", "ted", " di", "ns ", "sta", "th ", "per", "ith", "e t", "st ", "e c", "y t", "om ", "soc", " ar", "ch ", "t o", "d o", "nti", "s e", "equ", "ve ", "oci", "man", " fu", "ote", "oth", "ess", " al", " ac", "wit", "ial", " ma", "uni", " se", "rea", " so", " on", "lit", "int", "r t", "y o", "enc", "thi", "ual", "t a", " eq", "tat", "qua", "ive", " st", "ali", "e w", "l o", "are", "f h", "con", "te ", "led", " is", "und", "cia", "e f", "le ", " la", "y i", "uma", "by ", " by", "hum", "f a", "ic ", " hu", "ave", "ge ", "r a", " wo", "o a", "ms ", "com", " me", "eas", "s d", "tec", " li", "n e", "en ", "rat", "tit", "ple", "whe", "ate", "o t", "s r", "t f", "rot", " ch", "cie", "dis", "age", "ary", "o o", "anc", "eli", "no ", " fa", " su", "son", "inc", "at ", "nda", "hou", "wor", "t i", "nde", "rom", "oms", " ot", "g t", "eme", "tle", "iti", "gni", "s w", "itl", "duc", "d w", "whi", "act", "hic", "aw ", "law", " he", "ich", "min", "imi", "ort", "o s", "se ", "e b", "ntr", "tra", "edu", "oun", "tan", "e d", "nst", "l p", "d n", "ld ", "nta", "s i", "ble", "n p", " pu", "n s", " at", "ily", "rth", "tho", "ful", "ssi", "der", "o e", "cat", "uca", "unt", "ien", " ed", "o p", "h a", "era", "ind", "pen", "sec", "n w", "omm", "r s"];
 //const PROFILE_SPA : &'static [&'static str] = &[" de", "os ", "de ", " la", "la ", " y ", " a ", "es ", "ón ", "ión", "rec", "ere", "der", " co", "e l", "el ", "en ", "ien", "cho", "ent", "ech", "ció", "aci", "o a", "a p", " el", "a l", "al ", "as ", "e d", " en", "na ", "ona", "s d", "da ", "nte", " to", "ad ", "ene", "con", " pr", " su", "tod", " se", "ho ", "los", " pe", "per", "ers", " lo", "o d", " ti", "cia", "n d", "cio", " es", "ida", "res", "a t", "tie", "ion", "rso", "te ", "do ", " in", "son", " re", " li", "to ", "dad", "tad", "e s", "est", "pro", "que", "men", " po", "a e", "oda", "nci", " qu", " un", "ue ", "ne ", "n e", "s y", "lib", "su ", " na", "s e", "nac", "ia ", "e e", "tra", " pa", "or ", "ado", "a d", "nes", "ra ", "se ", "ual", "a c", "er ", "por", "com", "nal", "rta", "a s", "ber", " o ", "one", "s p", "dos", "rá ", "sta", "les", "des", "ibe", "ser", "era", "ar ", "ert", "ter", " di", "ale", "l d", "nto", "hos", "del", "ica", "a a", "s n", "n c", "oci", "imi", "io ", "o e", "re ", "y l", "e c", "ant", "cci", " as", "las", "par", "ame", " cu", "ici", "ara", "enc", "s t", "ndi", " so", "o s", "mie", "tos", "una", "bre", "dic", "cla", "s l", "e a", "l p", "pre", "ntr", "o t", "ial", "y a", "nid", "n p", "a y", "man", "omo", "so ", "n l", " al", "ali", "s a", "no ", " ig", "s s", "e p", "nta", "uma", "ten", "gua", "ade", "y e", "soc", "mo ", " fu", "igu", "o p", "n t", "hum", "d d", "ran", "ria", "y d", "ada", "tiv", "l e", "cas", " ca", "vid", "l t", "s c", "ido", "das", "dis", "s i", " hu", "s o", "nad", "fun", " ma", "rac", "nda", "eli", "sar", "und", " ac", "uni", "mbr", "a u", "die", "e i", "qui", "a i", " ha", "lar", " tr", "odo", "ca ", "tic", "o y", "cti", "lid", "ori", "ndo", "ari", " me", "ta ", "ind", "esa", "cua", "un ", "ier", "tal", "esp", "seg", "ele", "ons", "ito", "ont", "iva", "s h", "d y", "nos", "ist", "rse", " le", "cie", "ide", "edi", "ecc", "ios", "l m", "r e", "med", "tor", "sti", "n a", "rim", "uie", "ple", "tri", "ibr", "sus", "lo ", "ect", "pen", "y c", "an ", "e h", "n s", "ern", "tar", "l y", "egu", "gur", "ura", "int", "ond", "mat", "l r", "r a", "isf", "ote"];
@@ -26,105 +26,8 @@ type LangProfile = &'static [&'static str];
 //const PROFILE_POL : &'static [&'static str] = &[" pr", "nie", " i ", "ie ", "pra", " po", "ani", "raw", "ia ", "nia", "wie", "go ", " do", "ch ", "ego", "iek", "owi", " ni", "ści", "ci ", "a p", "do ", "awo", " cz", "ośc", "ych", " ma", "ek ", "rze", " na", "prz", " w ", "wo ", "ej ", " za", "noś", "czł", "zło", "eni", "wa ", " je", "łow", "i p", "wol", "oln", " lu", "rod", " ka", " wo", "lno", "wsz", "y c", "ma ", "ny ", "każ", "ażd", "o d", "stw", "owa", "dy ", "żdy", " wy", "rzy", "sta", "ecz", " sw", "dzi", "i w", "e p", "czn", "twa", "na ", "zys", "ów ", "szy", "ub ", "lub", "a w", "est", "kie", "k m", "wan", " sp", "ają", " ws", "e w", "pow", "pos", "nyc", "rac", "spo", "ać ", "a i", "cze", "sze", "neg", "yst", "jak", " ja", "o p", "pod", "acj", "ne ", "ńst", "aro", "mi ", " z ", "i i", "nar", " ko", "obo", "awa", " ro", "i n", "jąc", "zec", "zne", "zan", "dow", " ró", "iej", "zy ", "zen", "nic", "ony", "aw ", "i z", "czy", "no ", "nej", "o s", "rów", "odn", "cy ", "ówn", "odz", "o w", "o z", "jeg", "edn", "o o", "aki", "mie", "ien", "kol", " in", "zie", "bez", "ami", "eńs", "owo", "dno", " ob", " or", " st", "a s", "ni ", "orz", "o u", "ym ", "stę", "tęp", "łec", "jed", "i k", " os", "w c", "lwi", "ez ", "olw", "ołe", "poł", "cji", "y w", "o n", "wia", " be", "któ", "a j", "zna", "zyn", "owe", "wob", "ka ", "wyc", "owy", "ji ", " od", "aln", "inn", "jes", "icz", "h p", "i s", "się", "a o", "ją ", "ost", "kra", "st ", "sza", "swo", "war", "cza", "roz", "y s", "raz", "nik", "ara", "ora", "lud", "i o", "a z", "zes", " kr", "ran", "ows", "ech", "w p", "dów", "ą p", "pop", "a n", "tki", "stk", "gan", "zon", "raj", "e o", "iec", "i l", " si", "że ", "eka", " kt", " de", "em ", "tór", "ię ", "wni", "lni", "ejs", "ini", "odo", "dni", "ełn", "kow", "peł", "a d", "ron", "dek", "pie", "udz", "bod", "nan", "h i", "dst", "ieg", "taw", "z p", "z w", "zeń", "god", "iu ", "ano", "lar", " to", "y z", "a k", "ale", "kla", "trz", "zaw", "ich", "e i", "ier", "iko", "dzy", "chn", "w z", "by ", "ków", "adz", "ekl", "ywa", "ju ", "och", "kor", "sob", "ocz", "oso", "u p", "du ", "tyc", "tan", "ędz", " mi", "e s", " ta", "ki "];
 //const PROFILE_EPO : &'static [&'static str] = &["aj ", " la", "la ", "kaj", " ka", "oj ", " de", "on ", "de ", "raj", " ra", "iu ", "ajt", "as ", "o k", " ĉi", "e l", "j k", " li", " pr", "eco", "aŭ ", "ĉiu", "jn ", "ia ", "jto", "est", " es", " al", "an ", " ki", "pro", "io ", " ko", "en ", "n k", "kon", " ti", "co ", "j p", "o d", " po", "ibe", " aŭ", "ro ", "tas", "lib", "ber", "aci", "toj", " en", "a p", " ne", "cio", "ere", "ta ", " in", "to ", "do ", "o e", "j l", "n a", "j d", " se", "a k", "j r", "ala", "j e", "taj", " re", "rec", "iuj", "kiu", " pe", "o a", "ita", "ajn", "ado", "n d", "sta", "nac", "a a", "nta", "lia", "ekt", "eni", "iaj", "ter", "uj ", "per", "ton", "int", " si", "cia", " ha", "stu", "a l", "je ", " je", "al ", "o ĉ", "n p", "jta", "tu ", " ri", "vas", "sen", "hav", "hom", " di", " ho", "nte", "a e", "ali", "ent", " so", "nec", "tra", "a s", "ava", "por", "a r", " na", "igi", "tiu", "sia", "o p", "n l", "ega", "or ", " aj", "soc", "j ĉ", "s l", "oci", "no ", " pl", "j n", "kto", "evi", "s r", "j s", "ojn", "laj", "u a", "re ", " eg", "j a", "gal", "ers", "ke ", "pre", "igo", "er ", "lan", "n j", "pri", " ku", "era", "ian", "rim", " fa", "e s", " ju", "e a", "ika", "ata", "ntr", "el ", "is ", "u h", "li ", "ioj", "don", "ont", "tat", "ons", " el", " su", "go ", "un ", " ke", "ebl", "bla", "n s", "oma", "ĉi ", "raŭ", "kla", "u r", "ne ", "ili", "iĝo", "o t", "s e", "tek", "men", "nen", "j i", "nda", "con", "a d", "ena", "cev", "moj", "ice", "ric", "ple", "son", "art", "a h", "o r", "res", " un", "u s", "coj", "e p", "ĝi ", "for", "ato", "ren", "ara", "ame", "tan", " pu", "ote", "rot", " ma", "vi ", "j f", "len", "dis", "ive", "ant", "n r", " vi", "ami", "iĝi", "sti", "ĝo ", "r l", "n ĉ", "u l", " ag", "erv", "u e", "unu", "gno", " ce", " me", "niu", "iel", "duk", "ern", " ŝt", "laŭ", "o n", "lab", "olo", "abo", "tio", "bor", "ŝta", "imi", " ed", "lo ", "kun", "edu", "kom", "dev", "enc", "ndo", "lig", "e e", "a f", "tig", "i e", " kr", " pa", "na ", "n i", "kad", "and", "e d", "mal", "ono", "dek", "pol", "oro", "eri", "edo", "e k", "rso", "ti ", "rac", "ion", "loj", "j h", "pli", "j m"];
 
-const LANGS : &'static [(Lang, LangProfile)] = &[
+pub const LANGS : &'static [(Lang, LangProfile)] = &[
     (Lang::ENG, &[" th", "the", " an", "he ", "nd ", "and", "ion", " of", "of ", "tio", " to", "to ", "on ", " in", "al ", "ati", "igh", "ght", "rig", " ri", "or ", "ent", "as ", "ed ", "is ", "ll ", "in ", " be", "e r", "ne ", "one", "ver", "all", "s t", "eve", "t t", " fr", "s a", " ha", " re", "ty ", "ery", " or", "d t", " pr", "ht ", " co", " ev", "e h", "e a", "ng ", "ts ", "his", "ing", "be ", "yon", " sh", "ce ", "ree", "fre", "ryo", "n t", "her", "men", "nat", "sha", "pro", "nal", "y a", "has", "es ", "for", " hi", "hal", "f t", "n a", "n o", "nt ", " pe", "s o", " fo", "d i", "nce", "er ", "ons", "res", "e s", "ect", "ity", "ly ", "l b", "ry ", "e e", "ers", "e i", "an ", "e o", " de", "cti", "dom", "edo", "eed", "hts", "ter", "ona", "re ", " no", " wh", " a ", " un", "d f", " as", "ny ", "l a", "e p", "ere", " en", " na", " wi", "nit", "nte", "d a", "any", "ted", " di", "ns ", "sta", "th ", "per", "ith", "e t", "st ", "e c", "y t", "om ", "soc", " ar", "ch ", "t o", "d o", "nti", "s e", "equ", "ve ", "oci", "man", " fu", "ote", "oth", "ess", " al", " ac", "wit", "ial", " ma", "uni", " se", "rea", " so", " on", "lit", "int", "r t", "y o", "enc", "thi", "ual", "t a", " eq", "tat", "qua", "ive", " st", "ali", "e w", "l o", "are", "f h", "con", "te ", "led", " is", "und", "cia", "e f", "le ", " la", "y i", "uma", "by ", " by", "hum", "f a", "ic ", " hu", "ave", "ge ", "r a", " wo", "o a", "ms ", "com", " me", "eas", "s d", "tec", " li", "n e", "en ", "rat", "tit", "ple", "whe", "ate", "o t", "s r", "t f", "rot", " ch", "cie", "dis", "age", "ary", "o o", "anc", "eli", "no ", " fa", " su", "son", "inc", "at ", "nda", "hou", "wor", "t i", "nde", "rom", "oms", " ot", "g t", "eme", "tle", "iti", "gni", "s w", "itl", "duc", "d w", "whi", "act", "hic", "aw ", "law", " he", "ich", "min", "imi", "ort", "o s", "se ", "e b", "ntr", "tra", "edu", "oun", "tan", "e d", "nst", "l p", "d n", "ld ", "nta", "s i", "ble", "n p", " pu", "n s", " at", "ily", "rth", "tho", "ful", "ssi", "der", "o e", "cat", "uca", "unt", "ien", " ed", "o p", "h a", "era", "ind", "pen", "sec", "n w", "omm", "r s"]),
     (Lang::SPA, &[" de", "os ", "de ", " la", "la ", " y ", " a ", "es ", "ón ", "ión", "rec", "ere", "der", " co", "e l", "el ", "en ", "ien", "cho", "ent", "ech", "ció", "aci", "o a", "a p", " el", "a l", "al ", "as ", "e d", " en", "na ", "ona", "s d", "da ", "nte", " to", "ad ", "ene", "con", " pr", " su", "tod", " se", "ho ", "los", " pe", "per", "ers", " lo", "o d", " ti", "cia", "n d", "cio", " es", "ida", "res", "a t", "tie", "ion", "rso", "te ", "do ", " in", "son", " re", " li", "to ", "dad", "tad", "e s", "est", "pro", "que", "men", " po", "a e", "oda", "nci", " qu", " un", "ue ", "ne ", "n e", "s y", "lib", "su ", " na", "s e", "nac", "ia ", "e e", "tra", " pa", "or ", "ado", "a d", "nes", "ra ", "se ", "ual", "a c", "er ", "por", "com", "nal", "rta", "a s", "ber", " o ", "one", "s p", "dos", "rá ", "sta", "les", "des", "ibe", "ser", "era", "ar ", "ert", "ter", " di", "ale", "l d", "nto", "hos", "del", "ica", "a a", "s n", "n c", "oci", "imi", "io ", "o e", "re ", "y l", "e c", "ant", "cci", " as", "las", "par", "ame", " cu", "ici", "ara", "enc", "s t", "ndi", " so", "o s", "mie", "tos", "una", "bre", "dic", "cla", "s l", "e a", "l p", "pre", "ntr", "o t", "ial", "y a", "nid", "n p", "a y", "man", "omo", "so ", "n l", " al", "ali", "s a", "no ", " ig", "s s", "e p", "nta", "uma", "ten", "gua", "ade", "y e", "soc", "mo ", " fu", "igu", "o p", "n t", "hum", "d d", "ran", "ria", "y d", "ada", "tiv", "l e", "cas", " ca", "vid", "l t", "s c", "ido", "das", "dis", "s i", " hu", "s o", "nad", "fun", " ma", "rac", "nda", "eli", "sar", "und", " ac", "uni", "mbr", "a u", "die", "e i", "qui", "a i", " ha", "lar", " tr", "odo", "ca ", "tic", "o y", "cti", "lid", "ori", "ndo", "ari", " me", "ta ", "ind", "esa", "cua", "un ", "ier", "tal", "esp", "seg", "ele", "ons", "ito", "ont", "iva", "s h", "d y", "nos", "ist", "rse", " le", "cie", "ide", "edi", "ecc", "ios", "l m", "r e", "med", "tor", "sti", "n a", "rim", "uie", "ple", "tri", "ibr", "sus", "lo ", "ect", "pen", "y c", "an ", "e h", "n s", "ern", "tar", "l y", "egu", "gur", "ura", "int", "ond", "mat", "l r", "r a", "isf", "ote"]),
     (Lang::POR, &["os ", "de ", " de", " a ", " e ", "o d", "to ", "ão ", " di", "ent", "da ", "ito", "em ", " co", "eit", "as ", "dir", "es ", "ire", "rei", " se", "ção", "ade", "a p", "dad", "e d", "s d", "men", "nte", "do ", "s e", " pr", " pe", "dos", " to", " da", "a a", "o e", " o ", "o a", "ess", "con", "tod", "que", " qu", "te ", "e a", " do", "al ", "res", "ida", "m d", " in", " ou", "er ", "sso", " na", " re", " po", "a s", " li", "uma", "cia", "ar ", "pro", "e e", "a d", " te", "açã", "a t", " es", " su", "ou ", "ue ", "s p", "tos", "a e", "des", "ra ", "com", "no ", "ame", "ia ", "e p", "tem", "nto", " pa", "is ", "est", "tra", "ões", "na ", "s o", "oda", "das", "ser", "soa", "s n", "pes", "o p", "s a", "o s", "e o", " em", " as", " à ", "o o", "ais", "ber", "ado", "oa ", "o t", "e s", "man", "sua", "ua ", " no", " os", "a c", "ter", "çõe", "erd", "lib", "rda", "s s", "nci", "ibe", "e n", "ica", "odo", "so ", "nal", "ntr", "s t", "hum", "ura", " ao", "ona", "ual", " so", "or ", "ma ", "sta", "o c", "a n", "pre", "ara", "era", "ons", "e t", "r a", "par", "o à", " hu", "ind", "por", "cio", "ria", "m a", "s c", " um", "a l", "gua", "ran", " en", "ndi", "o i", "e c", "raç", "ion", "nid", "aci", "ano", "soc", "e r", "oci", " ac", "und", "sen", "nos", "nsi", "rec", "ime", "ali", "int", "um ", "per", "nac", " al", "m o", "r p", " fu", "ndo", "ont", "açõ", " ig", "igu", "fun", "nta", " ma", "uni", "cçã", "ere", " ex", "a i", " me", "ese", "rio", "l d", "a o", "s h", "pel", "ada", "pri", "ide", "am ", "m p", "pod", "s f", "ém ", "a f", "io ", "ode", "ca ", "ita", "lid", "tiv", "e f", "vid", "r e", "esp", "nda", "omo", "e l", "naç", "o r", "ant", "a q", "tad", "lic", "iva", " fa", "ver", "s l", "ial", "cla", "ngu", "ing", " ca", "mo ", "der", " vi", "eli", "ist", "ta ", "se ", "ati", "ios", "ido", "r o", "eci", "dis", " un", "e i", "r d", "ecç", "o q", "s i", "qua", "ênc", "a m", "seu", "sti", "nin", "uer", "rar", "cas", "aos", "ens", "gué", "ias", "sid", "uém", "tur", "dam", "sse", "ao ", "ela", "l e", "for", "tec", "ote", " pl", "ena", " tr", "m c", "tro", " ni", "ico", "rot"])
 ];
-
-
-fn detect_lang(text : String) -> Lang {
-    //let mut distances : HashMap<Lang, u32> = HashMap::new();
-
-    let mut lang_distances : Vec<(Lang, u32)> = vec![];
-
-    let mut dists : Vec<(Lang, u32)> = vec![];
-
-    let trigrams = count_trigrams(text);
-
-    for &(ref lang, lang_trigrams) in LANGS {
-        let dist = calculate_distance(lang_trigrams, &trigrams);
-        lang_distances.push(((*lang).clone(), dist));
-    }
-
-    lang_distances.sort_by_key(|key| key.1 );
-    (lang_distances.iter().nth(0).unwrap().0).clone()
-}
-
-const MAX_DIST : u32 = 300;
-
-fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<String, u32>) -> u32 {
-    let mut total_dist = 0u32;
-
-    for (i, &trigram) in lang_trigrams.iter().enumerate() {
-        let dist = match text_trigrams.get(trigram) {
-            Some(&n) => (n as i32 - i as i32).abs() as u32,
-            None => MAX_DIST
-        };
-        total_dist += dist;
-    }
-    total_dist
-}
-
-fn count_trigrams(s : String) -> HashMap<String, u32> {
-    let mut s = s.to_lowercase();
-    s.push(' '); // add space to the end
-
-    let mut counter_hash : HashMap<String, u32> = HashMap::new();
-
-    // iterate through the string and count trigrams
-    let mut chars_iter = s.chars();
-    let mut c1 = chars_iter.next().unwrap();
-    let mut c2 = chars_iter.next().unwrap();
-    for cur_char in chars_iter {
-        let c3 = to_trigram_char(cur_char);
-        if !((c1 == ' ' && c2 == ' ') || (c2 == ' ' && c3 == ' ')) {
-            let mut trigram = String::with_capacity(3);
-            trigram.push(c1);
-            trigram.push(c2);
-            trigram.push(c3);
-            let count = counter_hash.entry(trigram).or_insert(0);
-            *count += 1;
-        }
-        c1 = c2;
-        c2 = c3;
-    }
-
-    let mut count_vec: Vec<_> = counter_hash.iter().collect();
-    count_vec.sort_by_key(|key| key.1 );
-
-    let mut result: HashMap<String, u32> = HashMap::new();
-
-    // TODO: extract 600 as LANG_PROFILE_LENGTH * 2
-    for (i, trigram) in count_vec.iter().take(600).map(|x| x.0).enumerate() {
-        // TODO: find a way not to clone it
-        result.insert((*trigram).clone(), i as u32);
-    }
-
-    result
-}
-
-// Replace punctuations and digits  with space.
-fn to_trigram_char(ch : char) -> char {
-    match ch {
-        '\u{0020}'...'\u{0040}' => ' ',
-        _ => ch
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::Lang;
-    use super::detect_lang;
-
-    #[test]
-    fn test_detect_lang() {
-        let eng_text = "English does not suit well for the role of international language".to_string();
-        let spa_text = "Además de todo lo anteriormente dicho, también encontramos dentro de estos recintos la aduana, lugar donde los pasajeros que salen o entran del país son controlados.".to_string();
-        let por_text = "A princípio, o interesse do Corinthians na contratação de Ronaldo foi tratado como algo impossível no Parque São Jorge".to_string();
-
-        assert_eq!(detect_lang(eng_text), Lang::ENG);
-        assert_eq!(detect_lang(spa_text), Lang::SPA);
-        assert_eq!(detect_lang(por_text), Lang::POR);
-    }
-}
