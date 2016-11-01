@@ -91,7 +91,7 @@ mod tests {
 
 
     fn assert_count(text : &str, pairs : &[(&str, u32)]) {
-        let mut result = count(text.to_string());
+        let result = count(text.to_string());
         for &(k, v) in pairs.iter() {
             let &actual_val = result.get(k).unwrap_or(&0);
             assert_eq!(actual_val, v, "trigram '{}' expected to occur {} times, got {}", k, v, actual_val);
@@ -109,18 +109,10 @@ mod tests {
         assert_count("Give - IT...", &[(" gi", 1), ("giv", 1), ("ive", 1), ("ve ", 1), (" it", 1), ("it ", 1)]);
     }
 
-    fn assert_get_trigrams_with_positions(text : &str, pairs : &[(&str, u32)]) {
-        let mut result = get_trigrams_with_positions(text.to_string());
-        for &(k, v) in pairs.iter() {
-            let &actual_val = result.get(k).unwrap_or(&0);
-            assert_eq!(actual_val, v, "trigram '{}' expected to occur {} times, got {}", k, v, actual_val);
-        }
-        assert_eq!(result.len(), pairs.len());
-    }
-
     #[test]
     fn test_get_trigrams_with_positions() {
         let res = get_trigrams_with_positions("xaaaaabbbbd".to_string());
+        println!("positions:  {:?}", res);
         assert_eq!(*res.get("aaa").unwrap(), 0);
         assert_eq!(*res.get("bbb").unwrap(), 1);
     }
