@@ -1,0 +1,15 @@
+#[derive(PartialEq, Eq, Debug, Hash, Clone)]
+pub enum Lang {
+<% langs.each do |lang| %>
+    <%= lang.enum %>,
+<% end %>
+}
+
+
+pub type LangProfile = &'static [&'static str];
+
+pub const LANGS : &'static [(Lang, LangProfile)] = &[
+<% langs.each do |lang| %>
+    (Lang::<%= lang.enum %>, &<%= lang.trigrams.inspect %>),
+<% end %>
+];

@@ -45,8 +45,8 @@ mod tests {
         let spa_text = "Además de todo lo anteriormente dicho, también encontramos...".to_string();
         let por_text = "A princípio, o interesse do Corinthians na contratação...".to_string();
 
-        assert_eq!(detect_lang(eng_text), Lang::ENG);
-        assert_eq!(detect_lang(spa_text), Lang::SPA);
-        assert_eq!(detect_lang(por_text), Lang::POR);
+        assert_eq!(detect_lang(eng_text), Lang::Eng);
+        assert_eq!(detect_lang(spa_text), Lang::Spa);
+        assert_eq!(detect_lang(por_text), Lang::Por);
     }
 }
