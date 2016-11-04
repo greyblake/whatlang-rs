@@ -4,10 +4,8 @@ pub use lang::Lang;
 pub enum Script {
     Cyrillic,
     Latin,
-
     Arabic,
-
-    //Devanagari,
+    Devanagari,
     //Ethiopic,
     //Hebrew,
 
@@ -16,11 +14,12 @@ pub enum Script {
 }
 
 static FUNCS : &'static [(Script, fn(char) -> bool)] = &[
-    (Script::Cyrillic, is_cyrillic),
-    (Script::Latin   , is_latin),
-    (Script::Arabic  , is_arabic),
-    (Script::Kat     , is_kat),
-    (Script::Cmn     , is_cmn)
+    (Script::Cyrillic  , is_cyrillic),
+    (Script::Latin     , is_latin),
+    (Script::Arabic    , is_arabic),
+    (Script::Devanagari, is_devanagari),
+    (Script::Kat       , is_kat),
+    (Script::Cmn       , is_cmn)
 ];
 
 pub fn detect_script(text : String) -> Option<Script> {
@@ -77,6 +76,16 @@ fn is_arabic(ch : char) -> bool {
     }
 }
 
+// Based on https://en.wikipedia.org/wiki/Devanagari#Unicode
+fn is_devanagari(ch : char) -> bool {
+    match ch {
+        '\u{0900}'...'\u{097F}' |
+        '\u{A8E0}'...'\u{A8FF}' |
+        '\u{1CD0}'...'\u{1CFF}' => true,
+        _ => false
+    }
+}
+
 // Is Georgian char?
 fn is_kat(ch : char) -> bool {
    match ch {
@@ -122,6 +131,7 @@ mod tests {
        assert_eq!(detect_script("ქართული ენა მსოფლიო ".to_string()), Some(Script::Kat));
        assert_eq!(detect_script("県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
        assert_eq!(detect_script(" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
+       assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
 
 
        // Mixed scripts
