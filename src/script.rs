@@ -1,43 +1,39 @@
 pub use lang::Lang;
 
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
-   Cyrillic,
-   Latin,
-   CMN,
-   KAT,
+    Cyrillic,
+    Latin,
+    Cmn,
+    Kat,
 }
 
+static FUNCS : &'static [(Script, fn(char) -> bool)] = &[
+    (Script::Cyrillic, is_cyrillic),
+    (Script::Latin   , is_latin),
+    (Script::Kat     , is_kat),
+    (Script::Cmn     , is_cmn)
+];
+
 pub fn detect_script(text : String) -> Option<Script> {
-   let mut latin_count = 0;
-   let mut cyrillic_count = 0;
+    let mut max_score = 0;
+    let mut result = None;
 
-   for ch in text.chars() {
-       if Script::Cyrillic.has_char(ch) { cyrillic_count += 1; }
-       if Script::Latin.has_char(ch) {  latin_count += 1; }
-   }
+    for &(script, func) in FUNCS {
+        let mut current_score = 0;
+        for ch in text.chars() {
+            if func(ch) { current_score += 1; }
+        }
+        if current_score > max_score {
+            max_score = current_score;
+            result = Some(script);
+        }
+    }
 
-   if latin_count > 0 && latin_count > cyrillic_count {
-       Some(Script::Latin)
-   } else if cyrillic_count > 0 && cyrillic_count > latin_count {
-       Some(Script::Cyrillic)
-   } else {
-       None
-   }
+    result
 }
 
 // TODO: Use http://jrgraphix.net/research/unicode_blocks.php
-impl Script {
-   pub fn has_char(&self, ch: char) -> bool {
-       match *self {
-           Script::Cyrillic => is_cyrillic(ch),
-           Script::Latin => is_latin(ch),
-           Script::CMN => is_cmn(ch),
-           Script::KAT => is_kat(ch)
-       }
-   }
-}
-
 fn is_cyrillic(ch: char) -> bool {
    match ch {
        '\u{0400}'...'\u{0484}' |
@@ -59,11 +55,6 @@ fn is_latin(ch : char) -> bool {
    }
 }
 
-// TODO: implement
-fn is_cmn(ch : char) -> bool {
-   ch == 'x'
-}
-
 // Is Georgian char?
 fn is_kat(ch : char) -> bool {
    match ch {
@@ -71,6 +62,25 @@ fn is_kat(ch : char) -> bool {
        _ => false
    }
 }
+
+// TODO: likely not the full set of possible chars..
+fn is_cmn(ch : char) -> bool {
+    match ch {
+        '\u{2E80}'...'\u{2E99}' |
+        '\u{2E9B}'...'\u{2EF3}' |
+        '\u{2F00}'...'\u{2FD5}' |
+        '\u{3005}' |
+        '\u{3007}' |
+        '\u{3021}'...'\u{3029}' |
+        '\u{3038}'...'\u{303B}' |
+        '\u{3400}'...'\u{4DB5}' |
+        '\u{4E00}'...'\u{9FCC}' |
+        '\u{F900}'...'\u{FA6D}' |
+        '\u{FA70}'...'\u{FAD9}' => true,
+        _ => false
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -83,8 +93,14 @@ mod tests {
    #[test]
    fn test_detect_script() {
        assert_eq!(detect_script("1234567890-,;!".to_string()), None);
+
+       // One script
        assert_eq!(detect_script("Hello!".to_string()), Some(Script::Latin));
        assert_eq!(detect_script("Привет всем!".to_string()), Some(Script::Cyrillic));
+       assert_eq!(detect_script("ქართული ენა მსოფლიო ენების კლასიფიკაციაში".to_string()), Some(Script::Kat));
+       assert_eq!(detect_script("県見夜上温国阪題富販重点惑碁川写陸周。乗著渡営負励策決保見現稿".to_string()), Some(Script::Cmn));
+
+       // Mixed scripts
        assert_eq!(detect_script("Привет всем! Этот текст на русском with some English.".to_string()), Some(Script::Cyrillic));
        assert_eq!(detect_script("Russian word любовь means love.".to_string()), Some(Script::Latin));
    }
