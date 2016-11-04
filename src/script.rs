@@ -4,6 +4,13 @@ pub use lang::Lang;
 pub enum Script {
     Cyrillic,
     Latin,
+
+    Arabic,
+
+    //Devanagari,
+    //Ethiopic,
+    //Hebrew,
+
     Cmn,
     Kat,
 }
@@ -11,6 +18,7 @@ pub enum Script {
 static FUNCS : &'static [(Script, fn(char) -> bool)] = &[
     (Script::Cyrillic, is_cyrillic),
     (Script::Latin   , is_latin),
+    (Script::Arabic  , is_arabic),
     (Script::Kat     , is_kat),
     (Script::Cmn     , is_cmn)
 ];
@@ -55,6 +63,20 @@ fn is_latin(ch : char) -> bool {
    }
 }
 
+// Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
+fn is_arabic(ch : char) -> bool {
+    match ch {
+        '\u{0600}'...'\u{06FF}' |
+        '\u{0750}'...'\u{07FF}' |
+        '\u{08A0}'...'\u{08FF}' |
+        '\u{FB50}'...'\u{FDFF}' |
+        '\u{FE70}'...'\u{FEFF}' |
+        '\u{10E60}'...'\u{10E7F}' |
+        '\u{1EE00}'...'\u{1EEFF}' => true,
+        _ => false
+    }
+}
+
 // Is Georgian char?
 fn is_kat(ch : char) -> bool {
    match ch {
@@ -97,8 +119,10 @@ mod tests {
        // One script
        assert_eq!(detect_script("Hello!".to_string()), Some(Script::Latin));
        assert_eq!(detect_script("Привет всем!".to_string()), Some(Script::Cyrillic));
-       assert_eq!(detect_script("ქართული ენა მსოფლიო ენების კლასიფიკაციაში".to_string()), Some(Script::Kat));
-       assert_eq!(detect_script("県見夜上温国阪題富販重点惑碁川写陸周。乗著渡営負励策決保見現稿".to_string()), Some(Script::Cmn));
+       assert_eq!(detect_script("ქართული ენა მსოფლიო ".to_string()), Some(Script::Kat));
+       assert_eq!(detect_script("県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
+       assert_eq!(detect_script(" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
+
 
        // Mixed scripts
        assert_eq!(detect_script("Привет всем! Этот текст на русском with some English.".to_string()), Some(Script::Cyrillic));
