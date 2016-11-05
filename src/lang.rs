@@ -153,7 +153,7 @@ pub enum Lang {
 
 impl Lang {
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
-        match code.into().as_ref() {
+        match code.into().to_lowercase().as_ref() {
                         "ace" => Some(Lang::Ace),
                         "ada" => Some(Lang::Ada),
                         "afr" => Some(Lang::Afr),
@@ -638,6 +638,7 @@ mod tests {
     fn test_from_code() {
         assert_eq!(Lang::from_code("rus".to_string()), Some(Lang::Rus));
         assert_eq!(Lang::from_code("ukr"), Some(Lang::Ukr));
+        assert_eq!(Lang::from_code("ENG"), Some(Lang::Eng));
         assert_eq!(Lang::from_code("oops"), None);
     }
 
