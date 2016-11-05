@@ -1,4 +1,5 @@
-pub use lang::Lang;
+#![allow(dead_code)]
+#![allow(unused_assignments)]
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
@@ -9,39 +10,50 @@ pub enum Script {
     Ethiopic,
     Hebrew,
     Cmn,
-    Kat,
+    Kat
 }
 
-static FUNCS : &'static [(Script, fn(char) -> bool)] = &[
-    (Script::Cyrillic  , is_cyrillic),
-    (Script::Latin     , is_latin),
-    (Script::Arabic    , is_arabic),
-    (Script::Devanagari, is_devanagari),
-    (Script::Hebrew    , is_hebrew),
-    (Script::Ethiopic  , is_ethiopic),
-    (Script::Kat       , is_kat),
-    (Script::Cmn       , is_cmn)
-];
+macro_rules! check_scripts {
+    ( $text:ident, $( $script:expr => $is_script:ident ),* ) => {
+        {
+            let mut max_score = 0;
+            let mut result = None;
+            let mut current_score = 0;
+            let half = $text.len() / 2;
+
+            $(
+                current_score = 0;
+                for ch in $text.chars() {
+                    if $is_script(ch) { current_score += 1; }
+                }
+                if current_score > half {
+                    return Some($script);
+                }
+                if current_score > max_score {
+                    max_score = current_score;
+                    result = Some($script);
+                }
+            )*
+            result
+        }
+    };
+}
 
 pub fn detect_script(text : String) -> Option<Script> {
-    let mut max_score = 0;
-    let mut result = None;
-
-    for &(script, func) in FUNCS {
-        let mut current_score = 0;
-        for ch in text.chars() {
-            if func(ch) { current_score += 1; }
-        }
-        if current_score > max_score {
-            max_score = current_score;
-            result = Some(script);
-        }
-    }
-
-    result
+    check_scripts![
+        text,
+        Script::Cyrillic => is_cyrillic,
+        Script::Latin => is_latin,
+        Script::Arabic => is_arabic,
+        Script::Devanagari => is_devanagari,
+        Script::Hebrew => is_hebrew,
+        Script::Ethiopic => is_ethiopic,
+        Script::Kat => is_kat,
+        Script::Cmn => is_cmn
+    ]
 }
 
-// TODO: Use http://jrgraphix.net/research/unicode_blocks.php
+#[inline(always)]
 fn is_cyrillic(ch: char) -> bool {
    match ch {
        '\u{0400}'...'\u{0484}' |
@@ -56,6 +68,7 @@ fn is_cyrillic(ch: char) -> bool {
 }
 
 // https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+#[inline(always)]
 fn is_latin(ch : char) -> bool {
     match ch {
         'a'...'z' |
@@ -76,6 +89,7 @@ fn is_latin(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
+#[inline(always)]
 fn is_arabic(ch : char) -> bool {
     match ch {
         '\u{0600}'...'\u{06FF}' |
@@ -90,6 +104,7 @@ fn is_arabic(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Devanagari#Unicode
+#[inline(always)]
 fn is_devanagari(ch : char) -> bool {
     match ch {
         '\u{0900}'...'\u{097F}' |
@@ -100,6 +115,7 @@ fn is_devanagari(ch : char) -> bool {
 }
 
 // Based on https://www.key-shortcut.com/en/writing-systems/ethiopian-script/
+#[inline(always)]
 fn is_ethiopic(ch : char) -> bool {
     match ch {
         '\u{1200}'...'\u{139F}' |
@@ -110,6 +126,7 @@ fn is_ethiopic(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Hebrew_(Unicode_block)
+#[inline(always)]
 fn is_hebrew(ch : char) -> bool {
     match ch {
         '\u{0590}'...'\u{05FF}' => true,
@@ -118,6 +135,7 @@ fn is_hebrew(ch : char) -> bool {
 }
 
 // Is Georgian char?
+#[inline(always)]
 fn is_kat(ch : char) -> bool {
    match ch {
        '\u{10A0}'...'\u{10FF}' => true,
@@ -126,6 +144,7 @@ fn is_kat(ch : char) -> bool {
 }
 
 // TODO: likely not the full set of possible chars..
+#[inline(always)]
 fn is_cmn(ch : char) -> bool {
     match ch {
         '\u{2E80}'...'\u{2E99}' |
@@ -146,68 +165,67 @@ fn is_cmn(ch : char) -> bool {
 
 #[cfg(test)]
 mod tests {
-   use super::Script;
-   use super::is_cyrillic;
-   use super::is_latin;
-   use super::is_kat;
-   use super::is_ethiopic;
-   use super::detect_script;
+    use super::Script;
+    use super::is_cyrillic;
+    use super::is_latin;
+    use super::is_kat;
+    use super::is_ethiopic;
+    use super::detect_script;
 
-   #[test]
-   fn test_detect_script() {
-       assert_eq!(detect_script("1234567890-,;!".to_string()), None);
+    #[test]
+    fn test_detect_script() {
+        assert_eq!(detect_script("1234567890-,;!".to_string()), None);
 
-       // One script
-       assert_eq!(detect_script("Hello!".to_string()), Some(Script::Latin));
-       assert_eq!(detect_script("Привет всем!".to_string()), Some(Script::Cyrillic));
-       assert_eq!(detect_script("ქართული ენა მსოფლიო ".to_string()), Some(Script::Kat));
-       assert_eq!(detect_script("県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
-       assert_eq!(detect_script(" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
-       assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
-       assert_eq!(detect_script("היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
-       assert_eq!(detect_script("የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
-
-
-       // Mixed scripts
-       assert_eq!(detect_script("Привет всем! Этот текст на русском with some English.".to_string()), Some(Script::Cyrillic));
-       assert_eq!(detect_script("Russian word любовь means love.".to_string()), Some(Script::Latin));
-   }
-
-   #[test]
-   fn test_is_latin() {
-       assert_eq!(is_latin('z'), true);
-       assert_eq!(is_latin('A'), true);
-       assert_eq!(is_latin('č'), true);
-       assert_eq!(is_latin('š'), true);
-       assert_eq!(is_latin('Ĵ'), true);
-
-       assert_eq!(is_latin('ж'), false);
-   }
-
-   #[test]
-   fn test_is_cyrillic() {
-       assert_eq!(is_cyrillic('а'), true);
-       assert_eq!(is_cyrillic('Я'), true);
-       assert_eq!(is_cyrillic('Ґ'), true);
-       assert_eq!(is_cyrillic('ї'), true);
-       assert_eq!(is_cyrillic('Ꙕ'), true);
-
-       assert_eq!(is_cyrillic('L'), false);
-   }
-
-   #[test]
-   fn test_is_ethiopic() {
-       assert_eq!(is_ethiopic('ፚ'), true);
-       assert_eq!(is_ethiopic('ᎀ'), true);
-
-       assert_eq!(is_ethiopic('а'), false);
-       assert_eq!(is_cyrillic('L'), false);
-   }
+        // One script
+        assert_eq!(detect_script("Hello!".to_string()), Some(Script::Latin));
+        assert_eq!(detect_script("Привет всем!".to_string()), Some(Script::Cyrillic));
+        assert_eq!(detect_script("ქართული ენა მსოფლიო ".to_string()), Some(Script::Kat));
+        assert_eq!(detect_script("県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
+        assert_eq!(detect_script(" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
+        assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
+        assert_eq!(detect_script("היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
+        assert_eq!(detect_script("የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
 
 
-   #[test]
-   fn test_is_kat() {
-       assert_eq!(is_kat('რ'), true);
-       assert_eq!(is_kat('ж'), false);
-   }
+        // Mixed scripts
+        assert_eq!(detect_script("Привет! Текст на русском with some English.".to_string()), Some(Script::Cyrillic));
+        assert_eq!(detect_script("Russian word любовь means love.".to_string()), Some(Script::Latin));
+    }
+
+    #[test]
+    fn test_is_latin() {
+        assert_eq!(is_latin('z'), true);
+        assert_eq!(is_latin('A'), true);
+        assert_eq!(is_latin('č'), true);
+        assert_eq!(is_latin('š'), true);
+        assert_eq!(is_latin('Ĵ'), true);
+
+        assert_eq!(is_latin('ж'), false);
+    }
+
+    #[test]
+    fn test_is_cyrillic() {
+        assert_eq!(is_cyrillic('а'), true);
+        assert_eq!(is_cyrillic('Я'), true);
+        assert_eq!(is_cyrillic('Ґ'), true);
+        assert_eq!(is_cyrillic('ї'), true);
+        assert_eq!(is_cyrillic('Ꙕ'), true);
+
+        assert_eq!(is_cyrillic('L'), false);
+    }
+
+    #[test]
+    fn test_is_ethiopic() {
+        assert_eq!(is_ethiopic('ፚ'), true);
+        assert_eq!(is_ethiopic('ᎀ'), true);
+
+        assert_eq!(is_ethiopic('а'), false);
+        assert_eq!(is_cyrillic('L'), false);
+    }
+
+    #[test]
+    fn test_is_kat() {
+        assert_eq!(is_kat('რ'), true);
+        assert_eq!(is_kat('ж'), false);
+    }
 }
