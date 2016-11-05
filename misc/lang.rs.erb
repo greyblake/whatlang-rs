@@ -1,15 +1,17 @@
 #[derive(PartialEq, Eq, Debug, Hash, Clone)]
 pub enum Lang {
-<% langs.each do |lang| %>
-    <%= lang.enum %>,
+<% lang_codes.each do |code| %>
+    <%= code.capitalize %>,
 <% end %>
 }
 
-
 pub type LangProfile = &'static [&'static str];
+pub type LangProfileList = &'static [(Lang, LangProfile)];
 
-pub const LANGS : &'static [(Lang, LangProfile)] = &[
-<% langs.each do |lang| %>
-    (Lang::<%= lang.enum %>, &<%= lang.trigrams.inspect %>),
+<% scripts.each do |script| %>
+pub const <%= script.name.upcase %>_LANGS : LangProfileList = &[
+<% script.langs.each do |lang| %>
+    (Lang::<%= lang.code.capitalize %>, &<%= lang.trigrams.inspect %>),
 <% end %>
 ];
+<% end %>

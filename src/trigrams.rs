@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn get_trigrams_with_positions(text : String) -> HashMap<String, u32> {
+pub fn get_trigrams_with_positions(text : &String) -> HashMap<String, u32> {
     let counter_hash = count(text);
 
     let mut count_vec: Vec<_> = counter_hash.iter().collect();
@@ -18,7 +18,8 @@ pub fn get_trigrams_with_positions(text : String) -> HashMap<String, u32> {
     result
 }
 
-fn count(text : String) -> HashMap<String, u32> {
+#[inline(always)]
+fn count(text : &String) -> HashMap<String, u32> {
     let mut s = text.to_lowercase();
     s.push(' '); // add space to the end
 
@@ -46,6 +47,7 @@ fn count(text : String) -> HashMap<String, u32> {
 }
 
 // Convert punctuations and digits to a space.
+#[inline(always)]
 fn to_trigram_char(ch : char) -> char {
     match ch {
         '\u{0000}'...'\u{0040}' | '\u{005B}'...'\u{0060}' | '\u{007B}'...'\u{007E}' => ' ',
@@ -91,7 +93,7 @@ mod tests {
 
 
     fn assert_count(text : &str, pairs : &[(&str, u32)]) {
-        let result = count(text.to_string());
+        let result = count(&text.to_string());
         for &(k, v) in pairs.iter() {
             let &actual_val = result.get(k).unwrap_or(&0);
             assert_eq!(actual_val, v, "trigram '{}' expected to occur {} times, got {}", k, v, actual_val);
@@ -111,7 +113,7 @@ mod tests {
 
     #[test]
     fn test_get_trigrams_with_positions() {
-        let res = get_trigrams_with_positions("xaaaaabbbbd".to_string());
+        let res = get_trigrams_with_positions(&"xaaaaabbbbd".to_string());
         println!("positions:  {:?}", res);
         assert_eq!(*res.get("aaa").unwrap(), 0);
         assert_eq!(*res.get("bbb").unwrap(), 1);

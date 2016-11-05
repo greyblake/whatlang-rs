@@ -143,7 +143,6 @@ fn is_kat(ch : char) -> bool {
    }
 }
 
-// TODO: likely not the full set of possible chars..
 #[inline(always)]
 fn is_cmn(ch : char) -> bool {
     match ch {

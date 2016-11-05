@@ -2,17 +2,48 @@ use std::collections::HashMap;
 
 mod lang;
 mod trigrams;
+mod script;
 
 use lang::*;
 use trigrams::*;
+use script::*;
 
 const MAX_DIST : u32 = 300;
 
-pub fn detect_lang(text : String) -> Lang {
-    let mut lang_distances : Vec<(Lang, u32)> = vec![];
-    let trigrams = get_trigrams_with_positions(text);
+pub struct Result {
+    pub lang: Lang,
+    pub script: Script,
+    pub is_reliable: bool
+}
 
-    for &(ref lang, lang_trigrams) in LANGS {
+pub fn detect_lang(text: &String) -> Option<Result> {
+    let script_option = detect_script(text);
+
+    // unwrap script option
+    let script = match script_option {
+        None => { return None; },
+        Some(val) => val
+    };
+
+    let lang = match script {
+        Script::Latin      => detect(text, LATIN_LANGS),
+        Script::Cyrillic   => detect(text, CYRILLIC_LANGS),
+        Script::Arabic     => detect(text, ARABIC_LANGS),
+        Script::Devanagari => detect(text, DEVANAGARI_LANGS),
+        Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
+        Script::Hebrew     => detect(text, HEBREW_LANGS),
+        Script::Cmn => Lang::Cmn,
+        Script::Kat => Lang::Kat
+    };
+
+    Some(Result { lang: lang, script: script, is_reliable: true })
+}
+
+fn detect(text : &String, lang_profile_list : LangProfileList) -> Lang {
+    let mut lang_distances : Vec<(Lang, u32)> = vec![];
+    let trigrams = get_trigrams_with_positions(&text);
+
+    for &(ref lang, lang_trigrams) in lang_profile_list {
         let dist = calculate_distance(lang_trigrams, &trigrams);
         lang_distances.push(((*lang).clone(), dist));
     }
@@ -37,16 +68,22 @@ fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<Strin
 #[cfg(test)]
 mod tests {
     use lang::Lang;
+    use script::Script;
     use super::detect_lang;
 
     #[test]
     fn test_detect_lang() {
-        let eng_text = "English does not suit well for the role of international language".to_string();
-        let spa_text = "Además de todo lo anteriormente dicho, también encontramos...".to_string();
-        let por_text = "A princípio, o interesse do Corinthians na contratação...".to_string();
+        //let spa_text = &"Además de todo lo anteriormente dicho, también encontramos...".to_string();
+        //let por_text = &"A princípio, o interesse do Corinthians na contratação...".to_string();
 
-        assert_eq!(detect_lang(eng_text), Lang::Eng);
-        assert_eq!(detect_lang(spa_text), Lang::Spa);
-        assert_eq!(detect_lang(por_text), Lang::Por);
+        let eng_text = &"English does not suit well for the role of international language".to_string();
+        let res = detect_lang(eng_text).unwrap();
+        assert_eq!(res.lang, Lang::Eng);
+        assert_eq!(res.script, Script::Latin);
+
+        let ukr_text = &"Та нічого, все нормально. А в тебе як?".to_string();
+        let res = detect_lang(ukr_text).unwrap();
+        assert_eq!(res.lang, Lang::Ukr);
+        assert_eq!(res.script, Script::Cyrillic);
     }
 }
