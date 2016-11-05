@@ -2,13 +2,12 @@ pub use lang::Lang;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
-    Cyrillic,
     Latin,
+    Cyrillic,
     Arabic,
     Devanagari,
-    //Ethiopic,
-    //Hebrew,
-
+    Ethiopic,
+    Hebrew,
     Cmn,
     Kat,
 }
@@ -18,6 +17,8 @@ static FUNCS : &'static [(Script, fn(char) -> bool)] = &[
     (Script::Latin     , is_latin),
     (Script::Arabic    , is_arabic),
     (Script::Devanagari, is_devanagari),
+    (Script::Hebrew    , is_hebrew),
+    (Script::Ethiopic  , is_ethiopic),
     (Script::Kat       , is_kat),
     (Script::Cmn       , is_cmn)
 ];
@@ -54,12 +55,24 @@ fn is_cyrillic(ch: char) -> bool {
    }
 }
 
-// TODO: finish implementation, with all the Latin chars.
+// https://en.wikipedia.org/wiki/Latin_script_in_Unicode
 fn is_latin(ch : char) -> bool {
-   match ch {
-       'a'...'z' | 'A'...'Z' => true,
-       _ => false
-   }
+    match ch {
+        'a'...'z' |
+        'A'...'Z' |
+        '\u{0080}'...'\u{00FF}' |
+        '\u{0100}'...'\u{017F}' |
+        '\u{0180}'...'\u{024F}' |
+        '\u{0250}'...'\u{02AF}' |
+        '\u{1D00}'...'\u{1D7F}' |
+        '\u{1D80}'...'\u{1DBF}' |
+        '\u{1E00}'...'\u{1EFF}' |
+        '\u{2100}'...'\u{214F}' |
+        '\u{2C60}'...'\u{2C7F}' |
+        '\u{A720}'...'\u{A7FF}' |
+        '\u{AB30}'...'\u{AB6F}' => true,
+        _ => false
+    }
 }
 
 // Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
@@ -82,6 +95,24 @@ fn is_devanagari(ch : char) -> bool {
         '\u{0900}'...'\u{097F}' |
         '\u{A8E0}'...'\u{A8FF}' |
         '\u{1CD0}'...'\u{1CFF}' => true,
+        _ => false
+    }
+}
+
+// Based on https://www.key-shortcut.com/en/writing-systems/ethiopian-script/
+fn is_ethiopic(ch : char) -> bool {
+    match ch {
+        '\u{1200}'...'\u{139F}' |
+        '\u{2D80}'...'\u{2DDF}' |
+        '\u{AB00}'...'\u{AB2F}' => true,
+        _ => false
+    }
+}
+
+// Based on https://en.wikipedia.org/wiki/Hebrew_(Unicode_block)
+fn is_hebrew(ch : char) -> bool {
+    match ch {
+        '\u{0590}'...'\u{05FF}' => true,
         _ => false
     }
 }
@@ -119,6 +150,7 @@ mod tests {
    use super::is_cyrillic;
    use super::is_latin;
    use super::is_kat;
+   use super::is_ethiopic;
    use super::detect_script;
 
    #[test]
@@ -132,11 +164,24 @@ mod tests {
        assert_eq!(detect_script("県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
        assert_eq!(detect_script(" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
        assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
+       assert_eq!(detect_script("היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
+       assert_eq!(detect_script("የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
 
 
        // Mixed scripts
        assert_eq!(detect_script("Привет всем! Этот текст на русском with some English.".to_string()), Some(Script::Cyrillic));
        assert_eq!(detect_script("Russian word любовь means love.".to_string()), Some(Script::Latin));
+   }
+
+   #[test]
+   fn test_is_latin() {
+       assert_eq!(is_latin('z'), true);
+       assert_eq!(is_latin('A'), true);
+       assert_eq!(is_latin('č'), true);
+       assert_eq!(is_latin('š'), true);
+       assert_eq!(is_latin('Ĵ'), true);
+
+       assert_eq!(is_latin('ж'), false);
    }
 
    #[test]
@@ -151,12 +196,14 @@ mod tests {
    }
 
    #[test]
-   fn test_is_latin() {
-       assert_eq!(is_latin('z'), true);
-       assert_eq!(is_latin('A'), true);
+   fn test_is_ethiopic() {
+       assert_eq!(is_ethiopic('ፚ'), true);
+       assert_eq!(is_ethiopic('ᎀ'), true);
 
-       assert_eq!(is_latin('ж'), false);
+       assert_eq!(is_ethiopic('а'), false);
+       assert_eq!(is_cyrillic('L'), false);
    }
+
 
    #[test]
    fn test_is_kat() {
