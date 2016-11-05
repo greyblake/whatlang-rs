@@ -40,17 +40,17 @@ macro_rules! check_scripts {
 }
 
 pub fn detect_script(text : String) -> Option<Script> {
-    check_scripts![
+    check_scripts!(
         text,
-        Script::Cyrillic => is_cyrillic,
-        Script::Latin => is_latin,
-        Script::Arabic => is_arabic,
+        Script::Cyrillic   => is_cyrillic,
+        Script::Latin      => is_latin,
+        Script::Arabic     => is_arabic,
         Script::Devanagari => is_devanagari,
-        Script::Hebrew => is_hebrew,
-        Script::Ethiopic => is_ethiopic,
-        Script::Kat => is_kat,
-        Script::Cmn => is_cmn
-    ]
+        Script::Hebrew     => is_hebrew,
+        Script::Ethiopic   => is_ethiopic,
+        Script::Kat        => is_kat,
+        Script::Cmn        => is_cmn
+    )
 }
 
 #[inline(always)]
