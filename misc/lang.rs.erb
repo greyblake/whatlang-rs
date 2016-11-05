@@ -1,4 +1,4 @@
-#[derive(PartialEq, Eq, Debug, Hash, Clone)]
+#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
 <% lang_codes.each do |code| %>
     <%= code.capitalize %>,
