@@ -5,6 +5,26 @@ pub enum Lang {
 <% end %>
 }
 
+
+impl Lang {
+    pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
+        match code.into().as_ref() {
+            <% lang_codes.each do |code| %>
+            "<%= code %>" => Some(Lang::<%= code.capitalize %>),
+            <% end %>
+            _ => None
+        }
+    }
+
+    pub fn code(&self) -> &str {
+        match *self {
+            <% lang_codes.each do |code| %>
+            Lang::<%= code.capitalize %> => "<%= code %>",
+            <% end %>
+        }
+    }
+}
+
 pub type LangProfile = &'static [&'static str];
 pub type LangProfileList = &'static [(Lang, LangProfile)];
 
@@ -15,3 +35,22 @@ pub const <%= script.name.upcase %>_LANGS : LangProfileList = &[
 <% end %>
 ];
 <% end %>
+
+
+
+#[cfg(test)]
+mod tests {
+    use super::Lang;
+
+    #[test]
+    fn test_from_code() {
+        assert_eq!(Lang::from_code("rus".to_string()), Some(Lang::Rus));
+        assert_eq!(Lang::from_code("ukr"), Some(Lang::Ukr));
+        assert_eq!(Lang::from_code("oops"), None);
+    }
+
+    #[test]
+    fn test_code() {
+        assert_eq!(Lang::Spa.code(), "spa");
+    }
+}
