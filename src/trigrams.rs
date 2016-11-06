@@ -114,7 +114,6 @@ mod tests {
     #[test]
     fn test_get_trigrams_with_positions() {
         let res = get_trigrams_with_positions(&"xaaaaabbbbd".to_string());
-        println!("positions:  {:?}", res);
         assert_eq!(*res.get("aaa").unwrap(), 0);
         assert_eq!(*res.get("bbb").unwrap(), 1);
     }

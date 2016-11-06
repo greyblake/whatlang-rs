@@ -4,12 +4,13 @@ mod lang;
 mod trigrams;
 mod script;
 
-use lang::*;
+pub use lang::*;
 use trigrams::*;
 use script::*;
 
 const MAX_DIST : u32 = 300;
 
+#[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub struct Result {
     pub lang: Lang,
     pub script: Script,
@@ -73,8 +74,10 @@ mod tests {
 
     #[test]
     fn test_detect_lang() {
-        //let spa_text = &"Además de todo lo anteriormente dicho, también encontramos...".to_string();
-        //let por_text = &"A princípio, o interesse do Corinthians na contratação...".to_string();
+        let spa_text = &"Además de todo lo anteriormente dicho, también encontramos...".to_string();
+        let res = detect_lang(spa_text).unwrap();
+        assert_eq!(res.lang, Lang::Spa);
+        assert_eq!(res.script, Script::Latin);
 
         let eng_text = &"English does not suit well for the role of international language".to_string();
         let res = detect_lang(eng_text).unwrap();
