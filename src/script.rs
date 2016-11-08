@@ -9,8 +9,10 @@ pub enum Script {
     Devanagari,
     Ethiopic,
     Hebrew,
+
     Cmn,
-    Kat
+    Kat,
+    Bengali
 }
 
 macro_rules! check_scripts {
@@ -49,7 +51,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Hebrew     => is_hebrew,
         Script::Ethiopic   => is_ethiopic,
         Script::Kat        => is_kat,
-        Script::Cmn        => is_cmn
+        Script::Cmn        => is_cmn,
+        Script::Bengali    => is_bengali
     )
 }
 
@@ -161,6 +164,14 @@ fn is_cmn(ch : char) -> bool {
     }
 }
 
+#[inline(always)]
+fn is_bengali(ch : char) -> bool {
+   match ch {
+       '\u{0980}'...'\u{09FF}' => true,
+       _ => false
+   }
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -169,6 +180,7 @@ mod tests {
     use super::is_latin;
     use super::is_kat;
     use super::is_ethiopic;
+    use super::is_bengali;
     use super::detect_script;
 
     #[test]
@@ -225,5 +237,11 @@ mod tests {
     fn test_is_kat() {
         assert_eq!(is_kat('რ'), true);
         assert_eq!(is_kat('ж'), false);
+    }
+
+    #[test]
+    fn test_is_bengali() {
+        assert_eq!(is_bengali('ই'), true);
+        assert_eq!(is_kat('z'), false);
     }
 }

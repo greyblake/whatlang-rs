@@ -33,8 +33,9 @@ pub fn detect_lang(text: &String) -> Option<Result> {
         Script::Devanagari => detect(text, DEVANAGARI_LANGS),
         Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
         Script::Hebrew     => detect(text, HEBREW_LANGS),
-        Script::Cmn => Lang::Cmn,
-        Script::Kat => Lang::Kat
+        Script::Cmn     => Lang::Cmn,
+        Script::Kat     => Lang::Kat,
+        Script::Bengali => Lang::Ben
     };
 
     Some(Result { lang: lang, script: script, is_reliable: true })
@@ -88,5 +89,11 @@ mod tests {
         let res = detect_lang(ukr_text).unwrap();
         assert_eq!(res.lang, Lang::Ukr);
         assert_eq!(res.script, Script::Cyrillic);
+
+
+        let text = &"ইউনিকোডে বাংলা লিপি".to_string();
+        let res = detect_lang(text).unwrap();
+        assert_eq!(res.lang, Lang::Ben);
+        assert_eq!(res.script, Script::Bengali);
     }
 }

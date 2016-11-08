@@ -63,7 +63,7 @@ end
 
 scripts = parse_data_file
 lang_codes = scripts.map {|script| script.langs.map(&:code) }.flatten
-lang_codes += %w(cmn kat)
+lang_codes += %w(cmn kat ben)
 context = Context.new(scripts, lang_codes.uniq.sort)
 
 template = File.read(TEMPLATE_FILE)
