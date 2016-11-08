@@ -7,6 +7,23 @@ TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
 
 TARGET_FILE = File.expand_path("../../src/lang.rs", __FILE__)
 
+
+SUPPORTED_LANGS = %w(
+  cmn
+  spa
+  eng
+  hin
+  arb
+  rus
+  ben
+  por
+  fra
+  deu
+  ukr
+  kat
+  jpn
+)
+
 class Script
   attr_reader :name, :langs
 
@@ -53,18 +70,18 @@ def parse_data_file
   data.each do |script, langs_data|
     script = Script.new(script)
     langs_data.each do |lang_code, trigrams|
-      script.langs << Lang.new(lang_code, trigrams.split("|"))
+      if SUPPORTED_LANGS.include?(lang_code)
+        script.langs << Lang.new(lang_code, trigrams.split("|"))
+      end
     end
-    scripts << script
+    scripts << script unless script.langs.empty?
   end
 
   scripts
 end
 
 scripts = parse_data_file
-lang_codes = scripts.map {|script| script.langs.map(&:code) }.flatten
-lang_codes += %w(cmn kat ben)
-context = Context.new(scripts, lang_codes.uniq.sort)
+context = Context.new(scripts, SUPPORTED_LANGS.sort)
 
 template = File.read(TEMPLATE_FILE)
 renderer = ERB.new(template, nil, ">")

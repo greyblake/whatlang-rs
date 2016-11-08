@@ -12,6 +12,7 @@ pub enum Script {
 
     Cmn,
     Kat,
+    Jpn,
     Bengali
 }
 
@@ -52,6 +53,7 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Ethiopic   => is_ethiopic,
         Script::Kat        => is_kat,
         Script::Cmn        => is_cmn,
+        Script::Jpn        => is_jpn,
         Script::Bengali    => is_bengali
     )
 }
@@ -168,6 +170,17 @@ fn is_cmn(ch : char) -> bool {
 fn is_bengali(ch : char) -> bool {
    match ch {
        '\u{0980}'...'\u{09FF}' => true,
+       _ => false
+   }
+}
+
+#[inline(always)]
+fn is_jpn(ch : char) -> bool {
+   match ch {
+       // Hiragana
+       '\u{3040}'...'\u{309F}' |
+        // Katakana
+       '\u{30A0}'...'\u{30FF}'   => true,
        _ => false
    }
 }

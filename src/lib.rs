@@ -14,7 +14,6 @@ const MAX_DIST : u32 = 300;
 pub struct Result {
     pub lang: Lang,
     pub script: Script,
-    pub is_reliable: bool
 }
 
 pub fn detect_lang(text: &String) -> Option<Result> {
@@ -29,16 +28,20 @@ pub fn detect_lang(text: &String) -> Option<Result> {
     let lang = match script {
         Script::Latin      => detect(text, LATIN_LANGS),
         Script::Cyrillic   => detect(text, CYRILLIC_LANGS),
-        Script::Arabic     => detect(text, ARABIC_LANGS),
+        Script::Arabic     => Lang::Arb, // detect(text, ARABIC_LANGS),
         Script::Devanagari => detect(text, DEVANAGARI_LANGS),
-        Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
-        Script::Hebrew     => detect(text, HEBREW_LANGS),
+        //Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
+        //Script::Hebrew     => detect(text, HEBREW_LANGS),
         Script::Cmn     => Lang::Cmn,
         Script::Kat     => Lang::Kat,
-        Script::Bengali => Lang::Ben
+        Script::Jpn     => Lang::Jpn,
+        Script::Bengali => Lang::Ben,
+
+        // TODO: remove
+        _ => return None
     };
 
-    Some(Result { lang: lang, script: script, is_reliable: true })
+    Some(Result { lang: lang, script: script })
 }
 
 fn detect(text : &String, lang_profile_list : LangProfileList) -> Lang {

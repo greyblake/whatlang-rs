@@ -22,12 +22,13 @@ fn test_with_multiple_examples() {
     let examples: HashMap<String, String> = json::decode(data.as_ref()).unwrap();
 
     for (lang_code, text) in examples {
-        println!("{:?}", lang_code);
+        print!("Test {} ... ", lang_code);
 
         let lang = Lang::from_code(lang_code).unwrap();
         let result = detect_lang(&text).unwrap();
-        //println!("{:?}", text);
-        //println!("{:?}", result);
         assert_eq!(result.lang, lang);
+
+        println!("OK");
+
     }
 }
