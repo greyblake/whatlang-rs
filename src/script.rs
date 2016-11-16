@@ -7,8 +7,8 @@ pub enum Script {
     Cyrillic,
     Arabic,
     Devanagari,
-    Ethiopic,
-    Hebrew,
+    //Ethiopic,
+    //Hebrew,
 
     Cmn,
     Kat,
@@ -45,12 +45,12 @@ macro_rules! check_scripts {
 pub fn detect_script(text: &String) -> Option<Script> {
     check_scripts!(
         text,
-        Script::Cyrillic   => is_cyrillic,
         Script::Latin      => is_latin,
+        Script::Cyrillic   => is_cyrillic,
         Script::Arabic     => is_arabic,
         Script::Devanagari => is_devanagari,
-        Script::Hebrew     => is_hebrew,
-        Script::Ethiopic   => is_ethiopic,
+        //Script::Hebrew     => is_hebrew,
+        //Script::Ethiopic   => is_ethiopic,
         Script::Kat        => is_kat,
         Script::Cmn        => is_cmn,
         Script::Jpn        => is_jpn,
@@ -207,8 +207,8 @@ mod tests {
         assert_eq!(detect_script(&"県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
         assert_eq!(detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
         assert_eq!(detect_script(&"हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
-        assert_eq!(detect_script(&"היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
-        assert_eq!(detect_script(&"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
+        //assert_eq!(detect_script(&"היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
+        //assert_eq!(detect_script(&"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
 
         // Mixed scripts
         assert_eq!(detect_script(&"Привет! Текст на русском with some English.".to_string()), Some(Script::Cyrillic));

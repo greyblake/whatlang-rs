@@ -16,32 +16,30 @@ pub struct Result {
     pub script: Script,
 }
 
-pub fn detect_lang(text: &String) -> Option<Result> {
-    let script_option = detect_script(text);
+#[derive(PartialEq, Eq, Debug, Clone, Copy)]
+pub struct Query<'a> {
+    pub text: &'a String
+}
 
-    // unwrap script option
-    let script = match script_option {
-        None => { return None; },
-        Some(val) => val
-    };
+pub fn detect_lang(query : Query) -> Option<Result> {
+    let text = query.text;
+    detect_script(text).map( |script| {
+        let lang = detect_lang_based_on_script(text, script);
+        Result { lang: lang, script: script }
+    })
+}
 
-    let lang = match script {
+fn detect_lang_based_on_script(text: &String, script : Script) -> Lang {
+    match script {
         Script::Latin      => detect(text, LATIN_LANGS),
         Script::Cyrillic   => detect(text, CYRILLIC_LANGS),
-        Script::Arabic     => Lang::Arb, // detect(text, ARABIC_LANGS),
         Script::Devanagari => detect(text, DEVANAGARI_LANGS),
-        //Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
-        //Script::Hebrew     => detect(text, HEBREW_LANGS),
+        Script::Arabic  => Lang::Arb,
         Script::Cmn     => Lang::Cmn,
         Script::Kat     => Lang::Kat,
         Script::Jpn     => Lang::Jpn,
-        Script::Bengali => Lang::Ben,
-
-        // TODO: remove
-        _ => return None
-    };
-
-    Some(Result { lang: lang, script: script })
+        Script::Bengali => Lang::Ben
+    }
 }
 
 fn detect(text : &String, lang_profile_list : LangProfileList) -> Lang {
@@ -75,27 +73,31 @@ mod tests {
     use lang::Lang;
     use script::Script;
     use super::detect_lang;
+    use super::Query;
 
     #[test]
     fn test_detect_lang() {
-        let spa_text = &"Además de todo lo anteriormente dicho, también encontramos...".to_string();
-        let res = detect_lang(spa_text).unwrap();
+        let text = &"Además de todo lo anteriormente dicho, también encontramos...".to_string();
+        let query = Query { text: text };
+        let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Spa);
         assert_eq!(res.script, Script::Latin);
 
-        let eng_text = &"English does not suit well for the role of international language".to_string();
-        let res = detect_lang(eng_text).unwrap();
+        let text = &"English does not suit well for the role of international language".to_string();
+        let query = Query { text: text };
+        let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Eng);
         assert_eq!(res.script, Script::Latin);
 
-        let ukr_text = &"Та нічого, все нормально. А в тебе як?".to_string();
-        let res = detect_lang(ukr_text).unwrap();
+        let text = &"Та нічого, все нормально. А в тебе як?".to_string();
+        let query = Query { text: text };
+        let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Ukr);
         assert_eq!(res.script, Script::Cyrillic);
 
-
         let text = &"ইউনিকোডে বাংলা লিপি".to_string();
-        let res = detect_lang(text).unwrap();
+        let query = Query { text: text };
+        let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Ben);
         assert_eq!(res.script, Script::Bengali);
     }

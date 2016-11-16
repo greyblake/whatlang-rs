@@ -3,6 +3,7 @@ extern crate rustc_serialize;
 
 use whatlang::detect_lang;
 use whatlang::Lang;
+use whatlang::Query;
 
 use std::fs::File;
 use std::io::*;
@@ -25,7 +26,8 @@ fn test_with_multiple_examples() {
         print!("Test {} ... ", lang_code);
 
         let lang = Lang::from_code(lang_code).unwrap();
-        let result = detect_lang(&text).unwrap();
+        let query = Query { text: &text };
+        let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, lang);
 
         println!("OK");
