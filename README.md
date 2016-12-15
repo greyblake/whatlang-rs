@@ -1,4 +1,4 @@
-### Supported languages
+### Supported languages (there gonna be much more)
 * English (eng)
 * Russian (rus)
 * Mandarin (cmn)
@@ -12,5 +12,3 @@
 * Arabic (arb)
 * Hindi (hin)
 * Japanese (jpn)
-
-### TODO:

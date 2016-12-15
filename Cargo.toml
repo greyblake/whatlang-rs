@@ -3,7 +3,16 @@ name = "whatlang"
 version = "0.1.0"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 
+include = [
+    "src/**/*",
+    "test/**/*",
+    "Cargo.toml",
+    "README.md"
+]
+
+
 [dependencies]
 
 [dev-dependencies]
 rustc-serialize = "*"
+
