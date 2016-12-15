@@ -20,5 +20,5 @@ documentation = "https://github.com/greyblake/whatlang-rs"
 [dependencies]
 
 [dev-dependencies]
-rustc-serialize = "*"
+rustc-serialize = "0.3"
 
