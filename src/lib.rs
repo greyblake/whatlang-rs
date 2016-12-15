@@ -5,8 +5,8 @@ mod trigrams;
 mod script;
 
 pub use lang::*;
-use trigrams::*;
-use script::*;
+pub use script::*;
+pub use trigrams::*;
 
 const MAX_DIST : u32 = 300;
 

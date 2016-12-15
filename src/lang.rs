@@ -36,7 +36,7 @@ impl Lang {
         }
     }
 
-    pub fn code(&self) -> &str {
+    pub fn to_code(&self) -> &str {
         match *self {
                         Lang::Arb => "arb",
                         Lang::Ben => "ben",
@@ -91,7 +91,7 @@ mod tests {
     }
 
     #[test]
-    fn test_code() {
-        assert_eq!(Lang::Spa.code(), "spa");
+    fn test_to_code() {
+        assert_eq!(Lang::Spa.to_code(), "spa");
     }
 }
