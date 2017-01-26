@@ -202,6 +202,8 @@ mod tests {
     use super::is_kat;
     use super::is_ethiopic;
     use super::is_bengali;
+    use super::is_katakana;
+    use super::is_hiragana;
     use super::detect_script;
 
     #[test]
@@ -251,7 +253,7 @@ mod tests {
         assert_eq!(is_ethiopic('ᎀ'), true);
 
         assert_eq!(is_ethiopic('а'), false);
-        assert_eq!(is_cyrillic('L'), false);
+        assert_eq!(is_ethiopic('L'), false);
     }
 
     #[test]
@@ -263,6 +265,18 @@ mod tests {
     #[test]
     fn test_is_bengali() {
         assert_eq!(is_bengali('ই'), true);
-        assert_eq!(is_kat('z'), false);
+        assert_eq!(is_bengali('z'), false);
+    }
+
+    #[test]
+    fn test_is_katakana() {
+        assert_eq!(is_katakana('カ'), true);
+        assert_eq!(is_katakana('f'), false);
+    }
+
+    #[test]
+    fn test_is_hiragana() {
+        assert_eq!(is_hiragana('ひ'), true);
+        assert_eq!(is_hiragana('a'), false);
     }
 }
