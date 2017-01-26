@@ -54,6 +54,7 @@ fn main() {
 * Japanese (jpn)
 * Hebrew (heb)
 * Yiddish (ydd)
+* Polish (pol)
 
 ## License
 

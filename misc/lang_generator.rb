@@ -24,6 +24,7 @@ SUPPORTED_LANGS = %w(
   jpn
   heb
   ydd
+  pol
 )
 
 class Script
