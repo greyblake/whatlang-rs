@@ -7,13 +7,15 @@ pub enum Script {
     Cyrillic,
     Arabic,
     Devanagari,
+
     //Ethiopic,
     //Hebrew,
 
     Cmn,
     Kat,
-    Jpn,
-    Bengali
+    Bengali,
+    Hiragana,
+    Katakana
 }
 
 macro_rules! check_scripts {
@@ -53,7 +55,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         //Script::Ethiopic   => is_ethiopic,
         Script::Kat        => is_kat,
         Script::Cmn        => is_cmn,
-        Script::Jpn        => is_jpn,
+        Script::Hiragana   => is_hiragana,
+        Script::Katakana   => is_katakana,
         Script::Bengali    => is_bengali
     )
 }
@@ -175,14 +178,19 @@ fn is_bengali(ch : char) -> bool {
 }
 
 #[inline(always)]
-fn is_jpn(ch : char) -> bool {
+fn is_hiragana(ch : char) -> bool {
    match ch {
-       // Hiragana
-       '\u{3040}'...'\u{309F}' |
-        // Katakana
-       '\u{30A0}'...'\u{30FF}'   => true,
+       '\u{3040}'...'\u{309F}' => true,
        _ => false
    }
+}
+
+#[inline(always)]
+fn is_katakana(ch : char) -> bool {
+   match ch {
+       '\u{30A0}'...'\u{30FF}' => true,
+       _ => false
+    }
 }
 
 
