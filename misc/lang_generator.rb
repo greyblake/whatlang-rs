@@ -22,6 +22,8 @@ SUPPORTED_LANGS = %w(
   ukr
   kat
   jpn
+  heb
+  ydd
 )
 
 class Script

@@ -52,6 +52,8 @@ fn main() {
 * Arabic (arb)
 * Hindi (hin)
 * Japanese (jpn)
+* Hebrew (heb)
+* Yiddish (ydd)
 
 ## License
 

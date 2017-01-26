@@ -7,15 +7,13 @@ pub enum Script {
     Cyrillic,
     Arabic,
     Devanagari,
-
-    //Ethiopic,
-    //Hebrew,
-
-    Cmn,
-    Kat,
-    Bengali,
     Hiragana,
-    Katakana
+    Katakana,
+    //Ethiopic,
+    Hebrew,
+    Bengali,
+    Cmn,
+    Kat
 }
 
 macro_rules! check_scripts {
@@ -51,7 +49,7 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Cyrillic   => is_cyrillic,
         Script::Arabic     => is_arabic,
         Script::Devanagari => is_devanagari,
-        //Script::Hebrew     => is_hebrew,
+        Script::Hebrew     => is_hebrew,
         //Script::Ethiopic   => is_ethiopic,
         Script::Kat        => is_kat,
         Script::Cmn        => is_cmn,
