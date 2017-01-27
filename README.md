@@ -55,6 +55,8 @@ fn main() {
 * Hebrew (heb)
 * Yiddish (ydd)
 * Polish (pol)
+* Amharic (ahm)
+* Tigrinya (tir)
 
 ## License
 

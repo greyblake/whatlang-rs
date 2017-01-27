@@ -25,6 +25,8 @@ SUPPORTED_LANGS = %w(
   heb
   ydd
   pol
+  amh
+  tir
 )
 
 class Script
