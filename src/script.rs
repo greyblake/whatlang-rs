@@ -12,8 +12,8 @@ pub enum Script {
     Ethiopic,
     Hebrew,
     Bengali,
-    Cmn,
-    Kat
+    Georgian,
+    Cmn
 }
 
 macro_rules! check_scripts {
@@ -52,7 +52,7 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Devanagari => is_devanagari,
         Script::Hebrew     => is_hebrew,
         Script::Ethiopic   => is_ethiopic,
-        Script::Kat        => is_kat,
+        Script::Georgian   => is_georgian,
         Script::Hiragana   => is_hiragana,
         Script::Katakana   => is_katakana,
         Script::Bengali    => is_bengali
@@ -140,9 +140,8 @@ fn is_hebrew(ch : char) -> bool {
     }
 }
 
-// Is Georgian char?
 #[inline(always)]
-fn is_kat(ch : char) -> bool {
+fn is_georgian(ch : char) -> bool {
    match ch {
        '\u{10A0}'...'\u{10FF}' => true,
        _ => false
@@ -197,7 +196,7 @@ mod tests {
     use super::Script;
     use super::is_cyrillic;
     use super::is_latin;
-    use super::is_kat;
+    use super::is_georgian;
     use super::is_ethiopic;
     use super::is_bengali;
     use super::is_katakana;
@@ -211,7 +210,7 @@ mod tests {
         // One script
         assert_eq!(detect_script(&"Hello!".to_string()), Some(Script::Latin));
         assert_eq!(detect_script(&"Привет всем!".to_string()), Some(Script::Cyrillic));
-        assert_eq!(detect_script(&"ქართული ენა მსოფლიო ".to_string()), Some(Script::Kat));
+        assert_eq!(detect_script(&"ქართული ენა მსოფლიო ".to_string()), Some(Script::Georgian));
         assert_eq!(detect_script(&"県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
         assert_eq!(detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
         assert_eq!(detect_script(&"हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
@@ -255,9 +254,9 @@ mod tests {
     }
 
     #[test]
-    fn test_is_kat() {
-        assert_eq!(is_kat('რ'), true);
-        assert_eq!(is_kat('ж'), false);
+    fn test_is_georgian() {
+        assert_eq!(is_georgian('რ'), true);
+        assert_eq!(is_georgian('ж'), false);
     }
 
     #[test]
