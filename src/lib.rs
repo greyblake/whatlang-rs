@@ -1,25 +1,18 @@
 use std::collections::HashMap;
 
 mod lang;
-mod trigrams;
 mod script;
+mod query;
+mod result;
+mod trigrams;
 
 pub use lang::*;
 pub use script::*;
 pub use trigrams::*;
+pub use query::Query;
+pub use result::Result;
 
 const MAX_DIST : u32 = 300;
-
-#[derive(PartialEq, Eq, Debug, Clone, Copy)]
-pub struct Result {
-    pub lang: Lang,
-    pub script: Script,
-}
-
-#[derive(PartialEq, Eq, Debug, Clone, Copy)]
-pub struct Query<'a> {
-    pub text: &'a String
-}
 
 pub fn detect_lang(query : Query) -> Option<Result> {
     let text = query.text;

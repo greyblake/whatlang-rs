@@ -22,7 +22,7 @@ use whatlang::{detect_lang, Lang, Script, Query};
 
 fn main() {
     let text = "Guten Abend, meine Damen und Herren!".to_string();
-    let query = Query { text: &text };
+    let query = Query::new(&text);
     let result = detect_lang(query).unwrap();
     assert_eq!(result.lang, Lang::Deu);
     assert_eq!(result.lang.to_code(), "deu");
