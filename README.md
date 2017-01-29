@@ -44,6 +44,7 @@ fn main() {
 * Mandarin (cmn)
 * Spanish (spa)
 * Portuguese (por)
+* Italian (ita)
 * Bengali (ben)
 * French (fra)
 * German (deu)
@@ -59,6 +60,8 @@ fn main() {
 * Tigrinya (tir)
 * Javanese (jav)
 * Korean (kor)
+* Bokmål (nob)
+* Nynorsk (nno)
 
 ## License
 

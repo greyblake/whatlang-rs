@@ -30,6 +30,9 @@ SUPPORTED_LANGS = %w(
   amh
   tir
   jav
+  ita
+  nob
+  nno
 )
 
 class Script
