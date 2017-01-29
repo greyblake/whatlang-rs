@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 #![allow(unused_assignments)]
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
@@ -13,7 +12,7 @@ pub enum Script {
     Hebrew,
     Bengali,
     Georgian,
-    Cmn
+    Mandarin
 }
 
 macro_rules! check_scripts {
@@ -48,7 +47,7 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Latin      => is_latin,
         Script::Cyrillic   => is_cyrillic,
         Script::Arabic     => is_arabic,
-        Script::Cmn        => is_cmn,
+        Script::Mandarin   => is_mandarin,
         Script::Devanagari => is_devanagari,
         Script::Hebrew     => is_hebrew,
         Script::Ethiopic   => is_ethiopic,
@@ -149,7 +148,7 @@ fn is_georgian(ch : char) -> bool {
 }
 
 #[inline(always)]
-fn is_cmn(ch : char) -> bool {
+fn is_mandarin(ch : char) -> bool {
     match ch {
         '\u{2E80}'...'\u{2E99}' |
         '\u{2E9B}'...'\u{2EF3}' |
@@ -211,11 +210,11 @@ mod tests {
         assert_eq!(detect_script(&"Hello!".to_string()), Some(Script::Latin));
         assert_eq!(detect_script(&"Привет всем!".to_string()), Some(Script::Cyrillic));
         assert_eq!(detect_script(&"ქართული ენა მსოფლიო ".to_string()), Some(Script::Georgian));
-        assert_eq!(detect_script(&"県見夜上温国阪題富販".to_string()), Some(Script::Cmn));
+        assert_eq!(detect_script(&"県見夜上温国阪題富販".to_string()), Some(Script::Mandarin));
         assert_eq!(detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
         assert_eq!(detect_script(&"हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
-        //assert_eq!(detect_script(&"היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
-        //assert_eq!(detect_script(&"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
+        assert_eq!(detect_script(&"היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
+        assert_eq!(detect_script(&"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
 
         // Mixed scripts
         assert_eq!(detect_script(&"Привет! Текст на русском with some English.".to_string()), Some(Script::Cyrillic));

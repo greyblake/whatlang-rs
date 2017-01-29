@@ -30,7 +30,7 @@ fn detect_lang_based_on_script(text: &String, script : Script) -> Lang {
         Script::Hebrew     => detect(text, HEBREW_LANGS),
         Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
         Script::Arabic   => Lang::Arb,
-        Script::Cmn      => Lang::Cmn,
+        Script::Mandarin => Lang::Cmn,
         Script::Georgian => Lang::Kat,
         Script::Bengali  => Lang::Ben,
         Script::Katakana | Script::Hiragana  => Lang::Jpn
