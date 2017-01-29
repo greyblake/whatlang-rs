@@ -1,6 +1,6 @@
 [package]
 name = "whatlang"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 
 include = [
