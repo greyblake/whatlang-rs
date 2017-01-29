@@ -62,6 +62,7 @@ fn main() {
 * Korean (kor)
 * Bokmål (nob)
 * Nynorsk (nno)
+* Danish (dan)
 
 ## License
 

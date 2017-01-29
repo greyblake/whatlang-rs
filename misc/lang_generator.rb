@@ -33,6 +33,7 @@ SUPPORTED_LANGS = %w(
   ita
   nob
   nno
+  dan
 )
 
 class Script
