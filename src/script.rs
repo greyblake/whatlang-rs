@@ -12,7 +12,8 @@ pub enum Script {
     Hebrew,
     Bengali,
     Georgian,
-    Mandarin
+    Mandarin,
+    Hangul
 }
 
 macro_rules! check_scripts {
@@ -52,9 +53,10 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Hebrew     => is_hebrew,
         Script::Ethiopic   => is_ethiopic,
         Script::Georgian   => is_georgian,
+        Script::Bengali    => is_bengali,
+        Script::Hangul     => is_hangul,
         Script::Hiragana   => is_hiragana,
-        Script::Katakana   => is_katakana,
-        Script::Bengali    => is_bengali
+        Script::Katakana   => is_katakana
     )
 }
 
@@ -190,6 +192,22 @@ fn is_katakana(ch : char) -> bool {
 }
 
 
+// Hangul is Korean Alphabet. Unicode ranges are taken from: https://en.wikipedia.org/wiki/Hangul
+#[inline(always)]
+fn is_hangul(ch : char) -> bool {
+    match ch {
+        '\u{AC00}'...'\u{D7AF}' |
+        '\u{1100}'...'\u{11FF}' |
+        '\u{3130}'...'\u{318F}' |
+        '\u{3200}'...'\u{32FF}' |
+        '\u{A960}'...'\u{A97F}' |
+        '\u{D7B0}'...'\u{D7FF}' |
+        '\u{FF00}'...'\u{FFEF}' => true,
+        _ => false
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -200,6 +218,7 @@ mod tests {
     use super::is_bengali;
     use super::is_katakana;
     use super::is_hiragana;
+    use super::is_hangul;
     use super::detect_script;
 
     #[test]
@@ -274,5 +293,11 @@ mod tests {
     fn test_is_hiragana() {
         assert_eq!(is_hiragana('ひ'), true);
         assert_eq!(is_hiragana('a'), false);
+    }
+
+    #[test]
+    fn test_is_hangul() {
+        assert_eq!(is_hangul('ᄁ'), true);
+        assert_eq!(is_hangul('t'), false);
     }
 }

@@ -11,6 +11,7 @@ TARGET_FILE = File.expand_path("../../src/lang.rs", __FILE__)
 SUPPORTED_LANGS = %w(
   epo
   cmn
+  kor
   spa
   eng
   hin

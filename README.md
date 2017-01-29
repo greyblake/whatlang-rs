@@ -58,6 +58,7 @@ fn main() {
 * Amharic (ahm)
 * Tigrinya (tir)
 * Javanese (jav)
+* Korean (kor)
 
 ## License
 

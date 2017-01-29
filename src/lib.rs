@@ -31,8 +31,9 @@ fn detect_lang_based_on_script(text: &String, script : Script) -> Lang {
         Script::Ethiopic   => detect(text, ETHIOPIC_LANGS),
         Script::Arabic   => Lang::Arb,
         Script::Mandarin => Lang::Cmn,
-        Script::Georgian => Lang::Kat,
         Script::Bengali  => Lang::Ben,
+        Script::Hangul   => Lang::Kor,
+        Script::Georgian => Lang::Kat,
         Script::Katakana | Script::Hiragana  => Lang::Jpn
     }
 }
