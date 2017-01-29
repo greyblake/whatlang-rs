@@ -33,12 +33,12 @@ fn main() {
 ## Roadmap
 
 * Support 100 most popular languages
-* Implement QueryBuilder
 * Allow to specify whitelist/blacklist in `Query` struct
 * Provide some metrics about reliability in `Result` struct
 * Tune performance
 
 ### Supported languages (there gonna be much more)
+* Esperanto (epo)
 * English (eng)
 * Russian (rus)
 * Mandarin (cmn)
