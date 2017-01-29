@@ -2,6 +2,12 @@
 
 Natural language detection in Rust.
 
+## Features
+* 100% written in Rust
+* No dependencies
+* Support about 30 most popular languages
+* Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
+
 ## Get started
 
 The library is still in active development. Here is the short example how to use it:
@@ -63,6 +69,7 @@ fn main() {
 * Bokmål (nob)
 * Nynorsk (nno)
 * Danish (dan)
+* Swedish (swe)
 
 ## License
 
