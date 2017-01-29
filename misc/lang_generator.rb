@@ -28,6 +28,7 @@ SUPPORTED_LANGS = %w(
   pol
   amh
   tir
+  jav
 )
 
 class Script

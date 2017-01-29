@@ -57,6 +57,7 @@ fn main() {
 * Polish (pol)
 * Amharic (ahm)
 * Tigrinya (tir)
+* Javanese (jav)
 
 ## License
 
