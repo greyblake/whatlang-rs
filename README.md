@@ -74,6 +74,7 @@ fn main() {
 * Turkish (tur)
 * Dutch (nld)
 * Hungarian (hun)
+* Czech (ces)
 
 ## License
 
