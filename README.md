@@ -1,5 +1,7 @@
 # Whatlang
 
+[![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
+
 Natural language detection in Rust.
 
 ## Features
