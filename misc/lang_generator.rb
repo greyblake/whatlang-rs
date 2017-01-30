@@ -35,6 +35,7 @@ SUPPORTED_LANGS = %w(
   nno
   dan
   swe
+  fin
 )
 
 class Script

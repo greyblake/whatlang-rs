@@ -25,7 +25,7 @@ fn test_with_multiple_examples() {
     for (lang_code, text) in examples {
         print!("Test {} ... ", lang_code);
 
-        let lang = Lang::from_code(lang_code).unwrap();
+        let lang = Lang::from_code(lang_code).expect("Unknown language code");
         let query = Query { text: &text };
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, lang);
