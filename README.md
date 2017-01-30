@@ -70,6 +70,8 @@ fn main() {
 * Nynorsk (nno)
 * Danish (dan)
 * Swedish (swe)
+* Finnish (fin)
+* Turkish (tur)
 
 ## License
 
