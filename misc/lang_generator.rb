@@ -38,6 +38,7 @@ SUPPORTED_LANGS = %w(
   fin
   tur
   nld
+  hun
 )
 
 class Script

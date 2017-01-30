@@ -73,6 +73,7 @@ fn main() {
 * Finnish (fin)
 * Turkish (tur)
 * Dutch (nld)
+* Hungarian (hun)
 
 ## License
 
