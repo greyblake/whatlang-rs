@@ -45,39 +45,42 @@ fn main() {
 * Provide some metrics about reliability in `Result` struct
 * Tune performance
 
-### Supported languages (there gonna be much more)
-* Esperanto (epo)
-* English (eng)
-* Russian (rus)
-* Mandarin (cmn)
-* Spanish (spa)
-* Portuguese (por)
-* Italian (ita)
-* Bengali (ben)
-* French (fra)
-* German (deu)
-* Ukrainian (ukr)
-* Georgian (kat)
-* Arabic (arb)
-* Hindi (hin)
-* Japanese (jpn)
-* Hebrew (heb)
-* Yiddish (ydd)
-* Polish (pol)
-* Amharic (ahm)
-* Tigrinya (tir)
-* Javanese (jav)
-* Korean (kor)
-* Bokmål (nob)
-* Nynorsk (nno)
-* Danish (dan)
-* Swedish (swe)
-* Finnish (fin)
-* Turkish (tur)
-* Dutch (nld)
-* Hungarian (hun)
-* Czech (ces)
-* Greek (ell)
+### Supported languages
+
+| Language   | ISO 639-3 | Enum        |
+| ---------- | --------- | ----------- |
+| Esperanto  | epo       | `Lang::Epo` |
+| English    | eng       | `Lang::Eng` |
+| Russian    | rus       | `Lang::Rus` |
+| Mandarin   | cmn       | `Lang::Cmn` |
+| Spanish    | spa       | `Lang::Spa` |
+| Portuguese | por       | `Lang::Por` |
+| Italian    | ita       | `Lang::Ita` |
+| Bengali    | ben       | `Lang::Ben` |
+| French     | fra       | `Lang::Fra` |
+| German     | deu       | `Lang::Deu` |
+| Ukrainian  | ukr       | `Lang::Ukr` |
+| Georgian   | kat       | `Lang::Kat` |
+| Arabic     | arb       | `Lang::Arb` |
+| Hindi      | hin       | `Lang::Hin` |
+| Japanese   | jpn       | `Lang::Jpn` |
+| Hebrew     | heb       | `Lang::Heb` |
+| Yiddish    | ydd       | `Lang::Ydd` |
+| Polish     | pol       | `Lang::Pol` |
+| Amharic    | ahm       | `Lang::Ahm` |
+| Tigrinya   | tir       | `Lang::Tir` |
+| Javanese   | jav       | `Lang::Jav` |
+| Korean     | kor       | `Lang::Kor` |
+| Bokmal     | nob       | `Lang::Nob` |
+| Nynorsk    | nno       | `Lang::Nno` |
+| Danish     | dan       | `Lang::Dan` |
+| Swedish    | swe       | `Lang::Swe` |
+| Finnish    | fin       | `Lang::Fin` |
+| Turkish    | tur       | `Lang::Tur` |
+| Dutch      | nld       | `Lang::Nld` |
+| Hungarian  | hun       | `Lang::Hun` |
+| Czech      | ces       | `Lang::Ces` |
+| Greek      | ell       | `Lang::Ell` |
 
 ## License
 
