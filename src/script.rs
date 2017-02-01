@@ -13,7 +13,8 @@ pub enum Script {
     Bengali,
     Georgian,
     Mandarin,
-    Hangul
+    Hangul,
+    Greek
 }
 
 macro_rules! check_scripts {
@@ -56,7 +57,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Bengali    => is_bengali,
         Script::Hangul     => is_hangul,
         Script::Hiragana   => is_hiragana,
-        Script::Katakana   => is_katakana
+        Script::Katakana   => is_katakana,
+        Script::Greek      => is_greek
     )
 }
 
@@ -207,6 +209,15 @@ fn is_hangul(ch : char) -> bool {
     }
 }
 
+// Taken from: https://en.wikipedia.org/wiki/Greek_and_Coptic
+#[inline(always)]
+fn is_greek(ch : char) -> bool {
+    match ch {
+        '\u{0370}'...'\u{03FF}' => true,
+        _ => false
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -219,6 +230,7 @@ mod tests {
     use super::is_katakana;
     use super::is_hiragana;
     use super::is_hangul;
+    use super::is_greek;
     use super::detect_script;
 
     #[test]
@@ -299,5 +311,11 @@ mod tests {
     fn test_is_hangul() {
         assert_eq!(is_hangul('ᄁ'), true);
         assert_eq!(is_hangul('t'), false);
+    }
+
+    #[test]
+    fn test_is_greek() {
+        assert_eq!(is_greek('φ'), true);
+        assert_eq!(is_greek('ф'), false);
     }
 }

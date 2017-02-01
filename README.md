@@ -77,6 +77,7 @@ fn main() {
 * Dutch (nld)
 * Hungarian (hun)
 * Czech (ces)
+* Greek (ell)
 
 ## License
 

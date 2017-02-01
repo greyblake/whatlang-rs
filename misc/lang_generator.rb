@@ -40,6 +40,7 @@ SUPPORTED_LANGS = %w(
   nld
   hun
   ces
+  ell
 )
 
 class Script
