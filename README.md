@@ -42,65 +42,69 @@ fn main() {
 ## Roadmap
 
 * Support 100 most popular languages
-* Allow to specify whitelist/blacklist in `Query` struct
+* Allow to specif blacklist for Query
+* Allow to specify whitelist for Query
+* Improve README example
+* Create demo application
 * Provide some metrics about reliability in `Result` struct
 * Tune performance
 
 ### Supported languages
 
-| Language   | ISO 639-3 | Enum        |
-| ---------- | --------- | ----------- |
-| Esperanto  | epo       | `Lang::Epo` |
-| English    | eng       | `Lang::Eng` |
-| Russian    | rus       | `Lang::Rus` |
-| Mandarin   | cmn       | `Lang::Cmn` |
-| Spanish    | spa       | `Lang::Spa` |
-| Portuguese | por       | `Lang::Por` |
-| Italian    | ita       | `Lang::Ita` |
-| Bengali    | ben       | `Lang::Ben` |
-| French     | fra       | `Lang::Fra` |
-| German     | deu       | `Lang::Deu` |
-| Ukrainian  | ukr       | `Lang::Ukr` |
-| Georgian   | kat       | `Lang::Kat` |
-| Arabic     | arb       | `Lang::Arb` |
-| Hindi      | hin       | `Lang::Hin` |
-| Japanese   | jpn       | `Lang::Jpn` |
-| Hebrew     | heb       | `Lang::Heb` |
-| Yiddish    | ydd       | `Lang::Ydd` |
-| Polish     | pol       | `Lang::Pol` |
-| Amharic    | ahm       | `Lang::Ahm` |
-| Tigrinya   | tir       | `Lang::Tir` |
-| Javanese   | jav       | `Lang::Jav` |
-| Korean     | kor       | `Lang::Kor` |
-| Bokmal     | nob       | `Lang::Nob` |
-| Nynorsk    | nno       | `Lang::Nno` |
-| Danish     | dan       | `Lang::Dan` |
-| Swedish    | swe       | `Lang::Swe` |
-| Finnish    | fin       | `Lang::Fin` |
-| Turkish    | tur       | `Lang::Tur` |
-| Dutch      | nld       | `Lang::Nld` |
-| Hungarian  | hun       | `Lang::Hun` |
-| Czech      | ces       | `Lang::Ces` |
-| Greek      | ell       | `Lang::Ell` |
-| Bulgarian  | bul       | `Lang::Bul` |
-| Belarusian | bel       | `Lang::Bel` |
-| Marathi    | mar       | `Lang::Mar` |
-| Kannada    | kan       | `Lang::Kan` |
-| Romanian   | ron       | `Lang::Ron` |
-| Slovene    | slv       | `Lang::Slv` |
-| Croatian   | hrv       | `Lang::Hrv` |
-| Serbian    | srp       | `Lang::Srp` |
-| Macedonian | mkd       | `Lang::Mkd` |
-| Lithuanian | lit       | `Lang::Lit` |
-| Latvian    | lav       | `Lang::Lav` |
-| Estonian   | est       | `Lang::Est` |
-| Tamil      | tam       | `Lang::Tam` |
-| Vietnamese | vie       | `Lang::Vie` |
-| Urdu       | urd       | `Lang::Urd` |
-| Thai       | tha       | `Lang::Tha` |
-| Gujarati   | guj       | `Lang::Guj` |
-| Uzbek      | uzb       | `Lang::Uzb` |
-| Punjabi    | pan       | `Lang::Pan` |
+| Language    | ISO 639-3 | Enum        |
+| ----------- | --------- | ----------- |
+| Esperanto   | epo       | `Lang::Epo` |
+| English     | eng       | `Lang::Eng` |
+| Russian     | rus       | `Lang::Rus` |
+| Mandarin    | cmn       | `Lang::Cmn` |
+| Spanish     | spa       | `Lang::Spa` |
+| Portuguese  | por       | `Lang::Por` |
+| Italian     | ita       | `Lang::Ita` |
+| Bengali     | ben       | `Lang::Ben` |
+| French      | fra       | `Lang::Fra` |
+| German      | deu       | `Lang::Deu` |
+| Ukrainian   | ukr       | `Lang::Ukr` |
+| Georgian    | kat       | `Lang::Kat` |
+| Arabic      | arb       | `Lang::Arb` |
+| Hindi       | hin       | `Lang::Hin` |
+| Japanese    | jpn       | `Lang::Jpn` |
+| Hebrew      | heb       | `Lang::Heb` |
+| Yiddish     | ydd       | `Lang::Ydd` |
+| Polish      | pol       | `Lang::Pol` |
+| Amharic     | ahm       | `Lang::Ahm` |
+| Tigrinya    | tir       | `Lang::Tir` |
+| Javanese    | jav       | `Lang::Jav` |
+| Korean      | kor       | `Lang::Kor` |
+| Bokmal      | nob       | `Lang::Nob` |
+| Nynorsk     | nno       | `Lang::Nno` |
+| Danish      | dan       | `Lang::Dan` |
+| Swedish     | swe       | `Lang::Swe` |
+| Finnish     | fin       | `Lang::Fin` |
+| Turkish     | tur       | `Lang::Tur` |
+| Dutch       | nld       | `Lang::Nld` |
+| Hungarian   | hun       | `Lang::Hun` |
+| Czech       | ces       | `Lang::Ces` |
+| Greek       | ell       | `Lang::Ell` |
+| Bulgarian   | bul       | `Lang::Bul` |
+| Belarusian  | bel       | `Lang::Bel` |
+| Marathi     | mar       | `Lang::Mar` |
+| Kannada     | kan       | `Lang::Kan` |
+| Romanian    | ron       | `Lang::Ron` |
+| Slovene     | slv       | `Lang::Slv` |
+| Croatian    | hrv       | `Lang::Hrv` |
+| Serbian     | srp       | `Lang::Srp` |
+| Macedonian  | mkd       | `Lang::Mkd` |
+| Lithuanian  | lit       | `Lang::Lit` |
+| Latvian     | lav       | `Lang::Lav` |
+| Estonian    | est       | `Lang::Est` |
+| Tamil       | tam       | `Lang::Tam` |
+| Vietnamese  | vie       | `Lang::Vie` |
+| Urdu        | urd       | `Lang::Urd` |
+| Thai        | tha       | `Lang::Tha` |
+| Gujarati    | guj       | `Lang::Guj` |
+| Uzbek       | uzb       | `Lang::Uzb` |
+| Punjabi     | pan       | `Lang::Pan` |
+| Azerbaijani | azj       | `Lang::Azj` |
 
 ## License
 

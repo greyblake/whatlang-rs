@@ -60,6 +60,7 @@ SUPPORTED_LANGS = %w(
   guj
   uzb
   pan
+  azj
 )
 
 class Script

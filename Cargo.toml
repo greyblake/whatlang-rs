@@ -2,14 +2,6 @@
 name = "whatlang"
 version = "0.1.3"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
-
-include = [
-    "src/**/*",
-    "test/**/*",
-    "Cargo.toml",
-    "README.md"
-]
-
 description = "Natural language detection library. Identifies language of a given text."
 keywords = ["language", "nlp", "lang", "whatlang", "text"]
 license = "MIT"
@@ -18,11 +10,15 @@ homepage = "https://github.com/greyblake/whatlang-rs"
 documentation = "https://github.com/greyblake/whatlang-rs"
 readme = "README.md"
 categories = ["text-processing", "algorithms"]
+include = [
+    "src/**/*",
+    "test/**/*",
+    "Cargo.toml",
+    "README.md"
+]
 
 [badges]
 travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
-
-[dependencies]
 
 [dev-dependencies]
 rustc-serialize = "0.3"
