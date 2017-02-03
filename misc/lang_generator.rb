@@ -51,6 +51,7 @@ SUPPORTED_LANGS = %w(
   srp
   mkd
   lit
+  lav
 )
 
 class Script

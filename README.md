@@ -91,6 +91,7 @@ fn main() {
 | Serbian    | srp       | `Lang::Srp` |
 | Macedonian | mkd       | `Lang::Mkd` |
 | Lithuanian | lit       | `Lang::Lit` |
+| Latvian    | lav       | `Lang::Lav` |
 
 ## License
 
