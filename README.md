@@ -82,6 +82,7 @@ fn main() {
 | Czech      | ces       | `Lang::Ces` |
 | Greek      | ell       | `Lang::Ell` |
 | Bulgarian  | bul       | `Lang::Bul` |
+| Belarusian | bel       | `Lang::Bel` |
 
 ## License
 
