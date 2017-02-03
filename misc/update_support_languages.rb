@@ -18,7 +18,7 @@ class Lang
   def self.load
     langs = []
     CSV.read(LIST_FILE, headers: true).each do |row|
-      langs << Lang.new(row["code"], row["eng_name"])
+      langs << Lang.new(row["code"], row["eng_name"]) if row["code"]
     end
     langs
   end

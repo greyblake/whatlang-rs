@@ -81,6 +81,7 @@ fn main() {
 | Hungarian  | hun       | `Lang::Hun` |
 | Czech      | ces       | `Lang::Ces` |
 | Greek      | ell       | `Lang::Ell` |
+| Bulgarian  | bul       | `Lang::Bul` |
 
 ## License
 
