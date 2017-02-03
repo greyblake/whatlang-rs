@@ -90,6 +90,7 @@ fn main() {
 | Croatian   | hrv       | `Lang::Hrv` |
 | Serbian    | srp       | `Lang::Srp` |
 | Macedonian | mkd       | `Lang::Mkd` |
+| Lithuanian | lit       | `Lang::Lit` |
 
 ## License
 
