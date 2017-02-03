@@ -17,7 +17,8 @@ pub enum Script {
     Greek,
     Kannada,
     Tamil,
-    Thai
+    Thai,
+    Gujarati
 }
 
 macro_rules! check_scripts {
@@ -64,7 +65,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Greek      => is_greek,
         Script::Kannada    => is_kannada,
         Script::Tamil      => is_tamil,
-        Script::Thai       => is_thai
+        Script::Thai       => is_thai,
+        Script::Gujarati   => is_gujarati
     )
 }
 
@@ -251,6 +253,15 @@ fn is_thai(ch: char) -> bool {
     }
 }
 
+// Based on: https://en.wikipedia.org/wiki/Gujarati_(Unicode_block)
+#[inline(always)]
+fn is_gujarati(ch: char) -> bool {
+    match ch {
+        '\u{0A80}'...'\u{0AFF}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -266,6 +277,7 @@ mod tests {
     use super::is_kannada;
     use super::is_tamil;
     use super::is_thai;
+    use super::is_gujarati;
     use super::detect_script;
 
     #[test]
@@ -371,5 +383,12 @@ mod tests {
         assert_eq!(is_thai('ก'), true);
         assert_eq!(is_thai('๛'), true);
         assert_eq!(is_thai('Ж'), false);
+    }
+
+    #[test]
+    fn test_is_gujarati() {
+        assert_eq!(is_gujarati('ઁ'), true);
+        assert_eq!(is_gujarati('૱'), true);
+        assert_eq!(is_gujarati('Ж'), false);
     }
 }

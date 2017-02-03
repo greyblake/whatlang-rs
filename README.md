@@ -97,6 +97,7 @@ fn main() {
 | Vietnamese | vie       | `Lang::Vie` |
 | Urdu       | urd       | `Lang::Urd` |
 | Thai       | tha       | `Lang::Tha` |
+| Gujarati   | guj       | `Lang::Guj` |
 
 ## License
 

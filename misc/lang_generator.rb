@@ -57,6 +57,7 @@ SUPPORTED_LANGS = %w(
   vie
   urd
   tha
+  guj
 )
 
 class Script
