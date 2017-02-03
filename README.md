@@ -5,9 +5,10 @@
 Natural language detection in Rust.
 
 ## Features
+* Support more than 50 languages
 * 100% written in Rust
-* No dependencies
-* Support about 30 most popular languages
+* No external dependencies
+* Super fast
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
 
 ## Get started
@@ -98,6 +99,7 @@ fn main() {
 | Urdu       | urd       | `Lang::Urd` |
 | Thai       | tha       | `Lang::Tha` |
 | Gujarati   | guj       | `Lang::Guj` |
+| Uzbek      | uzb       | `Lang::Uzb` |
 
 ## License
 
