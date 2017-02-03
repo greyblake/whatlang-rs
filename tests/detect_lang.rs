@@ -26,7 +26,7 @@ fn test_with_multiple_examples() {
         print!("Test {} ... ", lang_code);
 
         let lang = Lang::from_code(lang_code).expect("Unknown language code");
-        let query = Query { text: &text };
+        let query = Query::new(&text);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, lang);
 
@@ -34,3 +34,4 @@ fn test_with_multiple_examples() {
 
     }
 }
+

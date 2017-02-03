@@ -39,6 +39,16 @@ fn main() {
 }
 ```
 
+## Blacklisting
+
+Your can blacklist undesired languages, specifying them in query:
+
+```rust
+    let query = Query::new(&text).
+      blacklist(vec![Lang::Eng, Lang::Spa]);
+```
+
+
 ## Roadmap
 
 * Support 100 most popular languages
@@ -109,6 +119,11 @@ fn main() {
 ## License
 
 MIT
+
+## Thanks
+
+I have to thank [Franc](https://github.com/wooorm/franc) JS project for inspiration
+and list of trigrams.
 
 ## Contributors
 
