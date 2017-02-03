@@ -44,6 +44,7 @@ SUPPORTED_LANGS = %w(
   bul
   bel
   mar
+  kan
 )
 
 class Script

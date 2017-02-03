@@ -14,7 +14,8 @@ pub enum Script {
     Georgian,
     Mandarin,
     Hangul,
-    Greek
+    Greek,
+    Kannada
 }
 
 macro_rules! check_scripts {
@@ -58,7 +59,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Hangul     => is_hangul,
         Script::Hiragana   => is_hiragana,
         Script::Katakana   => is_katakana,
-        Script::Greek      => is_greek
+        Script::Greek      => is_greek,
+        Script::Kannada    => is_kannada
     )
 }
 
@@ -218,6 +220,14 @@ fn is_greek(ch : char) -> bool {
     }
 }
 
+// Based on: https://en.wikipedia.org/wiki/Kannada_(Unicode_block)
+#[inline(always)]
+fn is_kannada(ch : char) -> bool {
+    match ch {
+        '\u{0C80}'...'\u{0CFF}' => true,
+        _ => false
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -231,6 +241,7 @@ mod tests {
     use super::is_hiragana;
     use super::is_hangul;
     use super::is_greek;
+    use super::is_kannada;
     use super::detect_script;
 
     #[test]
@@ -317,5 +328,11 @@ mod tests {
     fn test_is_greek() {
         assert_eq!(is_greek('φ'), true);
         assert_eq!(is_greek('ф'), false);
+    }
+
+    #[test]
+    fn test_is_kannada() {
+        assert_eq!(is_kannada('ಡ'), true);
+        assert_eq!(is_kannada('S'), false);
     }
 }

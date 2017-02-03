@@ -1,4 +1,4 @@
-code,eng_name,name
+code,eng_name,name,native_speakers
 epo,Esperanto,
 eng,English,
 rus,Russian,
@@ -6,7 +6,7 @@ cmn,Mandarin,
 spa,Spanish,
 por,Portuguese,
 ita,Italian,
-ben,Bengali,
+ben,Bengali,বাংলা,210
 fra,French,
 deu,German,
 ukr,Ukrainian,
@@ -34,3 +34,4 @@ ell,Greek,
 bul,Bulgarian,Български
 bel,Belarusian,Беларуская
 mar,Marathi,मराठी
+kan,Kannada,ಕನ್ನಡ
