@@ -52,7 +52,7 @@ Your can blacklist undesired languages, specifying them in query:
 ## Roadmap
 
 * Support 100 most popular languages
-* Allow to specif blacklist for Query
+* ~~Allow to specify blacklist for Query~~
 * Allow to specify whitelist for Query
 * Improve README example
 * Create demo application
