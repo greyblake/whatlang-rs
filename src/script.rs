@@ -16,7 +16,8 @@ pub enum Script {
     Hangul,
     Greek,
     Kannada,
-    Tamil
+    Tamil,
+    Thai
 }
 
 macro_rules! check_scripts {
@@ -62,7 +63,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Katakana   => is_katakana,
         Script::Greek      => is_greek,
         Script::Kannada    => is_kannada,
-        Script::Tamil      => is_tamil
+        Script::Tamil      => is_tamil,
+        Script::Thai       => is_thai
     )
 }
 
@@ -240,6 +242,15 @@ fn is_tamil(ch: char) -> bool {
     }
 }
 
+// Based on: https://en.wikipedia.org/wiki/Thai_(Unicode_block)
+#[inline(always)]
+fn is_thai(ch: char) -> bool {
+    match ch {
+        '\u{0E00}'...'\u{0E7F}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -254,6 +265,7 @@ mod tests {
     use super::is_greek;
     use super::is_kannada;
     use super::is_tamil;
+    use super::is_thai;
     use super::detect_script;
 
     #[test]
@@ -352,5 +364,12 @@ mod tests {
     fn test_is_tamil() {
         assert_eq!(is_tamil('ஐ'), true);
         assert_eq!(is_tamil('Ж'), false);
+    }
+
+    #[test]
+    fn test_is_thai() {
+        assert_eq!(is_thai('ก'), true);
+        assert_eq!(is_thai('๛'), true);
+        assert_eq!(is_thai('Ж'), false);
     }
 }
