@@ -39,13 +39,27 @@ fn main() {
 }
 ```
 
-## Blacklisting
+## Blacklist
 
-Your can blacklist undesired languages, specifying them in query:
+Your can blacklist undesired languages, passing a vector.
+In the example blow English and Spanish will be ignored:
 
 ```rust
-    let query = Query::new(&text).
-      blacklist(vec![Lang::Eng, Lang::Spa]);
+let query = Query::new(&text).
+    blacklist(vec![Lang::Eng, Lang::Spa]);
+```
+
+
+## Whitelist
+
+In similar way, you can whitelist specified languages.
+In this example, the library will recognize only Esperanto and Russian.
+Note, if it detects a script that is different from Latin(Esperanto)
+or Cyrillic(Russian), e.g. Greek, it will return `None`.
+
+```rust
+let query = Query::new(&text).
+    whitelist(vec![Lang::Epo, Lang::Rus]);
 ```
 
 
@@ -57,6 +71,7 @@ Your can blacklist undesired languages, specifying them in query:
 * Improve README example
 * Create demo application
 * Provide some metrics about reliability in `Result` struct
+* Write doc for public structurs and functions
 * Tune performance
 
 ### Supported languages

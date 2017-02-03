@@ -55,11 +55,13 @@ fn detect(query : Query, lang_profile_list : LangProfileList) -> Option<Lang> {
     let trigrams = get_trigrams_with_positions(&text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
-        // Skip blacklisted languages
-        if let Some(ref blacklist) = query.blacklist {
+        if let Some(ref whitelist) = query.whitelist {
+            // Skip non-whitelisted languages
+            if !whitelist.contains(lang) { continue; }
+        } else if let Some(ref blacklist) = query.blacklist {
+            // Skip blacklisted languages
             if blacklist.contains(lang) { continue; }
         }
-
         let dist = calculate_distance(lang_trigrams, &trigrams);
         lang_distances.push(((*lang).clone(), dist));
     }
@@ -139,5 +141,20 @@ mod tests {
         let query = Query::new(&text).blacklist(vec![Lang::Heb, Lang::Ydd]);
         let result = detect_lang(query);
         assert_eq!(result, None);
+    }
+
+    #[test]
+    fn test_detect_lang_with_whitelist() {
+        let whitelist = vec![Lang::Epo, Lang::Ukr];
+
+        let text = String::from("Mi ne scias! Ne demandu min plu!");
+        let query = Query::new(&text).whitelist(whitelist.clone());
+        let result = detect_lang(query).unwrap();
+        assert_eq!(result.lang, Lang::Epo);
+
+        let text = String::from("Тут все.");
+        let query = Query::new(&text).whitelist(whitelist.clone());
+        let result = detect_lang(query).unwrap();
+        assert_eq!(result.lang, Lang::Ukr);
     }
 }
