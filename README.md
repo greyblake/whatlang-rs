@@ -84,6 +84,8 @@ fn main() {
 | Bulgarian  | bul       | `Lang::Bul` |
 | Belarusian | bel       | `Lang::Bel` |
 | Marathi    | mar       | `Lang::Mar` |
+| Kannada    | kan       | `Lang::Kan` |
+| Romanian   | ron       | `Lang::Ron` |
 
 ## License
 
