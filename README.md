@@ -95,6 +95,7 @@ fn main() {
 | Estonian   | est       | `Lang::Est` |
 | Tamil      | tam       | `Lang::Tam` |
 | Vietnamese | vie       | `Lang::Vie` |
+| Urdu       | urd       | `Lang::Urd` |
 
 ## License
 
