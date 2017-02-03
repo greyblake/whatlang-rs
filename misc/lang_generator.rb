@@ -59,6 +59,7 @@ SUPPORTED_LANGS = %w(
   tha
   guj
   uzb
+  pan
 )
 
 class Script

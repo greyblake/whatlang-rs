@@ -100,6 +100,7 @@ fn main() {
 | Thai       | tha       | `Lang::Tha` |
 | Gujarati   | guj       | `Lang::Guj` |
 | Uzbek      | uzb       | `Lang::Uzb` |
+| Punjabi    | pan       | `Lang::Pan` |
 
 ## License
 

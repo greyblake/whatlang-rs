@@ -18,7 +18,8 @@ pub enum Script {
     Kannada,
     Tamil,
     Thai,
-    Gujarati
+    Gujarati,
+    Gurmukhi
 }
 
 macro_rules! check_scripts {
@@ -66,7 +67,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Kannada    => is_kannada,
         Script::Tamil      => is_tamil,
         Script::Thai       => is_thai,
-        Script::Gujarati   => is_gujarati
+        Script::Gujarati   => is_gujarati,
+        Script::Gurmukhi   => is_gurmukhi
     )
 }
 
@@ -262,6 +264,16 @@ fn is_gujarati(ch: char) -> bool {
     }
 }
 
+// Gurmukhi is the script for Punjabi language.
+// Based on: https://en.wikipedia.org/wiki/Gurmukhi_(Unicode_block)
+#[inline(always)]
+fn is_gurmukhi(ch: char) -> bool {
+    match ch {
+        '\u{0A00}'...'\u{0A7F}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -278,6 +290,7 @@ mod tests {
     use super::is_tamil;
     use super::is_thai;
     use super::is_gujarati;
+    use super::is_gurmukhi;
     use super::detect_script;
 
     #[test]
@@ -390,5 +403,12 @@ mod tests {
         assert_eq!(is_gujarati('ઁ'), true);
         assert_eq!(is_gujarati('૱'), true);
         assert_eq!(is_gujarati('Ж'), false);
+    }
+
+    #[test]
+    fn test_is_gurmukhi() {
+        assert_eq!(is_gurmukhi('ਁ'), true);
+        assert_eq!(is_gurmukhi('ੴ'), true);
+        assert_eq!(is_gurmukhi('Ж'), false);
     }
 }
