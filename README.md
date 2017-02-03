@@ -93,6 +93,7 @@ fn main() {
 | Lithuanian | lit       | `Lang::Lit` |
 | Latvian    | lav       | `Lang::Lav` |
 | Estonian   | est       | `Lang::Est` |
+| Tamil      | tam       | `Lang::Tam` |
 
 ## License
 

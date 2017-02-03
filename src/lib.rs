@@ -36,6 +36,7 @@ fn detect_lang_based_on_script(text: &String, script : Script) -> Lang {
         Script::Georgian => Lang::Kat,
         Script::Greek    => Lang::Ell,
         Script::Kannada  => Lang::Kan,
+        Script::Tamil    => Lang::Tam,
         Script::Katakana | Script::Hiragana  => Lang::Jpn
     }
 }

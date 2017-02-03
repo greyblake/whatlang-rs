@@ -15,7 +15,8 @@ pub enum Script {
     Mandarin,
     Hangul,
     Greek,
-    Kannada
+    Kannada,
+    Tamil
 }
 
 macro_rules! check_scripts {
@@ -60,7 +61,8 @@ pub fn detect_script(text: &String) -> Option<Script> {
         Script::Hiragana   => is_hiragana,
         Script::Katakana   => is_katakana,
         Script::Greek      => is_greek,
-        Script::Kannada    => is_kannada
+        Script::Kannada    => is_kannada,
+        Script::Tamil      => is_tamil
     )
 }
 
@@ -229,6 +231,15 @@ fn is_kannada(ch : char) -> bool {
     }
 }
 
+// Based on: https://en.wikipedia.org/wiki/Tamil_(Unicode_block)
+#[inline(always)]
+fn is_tamil(ch: char) -> bool {
+    match ch {
+        '\u{0B80}'...'\u{0BFF}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -242,6 +253,7 @@ mod tests {
     use super::is_hangul;
     use super::is_greek;
     use super::is_kannada;
+    use super::is_tamil;
     use super::detect_script;
 
     #[test]
@@ -334,5 +346,11 @@ mod tests {
     fn test_is_kannada() {
         assert_eq!(is_kannada('ಡ'), true);
         assert_eq!(is_kannada('S'), false);
+    }
+
+    #[test]
+    fn test_is_tamil() {
+        assert_eq!(is_tamil('ஐ'), true);
+        assert_eq!(is_tamil('Ж'), false);
     }
 }

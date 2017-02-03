@@ -53,6 +53,7 @@ SUPPORTED_LANGS = %w(
   lit
   lav
   est
+  tam
 )
 
 class Script
