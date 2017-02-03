@@ -54,6 +54,7 @@ SUPPORTED_LANGS = %w(
   lav
   est
   tam
+  vie
 )
 
 class Script

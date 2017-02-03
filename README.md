@@ -94,6 +94,7 @@ fn main() {
 | Latvian    | lav       | `Lang::Lav` |
 | Estonian   | est       | `Lang::Est` |
 | Tamil      | tam       | `Lang::Tam` |
+| Vietnamese | vie       | `Lang::Vie` |
 
 ## License
 
