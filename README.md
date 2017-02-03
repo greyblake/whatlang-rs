@@ -87,6 +87,7 @@ fn main() {
 | Kannada    | kan       | `Lang::Kan` |
 | Romanian   | ron       | `Lang::Ron` |
 | Slovene    | slv       | `Lang::Slv` |
+| Croatian   | hrv       | `Lang::Hrv` |
 
 ## License
 
