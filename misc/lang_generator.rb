@@ -43,6 +43,7 @@ SUPPORTED_LANGS = %w(
   ell
   bul
   bel
+  mar
 )
 
 class Script

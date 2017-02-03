@@ -83,6 +83,7 @@ fn main() {
 | Greek      | ell       | `Lang::Ell` |
 | Bulgarian  | bul       | `Lang::Bul` |
 | Belarusian | bel       | `Lang::Bel` |
+| Marathi    | mar       | `Lang::Mar` |
 
 ## License
 
