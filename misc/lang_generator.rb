@@ -46,6 +46,7 @@ SUPPORTED_LANGS = %w(
   mar
   kan
   ron
+  slv
 )
 
 class Script

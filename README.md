@@ -86,6 +86,7 @@ fn main() {
 | Marathi    | mar       | `Lang::Mar` |
 | Kannada    | kan       | `Lang::Kan` |
 | Romanian   | ron       | `Lang::Ron` |
+| Slovene    | slv       | `Lang::Slv` |
 
 ## License
 
