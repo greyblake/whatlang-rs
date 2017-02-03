@@ -92,6 +92,7 @@ fn main() {
 | Macedonian | mkd       | `Lang::Mkd` |
 | Lithuanian | lit       | `Lang::Lit` |
 | Latvian    | lav       | `Lang::Lav` |
+| Estonian   | est       | `Lang::Est` |
 
 ## License
 
