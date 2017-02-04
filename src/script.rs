@@ -22,54 +22,64 @@ pub enum Script {
     Gurmukhi
 }
 
-macro_rules! check_scripts {
-    ( $text:ident, $( $script:expr => $is_script:ident ),* ) => {
-        {
-            let mut max_score = 0;
-            let mut result = None;
-            let mut current_score = 0;
-            let half = $text.len() / 2;
+pub fn detect_script(text: &str) -> Option<Script> {
+    let mut script_checks: Vec<(Script, fn(char) -> bool, usize)> = vec![
+        (Script::Latin      , is_latin      , 0),
+        (Script::Cyrillic   , is_cyrillic   , 0),
+        (Script::Arabic     , is_arabic     , 0),
+        (Script::Mandarin   , is_mandarin   , 0),
+        (Script::Devanagari , is_devanagari , 0),
+        (Script::Hebrew     , is_hebrew     , 0),
+        (Script::Ethiopic   , is_ethiopic   , 0),
+        (Script::Georgian   , is_georgian   , 0),
+        (Script::Bengali    , is_bengali    , 0),
+        (Script::Hangul     , is_hangul     , 0),
+        (Script::Hiragana   , is_hiragana   , 0),
+        (Script::Katakana   , is_katakana   , 0),
+        (Script::Greek      , is_greek      , 0),
+        (Script::Kannada    , is_kannada    , 0),
+        (Script::Tamil      , is_tamil      , 0),
+        (Script::Thai       , is_thai       , 0),
+        (Script::Gujarati   , is_gujarati   , 0),
+        (Script::Gurmukhi   , is_gurmukhi   , 0),
+    ];
 
-            $(
-                current_score = 0;
-                for ch in $text.chars() {
-                    if $is_script(ch) { current_score += 1; }
+    let half = text.chars().count() / 2;
+
+    for ch in text.chars() {
+        for i in 0..script_checks.len() {
+            let found = {
+                let (script, check_fn, ref mut count) = script_checks[i];
+                if check_fn(ch) {
+                    *count += 1;
+                    if *count > half {
+                        return Some(script);
+                    }
+                    true
+                } else {
+                    false
                 }
-                if current_score > half {
-                    return Some($script);
+            };
+            // Have to let borrow of count fall out of scope before doing swapping, or we could
+            // do this above.
+            if found {
+                // If script was found, move it closer to the front.
+                // If the text contains largely 1 or 2 scripts, this will
+                // cause these scripts to be eventually checked first.
+                if i > 0 {
+                    script_checks.swap(i - 1, i);
                 }
-                if current_score > max_score {
-                    max_score = current_score;
-                    result = Some($script);
-                }
-            )*
-            result
+                break;
+            }
         }
-    };
-}
+    }
 
-pub fn detect_script(text: &String) -> Option<Script> {
-    check_scripts!(
-        text,
-        Script::Latin      => is_latin,
-        Script::Cyrillic   => is_cyrillic,
-        Script::Arabic     => is_arabic,
-        Script::Mandarin   => is_mandarin,
-        Script::Devanagari => is_devanagari,
-        Script::Hebrew     => is_hebrew,
-        Script::Ethiopic   => is_ethiopic,
-        Script::Georgian   => is_georgian,
-        Script::Bengali    => is_bengali,
-        Script::Hangul     => is_hangul,
-        Script::Hiragana   => is_hiragana,
-        Script::Katakana   => is_katakana,
-        Script::Greek      => is_greek,
-        Script::Kannada    => is_kannada,
-        Script::Tamil      => is_tamil,
-        Script::Thai       => is_thai,
-        Script::Gujarati   => is_gujarati,
-        Script::Gurmukhi   => is_gurmukhi
-    )
+    let (script, _, count) = script_checks.into_iter().max_by_key(|&(_, _, count)| count).unwrap();
+    if count != 0 {
+        Some(script)
+    } else {
+        None
+    }
 }
 
 #[inline(always)]
