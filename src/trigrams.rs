@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn get_trigrams_with_positions(text : &String) -> HashMap<String, u32> {
+pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
     let counter_hash = count(text);
 
     let mut count_vec: Vec<_> = counter_hash.iter().collect();
@@ -19,7 +19,7 @@ pub fn get_trigrams_with_positions(text : &String) -> HashMap<String, u32> {
 }
 
 #[inline(always)]
-fn count(text : &String) -> HashMap<String, u32> {
+fn count(text : &str) -> HashMap<String, u32> {
     let mut s = text.to_lowercase();
     s.push(' '); // add space to the end
 
