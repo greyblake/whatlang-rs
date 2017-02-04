@@ -131,6 +131,7 @@ let query = Query::new(&text).
 | Punjabi     | pan       | `Lang::Pan` |
 | Azerbaijani | azj       | `Lang::Azj` |
 | Indonesian  | ind       | `Lang::Ind` |
+| Telugu      | tel       | `Lang::Tel` |
 
 ## License
 

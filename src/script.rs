@@ -19,7 +19,8 @@ pub enum Script {
     Tamil,
     Thai,
     Gujarati,
-    Gurmukhi
+    Gurmukhi,
+    Telugu
 }
 
 pub fn detect_script(text: &str) -> Option<Script> {
@@ -42,6 +43,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Thai       , is_thai       , 0),
         (Script::Gujarati   , is_gujarati   , 0),
         (Script::Gurmukhi   , is_gurmukhi   , 0),
+        (Script::Telugu     , is_telugu     , 0),
     ];
 
     let half = text.chars().count() / 2;
@@ -286,6 +288,13 @@ fn is_gurmukhi(ch: char) -> bool {
     }
 }
 
+fn is_telugu(ch: char) -> bool {
+    match ch {
+        '\u{0C00}'...'\u{0C7F}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -303,6 +312,7 @@ mod tests {
     use super::is_thai;
     use super::is_gujarati;
     use super::is_gurmukhi;
+    use super::is_telugu;
     use super::detect_script;
 
     #[test]
@@ -422,5 +432,12 @@ mod tests {
         assert_eq!(is_gurmukhi('ਁ'), true);
         assert_eq!(is_gurmukhi('ੴ'), true);
         assert_eq!(is_gurmukhi('Ж'), false);
+    }
+
+    #[test]
+    fn test_is_telugu() {
+        assert_eq!(is_telugu('ఁ'), true);
+        assert_eq!(is_telugu('౿'), true);
+        assert_eq!(is_telugu('Ж'), false);
     }
 }
