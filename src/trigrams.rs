@@ -31,7 +31,7 @@ fn count(text : &String) -> HashMap<String, u32> {
     let mut c2 = to_trigram_char(chars_iter.next().unwrap());
     for cur_char in chars_iter {
         let c3 = to_trigram_char(cur_char);
-        if !((c1 == ' ' && c2 == ' ') || (c2 == ' ' && c3 == ' ')) {
+        if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
             let mut trigram = String::with_capacity(3);
             trigram.push(c1);
             trigram.push(c2);
