@@ -50,11 +50,7 @@ fn count(text : &str) -> HashMap<String, u32> {
 // Convert punctuations and digits to a space.
 #[inline(always)]
 fn to_trigram_char(ch : char) -> char {
-    if is_stop_char(ch) {
-        ' '
-    } else {
-        ch
-    }
+    if is_stop_char(ch) { ' ' } else { ch }
 }
 
 

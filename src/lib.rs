@@ -50,10 +50,8 @@ fn detect_lang_based_on_script(query : Query, script : Script) -> Option<Lang> {
 }
 
 fn detect(query : Query, lang_profile_list : LangProfileList) -> Option<Lang> {
-    let text = query.text;
-
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
-    let trigrams = get_trigrams_with_positions(&text);
+    let trigrams = get_trigrams_with_positions(&query.text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
         if let Some(ref whitelist) = query.whitelist {

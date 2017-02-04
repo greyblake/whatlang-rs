@@ -96,7 +96,7 @@ let query = Query::new(&text).
 | Hebrew      | heb       | `Lang::Heb` |
 | Yiddish     | ydd       | `Lang::Ydd` |
 | Polish      | pol       | `Lang::Pol` |
-| Amharic     | ahm       | `Lang::Ahm` |
+| Amharic     | amh       | `Lang::Amh` |
 | Tigrinya    | tir       | `Lang::Tir` |
 | Javanese    | jav       | `Lang::Jav` |
 | Korean      | kor       | `Lang::Kor` |
@@ -130,6 +130,7 @@ let query = Query::new(&text).
 | Uzbek       | uzb       | `Lang::Uzb` |
 | Punjabi     | pan       | `Lang::Pan` |
 | Azerbaijani | azj       | `Lang::Azj` |
+| Indonesian  | ind       | `Lang::Ind` |
 
 ## License
 

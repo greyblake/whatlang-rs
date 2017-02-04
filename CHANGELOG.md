@@ -1,4 +1,7 @@
-#### 0.1.3 2017-02-04
+#### Next
+* Optimize script detection
+
+#### 0.1.4 2017-02-04
 * Support whitelist and blacklist
 
 #### 0.1.3 2017-02-03

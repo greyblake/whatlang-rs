@@ -1,67 +1,23 @@
 require "json"
 require "erb"
+require "csv"
 require "pp"
 
 DATA_FILE = File.expand_path("../data.json", __FILE__)
 TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
-
+LIST_FILE = File.expand_path("../supported_laguages.csv", __FILE__)
 TARGET_FILE = File.expand_path("../../src/lang.rs", __FILE__)
 
 
-SUPPORTED_LANGS = %w(
-  epo
-  cmn
-  kor
-  spa
-  eng
-  hin
-  arb
-  rus
-  ben
-  por
-  fra
-  deu
-  ukr
-  kat
-  jpn
-  heb
-  ydd
-  pol
-  amh
-  tir
-  jav
-  ita
-  nob
-  nno
-  dan
-  swe
-  fin
-  tur
-  nld
-  hun
-  ces
-  ell
-  bul
-  bel
-  mar
-  kan
-  ron
-  slv
-  hrv
-  srp
-  mkd
-  lit
-  lav
-  est
-  tam
-  vie
-  urd
-  tha
-  guj
-  uzb
-  pan
-  azj
-)
+def load_lang_codes
+  langs = []
+  CSV.read(LIST_FILE, headers: true).each do |row|
+    langs << row["code"] if row["code"]
+  end
+  langs.sort
+end
+
+SUPPORTED_LANGS = load_lang_codes
 
 class Script
   attr_reader :name, :langs
