@@ -1,3 +1,4 @@
+use utils::is_stop_char;
 use std::collections::HashMap;
 
 pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
@@ -49,9 +50,10 @@ fn count(text : &str) -> HashMap<String, u32> {
 // Convert punctuations and digits to a space.
 #[inline(always)]
 fn to_trigram_char(ch : char) -> char {
-    match ch {
-        '\u{0000}'...'\u{0040}' | '\u{005B}'...'\u{0060}' | '\u{007B}'...'\u{007E}' => ' ',
-        _ => ch
+    if is_stop_char(ch) {
+        ' '
+    } else {
+        ch
     }
 }
 

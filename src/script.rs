@@ -1,4 +1,4 @@
-#![allow(unused_assignments)]
+use utils::is_stop_char;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
@@ -47,6 +47,8 @@ pub fn detect_script(text: &str) -> Option<Script> {
     let half = text.chars().count() / 2;
 
     for ch in text.chars() {
+        if is_stop_char(ch) { continue; }
+
         for i in 0..script_checks.len() {
             let found = {
                 let (script, check_fn, ref mut count) = script_checks[i];

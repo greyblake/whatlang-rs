@@ -4,6 +4,7 @@ mod lang;
 mod script;
 mod query;
 mod result;
+mod utils;
 mod trigrams;
 
 pub use lang::*;
