@@ -134,6 +134,7 @@ let query = Query::new(&text).
 | Telugu      | tel       | `Lang::Tel` |
 | Persian     | pes       | `Lang::Pes` |
 | Malayalam   | mal       | `Lang::Mal` |
+| Hausa       | hau       | `Lang::Hau` |
 
 ## License
 
