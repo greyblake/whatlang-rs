@@ -20,7 +20,8 @@ pub enum Script {
     Thai,
     Gujarati,
     Gurmukhi,
-    Telugu
+    Telugu,
+    Malayalam
 }
 
 pub fn detect_script(text: &str) -> Option<Script> {
@@ -44,6 +45,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Gujarati   , is_gujarati   , 0),
         (Script::Gurmukhi   , is_gurmukhi   , 0),
         (Script::Telugu     , is_telugu     , 0),
+        (Script::Malayalam  , is_malayalam  , 0),
     ];
 
     let half = text.chars().count() / 2;
@@ -86,7 +88,6 @@ pub fn detect_script(text: &str) -> Option<Script> {
     }
 }
 
-#[inline(always)]
 fn is_cyrillic(ch: char) -> bool {
    match ch {
        '\u{0400}'...'\u{0484}' |
@@ -101,7 +102,6 @@ fn is_cyrillic(ch: char) -> bool {
 }
 
 // https://en.wikipedia.org/wiki/Latin_script_in_Unicode
-#[inline(always)]
 fn is_latin(ch : char) -> bool {
     match ch {
         'a'...'z' |
@@ -122,7 +122,6 @@ fn is_latin(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-#[inline(always)]
 fn is_arabic(ch : char) -> bool {
     match ch {
         '\u{0600}'...'\u{06FF}' |
@@ -137,7 +136,6 @@ fn is_arabic(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Devanagari#Unicode
-#[inline(always)]
 fn is_devanagari(ch : char) -> bool {
     match ch {
         '\u{0900}'...'\u{097F}' |
@@ -148,7 +146,6 @@ fn is_devanagari(ch : char) -> bool {
 }
 
 // Based on https://www.key-shortcut.com/en/writing-systems/ethiopian-script/
-#[inline(always)]
 fn is_ethiopic(ch : char) -> bool {
     match ch {
         '\u{1200}'...'\u{139F}' |
@@ -159,7 +156,6 @@ fn is_ethiopic(ch : char) -> bool {
 }
 
 // Based on https://en.wikipedia.org/wiki/Hebrew_(Unicode_block)
-#[inline(always)]
 fn is_hebrew(ch : char) -> bool {
     match ch {
         '\u{0590}'...'\u{05FF}' => true,
@@ -167,7 +163,6 @@ fn is_hebrew(ch : char) -> bool {
     }
 }
 
-#[inline(always)]
 fn is_georgian(ch : char) -> bool {
    match ch {
        '\u{10A0}'...'\u{10FF}' => true,
@@ -175,7 +170,6 @@ fn is_georgian(ch : char) -> bool {
    }
 }
 
-#[inline(always)]
 fn is_mandarin(ch : char) -> bool {
     match ch {
         '\u{2E80}'...'\u{2E99}' |
@@ -193,7 +187,6 @@ fn is_mandarin(ch : char) -> bool {
     }
 }
 
-#[inline(always)]
 fn is_bengali(ch : char) -> bool {
    match ch {
        '\u{0980}'...'\u{09FF}' => true,
@@ -201,7 +194,6 @@ fn is_bengali(ch : char) -> bool {
    }
 }
 
-#[inline(always)]
 fn is_hiragana(ch : char) -> bool {
    match ch {
        '\u{3040}'...'\u{309F}' => true,
@@ -209,7 +201,6 @@ fn is_hiragana(ch : char) -> bool {
    }
 }
 
-#[inline(always)]
 fn is_katakana(ch : char) -> bool {
    match ch {
        '\u{30A0}'...'\u{30FF}' => true,
@@ -219,7 +210,6 @@ fn is_katakana(ch : char) -> bool {
 
 
 // Hangul is Korean Alphabet. Unicode ranges are taken from: https://en.wikipedia.org/wiki/Hangul
-#[inline(always)]
 fn is_hangul(ch : char) -> bool {
     match ch {
         '\u{AC00}'...'\u{D7AF}' |
@@ -234,7 +224,6 @@ fn is_hangul(ch : char) -> bool {
 }
 
 // Taken from: https://en.wikipedia.org/wiki/Greek_and_Coptic
-#[inline(always)]
 fn is_greek(ch : char) -> bool {
     match ch {
         '\u{0370}'...'\u{03FF}' => true,
@@ -243,7 +232,6 @@ fn is_greek(ch : char) -> bool {
 }
 
 // Based on: https://en.wikipedia.org/wiki/Kannada_(Unicode_block)
-#[inline(always)]
 fn is_kannada(ch : char) -> bool {
     match ch {
         '\u{0C80}'...'\u{0CFF}' => true,
@@ -252,7 +240,6 @@ fn is_kannada(ch : char) -> bool {
 }
 
 // Based on: https://en.wikipedia.org/wiki/Tamil_(Unicode_block)
-#[inline(always)]
 fn is_tamil(ch: char) -> bool {
     match ch {
         '\u{0B80}'...'\u{0BFF}' => true,
@@ -261,7 +248,6 @@ fn is_tamil(ch: char) -> bool {
 }
 
 // Based on: https://en.wikipedia.org/wiki/Thai_(Unicode_block)
-#[inline(always)]
 fn is_thai(ch: char) -> bool {
     match ch {
         '\u{0E00}'...'\u{0E7F}' => true,
@@ -270,7 +256,6 @@ fn is_thai(ch: char) -> bool {
 }
 
 // Based on: https://en.wikipedia.org/wiki/Gujarati_(Unicode_block)
-#[inline(always)]
 fn is_gujarati(ch: char) -> bool {
     match ch {
         '\u{0A80}'...'\u{0AFF}' => true,
@@ -280,7 +265,6 @@ fn is_gujarati(ch: char) -> bool {
 
 // Gurmukhi is the script for Punjabi language.
 // Based on: https://en.wikipedia.org/wiki/Gurmukhi_(Unicode_block)
-#[inline(always)]
 fn is_gurmukhi(ch: char) -> bool {
     match ch {
         '\u{0A00}'...'\u{0A7F}' => true,
@@ -291,6 +275,14 @@ fn is_gurmukhi(ch: char) -> bool {
 fn is_telugu(ch: char) -> bool {
     match ch {
         '\u{0C00}'...'\u{0C7F}' => true,
+        _ => false
+    }
+}
+
+// Based on: https://en.wikipedia.org/wiki/Malayalam_(Unicode_block)
+fn is_malayalam(ch: char) -> bool {
+    match ch {
+        '\u{0D00}'...'\u{0D7F}' => true,
         _ => false
     }
 }

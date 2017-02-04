@@ -133,6 +133,7 @@ let query = Query::new(&text).
 | Indonesian  | ind       | `Lang::Ind` |
 | Telugu      | tel       | `Lang::Tel` |
 | Persian     | pes       | `Lang::Pes` |
+| Malayalam   | mal       | `Lang::Mal` |
 
 ## License
 
