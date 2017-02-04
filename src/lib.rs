@@ -47,6 +47,7 @@ fn detect_lang_based_on_script(query : Query, script : Script) -> Option<Lang> {
         Script::Gurmukhi  => Some(Lang::Pan),
         Script::Telugu    => Some(Lang::Tel),
         Script::Malayalam => Some(Lang::Mal),
+        Script::Oriya     => Some(Lang::Ori),
         Script::Katakana | Script::Hiragana  => Some(Lang::Jpn)
     }
 }

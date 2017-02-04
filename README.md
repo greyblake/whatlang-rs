@@ -135,6 +135,7 @@ let query = Query::new(&text).
 | Persian     | pes       | `Lang::Pes` |
 | Malayalam   | mal       | `Lang::Mal` |
 | Hausa       | hau       | `Lang::Hau` |
+| Oriya       | ori       | `Lang::Ori` |
 
 ## License
 

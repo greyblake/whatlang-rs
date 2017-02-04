@@ -21,7 +21,8 @@ pub enum Script {
     Gujarati,
     Gurmukhi,
     Telugu,
-    Malayalam
+    Malayalam,
+    Oriya
 }
 
 pub fn detect_script(text: &str) -> Option<Script> {
@@ -46,6 +47,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Gurmukhi   , is_gurmukhi   , 0),
         (Script::Telugu     , is_telugu     , 0),
         (Script::Malayalam  , is_malayalam  , 0),
+        (Script::Oriya      , is_oriya      , 0),
     ];
 
     let half = text.chars().count() / 2;
@@ -287,6 +289,14 @@ fn is_malayalam(ch: char) -> bool {
     }
 }
 
+// Based on: https://en.wikipedia.org/wiki/Malayalam_(Unicode_block)
+fn is_oriya(ch: char) -> bool {
+    match ch {
+        '\u{0B00}'...'\u{0B7F}' => true,
+        _ => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Script;
@@ -305,6 +315,7 @@ mod tests {
     use super::is_gujarati;
     use super::is_gurmukhi;
     use super::is_telugu;
+    use super::is_oriya;
     use super::detect_script;
 
     #[test]
@@ -431,5 +442,12 @@ mod tests {
         assert_eq!(is_telugu('ఁ'), true);
         assert_eq!(is_telugu('౿'), true);
         assert_eq!(is_telugu('Ж'), false);
+    }
+
+    #[test]
+    fn test_is_oriya() {
+        assert_eq!(is_oriya('ଐ'), true);
+        assert_eq!(is_oriya('୷'), true);
+        assert_eq!(is_oriya('౿'), false);
     }
 }
