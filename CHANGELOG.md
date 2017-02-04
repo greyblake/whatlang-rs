@@ -1,3 +1,6 @@
+#### 0.1.3 2017-02-04
+* Support whitelist and blacklist
+
 #### 0.1.3 2017-02-03
 * Support more than 50 languages
 

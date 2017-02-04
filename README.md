@@ -67,7 +67,7 @@ let query = Query::new(&text).
 
 * Support 100 most popular languages
 * ~~Allow to specify blacklist for Query~~
-* Allow to specify whitelist for Query
+* ~~Allow to specify whitelist for Query~~
 * Improve README example
 * Create demo application
 * Provide some metrics about reliability in `Result` struct
@@ -137,8 +137,8 @@ MIT
 
 ## Thanks
 
-I have to thank [Franc](https://github.com/wooorm/franc) JS project for inspiration
-and list of trigrams.
+I have to thank [Franc JS](https://github.com/wooorm/franc) project for inspiration
+and list of trigrams that I took.
 
 ## Contributors
 
