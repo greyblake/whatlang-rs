@@ -117,16 +117,16 @@ mod tests {
 
     #[test]
     fn test_detect_lang_with_blacklist() {
-        let text = String::from("I am begging pardon");
+        let text = "I am begging pardon";
 
         // without blacklist
-        let query = Query::new(&text);
+        let query = Query::new(text);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, Lang::Jav);
 
         // with blacklist
-        let query = Query::new(&text).
-            blacklist(vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob]);
+        let blacklist = [Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob];
+        let query = Query::new(text).blacklist(&blacklist);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, Lang::Eng);
     }
@@ -136,7 +136,8 @@ mod tests {
         let text = String::from("האקדמיה ללשון העברית");
 
         // All languages with Hebrew script are in blacklist, so result must be None
-        let query = Query::new(&text).blacklist(vec![Lang::Heb, Lang::Ydd]);
+        let blacklist = vec![Lang::Heb, Lang::Ydd];
+        let query = Query::new(&text).blacklist(&blacklist);
         let result = detect_lang(query);
         assert_eq!(result, None);
     }
@@ -146,12 +147,12 @@ mod tests {
         let whitelist = vec![Lang::Epo, Lang::Ukr];
 
         let text = String::from("Mi ne scias! Ne demandu min plu!");
-        let query = Query::new(&text).whitelist(whitelist.clone());
+        let query = Query::new(&text).whitelist(&whitelist);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, Lang::Epo);
 
         let text = String::from("Тут все.");
-        let query = Query::new(&text).whitelist(whitelist.clone());
+        let query = Query::new(&text).whitelist(&whitelist);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, Lang::Ukr);
     }

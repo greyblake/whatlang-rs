@@ -45,10 +45,9 @@ Your can blacklist undesired languages, passing a vector.
 In the example blow English and Spanish will be ignored:
 
 ```rust
-let query = Query::new(&text).
-    blacklist(vec![Lang::Eng, Lang::Spa]);
+let list = [Lang::Eng, Lang::Spa];
+let query = Query::new(&text).blacklist(&list);
 ```
-
 
 ## Whitelist
 
@@ -58,8 +57,8 @@ Note, if it detects a script that is different from Latin(Esperanto)
 or Cyrillic(Russian), e.g. Greek, it will return `None`.
 
 ```rust
-let query = Query::new(&text).
-    whitelist(vec![Lang::Epo, Lang::Rus]);
+let list = [Lang::Epo, Lang::Rus];
+let query = Query::new(&text).whitelist(&list);
 ```
 
 
@@ -73,6 +72,15 @@ let query = Query::new(&text).
 * Provide some metrics about reliability in `Result` struct
 * Write doc for public structurs and functions
 * Tune performance
+* Support syntax sugar:
+
+```rust
+  // Get result
+  let result = whatlang::new(&text).detect();
+
+  // Same with blacklist/whitelist, getting directly Lang
+  let lang = whatlang::new(&text).blacklist(LIST).detect_lang();
+```
 
 ### Supported languages
 
