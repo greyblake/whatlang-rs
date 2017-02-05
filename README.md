@@ -144,6 +144,7 @@ let query = Query::new(&text).whitelist(&list);
 | Malayalam   | mal       | `Lang::Mal` |
 | Hausa       | hau       | `Lang::Hau` |
 | Oriya       | ori       | `Lang::Ori` |
+| Burmese     | mya       | `Lang::Mya` |
 
 ## License
 

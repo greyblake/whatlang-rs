@@ -22,7 +22,8 @@ pub enum Script {
     Gurmukhi,
     Telugu,
     Malayalam,
-    Oriya
+    Oriya,
+    Myanmar
 }
 
 pub fn detect_script(text: &str) -> Option<Script> {
@@ -48,6 +49,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Telugu     , is_telugu     , 0),
         (Script::Malayalam  , is_malayalam  , 0),
         (Script::Oriya      , is_oriya      , 0),
+        (Script::Myanmar    , is_myanmar    , 0),
     ];
 
     let half = text.chars().count() / 2;
@@ -293,6 +295,14 @@ fn is_malayalam(ch: char) -> bool {
 fn is_oriya(ch: char) -> bool {
     match ch {
         '\u{0B00}'...'\u{0B7F}' => true,
+        _ => false
+    }
+}
+
+// Based on: https://en.wikipedia.org/wiki/Myanmar_(Unicode_block)
+fn is_myanmar(ch: char) -> bool {
+    match ch {
+        '\u{1000}'...'\u{109F}' => true,
         _ => false
     }
 }
