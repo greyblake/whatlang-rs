@@ -148,6 +148,7 @@ let query = Query::new(&text).whitelist(&list);
 | Bhojpuri    | bho       | `Lang::Bho` |
 | Tagalog     | tgl       | `Lang::Tgl` |
 | Yoruba      | yor       | `Lang::Yor` |
+| Maithili    | mai       | `Lang::Mai` |
 
 ## License
 
