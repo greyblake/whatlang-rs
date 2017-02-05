@@ -1,5 +1,8 @@
-#### Next
+#### 0.2.0 2017-02-06
 * Optimize script detection
+* Accept text, blacklist and whitelist as references
+* 10 new languages
+* Fix: always guarantee same result on same input data (fix sorting issue)
 
 #### 0.1.4 2017-02-04
 * Support whitelist and blacklist
