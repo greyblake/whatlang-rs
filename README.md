@@ -30,8 +30,8 @@ extern crate whatlang;
 use whatlang::{detect_lang, Lang, Script, Query};
 
 fn main() {
-    let text = "Guten Abend, meine Damen und Herren!".to_string();
-    let query = Query::new(&text);
+    let text = "Guten Abend, meine Damen und Herren!";
+    let query = Query::new(text);
     let result = detect_lang(query).unwrap();
     assert_eq!(result.lang, Lang::Deu);
     assert_eq!(result.lang.to_code(), "deu");
@@ -141,11 +141,10 @@ let query = Query::new(&text).
 
 MIT
 
-## Thanks
+## Acknowledgments
 
-I have to thank [Franc JS](https://github.com/wooorm/franc) project for inspiration
-and list of trigrams that I took.
+* Thanks [Franc JS](https://github.com/wooorm/franc) for trigrams dataset.
 
 ## Contributors
 
-- [greyblake](https://github.com/greyblake) Potapov Sergey - creator, maintainer
+- [greyblake](https://github.com/greyblake) Potapov Sergey - creator, maintainer.

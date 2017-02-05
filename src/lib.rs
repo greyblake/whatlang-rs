@@ -94,26 +94,22 @@ mod tests {
 
     #[test]
     fn test_detect_lang() {
-        let text = "Además de todo lo anteriormente dicho, también encontramos...".to_string();
-        let query = Query::new(&text);
+        let query = Query::new("Además de todo lo anteriormente dicho, también encontramos...");
         let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Spa);
         assert_eq!(res.script, Script::Latin);
 
-        let text = "English does not suit well for the role of international language".to_string();
-        let query = Query::new(&text);
+        let query = Query::new("English does not suit well for the role of international language");
         let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Eng);
         assert_eq!(res.script, Script::Latin);
 
-        let text = "Та нічого, все нормально. А в тебе як?".to_string();
-        let query = Query::new(&text);
+        let query = Query::new("Та нічого, все нормально. А в тебе як?");
         let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Ukr);
         assert_eq!(res.script, Script::Cyrillic);
 
-        let text = "ইউনিকোডে বাংলা লিপি".to_string();
-        let query = Query::new(&text);
+        let query = Query::new("ইউনিকোডে বাংলা লিপি");
         let res = detect_lang(query).unwrap();
         assert_eq!(res.lang, Lang::Ben);
         assert_eq!(res.script, Script::Bengali);

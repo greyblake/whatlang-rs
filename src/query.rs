@@ -2,13 +2,13 @@ use lang::Lang;
 
 #[derive(PartialEq, Eq, Debug, Clone)]
 pub struct Query<'txt> {
-    pub text: &'txt String,
+    pub text: &'txt str,
     pub blacklist: Option<Vec<Lang>>,
     pub whitelist: Option<Vec<Lang>>
 }
 
 impl<'txt> Query<'txt> {
-    pub fn new(text: &'txt String) -> Query<'txt> {
+    pub fn new(text: &'txt str) -> Query<'txt> {
         Query {
             text: text,
             blacklist: None,
@@ -39,6 +39,7 @@ mod tests {
         let query = Query::new(&text);
         assert_eq!(query.text, &text);
         assert_eq!(query.blacklist, None);
+        assert_eq!(query.whitelist, None);
     }
 
     #[test]
