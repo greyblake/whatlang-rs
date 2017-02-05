@@ -147,6 +147,7 @@ let query = Query::new(&text).whitelist(&list);
 | Burmese     | mya       | `Lang::Mya` |
 | Bhojpuri    | bho       | `Lang::Bho` |
 | Tagalog     | tgl       | `Lang::Tgl` |
+| Yoruba      | yor       | `Lang::Yor` |
 
 ## License
 
