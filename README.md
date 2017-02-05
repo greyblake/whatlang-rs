@@ -145,6 +145,7 @@ let query = Query::new(&text).whitelist(&list);
 | Hausa       | hau       | `Lang::Hau` |
 | Oriya       | ori       | `Lang::Ori` |
 | Burmese     | mya       | `Lang::Mya` |
+| Bhojpuri    | bho       | `Lang::Bho` |
 
 ## License
 
