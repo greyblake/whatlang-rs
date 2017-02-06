@@ -153,6 +153,7 @@ let query = Query::new(&text).whitelist(&list);
 | Igbo        | ibo       | `Lang::Ibo` |
 | Cebuano     | ceb       | `Lang::Ceb` |
 | Kurdish     | kur       | `Lang::Kur` |
+| Malagasy    | mlg       | `Lang::Mlg` |
 
 ### Missing languages
 
