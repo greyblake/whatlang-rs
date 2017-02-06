@@ -13,14 +13,12 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
 }
 
 fn count(text : &str) -> HashMap<String, u32> {
-    let mut s = text.to_lowercase();
-    s.push(' '); // add space to the end
-
     let mut counter_hash : HashMap<String, u32> = HashMap::new();
 
     // iterate through the string and count trigrams
-    let mut chars_iter = s.chars().map(to_trigram_char);
+    let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));
     let mut c1 = ' ';
+    // unwrap is safe, because we always chain a space character on the end of the iterator
     let mut c2 = chars_iter.next().unwrap();
     for cur_char in chars_iter {
         let c3 = cur_char;
