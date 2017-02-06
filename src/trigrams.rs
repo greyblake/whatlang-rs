@@ -12,7 +12,6 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
     count_vec.into_iter().take(600).enumerate().map(|(i, (_, trigram))| (trigram, i as u32)).collect()
 }
 
-#[inline(always)]
 fn count(text : &str) -> HashMap<String, u32> {
     let mut s = text.to_lowercase();
     s.push(' '); // add space to the end
@@ -41,7 +40,7 @@ fn count(text : &str) -> HashMap<String, u32> {
 }
 
 // Convert punctuations and digits to a space.
-#[inline(always)]
+#[inline]
 fn to_trigram_char(ch : char) -> char {
     if is_stop_char(ch) { ' ' } else { ch }
 }
