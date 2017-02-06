@@ -126,7 +126,7 @@ mod tests {
         assert_eq!(result.lang, Lang::Tgl);
 
         // with blacklist
-        let blacklist = [Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob];
+        let blacklist = [Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob, Lang::Ceb];
         let query = Query::new(text).blacklist(&blacklist);
         let result = detect_lang(query).unwrap();
         assert_eq!(result.lang, Lang::Eng);

@@ -151,6 +151,7 @@ let query = Query::new(&text).whitelist(&list);
 | Maithili    | mai       | `Lang::Mai` |
 | Oromo       | orm       | `Lang::Orm` |
 | Igbo        | ibo       | `Lang::Ibo` |
+| Cebuano     | ceb       | `Lang::Ceb` |
 
 ### Missing languages
 
