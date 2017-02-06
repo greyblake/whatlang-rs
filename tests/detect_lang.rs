@@ -5,22 +5,15 @@ use whatlang::detect_lang;
 use whatlang::Lang;
 use whatlang::Query;
 
-use std::fs::File;
-use std::io::*;
-
 use rustc_serialize::json;
 use std::collections::HashMap;
 
 
 #[test]
 fn test_with_multiple_examples() {
-    let file_path = "./tests/examples.json";
+    let example_data = include_str!("examples.json");
 
-    let mut file = File::open(file_path).unwrap();
-    let mut data = String::new();
-    file.read_to_string(&mut data).unwrap();
-
-    let examples: HashMap<String, String> = json::decode(data.as_ref()).unwrap();
+    let examples: HashMap<String, String> = json::decode(example_data).unwrap();
 
     for (lang_code, text) in examples {
         print!("Test {} ... ", lang_code);
