@@ -5,7 +5,7 @@
 Natural language detection in Rust.
 
 ## Features
-* Support more than 50 languages
+* Supports 70 languages
 * 100% written in Rust
 * No external dependencies
 * Super fast
@@ -172,3 +172,4 @@ MIT
 ## Contributors
 
 - [greyblake](https://github.com/greyblake) Potapov Sergey - creator, maintainer.
+- [Dr-Emann](https://github.com/Dr-Emann) Zachary Dremann - optimization and improvements
