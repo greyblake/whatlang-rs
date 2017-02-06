@@ -5,18 +5,11 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
     let counter_hash = count(text);
 
     // Sort in descending order by number of occurrences and trigrams
-    let mut count_vec: Vec<_> = counter_hash.iter().map(|(trigram, count)| (count, trigram)).collect();
+    let mut count_vec: Vec<_> = counter_hash.into_iter().map(|(trigram, count)| (count, trigram)).collect();
     count_vec.sort_by(|a, b| b.cmp(a));
 
-    let mut result: HashMap<String, u32> = HashMap::new();
-
     // TODO: extract 600 as LANG_PROFILE_LENGTH * 2
-    for (i, trigram) in count_vec.iter().take(600).map(|x| x.1).enumerate() {
-        // TODO: find a way not to clone it
-        result.insert((*trigram).clone(), i as u32);
-    }
-
-    result
+    count_vec.into_iter().take(600).enumerate().map(|(i, (_, trigram))| (trigram, i as u32)).collect()
 }
 
 #[inline(always)]
