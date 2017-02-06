@@ -5,35 +5,25 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
     let counter_hash = count(text);
 
     // Sort in descending order by number of occurrences and trigrams
-    let mut count_vec: Vec<_> = counter_hash.iter().map(|(trigram, count)| (count, trigram)).collect();
+    let mut count_vec: Vec<_> = counter_hash.into_iter().map(|(trigram, count)| (count, trigram)).collect();
     count_vec.sort_by(|a, b| b.cmp(a));
 
-    let mut result: HashMap<String, u32> = HashMap::new();
-
     // TODO: extract 600 as LANG_PROFILE_LENGTH * 2
-    for (i, trigram) in count_vec.iter().take(600).map(|x| x.1).enumerate() {
-        // TODO: find a way not to clone it
-        result.insert((*trigram).clone(), i as u32);
-    }
-
-    result
+    count_vec.into_iter().take(600).enumerate().map(|(i, (_, trigram))| (trigram, i as u32)).collect()
 }
 
-#[inline(always)]
 fn count(text : &str) -> HashMap<String, u32> {
-    let mut s = text.to_lowercase();
-    s.push(' '); // add space to the end
-
     let mut counter_hash : HashMap<String, u32> = HashMap::new();
 
     // iterate through the string and count trigrams
-    let mut chars_iter = s.chars();
+    let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));
     let mut c1 = ' ';
-    let mut c2 = to_trigram_char(chars_iter.next().unwrap());
+    // unwrap is safe, because we always chain a space character on the end of the iterator
+    let mut c2 = chars_iter.next().unwrap();
     for cur_char in chars_iter {
-        let c3 = to_trigram_char(cur_char);
+        let c3 = cur_char;
         if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
-            let mut trigram = String::with_capacity(3);
+            let mut trigram = String::with_capacity(c1.len_utf8() + c2.len_utf8() + c3.len_utf8());
             trigram.push(c1);
             trigram.push(c2);
             trigram.push(c3);
@@ -48,7 +38,7 @@ fn count(text : &str) -> HashMap<String, u32> {
 }
 
 // Convert punctuations and digits to a space.
-#[inline(always)]
+#[inline]
 fn to_trigram_char(ch : char) -> char {
     if is_stop_char(ch) { ' ' } else { ch }
 }
