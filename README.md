@@ -149,6 +149,12 @@ let query = Query::new(&text).whitelist(&list);
 | Tagalog     | tgl       | `Lang::Tgl` |
 | Yoruba      | yor       | `Lang::Yor` |
 | Maithili    | mai       | `Lang::Mai` |
+| Oromo       | orm       | `Lang::Orm` |
+
+### Missing languages
+
+The language that I did not find trigrams for:
+* [Fula](https://en.wikipedia.org/wiki/Fula_language)
 
 ## License
 
