@@ -26,8 +26,10 @@ pub enum Script {
     Myanmar
 }
 
+type ScriptCounter = (Script, fn(char) -> bool, usize);
+
 pub fn detect_script(text: &str) -> Option<Script> {
-    let mut script_checks: Vec<(Script, fn(char) -> bool, usize)> = vec![
+    let mut script_counters: Vec<ScriptCounter> = vec![
         (Script::Latin      , is_latin      , 0),
         (Script::Cyrillic   , is_cyrillic   , 0),
         (Script::Arabic     , is_arabic     , 0),
@@ -57,9 +59,12 @@ pub fn detect_script(text: &str) -> Option<Script> {
     for ch in text.chars() {
         if is_stop_char(ch) { continue; }
 
-        for i in 0..script_checks.len() {
+        // For performance reasons, we need to mutate script_counters by calling
+        // `swap` function, it would not be possible to do using normal iterator.
+        #[allow(needless_range_loop)]
+        for i in 0..script_counters.len() {
             let found = {
-                let (script, check_fn, ref mut count) = script_checks[i];
+                let (script, check_fn, ref mut count) = script_counters[i];
                 if check_fn(ch) {
                     *count += 1;
                     if *count > half {
@@ -77,14 +82,14 @@ pub fn detect_script(text: &str) -> Option<Script> {
                 // If the text contains largely 1 or 2 scripts, this will
                 // cause these scripts to be eventually checked first.
                 if i > 0 {
-                    script_checks.swap(i - 1, i);
+                    script_counters.swap(i - 1, i);
                 }
                 break;
             }
         }
     }
 
-    let (script, _, count) = script_checks.into_iter().max_by_key(|&(_, _, count)| count).unwrap();
+    let (script, _, count) = script_counters.into_iter().max_by_key(|&(_, _, count)| count).unwrap();
     if count != 0 {
         Some(script)
     } else {

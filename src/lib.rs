@@ -55,22 +55,22 @@ fn detect_lang_based_on_script(query : Query, script : Script) -> Option<Lang> {
 
 fn detect(query : Query, lang_profile_list : LangProfileList) -> Option<Lang> {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
-    let trigrams = get_trigrams_with_positions(&query.text);
+    let trigrams = get_trigrams_with_positions(query.text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
-        if let Some(ref whitelist) = query.whitelist {
+        if let Some(whitelist) = query.whitelist {
             // Skip non-whitelisted languages
             if !whitelist.contains(lang) { continue; }
-        } else if let Some(ref blacklist) = query.blacklist {
+        } else if let Some(blacklist) = query.blacklist {
             // Skip blacklisted languages
             if blacklist.contains(lang) { continue; }
         }
         let dist = calculate_distance(lang_trigrams, &trigrams);
-        lang_distances.push(((*lang).clone(), dist));
+        lang_distances.push(((*lang), dist));
     }
 
     lang_distances.sort_by_key(|key| key.1 );
-    lang_distances.iter().nth(0).map(|pair| pair.0)
+    lang_distances.first().map(|pair| pair.0)
 }
 
 fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<String, u32>) -> u32 {
