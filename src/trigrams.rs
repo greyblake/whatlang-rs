@@ -20,11 +20,11 @@ fn count(text : &str) -> HashMap<String, u32> {
     let mut counter_hash : HashMap<String, u32> = HashMap::new();
 
     // iterate through the string and count trigrams
-    let mut chars_iter = s.chars();
+    let mut chars_iter = s.chars().map(to_trigram_char);
     let mut c1 = ' ';
-    let mut c2 = to_trigram_char(chars_iter.next().unwrap());
+    let mut c2 = chars_iter.next().unwrap();
     for cur_char in chars_iter {
-        let c3 = to_trigram_char(cur_char);
+        let c3 = cur_char;
         if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
             let mut trigram = String::with_capacity(3);
             trigram.push(c1);
