@@ -31,7 +31,7 @@ impl<'a> Query<'a> {
 #[cfg(test)]
 mod tests {
     use super::Query;
-    use super::Lang;
+    use lang::Lang;
 
     #[test]
     fn test_new() {
