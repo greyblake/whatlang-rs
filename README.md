@@ -154,6 +154,7 @@ let query = Query::new(&text).whitelist(&list);
 | Cebuano     | ceb       | `Lang::Ceb` |
 | Kurdish     | kur       | `Lang::Kur` |
 | Malagasy    | mlg       | `Lang::Mlg` |
+| Saraiki     | skr       | `Lang::Skr` |
 
 ### Missing languages
 
