@@ -22,4 +22,3 @@ travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dev-dependencies]
 rustc-serialize = "0.3"
-clippy = "*"
