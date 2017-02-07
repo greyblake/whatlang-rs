@@ -5,10 +5,10 @@
 Natural language detection in Rust.
 
 ## Features
-* Supports 70 languages
+* Supports 75 languages
 * 100% written in Rust
 * No external dependencies
-* Super fast
+* Fast
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
 
 ## Get started
@@ -151,6 +151,7 @@ let query = Query::new(&text).whitelist(&list);
 | Sinhalese   | sin       | `Lang::Sin` |
 | Khmer       | khm       | `Lang::Khm` |
 | Turkmen     | tuk       | `Lang::Tuk` |
+| Somali      | som       | `Lang::Som` |
 
 ### Missing languages
 
