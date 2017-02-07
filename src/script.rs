@@ -24,7 +24,8 @@ pub enum Script {
     Malayalam,
     Oriya,
     Myanmar,
-    Sinhala
+    Sinhala,
+    Khmer
 }
 
 type ScriptCounter = (Script, fn(char) -> bool, usize);
@@ -54,6 +55,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Oriya      , is_oriya      , 0),
         (Script::Myanmar    , is_myanmar    , 0),
         (Script::Sinhala    , is_sinhala    , 0),
+        (Script::Khmer      , is_khmer      , 0)
     ];
 
     let half = text.chars().count() / 2;
@@ -317,6 +319,14 @@ fn is_myanmar(ch: char) -> bool {
 fn is_sinhala(ch: char) -> bool {
     match ch {
         '\u{0D80}'...'\u{0DFF}' => true,
+        _ => false
+    }
+}
+
+// Based on: https://en.wikipedia.org/wiki/Khmer_alphabet
+fn is_khmer(ch: char) -> bool {
+    match ch {
+        '\u{1780}'...'\u{17FF}' | '\u{19E0}'...'\u{19FF}' => true,
         _ => false
     }
 }
