@@ -150,6 +150,7 @@ let query = Query::new(&text).whitelist(&list);
 | Nepali      | nep       | `Lang::Nep` |
 | Sinhalese   | sin       | `Lang::Sin` |
 | Khmer       | khm       | `Lang::Khm` |
+| Turkmen     | tuk       | `Lang::Tuk` |
 
 ### Missing languages
 
