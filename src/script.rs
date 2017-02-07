@@ -31,6 +31,8 @@ pub enum Script {
 type ScriptCounter = (Script, fn(char) -> bool, usize);
 
 pub fn detect_script(text: &str) -> Option<Script> {
+    // TODO: can be optimized to use an array allocated on stack?
+    // script_counters[i] - would be cheaper
     let mut script_counters: Vec<ScriptCounter> = vec![
         (Script::Latin      , is_latin      , 0),
         (Script::Cyrillic   , is_cyrillic   , 0),
