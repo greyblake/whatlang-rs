@@ -147,6 +147,7 @@ let query = Query::new(&text).whitelist(&list);
 | Kurdish     | kur       | `Lang::Kur` |
 | Malagasy    | mlg       | `Lang::Mlg` |
 | Saraiki     | skr       | `Lang::Skr` |
+| Nepali      | nep       | `Lang::Nep` |
 
 ### Missing languages
 
