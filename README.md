@@ -61,26 +61,18 @@ let list = [Lang::Epo, Lang::Rus];
 let query = Query::new(&text).whitelist(&list);
 ```
 
-
 ## Roadmap
 
 * Support 100 most popular languages
 * ~~Allow to specify blacklist for Query~~
 * ~~Allow to specify whitelist for Query~~
+* [Support new API](https://github.com/greyblake/whatlang-rs/issues/5)
+* Write doc for public structures and functions
 * Improve README example
+* Tune performance
 * Create demo application
 * Provide some metrics about reliability in `Result` struct
-* Write doc for public structurs and functions
-* Tune performance
-* Support syntax sugar:
 
-```rust
-  // Get result
-  let result = whatlang::new(&text).detect();
-
-  // Same with blacklist/whitelist, getting directly Lang
-  let lang = whatlang::new(&text).blacklist(LIST).detect_lang();
-```
 
 ### Supported languages
 
