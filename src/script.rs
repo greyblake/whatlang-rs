@@ -23,7 +23,8 @@ pub enum Script {
     Telugu,
     Malayalam,
     Oriya,
-    Myanmar
+    Myanmar,
+    Sinhala
 }
 
 type ScriptCounter = (Script, fn(char) -> bool, usize);
@@ -52,6 +53,7 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Malayalam  , is_malayalam  , 0),
         (Script::Oriya      , is_oriya      , 0),
         (Script::Myanmar    , is_myanmar    , 0),
+        (Script::Sinhala    , is_sinhala    , 0),
     ];
 
     let half = text.chars().count() / 2;
@@ -307,6 +309,14 @@ fn is_oriya(ch: char) -> bool {
 fn is_myanmar(ch: char) -> bool {
     match ch {
         '\u{1000}'...'\u{109F}' => true,
+        _ => false
+    }
+}
+
+// Based on: https://en.wikipedia.org/wiki/Sinhala_(Unicode_block)
+fn is_sinhala(ch: char) -> bool {
+    match ch {
+        '\u{0D80}'...'\u{0DFF}' => true,
         _ => false
     }
 }

@@ -148,6 +148,7 @@ let query = Query::new(&text).whitelist(&list);
 | Malagasy    | mlg       | `Lang::Mlg` |
 | Saraiki     | skr       | `Lang::Skr` |
 | Nepali      | nep       | `Lang::Nep` |
+| Sinhalese   | sin       | `Lang::Sin` |
 
 ### Missing languages
 
