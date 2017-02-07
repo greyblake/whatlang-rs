@@ -1,3 +1,7 @@
+#### 0.2.1 2017-02-07
+* Support 10 new languages
+* Optimize trigram algorithms
+
 #### 0.2.0 2017-02-06
 * Optimize script detection
 * Accept text, blacklist and whitelist as references

@@ -61,7 +61,6 @@ pub fn detect_script(text: &str) -> Option<Script> {
 
         // For performance reasons, we need to mutate script_counters by calling
         // `swap` function, it would not be possible to do using normal iterator.
-        #[allow(needless_range_loop)]
         for i in 0..script_counters.len() {
             let found = {
                 let (script, check_fn, ref mut count) = script_counters[i];
