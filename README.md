@@ -153,6 +153,7 @@ let query = Query::new(&text).whitelist(&list);
 | Turkmen     | tuk       | `Lang::Tuk` |
 | Somali      | som       | `Lang::Som` |
 | Chewa       | nya       | `Lang::Nya` |
+| Akan        | aka       | `Lang::Aka` |
 
 ### Missing languages
 
