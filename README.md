@@ -158,6 +158,7 @@ let query = Query::new(&text).whitelist(&list);
 | Kinyarwanda    | kin       | `Lang::Kin` |
 | Haitian Creole | hat       | `Lang::Hat` |
 | Ilocano        | ilo       | `Lang::Ilo` |
+| Rundi          | run       | `Lang::Run` |
 
 ### Missing languages
 
