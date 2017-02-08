@@ -152,6 +152,7 @@ let query = Query::new(&text).whitelist(&list);
 | Khmer       | khm       | `Lang::Khm` |
 | Turkmen     | tuk       | `Lang::Tuk` |
 | Somali      | som       | `Lang::Som` |
+| Chewa       | nya       | `Lang::Nya` |
 
 ### Missing languages
 
