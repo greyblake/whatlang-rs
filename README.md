@@ -5,7 +5,7 @@
 Natural language detection in Rust.
 
 ## Features
-* Supports 75 languages
+* Supports 84 languages
 * 100% written in Rust
 * No external dependencies
 * Fast
@@ -63,7 +63,7 @@ let query = Query::new(&text).whitelist(&list);
 
 ## Roadmap
 
-* Support 100 most popular languages
+* ~~Support about 100 languages (actually at the moment it's 84)~~
 * ~~Allow to specify blacklist for Query~~
 * ~~Allow to specify whitelist for Query~~
 * [Support new API](https://github.com/greyblake/whatlang-rs/issues/5)
@@ -161,11 +161,6 @@ let query = Query::new(&text).whitelist(&list);
 | Rundi          | run       | `Lang::Run` |
 | Shona          | sna       | `Lang::Sna` |
 | Uyghur         | uig       | `Lang::Uig` |
-
-### Missing languages
-
-The language that I did not find trigrams for:
-* [Fula](https://en.wikipedia.org/wiki/Fula_language)
 
 ## License
 
