@@ -155,6 +155,7 @@ let query = Query::new(&text).whitelist(&list);
 | Chewa       | nya       | `Lang::Nya` |
 | Akan        | aka       | `Lang::Aka` |
 | Zulu        | zul       | `Lang::Zul` |
+| Kinyarwanda | kin       | `Lang::Kin` |
 
 ### Missing languages
 
