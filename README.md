@@ -154,6 +154,7 @@ let query = Query::new(&text).whitelist(&list);
 | Somali      | som       | `Lang::Som` |
 | Chewa       | nya       | `Lang::Nya` |
 | Akan        | aka       | `Lang::Aka` |
+| Zulu        | zul       | `Lang::Zul` |
 
 ### Missing languages
 
