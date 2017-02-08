@@ -160,6 +160,7 @@ let query = Query::new(&text).whitelist(&list);
 | Ilocano        | ilo       | `Lang::Ilo` |
 | Rundi          | run       | `Lang::Run` |
 | Shona          | sna       | `Lang::Sna` |
+| Uyghur         | uig       | `Lang::Uig` |
 
 ### Missing languages
 
