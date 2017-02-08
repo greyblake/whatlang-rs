@@ -159,6 +159,7 @@ let query = Query::new(&text).whitelist(&list);
 | Haitian Creole | hat       | `Lang::Hat` |
 | Ilocano        | ilo       | `Lang::Ilo` |
 | Rundi          | run       | `Lang::Run` |
+| Shona          | sna       | `Lang::Sna` |
 
 ### Missing languages
 
