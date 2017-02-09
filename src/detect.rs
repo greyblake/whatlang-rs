@@ -3,16 +3,27 @@ use std::collections::HashMap;
 use lang::*;
 use script::*;
 use trigrams::*;
-use query::Query;
 use info::Info;
+use options::Options;
+use options;
 
 const MAX_DIST : u32 = 300;
 
-pub fn detect(query : Query) -> Option<Info> {
-    let text = query.text;
+pub fn detect(text: &str) -> Option<Info> {
+    detect_with_options(text, &options::DEFAULT)
+}
 
+pub fn detect_lang(text: &str) -> Option<Lang> {
+    detect(text).map(|info| info.lang)
+}
+
+pub fn detect_lang_with_options(text: &str, options: &Options) -> Option<Lang> {
+    detect_with_options(text, options).map(|info| info.lang)
+}
+
+pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     if let Some(script) = detect_script(text) {
-        detect_lang_based_on_script(query, script).map( |lang| {
+        detect_lang_based_on_script(text, options, script).map( |lang| {
             Info { lang: lang, script: script }
         })
     } else {
@@ -20,14 +31,14 @@ pub fn detect(query : Query) -> Option<Info> {
     }
 }
 
-fn detect_lang_based_on_script(query : Query, script : Script) -> Option<Lang> {
+fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<Lang> {
     match script {
-        Script::Latin      => detect_lang_in_profiles(query, LATIN_LANGS),
-        Script::Cyrillic   => detect_lang_in_profiles(query, CYRILLIC_LANGS),
-        Script::Devanagari => detect_lang_in_profiles(query, DEVANAGARI_LANGS),
-        Script::Hebrew     => detect_lang_in_profiles(query, HEBREW_LANGS),
-        Script::Ethiopic   => detect_lang_in_profiles(query, ETHIOPIC_LANGS),
-        Script::Arabic     => detect_lang_in_profiles(query, ARABIC_LANGS),
+        Script::Latin      => detect_lang_in_profiles(text, options, LATIN_LANGS),
+        Script::Cyrillic   => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
+        Script::Devanagari => detect_lang_in_profiles(text, options, DEVANAGARI_LANGS),
+        Script::Hebrew     => detect_lang_in_profiles(text, options, HEBREW_LANGS),
+        Script::Ethiopic   => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
+        Script::Arabic     => detect_lang_in_profiles(text, options, ARABIC_LANGS),
         Script::Mandarin  => Some(Lang::Cmn),
         Script::Bengali   => Some(Lang::Ben),
         Script::Hangul    => Some(Lang::Kor),
@@ -48,15 +59,15 @@ fn detect_lang_based_on_script(query : Query, script : Script) -> Option<Lang> {
     }
 }
 
-fn detect_lang_in_profiles(query : Query, lang_profile_list : LangProfileList) -> Option<Lang> {
+fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : LangProfileList) -> Option<Lang> {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
-    let trigrams = get_trigrams_with_positions(query.text);
+    let trigrams = get_trigrams_with_positions(text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
-        if let Some(whitelist) = query.whitelist {
+        if let Some(whitelist) = options.whitelist {
             // Skip non-whitelisted languages
             if !whitelist.contains(lang) { continue; }
-        } else if let Some(blacklist) = query.blacklist {
+        } else if let Some(blacklist) = options.blacklist {
             // Skip blacklisted languages
             if blacklist.contains(lang) { continue; }
         }
@@ -86,70 +97,66 @@ mod tests {
     use lang::Lang;
     use script::Script;
     use super::detect;
-    use super::Query;
+    use super::detect_lang;
+    use super::detect_with_options;
+    use options;
+    use options::Options;
 
     #[test]
-    fn test_detect_lang() {
-        let query = Query::new("Además de todo lo anteriormente dicho, también encontramos...");
-        let info = detect(query).unwrap();
+    fn test_detect_spanish() {
+        let text = "Además de todo lo anteriormente dicho, también encontramos...";
+        let output = detect(text);
+        assert_eq!(output.is_some(), true);
+
+        let info = output.unwrap();
         assert_eq!(info.lang, Lang::Spa);
         assert_eq!(info.script, Script::Latin);
-
-        let query = Query::new("English does not suit well for the role of international language");
-        let info = detect(query).unwrap();
-        assert_eq!(info.lang, Lang::Eng);
-        assert_eq!(info.script, Script::Latin);
-
-        let query = Query::new("Та нічого, все нормально. А в тебе як?");
-        let info = detect(query).unwrap();
-        assert_eq!(info.lang, Lang::Ukr);
-        assert_eq!(info.script, Script::Cyrillic);
-
-        let query = Query::new("ইউনিকোডে বাংলা লিপি");
-        let info = detect(query).unwrap();
-        assert_eq!(info.lang, Lang::Ben);
-        assert_eq!(info.script, Script::Bengali);
     }
 
     #[test]
-    fn test_detect_lang_with_blacklist() {
-        let text = "I am begging pardon";
+    fn test_detect_lang_ukrainian() {
+        let text = "Та нічого, все нормально. А в тебе як?";
+        assert_eq!(detect_lang(text), Some(Lang::Ukr));
+    }
 
+    #[test]
+    fn test_detect_with_options_with_blacklist() {
+        let text = "I am begging pardon";
         // without blacklist
-        let query = Query::new(text);
-        let result = detect(query).unwrap();
-        assert_eq!(result.lang, Lang::Tgl);
+        let output = detect_with_options(text, &options::DEFAULT);
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang, Lang::Tgl);
 
         // with blacklist
         let blacklist = [Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob, Lang::Ceb, Lang::Ilo];
-        let query = Query::new(text).blacklist(&blacklist);
-        let result = detect(query).unwrap();
-        assert_eq!(result.lang, Lang::Eng);
+        let options = Options { whitelist: None, blacklist: Some(&blacklist) };
+        let output = detect_with_options(text, &options);
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang, Lang::Eng);
     }
 
     #[test]
-    fn test_detect_lang_with_blacklist_none() {
-        let text = String::from("האקדמיה ללשון העברית");
+    fn test_detect_with_options_with_blacklist_none() {
+        let text = "האקדמיה ללשון העברית";
 
         // All languages with Hebrew script are in blacklist, so result must be None
         let blacklist = vec![Lang::Heb, Lang::Ydd];
-        let query = Query::new(&text).blacklist(&blacklist);
-        let result = detect(query);
-        assert_eq!(result, None);
+        let options = Options { whitelist: None, blacklist: Some(&blacklist) };
+        let output = detect_with_options(text, &options);
+        assert_eq!(output, None);
     }
 
     #[test]
-    fn test_detect_lang_with_whitelist() {
+    fn test_detect_with_options_with_whitelist() {
         let whitelist = vec![Lang::Epo, Lang::Ukr];
+        let options = Options { whitelist: Some(&whitelist), blacklist: None };
 
-        let text = String::from("Mi ne scias! Ne demandu min plu!");
-        let query = Query::new(&text).whitelist(&whitelist);
-        let result = detect(query).unwrap();
-        assert_eq!(result.lang, Lang::Epo);
-
-        let text = String::from("Тут все.");
-        let query = Query::new(&text).whitelist(&whitelist);
-        let result = detect(query).unwrap();
-        assert_eq!(result.lang, Lang::Ukr);
+        let text = "Mi ne scias!";
+        let output = detect_with_options(text, &options);
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang, Lang::Epo);
     }
 }

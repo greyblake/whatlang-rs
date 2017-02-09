@@ -3,7 +3,6 @@ extern crate rustc_serialize;
 
 use whatlang::detect;
 use whatlang::Lang;
-use whatlang::Query;
 
 use rustc_serialize::json;
 use std::collections::HashMap;
@@ -19,9 +18,8 @@ fn test_with_multiple_examples() {
         print!("Test {} ... ", lang_code);
 
         let lang = Lang::from_code(lang_code).expect("Unknown language code");
-        let query = Query::new(&text);
-        let result = detect(query).unwrap();
-        assert_eq!(result.lang, lang);
+        let info = detect(&text).unwrap();
+        assert_eq!(info.lang, lang);
 
         println!("OK");
     }
