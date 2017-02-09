@@ -1,7 +1,7 @@
 extern crate whatlang;
 extern crate rustc_serialize;
 
-use whatlang::detect_lang;
+use whatlang::detect;
 use whatlang::Lang;
 use whatlang::Query;
 
@@ -20,11 +20,10 @@ fn test_with_multiple_examples() {
 
         let lang = Lang::from_code(lang_code).expect("Unknown language code");
         let query = Query::new(&text);
-        let result = detect_lang(query).unwrap();
+        let result = detect(query).unwrap();
         assert_eq!(result.lang, lang);
 
         println!("OK");
-
     }
 }
 
