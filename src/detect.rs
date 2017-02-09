@@ -9,10 +9,28 @@ use options;
 
 const MAX_DIST : u32 = 300;
 
+/// Detect a language and a script by a given text.
+///
+/// # Example
+/// ```
+/// use whatlang::{detect, Lang, Script};
+///
+/// let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
+/// assert_eq!(info.lang, Lang::Epo);
+/// assert_eq!(info.script, Script::Latin);
+/// ```
 pub fn detect(text: &str) -> Option<Info> {
     detect_with_options(text, &options::DEFAULT)
 }
 
+/// Detect only a language by a given text.
+///
+/// # Example
+/// ```
+/// use whatlang::{detect_lang, Lang};
+/// let lang = detect_lang("There is no reason not to learn Esperanto.").unwrap();
+/// assert_eq!(lang, Lang::Eng);
+/// ```
 pub fn detect_lang(text: &str) -> Option<Lang> {
     detect(text).map(|info| info.lang)
 }

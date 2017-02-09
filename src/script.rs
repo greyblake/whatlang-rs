@@ -1,5 +1,6 @@
 use utils::is_stop_char;
 
+/// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
     Latin,
@@ -30,6 +31,14 @@ pub enum Script {
 
 type ScriptCounter = (Script, fn(char) -> bool, usize);
 
+/// Detect only a script by a given text
+///
+/// # Example
+/// ```
+/// use whatlang::{detect_script, Script};
+/// let script = detect_script("Благодаря Эсперанто вы обрётете друзей по всему миру!").unwrap();
+/// assert_eq!(script, Script::Cyrillic);
+/// ```
 pub fn detect_script(text: &str) -> Option<Script> {
     // TODO: can be optimized to use an array allocated on stack?
     // script_counters[i] - would be cheaper

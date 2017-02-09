@@ -22,51 +22,39 @@ Add to you `Cargo.toml`:
 whatlang = "*"
 ```
 
-In you program:
+Small example:
 
 ```rust
-extern crate whatlang;
+use whatlang::{detect, Lang, Script};
 
-use whatlang::{detect_lang, Lang, Script, Query};
-
-fn main() {
-    let text = "Guten Abend, meine Damen und Herren!";
-    let query = Query::new(text);
-    let info = detect_lang(query).unwrap();
-    assert_eq!(info.lang, Lang::Deu);
-    assert_eq!(info.lang.to_code(), "deu");
-    assert_eq!(info.script, Script::Latin);
-}
+let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
+assert_eq!(info.lang, Lang::Epo);
+assert_eq!(info.script, Script::Latin);
 ```
 
-## Blacklist
+## Blacklisting and whitelisting
 
-Your can blacklist undesired languages, passing a vector.
-In the example blow English and Spanish will be ignored:
+You can create configured detector to apply blacklist or whitelist:
 
 ```rust
-let list = [Lang::Eng, Lang::Spa];
-let query = Query::new(&text).blacklist(&list);
+use whatlang::{Detector, Lang};
+
+const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
+
+// You can also create detector using with_blacklist function
+let detector = Detector::with_whitelist(WHITELIST);
+let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
+assert_eq!(lang, Some(Lang::Eng));
 ```
 
-## Whitelist
-
-In similar way, you can whitelist specified languages.
-In this example, the library will recognize only Esperanto and Russian.
-Note, if it detects a script that is different from Latin(Esperanto)
-or Cyrillic(Russian), e.g. Greek, it will return `None`.
-
-```rust
-let list = [Lang::Epo, Lang::Rus];
-let query = Query::new(&text).whitelist(&list);
-```
+For more details, please check [documentation](https://docs.rs/whatlang/).
 
 ## Roadmap
 
 * ~~Support about 100 languages (actually at the moment it's 84)~~
 * ~~Allow to specify blacklist for Query~~
 * ~~Allow to specify whitelist for Query~~
-* [Support new API](https://github.com/greyblake/whatlang-rs/issues/5)
+* ~~[Support new API](https://github.com/greyblake/whatlang-rs/issues/5)~~
 * Write doc for public structures and functions
 * Improve README example
 * Tune performance

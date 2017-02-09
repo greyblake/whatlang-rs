@@ -7,10 +7,35 @@ use options::Options;
 
 use detect;
 
+/// Configurable structure that holds detection options and provides functions
+/// to detect language and script.
+/// # Examples
+/// Specifying a whitelist:
+///
+/// ```
+/// use whatlang::{Detector, Lang};
+///
+/// const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
+///
+/// // Create detector with whitelist
+/// let detector = Detector::with_whitelist(WHITELIST);
+/// let lang = detector.detect_lang("That is not Russian");
+/// assert_eq!(lang, Some(Lang::Eng));
+/// ```
+///
+/// Specifying a blacklist:
+///
+/// ```
+/// use whatlang::{Detector, Lang};
+///
+/// const BLACKLIST: &'static [Lang] = &[Lang::Eng, Lang::Ita];
+///
+/// let detector = Detector::with_blacklist(BLACKLIST);
+/// let lang = detector.detect_lang("Jen la trinkejo fermitis, ni iras tra mallumo kaj pluvo.");
+/// assert_eq!(lang, Some(Lang::Epo));
+/// ```
 pub struct Detector<'a> {
     options: Options<'a>,
-    //whitelist: Option<&'a [Lang]>,
-    //blacklist: Option<&'a [Lang]>
 }
 
 impl<'a> Detector<'a> {
@@ -18,13 +43,15 @@ impl<'a> Detector<'a> {
         Self { options: options::DEFAULT }
     }
 
-    //pub fn with_whitelist(whitelist: &'a [Lang]) -> Self {
-    //    Self { whitelist: Some(whitelist), blacklist: None }
-    //}
+    pub fn with_whitelist(whitelist: &'a [Lang]) -> Self {
+        let opts = Options { whitelist: Some(whitelist), blacklist: None };
+        Self { options: opts }
+    }
 
-    //pub fn with_blacklist(blacklist: &'a [Lang]) -> Self {
-    //    Self { whitelist: None, blacklist: Some(blacklist) }
-    //}
+    pub fn with_blacklist(blacklist: &'a [Lang]) -> Self {
+        let opts = Options { whitelist: None, blacklist: Some(blacklist) };
+        Self { options: opts }
+    }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
         detect::detect_with_options(text, &self.options)

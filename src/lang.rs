@@ -1,3 +1,4 @@
+/// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
     Aka,
@@ -87,6 +88,13 @@ pub enum Lang {
 
 
 impl Lang {
+    /// Get enum by ISO 639-3 code as a string.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// assert_eq!(Lang::from_code("ukr"), Some(Lang::Ukr));
+    /// ```
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
         match code.into().to_lowercase().as_ref() {
                         "aka" => Some(Lang::Aka),
@@ -176,6 +184,13 @@ impl Lang {
         }
     }
 
+    /// Convert enum into ISO 639-3 code as a string.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// assert_eq!(Lang::Ukr.to_code(), "ukr");
+    /// ```
     pub fn to_code(&self) -> &str {
         match *self {
                         Lang::Aka => "aka",
