@@ -32,10 +32,10 @@ use whatlang::{detect_lang, Lang, Script, Query};
 fn main() {
     let text = "Guten Abend, meine Damen und Herren!";
     let query = Query::new(text);
-    let result = detect_lang(query).unwrap();
-    assert_eq!(result.lang, Lang::Deu);
-    assert_eq!(result.lang.to_code(), "deu");
-    assert_eq!(result.script, Script::Latin);
+    let info = detect_lang(query).unwrap();
+    assert_eq!(info.lang, Lang::Deu);
+    assert_eq!(info.lang.to_code(), "deu");
+    assert_eq!(info.script, Script::Latin);
 }
 ```
 
@@ -71,7 +71,7 @@ let query = Query::new(&text).whitelist(&list);
 * Improve README example
 * Tune performance
 * Create demo application
-* Provide some metrics about reliability in `Result` struct
+* Provide some metrics about reliability in `Info` struct
 
 
 ### Supported languages

@@ -3,7 +3,7 @@ use std::collections::HashMap;
 mod lang;
 mod script;
 mod query;
-mod result;
+mod info;
 mod utils;
 mod trigrams;
 
@@ -11,16 +11,16 @@ pub use lang::*;
 pub use script::*;
 pub use trigrams::*;
 pub use query::Query;
-pub use result::Result;
+pub use info::Info;
 
 const MAX_DIST : u32 = 300;
 
-pub fn detect_lang(query : Query) -> Option<Result> {
+pub fn detect_lang(query : Query) -> Option<Info> {
     let text = query.text;
 
     if let Some(script) = detect_script(text) {
         detect_lang_based_on_script(query, script).map( |lang| {
-            Result { lang: lang, script: script }
+            Info { lang: lang, script: script }
         })
     } else {
         None
