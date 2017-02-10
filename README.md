@@ -68,7 +68,7 @@ cargo bench
 * ~~Improve README example~~
 * ~~Implement benchmarks~~
 * ~~Tune performance~~
-* Create examples
+* ~~Create examples~~
 * Provide some metrics about reliability in `Info` struct
 
 ## License
