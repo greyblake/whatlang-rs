@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
 
-Natural language detection for Rust. [Documentation](https://docs.rs/whatlang/0.2.1/whatlang/).
+Natural language detection for Rust. [Documentation](https://docs.rs/whatlang).
 
 ## Features
 * Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
@@ -19,7 +19,7 @@ Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "*"
+whatlang = "0.3.0"
 ```
 
 Small example:
@@ -69,7 +69,7 @@ cargo bench
 * ~~Implement benchmarks~~
 * ~~Tune performance~~
 * ~~Create examples~~
-* Provide some metrics about reliability in `Info` struct
+* Provide some metrics about reliability(confidence) in `Info` struct
 
 ## License
 

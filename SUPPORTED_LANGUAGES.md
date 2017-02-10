@@ -2,7 +2,7 @@
 
 Natural language detection implemented in Rust.
 Please check also [README](https://github.com/greyblake/whatlang-rs/blob/master/README.md)
-and [documentation](https://docs.rs/whatlang/0.2.1/whatlang/).
+and [documentation](https://docs.rs/whatlang/).
 
 ## Supported languages
 
