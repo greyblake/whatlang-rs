@@ -40,17 +40,17 @@ pub struct Detector<'a> {
 
 impl<'a> Detector<'a> {
     pub fn new() -> Self {
-        Self { options: options::DEFAULT }
+        Detector { options: options::DEFAULT }
     }
 
     pub fn with_whitelist(whitelist: &'a [Lang]) -> Self {
         let opts = Options { whitelist: Some(whitelist), blacklist: None };
-        Self { options: opts }
+        Detector { options: opts }
     }
 
     pub fn with_blacklist(blacklist: &'a [Lang]) -> Self {
         let opts = Options { whitelist: None, blacklist: Some(blacklist) };
-        Self { options: opts }
+        Detector { options: opts }
     }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
