@@ -27,6 +27,7 @@ Small example:
 ```rust
 use whatlang::{detect, Lang, Script};
 
+// Detect Esperanto (there are also `detect_lang` and `detect_script` functions)
 let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
 assert_eq!(info.lang, Lang::Epo);
 assert_eq!(info.script, Script::Latin);
@@ -43,6 +44,8 @@ const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
 
 // You can also create detector using with_blacklist function
 let detector = Detector::with_whitelist(WHITELIST);
+
+// There are also `detect` and `detect_script` functions
 let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 assert_eq!(lang, Some(Lang::Eng));
 ```
