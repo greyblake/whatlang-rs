@@ -8,11 +8,10 @@ fn main() {
     println!("Please enter a text: ");
     io::stdin().read_line(&mut text).expect("Failed to read line");
 
-    let query = Query { text: &text };
-    if let Some(result) = detect_lang(query) {
-        println!("Language: {}", result.lang.to_code());
+    if let Some(lang) = detect_lang(&text) {
+        println!("Language: {}", lang.to_code());
     } else {
-        println!("Cannot recognize any language :(");
+        println!("Cannot recognize a language :(");
     }
 }
 

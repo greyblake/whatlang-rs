@@ -1,3 +1,7 @@
+#### v0.3.1 - 2017-02-10
+* Fix build
+* Add link to doc at crates.io
+
 #### v0.3.0 - 2017-02-10
 * Support New 14 languages
 * (breaking) New API
