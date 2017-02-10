@@ -1,4 +1,10 @@
-# Supported languages
+# Whatlang
+
+Natural language detection implemented in Rust.
+Please check also [README](https://github.com/greyblake/whatlang-rs/blob/master/README.md)
+and [documentation](https://docs.rs/whatlang/0.2.1/whatlang/).
+
+## Supported languages
 
 | Language       | ISO 639-3 | Enum        |
 | -------------- | --------- | ----------- |
