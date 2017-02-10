@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
 
-Natural language detection in Rust. [Documentation](https://docs.rs/whatlang/0.2.1/whatlang/).
+Natural language detection for Rust. [Documentation](https://docs.rs/whatlang/0.2.1/whatlang/).
 
 ## Features
 * Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
@@ -42,7 +42,7 @@ use whatlang::{Detector, Lang};
 
 const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
 
-// You can also create detector using with_blacklist function
+// You can also create detector using `with_blacklist` function
 let detector = Detector::with_whitelist(WHITELIST);
 
 // There are also `detect` and `detect_script` functions
@@ -52,6 +52,12 @@ assert_eq!(lang, Some(Lang::Eng));
 
 For more details, please check [documentation](https://docs.rs/whatlang/).
 
+## Running benchmarks
+
+```
+cargo bench
+```
+
 ## Roadmap
 
 * ~~Support about 100 languages (actually at the moment it's 84)~~
@@ -60,8 +66,8 @@ For more details, please check [documentation](https://docs.rs/whatlang/).
 * ~~[Support new API](https://github.com/greyblake/whatlang-rs/issues/5)~~
 * ~~Write doc for public structures and functions~~
 * ~~Improve README example~~
-* Implement benchmarks
-* Tune performance
+* ~~Implement benchmarks~~
+* ~~Tune performance~~
 * Create examples
 * Provide some metrics about reliability in `Info` struct
 

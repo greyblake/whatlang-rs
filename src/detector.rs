@@ -4,7 +4,6 @@ use script::detect_script;
 use info::Info;
 use options;
 use options::Options;
-
 use detect;
 
 /// Configurable structure that holds detection options and provides functions
