@@ -112,7 +112,7 @@ impl Lang {
     /// assert_eq!(Lang::from_code("ukr"), Some(Lang::Ukr));
     /// ```
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
-        let capitalized = Self::uppercase_first_letter(code);
+        let capitalized = Self::uppercase_first_letter(code.into().to_lowercase());
         Lang::from_string(capitalized)
     }
 
