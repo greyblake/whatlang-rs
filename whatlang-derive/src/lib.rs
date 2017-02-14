@@ -21,31 +21,45 @@ pub fn from_string_builder(input: TokenStream) -> TokenStream {
 }
 
 fn impl_from_string(ast: &syn::MacroInput) -> quote::Tokens {
-    let name = &ast.ident;
+    let enum_name = &ast.ident;
 
-    let fields = match ast.body {
-        syn::Body::Enum(ref fields) => fields,
-        syn::Body::Struct(_) => panic!("#[derive(EnumFromString)] can only be used with enums")
+    let variants = match ast.body {
+        syn::Body::Enum(ref variants) => variants,
+        _ => panic!("#[derive(EnumFromString)] can only be used with enums")
     };
 
     // generate match expression line by line
     let mut matcher: quote::Tokens = quote::Tokens::new();
-    for field in fields {
-        let field_name = field.ident.to_string();
+    let mut variants_names: Vec<String> = Vec::with_capacity(variants.len());
+    for variant in variants {
+        let variant_name = variant.ident.to_string();
         let match_tokens = quote! {
-            #field_name => Some(#name::#field),
+            #variant_name => Ok(#enum_name::#variant),
         };
         matcher.append(match_tokens.as_str());
+        variants_names.push(variant_name);
     }
 
     quote! {
-        impl EnumFromString for #name {
-            type EnumType = #name;
-            fn from_string<S: Into<String>>(s: S) -> Option< #name > {
-                match s.into().as_ref() {
+        impl ::std::str::FromStr for #enum_name {
+            type Err = ();
+            fn from_str(s: &str) -> Result<#enum_name, ()> {
+                match s {
                     #matcher
-                    _ => None
+                    _ => Err(())
                 }
+            }
+        }
+
+        impl ::std::fmt::Display for #enum_name {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                ::std::fmt::Debug::fmt(self, f)
+            }
+        }
+
+        impl #enum_name {
+            fn get_variants() -> Vec<&'static str> {
+                vec!(#(#variants_names),*)
             }
         }
     }

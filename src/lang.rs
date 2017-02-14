@@ -1,12 +1,7 @@
-use std::fmt;
-
-trait EnumFromString {
-    type EnumType;
-    fn from_string<S: Into<String>>(s: S) -> Option<Self::EnumType>;
-}
+use std::str::FromStr;
 
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
-#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy, EnumFromString)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, Debug, EnumFromString)]
 pub enum Lang {
     Aka,
     Amh,
@@ -93,7 +88,6 @@ pub enum Lang {
     Zul,
 }
 
-
 impl Lang {
     fn uppercase_first_letter<S: Into<String>>(s: S) -> String {
         let actual_str = s.into();
@@ -113,7 +107,7 @@ impl Lang {
     /// ```
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
         let capitalized = Self::uppercase_first_letter(code.into().to_lowercase());
-        Lang::from_string(capitalized)
+        Lang::from_str(capitalized.as_ref()).ok()
     }
 
     /// Convert enum into ISO 639-3 code as a string.
@@ -125,12 +119,6 @@ impl Lang {
     /// ```
     pub fn to_code(&self) -> String {
         self.to_string().to_lowercase()
-    }
-}
-
-impl fmt::Display for Lang {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        fmt::Debug::fmt(self, f)
     }
 }
 
