@@ -46,4 +46,4 @@ pub use detect::detect_lang;
 pub use script::detect_script;
 
 #[macro_use]
-extern crate whatlang_derive;
+extern crate derivation;

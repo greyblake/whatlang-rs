@@ -1,7 +1,8 @@
 use std::str::FromStr;
+use std::fmt;
 
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
-#[derive(PartialEq, Eq, Hash, Clone, Copy, Debug, EnumFromString)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, Debug, FromStr)]
 pub enum Lang {
     Aka,
     Amh,
@@ -86,6 +87,12 @@ pub enum Lang {
     Ydd,
     Yor,
     Zul,
+}
+
+impl fmt::Display for Lang {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        fmt::Debug::fmt(self, f)
+    }
 }
 
 impl Lang {

@@ -21,7 +21,7 @@ include = [
 travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dependencies]
-whatlang-derive = { path = "whatlang-derive" }
+derivation = "0.1"
 
 [dev-dependencies]
 rustc-serialize = "0.3"
