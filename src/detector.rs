@@ -2,7 +2,6 @@ use lang::Lang;
 use script::Script;
 use script::detect_script;
 use info::Info;
-use options;
 use options::Options;
 use detect;
 
@@ -39,25 +38,25 @@ pub struct Detector<'a> {
 
 impl<'a> Detector<'a> {
     pub fn new() -> Self {
-        Detector { options: options::DEFAULT }
+        Detector { options: Options::None }
     }
 
     pub fn with_whitelist(whitelist: &'a [Lang]) -> Self {
-        let opts = Options { whitelist: Some(whitelist), blacklist: None };
+        let opts = Options::Whitelist(whitelist);
         Detector { options: opts }
     }
 
     pub fn with_blacklist(blacklist: &'a [Lang]) -> Self {
-        let opts = Options { whitelist: None, blacklist: Some(blacklist) };
+        let opts = Options::Blacklist(blacklist);
         Detector { options: opts }
     }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
-        detect::detect_with_options(text, &self.options)
+        detect::detect_with_options(text, self.options)
     }
 
     pub fn detect_lang(&self, text: &str) -> Option<Lang> {
-        detect::detect_lang_with_options(text, &self.options)
+        detect::detect_lang_with_options(text, self.options)
     }
 
     pub fn detect_script(&self, text: &str) -> Option<Script> {

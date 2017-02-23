@@ -1,8 +1,14 @@
 use lang::Lang;
 
-pub struct Options<'a> {
-    pub blacklist: Option<&'a [Lang]>,
-    pub whitelist: Option<&'a [Lang]>
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub enum Options<'a> {
+    None,
+    Blacklist(&'a [Lang]),
+    Whitelist(&'a [Lang]),
 }
 
-pub const DEFAULT: Options<'static> = Options { blacklist: None, whitelist: None };
+impl<'a> Default for Options<'a> {
+    fn default() -> Self {
+        Options::None
+    }
+}
