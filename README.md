@@ -13,13 +13,11 @@ Natural language detection for Rust. [Documentation](https://docs.rs/whatlang).
 
 ## Get started
 
-The library is still in active development. Here is the short example how to use it:
-
 Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "0.3.0"
+whatlang = "0.3.1"
 ```
 
 Small example:
