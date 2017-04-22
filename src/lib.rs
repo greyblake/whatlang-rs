@@ -44,3 +44,6 @@ pub use detector::Detector;
 pub use detect::detect;
 pub use detect::detect_lang;
 pub use script::detect_script;
+
+#[macro_use]
+extern crate derivation;

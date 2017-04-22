@@ -1,5 +1,8 @@
+use std::str::FromStr;
+use std::fmt;
+
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
-#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, Debug, FromStr)]
 pub enum Lang {
     Aka,
     Amh,
@@ -86,8 +89,22 @@ pub enum Lang {
     Zul,
 }
 
+impl fmt::Display for Lang {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        fmt::Debug::fmt(self, f)
+    }
+}
 
 impl Lang {
+    fn uppercase_first_letter<S: Into<String>>(s: S) -> String {
+        let actual_str = s.into();
+        let mut c = actual_str.chars();
+        match c.next() {
+            None => String::new(),
+            Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+        }
+    }
+
     /// Get enum by ISO 639-3 code as a string.
     ///
     /// # Example
@@ -96,92 +113,8 @@ impl Lang {
     /// assert_eq!(Lang::from_code("ukr"), Some(Lang::Ukr));
     /// ```
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
-        match code.into().to_lowercase().as_ref() {
-                        "aka" => Some(Lang::Aka),
-                        "amh" => Some(Lang::Amh),
-                        "arb" => Some(Lang::Arb),
-                        "azj" => Some(Lang::Azj),
-                        "bel" => Some(Lang::Bel),
-                        "ben" => Some(Lang::Ben),
-                        "bho" => Some(Lang::Bho),
-                        "bul" => Some(Lang::Bul),
-                        "ceb" => Some(Lang::Ceb),
-                        "ces" => Some(Lang::Ces),
-                        "cmn" => Some(Lang::Cmn),
-                        "dan" => Some(Lang::Dan),
-                        "deu" => Some(Lang::Deu),
-                        "ell" => Some(Lang::Ell),
-                        "eng" => Some(Lang::Eng),
-                        "epo" => Some(Lang::Epo),
-                        "est" => Some(Lang::Est),
-                        "fin" => Some(Lang::Fin),
-                        "fra" => Some(Lang::Fra),
-                        "guj" => Some(Lang::Guj),
-                        "hat" => Some(Lang::Hat),
-                        "hau" => Some(Lang::Hau),
-                        "heb" => Some(Lang::Heb),
-                        "hin" => Some(Lang::Hin),
-                        "hrv" => Some(Lang::Hrv),
-                        "hun" => Some(Lang::Hun),
-                        "ibo" => Some(Lang::Ibo),
-                        "ilo" => Some(Lang::Ilo),
-                        "ind" => Some(Lang::Ind),
-                        "ita" => Some(Lang::Ita),
-                        "jav" => Some(Lang::Jav),
-                        "jpn" => Some(Lang::Jpn),
-                        "kan" => Some(Lang::Kan),
-                        "kat" => Some(Lang::Kat),
-                        "khm" => Some(Lang::Khm),
-                        "kin" => Some(Lang::Kin),
-                        "kor" => Some(Lang::Kor),
-                        "kur" => Some(Lang::Kur),
-                        "lav" => Some(Lang::Lav),
-                        "lit" => Some(Lang::Lit),
-                        "mai" => Some(Lang::Mai),
-                        "mal" => Some(Lang::Mal),
-                        "mar" => Some(Lang::Mar),
-                        "mkd" => Some(Lang::Mkd),
-                        "mlg" => Some(Lang::Mlg),
-                        "mya" => Some(Lang::Mya),
-                        "nep" => Some(Lang::Nep),
-                        "nld" => Some(Lang::Nld),
-                        "nno" => Some(Lang::Nno),
-                        "nob" => Some(Lang::Nob),
-                        "nya" => Some(Lang::Nya),
-                        "ori" => Some(Lang::Ori),
-                        "orm" => Some(Lang::Orm),
-                        "pan" => Some(Lang::Pan),
-                        "pes" => Some(Lang::Pes),
-                        "pol" => Some(Lang::Pol),
-                        "por" => Some(Lang::Por),
-                        "ron" => Some(Lang::Ron),
-                        "run" => Some(Lang::Run),
-                        "rus" => Some(Lang::Rus),
-                        "sin" => Some(Lang::Sin),
-                        "skr" => Some(Lang::Skr),
-                        "slv" => Some(Lang::Slv),
-                        "sna" => Some(Lang::Sna),
-                        "som" => Some(Lang::Som),
-                        "spa" => Some(Lang::Spa),
-                        "srp" => Some(Lang::Srp),
-                        "swe" => Some(Lang::Swe),
-                        "tam" => Some(Lang::Tam),
-                        "tel" => Some(Lang::Tel),
-                        "tgl" => Some(Lang::Tgl),
-                        "tha" => Some(Lang::Tha),
-                        "tir" => Some(Lang::Tir),
-                        "tuk" => Some(Lang::Tuk),
-                        "tur" => Some(Lang::Tur),
-                        "uig" => Some(Lang::Uig),
-                        "ukr" => Some(Lang::Ukr),
-                        "urd" => Some(Lang::Urd),
-                        "uzb" => Some(Lang::Uzb),
-                        "vie" => Some(Lang::Vie),
-                        "ydd" => Some(Lang::Ydd),
-                        "yor" => Some(Lang::Yor),
-                        "zul" => Some(Lang::Zul),
-                        _ => None
-        }
+        let capitalized = Self::uppercase_first_letter(code.into().to_lowercase());
+        Lang::from_str(capitalized.as_ref()).ok()
     }
 
     /// Convert enum into ISO 639-3 code as a string.
@@ -191,92 +124,8 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.to_code(), "ukr");
     /// ```
-    pub fn to_code(&self) -> &str {
-        match *self {
-                        Lang::Aka => "aka",
-                        Lang::Amh => "amh",
-                        Lang::Arb => "arb",
-                        Lang::Azj => "azj",
-                        Lang::Bel => "bel",
-                        Lang::Ben => "ben",
-                        Lang::Bho => "bho",
-                        Lang::Bul => "bul",
-                        Lang::Ceb => "ceb",
-                        Lang::Ces => "ces",
-                        Lang::Cmn => "cmn",
-                        Lang::Dan => "dan",
-                        Lang::Deu => "deu",
-                        Lang::Ell => "ell",
-                        Lang::Eng => "eng",
-                        Lang::Epo => "epo",
-                        Lang::Est => "est",
-                        Lang::Fin => "fin",
-                        Lang::Fra => "fra",
-                        Lang::Guj => "guj",
-                        Lang::Hat => "hat",
-                        Lang::Hau => "hau",
-                        Lang::Heb => "heb",
-                        Lang::Hin => "hin",
-                        Lang::Hrv => "hrv",
-                        Lang::Hun => "hun",
-                        Lang::Ibo => "ibo",
-                        Lang::Ilo => "ilo",
-                        Lang::Ind => "ind",
-                        Lang::Ita => "ita",
-                        Lang::Jav => "jav",
-                        Lang::Jpn => "jpn",
-                        Lang::Kan => "kan",
-                        Lang::Kat => "kat",
-                        Lang::Khm => "khm",
-                        Lang::Kin => "kin",
-                        Lang::Kor => "kor",
-                        Lang::Kur => "kur",
-                        Lang::Lav => "lav",
-                        Lang::Lit => "lit",
-                        Lang::Mai => "mai",
-                        Lang::Mal => "mal",
-                        Lang::Mar => "mar",
-                        Lang::Mkd => "mkd",
-                        Lang::Mlg => "mlg",
-                        Lang::Mya => "mya",
-                        Lang::Nep => "nep",
-                        Lang::Nld => "nld",
-                        Lang::Nno => "nno",
-                        Lang::Nob => "nob",
-                        Lang::Nya => "nya",
-                        Lang::Ori => "ori",
-                        Lang::Orm => "orm",
-                        Lang::Pan => "pan",
-                        Lang::Pes => "pes",
-                        Lang::Pol => "pol",
-                        Lang::Por => "por",
-                        Lang::Ron => "ron",
-                        Lang::Run => "run",
-                        Lang::Rus => "rus",
-                        Lang::Sin => "sin",
-                        Lang::Skr => "skr",
-                        Lang::Slv => "slv",
-                        Lang::Sna => "sna",
-                        Lang::Som => "som",
-                        Lang::Spa => "spa",
-                        Lang::Srp => "srp",
-                        Lang::Swe => "swe",
-                        Lang::Tam => "tam",
-                        Lang::Tel => "tel",
-                        Lang::Tgl => "tgl",
-                        Lang::Tha => "tha",
-                        Lang::Tir => "tir",
-                        Lang::Tuk => "tuk",
-                        Lang::Tur => "tur",
-                        Lang::Uig => "uig",
-                        Lang::Ukr => "ukr",
-                        Lang::Urd => "urd",
-                        Lang::Uzb => "uzb",
-                        Lang::Vie => "vie",
-                        Lang::Ydd => "ydd",
-                        Lang::Yor => "yor",
-                        Lang::Zul => "zul",
-                    }
+    pub fn to_code(&self) -> String {
+        self.to_string().to_lowercase()
     }
 }
 
