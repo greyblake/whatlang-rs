@@ -1,3 +1,6 @@
+#### v0.3.2 - 2017-06-04
+* Small perfomance improvement: preallocate memory for counter_hash in trigrams.rs (~ 2-3% faster)
+
 #### v0.3.1 - 2017-02-10
 * Fix build
 * Add link to doc at crates.io
