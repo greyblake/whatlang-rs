@@ -27,6 +27,8 @@
 //! assert_eq!(lang, Some(Lang::Eng));
 //! ```
 
+extern crate fnv;
+
 mod lang;
 mod script;
 mod info;

@@ -1,11 +1,11 @@
 use utils::is_stop_char;
-use std::collections::HashMap;
+use fnv::FnvHashMap;
 
 // Allocating some default for the hash memory slightly improves perfomance (about 3%).
 // TODO: ideally initial capacity must be a function of text.len().
 const DEFAULT_HASH_CAPACITY : usize = 512;
 
-pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
+pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
     let counter_hash = count(text);
 
     // Sort in descending order by number of occurrences and trigrams
@@ -16,8 +16,8 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
     count_vec.into_iter().take(600).enumerate().map(|(i, (_, trigram))| (trigram, i as u32)).collect()
 }
 
-fn count(text : &str) -> HashMap<String, u32> {
-    let mut counter_hash : HashMap<String, u32> = HashMap::with_capacity(DEFAULT_HASH_CAPACITY);
+fn count(text : &str) -> FnvHashMap<String, u32> {
+    let mut counter_hash : FnvHashMap<String, u32> = FnvHashMap::with_capacity_and_hasher(DEFAULT_HASH_CAPACITY, Default::default());
 
     // iterate through the string and count trigrams
     let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));

@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use fnv::FnvHashMap;
 
 use lang::*;
 use script::*;
@@ -96,7 +96,7 @@ fn detect_lang_in_profiles(text: &str, options: Options, lang_profile_list : Lan
     lang_distances.first().map(|pair| pair.0)
 }
 
-fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<String, u32>) -> u32 {
+fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &FnvHashMap<String, u32>) -> u32 {
     let mut total_dist = 0u32;
 
     for (i, &trigram) in lang_trigrams.iter().enumerate() {
