@@ -21,7 +21,7 @@ include = [
 travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dependencies]
-fnv = "*"
+fnv = "1.0"
 
 [dev-dependencies]
 rustc-serialize = "0.3"
