@@ -7,7 +7,7 @@ Natural language detection for Rust. [Documentation](https://docs.rs/whatlang).
 ## Features
 * Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
-* No external dependencies
+* No external dependencies (apart from fnv hasher)
 * Fast
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
 

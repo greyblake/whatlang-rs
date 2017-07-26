@@ -1,3 +1,6 @@
+#### v0.3.3 - 2017-07-26
+* Replace HashMap with FnvHashMap (~ 33% faster)
+
 #### v0.3.2 - 2017-06-04
 * Small perfomance improvement: preallocate memory for counter_hash in trigrams.rs (~ 2-3% faster)
 
