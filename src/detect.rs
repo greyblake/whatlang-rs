@@ -111,12 +111,8 @@ fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<Strin
 
 #[cfg(test)]
 mod tests {
-    use lang::Lang;
+    use super::*;
     use script::Script;
-    use super::detect;
-    use super::detect_lang;
-    use super::detect_with_options;
-    use options::Options;
 
     #[test]
     fn test_detect_spanish() {

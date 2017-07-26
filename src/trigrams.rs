@@ -51,9 +51,7 @@ fn to_trigram_char(ch : char) -> char {
 
 #[cfg(test)]
 mod tests {
-    use super::to_trigram_char;
-    use super::count;
-    use super::get_trigrams_with_positions;
+    use super::*;
 
     fn assert_valuable_trigram_chars(chars : &[char]) {
         for &ch in chars.iter() {

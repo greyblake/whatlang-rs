@@ -344,24 +344,7 @@ fn is_khmer(ch: char) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::Script;
-    use super::is_cyrillic;
-    use super::is_latin;
-    use super::is_georgian;
-    use super::is_ethiopic;
-    use super::is_bengali;
-    use super::is_katakana;
-    use super::is_hiragana;
-    use super::is_hangul;
-    use super::is_greek;
-    use super::is_kannada;
-    use super::is_tamil;
-    use super::is_thai;
-    use super::is_gujarati;
-    use super::is_gurmukhi;
-    use super::is_telugu;
-    use super::is_oriya;
-    use super::detect_script;
+    use super::*;
 
     #[test]
     fn test_detect_script() {

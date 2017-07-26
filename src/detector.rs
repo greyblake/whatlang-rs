@@ -66,9 +66,7 @@ impl<'a> Detector<'a> {
 
 #[cfg(test)]
 mod tests {
-    use super::Detector;
-    use super::Script;
-    use super::Lang;
+    use super::*;
 
     #[test]
     fn test_detect_script() {
