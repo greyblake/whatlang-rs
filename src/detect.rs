@@ -42,13 +42,11 @@ pub fn detect_lang_with_options(text: &str, options: &Options) -> Option<Lang> {
 }
 
 pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
-    if let Some(script) = detect_script(text) {
+    detect_script(text).and_then(|script| {
         detect_lang_based_on_script(text, options, script).map( |(lang, is_reliable)| {
             Info { lang, script, is_reliable }
         })
-    } else {
-        None
-    }
+    })
 }
 
 fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<(Lang, bool)> {
@@ -91,12 +89,6 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
             Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
             _ => {},
         }
-
-        //match options {
-        //    Options::Whitelist(whitelist) if !whitelist.contains(lang) => continue,
-        //    Options::Blacklist(blacklist) if blacklist.contains(lang) => continue,
-        //    _ => {},
-        //}
         let dist = calculate_distance(lang_trigrams, &trigrams);
         lang_distances.push(((*lang), dist));
     }
