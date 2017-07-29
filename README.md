@@ -48,11 +48,11 @@ cargo bench
 ### How language recognition works?
 
 The algorithm is based on the trigram language models, which is a particular case of n-grams.
-To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](http://odur.let.rug.nl/~vannoord/TextCat/textcat.pdf)
+To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](http://odur.let.rug.nl/~vannoord/TextCat/textcat.pdf).
 
-### How is_reliable calculated?
+### How _is_reliable_ calculated?
 
-`info.is_reliable()` is based on the following factors:
+It is based on the following factors:
 * How many unique trigrams are in the given text
 * How big is the difference between the first and the second(not returned) detected languages? This metric is called `rate` in the code base.
 
