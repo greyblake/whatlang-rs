@@ -40,6 +40,7 @@ pub use lang::Lang;
 pub use script::Script;
 pub use info::Info;
 pub use detector::Detector;
+pub use options::Options;
 
 pub use detect::detect;
 pub use detect::detect_lang;

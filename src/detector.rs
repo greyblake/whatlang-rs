@@ -40,12 +40,16 @@ impl Detector {
 
     pub fn with_whitelist(whitelist: Vec<Lang>) -> Self {
         let opts = Options::new().set_whitelist(whitelist);
-        Detector { options: opts }
+        Self::with_options(opts)
     }
 
     pub fn with_blacklist(blacklist: Vec<Lang>) -> Self {
         let opts = Options::new().set_blacklist(blacklist);
-        Detector { options: opts }
+        Self::with_options(opts)
+    }
+
+    pub fn with_options(options: Options) -> Self {
+        Detector { options }
     }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
