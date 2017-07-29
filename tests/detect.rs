@@ -20,6 +20,7 @@ fn test_with_multiple_examples() {
         let lang = Lang::from_code(lang_code).expect("Unknown language code");
         let info = detect(&text).unwrap();
         assert_eq!(info.lang, lang);
+        assert!(info.is_reliable);
 
         println!("OK");
     }

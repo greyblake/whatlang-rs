@@ -6,7 +6,10 @@ use trigrams::*;
 use info::Info;
 use options::Options;
 
-const MAX_DIST : u32 = 300;
+const MAX_TRIGRAM_DISTANCE : u32 = 300;
+
+// 300 * 300 = 90_000
+const MAX_TOTAL_DISTANCE : u32 = 90_000;
 
 /// Detect a language and a script by a given text.
 ///
@@ -40,15 +43,15 @@ pub fn detect_lang_with_options(text: &str, options: Options) -> Option<Lang> {
 
 pub fn detect_with_options(text: &str, options: Options) -> Option<Info> {
     if let Some(script) = detect_script(text) {
-        detect_lang_based_on_script(text, options, script).map( |lang| {
-            Info { lang: lang, script: script }
+        detect_lang_based_on_script(text, options, script).map( |(lang, is_reliable)| {
+            Info { lang, script, is_reliable }
         })
     } else {
         None
     }
 }
 
-fn detect_lang_based_on_script(text: &str, options: Options, script : Script) -> Option<Lang> {
+fn detect_lang_based_on_script(text: &str, options: Options, script : Script) -> Option<(Lang, bool)> {
     match script {
         Script::Latin      => detect_lang_in_profiles(text, options, LATIN_LANGS),
         Script::Cyrillic   => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
@@ -56,27 +59,27 @@ fn detect_lang_based_on_script(text: &str, options: Options, script : Script) ->
         Script::Hebrew     => detect_lang_in_profiles(text, options, HEBREW_LANGS),
         Script::Ethiopic   => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
         Script::Arabic     => detect_lang_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin  => Some(Lang::Cmn),
-        Script::Bengali   => Some(Lang::Ben),
-        Script::Hangul    => Some(Lang::Kor),
-        Script::Georgian  => Some(Lang::Kat),
-        Script::Greek     => Some(Lang::Ell),
-        Script::Kannada   => Some(Lang::Kan),
-        Script::Tamil     => Some(Lang::Tam),
-        Script::Thai      => Some(Lang::Tha),
-        Script::Gujarati  => Some(Lang::Guj),
-        Script::Gurmukhi  => Some(Lang::Pan),
-        Script::Telugu    => Some(Lang::Tel),
-        Script::Malayalam => Some(Lang::Mal),
-        Script::Oriya     => Some(Lang::Ori),
-        Script::Myanmar   => Some(Lang::Mya),
-        Script::Sinhala   => Some(Lang::Sin),
-        Script::Khmer     => Some(Lang::Khm),
-        Script::Katakana | Script::Hiragana  => Some(Lang::Jpn)
+        Script::Mandarin  => Some((Lang::Cmn, true)),
+        Script::Bengali   => Some((Lang::Ben, true)),
+        Script::Hangul    => Some((Lang::Kor, true)),
+        Script::Georgian  => Some((Lang::Kat, true)),
+        Script::Greek     => Some((Lang::Ell, true)),
+        Script::Kannada   => Some((Lang::Kan, true)),
+        Script::Tamil     => Some((Lang::Tam, true)),
+        Script::Thai      => Some((Lang::Tha, true)),
+        Script::Gujarati  => Some((Lang::Guj, true)),
+        Script::Gurmukhi  => Some((Lang::Pan, true)),
+        Script::Telugu    => Some((Lang::Tel, true)),
+        Script::Malayalam => Some((Lang::Mal, true)),
+        Script::Oriya     => Some((Lang::Ori, true)),
+        Script::Myanmar   => Some((Lang::Mya, true)),
+        Script::Sinhala   => Some((Lang::Sin, true)),
+        Script::Khmer     => Some((Lang::Khm, true)),
+        Script::Katakana | Script::Hiragana  => Some((Lang::Jpn, true))
     }
 }
 
-fn detect_lang_in_profiles(text: &str, options: Options, lang_profile_list : LangProfileList) -> Option<Lang> {
+fn detect_lang_in_profiles(text: &str, options: Options, lang_profile_list : LangProfileList) -> Option<(Lang, bool)> {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
     let trigrams = get_trigrams_with_positions(text);
 
@@ -92,8 +95,32 @@ fn detect_lang_in_profiles(text: &str, options: Options, lang_profile_list : Lan
         lang_distances.push(((*lang), dist));
     }
 
+    // Sort languages by distance
     lang_distances.sort_by_key(|key| key.1 );
-    lang_distances.first().map(|pair| pair.0)
+
+    // Return None if lang_distances is empty
+    // Return the only language with is_reliable=true if there is only 1 item
+    if lang_distances.len() < 2 {
+        return lang_distances.first().map(|pair| (pair.0, true));
+    }
+
+    // Calculate is_reliable based on:
+    // - number of unique trigrams in the text
+    // - rate (diff between score of the first and second languages)
+    //
+    // Threshold rate function is the following hyperbola:
+    // y = (10 / x) + 0.03
+    //
+    let lang_dist1 = lang_distances[0];
+    let lang_dist2 = lang_distances[1];
+    let score1 = MAX_TOTAL_DISTANCE - lang_dist1.1;
+    let score2 = MAX_TOTAL_DISTANCE - lang_dist2.1;
+    let rate = (score1 - score2) as f64 / (score2 as f64);
+
+    let min_reliable_rate = (10.0 / trigrams.len() as f64) + 0.03;
+    let is_reliable = rate > min_reliable_rate;
+
+    Some((lang_dist1.0, is_reliable))
 }
 
 fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &FnvHashMap<String, u32>) -> u32 {
@@ -102,7 +129,7 @@ fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &FnvHashMap<St
     for (i, &trigram) in lang_trigrams.iter().enumerate() {
         let dist = match text_trigrams.get(trigram) {
             Some(&n) => (n as i32 - i as i32).abs() as u32,
-            None => MAX_DIST
+            None => MAX_TRIGRAM_DISTANCE
         };
         total_dist += dist;
     }
