@@ -32,6 +32,7 @@ use detect;
 /// let lang = detector.detect_lang("Jen la trinkejo fermitis, ni iras tra mallumo kaj pluvo.");
 /// assert_eq!(lang, Some(Lang::Epo));
 /// ```
+#[derive(Debug, Clone, Default)]
 pub struct Detector<'a> {
     options: Options<'a>,
 }
