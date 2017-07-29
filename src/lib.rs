@@ -9,9 +9,11 @@
 //! ```
 //! use whatlang::{detect, Lang, Script};
 //!
-//! let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
-//! assert_eq!(info.lang, Lang::Epo);
-//! assert_eq!(info.script, Script::Latin);
+//! let text = "Ĉu vi ne volas eklerni Esperanton? Bonvolu! Estas unu de la plej bonaj aferoj!";
+//! let info = detect(text).unwrap();
+//! assert_eq!(info.lang(), Lang::Epo);
+//! assert_eq!(info.script(), Script::Latin);
+//! assert!(info.is_reliable());
 //! ```
 //!
 //! Using `Detector` with specified blacklist or whitelist:
@@ -44,4 +46,5 @@ pub use options::Options;
 
 pub use detect::detect;
 pub use detect::detect_lang;
+pub use detect::detect_with_options;
 pub use script::detect_script;

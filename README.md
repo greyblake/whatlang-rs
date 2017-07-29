@@ -1,8 +1,8 @@
 # Whatlang
 
-[![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
+[![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs) [DOCUMENTATION](https://docs.rs/whatlang).
 
-Natural language detection for Rust with focus on simplicity and performance. [Documentation](https://docs.rs/whatlang).
+Natural language detection for Rust with focus on simplicity and performance.
 
 ## Features
 * Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)

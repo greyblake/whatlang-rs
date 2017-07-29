@@ -18,8 +18,8 @@ const MAX_TOTAL_DISTANCE : u32 = 90_000;
 /// use whatlang::{detect, Lang, Script};
 ///
 /// let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
-/// assert_eq!(info.lang, Lang::Epo);
-/// assert_eq!(info.script, Script::Latin);
+/// assert_eq!(info.lang(), Lang::Epo);
+/// assert_eq!(info.script(), Script::Latin);
 /// ```
 pub fn detect(text: &str) -> Option<Info> {
     detect_with_options(text, &Options::default())
