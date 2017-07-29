@@ -17,10 +17,10 @@ impl Lang {
     /// ```
     pub fn from_code<S: Into<String>>(code: S) -> Option<Lang> {
         match code.into().to_lowercase().as_ref() {
-            <% lang_codes.each do |code| %>
-            "<%= code %>" => Some(Lang::<%= code.capitalize %>),
-            <% end %>
-            _ => None
+      <% lang_codes.each do |code| %>
+      "<%= code %>" => Some(Lang::<%= code.capitalize %>),
+      <% end %>
+        _ => None
         }
     }
 
@@ -33,9 +33,9 @@ impl Lang {
     /// ```
     pub fn to_code(&self) -> &str {
         match *self {
-            <% lang_codes.each do |code| %>
-            Lang::<%= code.capitalize %> => "<%= code %>",
-            <% end %>
+      <% lang_codes.each do |code| %>
+      Lang::<%= code.capitalize %> => "<%= code %>",
+      <% end %>
         }
     }
 }
