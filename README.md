@@ -6,13 +6,27 @@
 
 Natural language detection for Rust with focus on simplicity and performance.
 
+* [Features](#features)
+* [Get started](#get-started)
+* [Documentation](https://docs.rs/whatlang)
+* [Supported languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* [How does it work?](#how-does-it-work)
+  * [How language recognition works?](#how-language-recognition-works)
+  * [How is_reliable calculated?](#how-is_reliable-calculated)
+* [Running benchmark](#running-benchmarks)
+* [Ports and clones](ports-and-clones)
+* [Derivation](#derivation)
+* [License](#license)
+* [Contributors](#contributors)
+
+
 ## Features
 * Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
-* No external dependencies (apart from [fnv](https://crates.io/crates/fnv) hasher)
-* Fast
+* Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
 * Provides reliability information
+* No external dependencies (apart from [fnv](https://crates.io/crates/fnv) hasher, that gives 30% boost)
 
 ## Get started
 
@@ -37,12 +51,6 @@ assert!(info.is_reliable());
 
 For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).
 
-## Running benchmarks
-
-```
-cargo bench
-```
-
 ## How does it work?
 
 ### How language recognition works?
@@ -61,6 +69,14 @@ This function is a hyperbola and it looks like the following one:
 
 ![Whatlang is reliable](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png)
 
+
+## Running benchmarks
+
+This is mostly useful to test performance optimizations.
+
+```
+cargo bench
+```
 
 ## Ports and clones
 
