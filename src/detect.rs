@@ -83,9 +83,7 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
         match options.list {
-            // Skip non-whitelisted languages
             Some(List::White(ref whitelist)) if !whitelist.contains(lang) => continue,
-            // Skip blacklisted languages
             Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
             _ => {},
         }
