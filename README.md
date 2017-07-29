@@ -57,13 +57,18 @@ For more details, please check [documentation](https://docs.rs/whatlang/).
 cargo bench
 ```
 
+## Ports and clones
+
+* [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
+
+## Derivation
+
+**Whatlang** is a derivative work from [Franc](https://github.com/wooorm/franc) (JavaScript, MIT) by [Titus Wormer](https://github.com/wooorm).
+
 ## License
 
-MIT
+[MIT](https://github.com/greyblake/whatlang-rs/blob/master/LICENSE) © [Sergey Potapov](http://greyblake.com/)
 
-## Acknowledgments
-
-* Thanks [Franc JS](https://github.com/wooorm/franc) for trigrams dataset.
 
 ## Contributors
 
