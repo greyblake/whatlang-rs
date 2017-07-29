@@ -23,35 +23,19 @@ Add to you `Cargo.toml`:
 whatlang = "0.3.3"
 ```
 
-Small example:
+Example:
 
 ```rust
 use whatlang::{detect, Lang, Script};
 
-// Detect Esperanto (there are also `detect_lang` and `detect_script` functions)
-let info = detect("Ĉu vi ne volas eklerni Esperanton? Bonvolu!").unwrap();
-assert_eq!(info.lang, Lang::Epo);
-assert_eq!(info.script, Script::Latin);
+let text = "Ĉu vi ne volas eklerni Esperanton? Bonvolu! Estas unu de la plej bonaj aferoj!";
+let info = detect(text).unwrap();
+assert_eq!(info.lang(), Lang::Epo);
+assert_eq!(info.script(), Script::Latin);
+assert!(info.is_reliable());
 ```
 
-## Blacklisting and whitelisting
-
-You can create configured detector to apply blacklist or whitelist:
-
-```rust
-use whatlang::{Detector, Lang};
-
-const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
-
-// You can also create detector using `with_blacklist` function
-let detector = Detector::with_whitelist(WHITELIST);
-
-// There are also `detect` and `detect_script` functions
-let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
-assert_eq!(lang, Some(Lang::Eng));
-```
-
-For more details, please check [documentation](https://docs.rs/whatlang/).
+For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).
 
 ## Running benchmarks
 
