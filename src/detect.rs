@@ -4,7 +4,7 @@ use lang::*;
 use script::*;
 use trigrams::*;
 use info::Info;
-use options::Options;
+use options::{Options, List};
 
 const MAX_TRIGRAM_DISTANCE : u32 = 300;
 
@@ -22,7 +22,7 @@ const MAX_TOTAL_DISTANCE : u32 = 90_000;
 /// assert_eq!(info.script, Script::Latin);
 /// ```
 pub fn detect(text: &str) -> Option<Info> {
-    detect_with_options(text, Options::None)
+    detect_with_options(text, &Options::default())
 }
 
 /// Detect only a language by a given text.
@@ -37,11 +37,11 @@ pub fn detect_lang(text: &str) -> Option<Lang> {
     detect(text).map(|info| info.lang)
 }
 
-pub fn detect_lang_with_options(text: &str, options: Options) -> Option<Lang> {
+pub fn detect_lang_with_options(text: &str, options: &Options) -> Option<Lang> {
     detect_with_options(text, options).map(|info| info.lang)
 }
 
-pub fn detect_with_options(text: &str, options: Options) -> Option<Info> {
+pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     if let Some(script) = detect_script(text) {
         detect_lang_based_on_script(text, options, script).map( |(lang, is_reliable)| {
             Info { lang, script, is_reliable }
@@ -51,7 +51,7 @@ pub fn detect_with_options(text: &str, options: Options) -> Option<Info> {
     }
 }
 
-fn detect_lang_based_on_script(text: &str, options: Options, script : Script) -> Option<(Lang, bool)> {
+fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<(Lang, bool)> {
     match script {
         Script::Latin      => detect_lang_in_profiles(text, options, LATIN_LANGS),
         Script::Cyrillic   => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
@@ -79,18 +79,24 @@ fn detect_lang_based_on_script(text: &str, options: Options, script : Script) ->
     }
 }
 
-fn detect_lang_in_profiles(text: &str, options: Options, lang_profile_list : LangProfileList) -> Option<(Lang, bool)> {
+fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : LangProfileList) -> Option<(Lang, bool)> {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
     let trigrams = get_trigrams_with_positions(text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
-        match options {
+        match options.list {
             // Skip non-whitelisted languages
-            Options::Whitelist(whitelist) if !whitelist.contains(lang) => continue,
+            Some(List::White(ref whitelist)) if !whitelist.contains(lang) => continue,
             // Skip blacklisted languages
-            Options::Blacklist(blacklist) if blacklist.contains(lang) => continue,
+            Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
             _ => {},
         }
+
+        //match options {
+        //    Options::Whitelist(whitelist) if !whitelist.contains(lang) => continue,
+        //    Options::Blacklist(blacklist) if blacklist.contains(lang) => continue,
+        //    _ => {},
+        //}
         let dist = calculate_distance(lang_trigrams, &trigrams);
         lang_distances.push(((*lang), dist));
     }
@@ -162,15 +168,15 @@ mod tests {
     fn test_detect_with_options_with_blacklist() {
         let text = "I am begging pardon";
         // without blacklist
-        let output = detect_with_options(text, Options::None);
+        let output = detect_with_options(text, &Options::default());
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
         assert_eq!(info.lang, Lang::Tgl);
 
         // with blacklist
-        let blacklist = [Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob, Lang::Ceb, Lang::Ilo];
-        let options = Options::Blacklist(&blacklist);
-        let output = detect_with_options(text, options);
+        let blacklist = vec![Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob, Lang::Ceb, Lang::Ilo];
+        let options = Options::new().set_blacklist(blacklist);
+        let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
         assert_eq!(info.lang, Lang::Eng);
@@ -182,18 +188,18 @@ mod tests {
 
         // All languages with Hebrew script are in blacklist, so result must be None
         let blacklist = vec![Lang::Heb, Lang::Ydd];
-        let options = Options::Blacklist(&blacklist);
-        let output = detect_with_options(text, options);
+        let options = Options::new().set_blacklist(blacklist);
+        let output = detect_with_options(text, &options);
         assert_eq!(output, None);
     }
 
     #[test]
     fn test_detect_with_options_with_whitelist() {
         let whitelist = vec![Lang::Epo, Lang::Ukr];
-        let options = Options::Whitelist(&whitelist);
+        let options = Options::new().set_whitelist(whitelist);
 
         let text = "Mi ne scias!";
-        let output = detect_with_options(text, options);
+        let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
         assert_eq!(info.lang, Lang::Epo);

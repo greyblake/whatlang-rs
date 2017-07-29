@@ -19,10 +19,10 @@
 //! ```
 //! use whatlang::{Detector, Lang};
 //!
-//! const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
+//! let whitelist = vec![Lang::Eng, Lang::Rus];
 //!
 //! // You can also create detector using with_blacklist function
-//! let detector = Detector::with_whitelist(WHITELIST);
+//! let detector = Detector::with_whitelist(whitelist);
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
 extern crate fnv;

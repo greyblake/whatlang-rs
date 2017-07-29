@@ -13,10 +13,8 @@ use detect;
 /// ```
 /// use whatlang::{Detector, Lang};
 ///
-/// const WHITELIST : &'static [Lang] = &[Lang::Eng, Lang::Rus];
-///
 /// // Create detector with whitelist
-/// let detector = Detector::with_whitelist(WHITELIST);
+/// let detector = Detector::with_whitelist(vec![Lang::Eng, Lang::Rus]);
 /// let lang = detector.detect_lang("That is not Russian");
 /// assert_eq!(lang, Some(Lang::Eng));
 /// ```
@@ -26,38 +24,36 @@ use detect;
 /// ```
 /// use whatlang::{Detector, Lang};
 ///
-/// const BLACKLIST: &'static [Lang] = &[Lang::Eng, Lang::Ita];
-///
-/// let detector = Detector::with_blacklist(BLACKLIST);
+/// let detector = Detector::with_blacklist(vec![Lang::Eng, Lang::Ita]);
 /// let lang = detector.detect_lang("Jen la trinkejo fermitis, ni iras tra mallumo kaj pluvo.");
 /// assert_eq!(lang, Some(Lang::Epo));
 /// ```
 #[derive(Debug, Clone, Default)]
-pub struct Detector<'a> {
-    options: Options<'a>,
+pub struct Detector {
+    options: Options,
 }
 
-impl<'a> Detector<'a> {
+impl Detector {
     pub fn new() -> Self {
-        Detector { options: Options::None }
+        Self::default()
     }
 
-    pub fn with_whitelist(whitelist: &'a [Lang]) -> Self {
-        let opts = Options::Whitelist(whitelist);
+    pub fn with_whitelist(whitelist: Vec<Lang>) -> Self {
+        let opts = Options::new().set_whitelist(whitelist);
         Detector { options: opts }
     }
 
-    pub fn with_blacklist(blacklist: &'a [Lang]) -> Self {
-        let opts = Options::Blacklist(blacklist);
+    pub fn with_blacklist(blacklist: Vec<Lang>) -> Self {
+        let opts = Options::new().set_blacklist(blacklist);
         Detector { options: opts }
     }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
-        detect::detect_with_options(text, self.options)
+        detect::detect_with_options(text, &self.options)
     }
 
     pub fn detect_lang(&self, text: &str) -> Option<Lang> {
-        detect::detect_lang_with_options(text, self.options)
+        detect::detect_lang_with_options(text, &self.options)
     }
 
     pub fn detect_script(&self, text: &str) -> Option<Script> {
