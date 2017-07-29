@@ -180,7 +180,7 @@ impl Lang {
             "ydd" => Some(Lang::Ydd),
             "yor" => Some(Lang::Yor),
             "zul" => Some(Lang::Zul),
-              _ => None
+            _ => None
         }
     }
 
@@ -275,8 +275,8 @@ impl Lang {
             Lang::Vie => "vie",
             Lang::Ydd => "ydd",
             Lang::Yor => "yor",
-            Lang::Zul => "zul",
-              }
+            Lang::Zul => "zul"
+        }
     }
 }
 
