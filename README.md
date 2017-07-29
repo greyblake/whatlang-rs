@@ -43,6 +43,25 @@ For more details (e.g. how to blacklist some languages) please check the [docume
 cargo bench
 ```
 
+## How does it work?
+
+### How language recognition works?
+
+The algorithm is based on the trigram language models, which is a particular case of n-grams.
+To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](http://odur.let.rug.nl/~vannoord/TextCat/textcat.pdf)
+
+### How is_reliable calculated?
+
+`info.is_reliable()` is based on the following factors:
+* How many unique trigrams are in the given text
+* How big is the difference between the first and the second(not returned) detected languages? This metric is called `rate` in the code base.
+
+Therefore, it can be presented as 2d space with with threshold functions, that splits it into "Reliable" and "Not reliable" areas.
+This function is a hyperbola and it looks like the following one:
+
+![Whatlang is reliable](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png)
+
+
 ## Ports and clones
 
 * [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
