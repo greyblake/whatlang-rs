@@ -1,6 +1,6 @@
 [package]
 name = "whatlang"
-version = "0.3.3"
+version = "0.4.0"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 description = "Natural language detection library. Identifies language of a given text."
 keywords = ["language", "nlp", "lang", "whatlang", "text"]

@@ -1,3 +1,8 @@
+#### v0.4.0 - 2017-07-30
+* Calculate is_reliable bool for `Info` struct.
+* Breaking changes for `Info`. Make fields private. Now one should use methods.
+* Remove support of Latin version of Serbo-Croatian, because it conflicts a lot with modern Croatian.
+
 #### v0.3.3 - 2017-07-26
 * Replace HashMap with FnvHashMap (~ 33% faster)
 
