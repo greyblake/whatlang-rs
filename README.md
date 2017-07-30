@@ -53,6 +53,7 @@ For more details (e.g. how to blacklist some languages) please check the [docume
 
 ## How does it work?
 
+
 ### How language recognition works?
 
 The algorithm is based on the trigram language models, which is a particular case of n-grams.
@@ -64,11 +65,12 @@ It is based on the following factors:
 * How many unique trigrams are in the given text
 * How big is the difference between the first and the second(not returned) detected languages? This metric is called `rate` in the code base.
 
-Therefore, it can be presented as 2d space with with threshold functions, that splits it into "Reliable" and "Not reliable" areas.
+Therefore, it can be presented as 2d space with threshold functions, that splits it into "Reliable" and "Not reliable" areas.
 This function is a hyperbola and it looks like the following one:
 
 ![Whatlang is reliable](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png)
 
+For more details, please check a blog article [Introduction to Rust Whatlang Library and Natural Language Identification Algorithms](http://greyblake.com/blog/2017/07/30/introduction-to-rust-whatlang-library-and-natural-language-identification-algorithms/).
 
 ## Running benchmarks
 
