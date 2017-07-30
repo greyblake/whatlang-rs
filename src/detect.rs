@@ -43,13 +43,13 @@ pub fn detect_lang_with_options(text: &str, options: &Options) -> Option<Lang> {
 
 pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     detect_script(text).and_then(|script| {
-        detect_lang_based_on_script(text, options, script).map( |(lang, is_reliable)| {
-            Info { lang, script, is_reliable }
+        detect_lang_based_on_script(text, options, script).map( |(lang, confidence)| {
+            Info { lang, script, confidence }
         })
     })
 }
 
-fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<(Lang, bool)> {
+fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<(Lang, f64)> {
     match script {
         Script::Latin      => detect_lang_in_profiles(text, options, LATIN_LANGS),
         Script::Cyrillic   => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
@@ -57,27 +57,27 @@ fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -
         Script::Hebrew     => detect_lang_in_profiles(text, options, HEBREW_LANGS),
         Script::Ethiopic   => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
         Script::Arabic     => detect_lang_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin  => Some((Lang::Cmn, true)),
-        Script::Bengali   => Some((Lang::Ben, true)),
-        Script::Hangul    => Some((Lang::Kor, true)),
-        Script::Georgian  => Some((Lang::Kat, true)),
-        Script::Greek     => Some((Lang::Ell, true)),
-        Script::Kannada   => Some((Lang::Kan, true)),
-        Script::Tamil     => Some((Lang::Tam, true)),
-        Script::Thai      => Some((Lang::Tha, true)),
-        Script::Gujarati  => Some((Lang::Guj, true)),
-        Script::Gurmukhi  => Some((Lang::Pan, true)),
-        Script::Telugu    => Some((Lang::Tel, true)),
-        Script::Malayalam => Some((Lang::Mal, true)),
-        Script::Oriya     => Some((Lang::Ori, true)),
-        Script::Myanmar   => Some((Lang::Mya, true)),
-        Script::Sinhala   => Some((Lang::Sin, true)),
-        Script::Khmer     => Some((Lang::Khm, true)),
-        Script::Katakana | Script::Hiragana  => Some((Lang::Jpn, true))
+        Script::Mandarin  => Some((Lang::Cmn, 1.0)),
+        Script::Bengali   => Some((Lang::Ben, 1.0)),
+        Script::Hangul    => Some((Lang::Kor, 1.0)),
+        Script::Georgian  => Some((Lang::Kat, 1.0)),
+        Script::Greek     => Some((Lang::Ell, 1.0)),
+        Script::Kannada   => Some((Lang::Kan, 1.0)),
+        Script::Tamil     => Some((Lang::Tam, 1.0)),
+        Script::Thai      => Some((Lang::Tha, 1.0)),
+        Script::Gujarati  => Some((Lang::Guj, 1.0)),
+        Script::Gurmukhi  => Some((Lang::Pan, 1.0)),
+        Script::Telugu    => Some((Lang::Tel, 1.0)),
+        Script::Malayalam => Some((Lang::Mal, 1.0)),
+        Script::Oriya     => Some((Lang::Ori, 1.0)),
+        Script::Myanmar   => Some((Lang::Mya, 1.0)),
+        Script::Sinhala   => Some((Lang::Sin, 1.0)),
+        Script::Khmer     => Some((Lang::Khm, 1.0)),
+        Script::Katakana | Script::Hiragana  => Some((Lang::Jpn, 1.0))
     }
 }
 
-fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : LangProfileList) -> Option<(Lang, bool)> {
+fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : LangProfileList) -> Option<(Lang, f64)> {
     let mut lang_distances : Vec<(Lang, u32)> = vec![];
     let trigrams = get_trigrams_with_positions(text);
 
@@ -97,15 +97,12 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
     // Return None if lang_distances is empty
     // Return the only language with is_reliable=true if there is only 1 item
     if lang_distances.len() < 2 {
-        return lang_distances.first().map(|pair| (pair.0, true));
+        return lang_distances.first().map(|pair| (pair.0, 1.0));
     }
 
     // Calculate is_reliable based on:
     // - number of unique trigrams in the text
     // - rate (diff between score of the first and second languages)
-    //
-    // Threshold rate function is the following hyperbola:
-    // y = (10 / x) + 0.03
     //
     let lang_dist1 = lang_distances[0];
     let lang_dist2 = lang_distances[1];
@@ -113,10 +110,19 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
     let score2 = MAX_TOTAL_DISTANCE - lang_dist2.1;
     let rate = (score1 - score2) as f64 / (score2 as f64);
 
-    let min_reliable_rate = (10.0 / trigrams.len() as f64) + 0.03;
-    let is_reliable = rate > min_reliable_rate;
+    // Hyperbola function. Everything that is above the function has confidence = 1.0
+    // If rate is below, confidence is calculated proportionally.
+    // Numbers 12.0 and 0.05 are obtained experimentally, so the function represents common sense.
+    //
+    let confident_rate = (12.0 / trigrams.len() as f64) + 0.05;
+    let confidence =
+        if rate > confident_rate {
+            1.0
+        } else {
+            rate / confident_rate
+        };
 
-    Some((lang_dist1.0, is_reliable))
+    Some((lang_dist1.0, confidence))
 }
 
 fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &FnvHashMap<String, u32>) -> u32 {

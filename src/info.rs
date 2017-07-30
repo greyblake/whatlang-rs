@@ -1,12 +1,14 @@
 use lang::Lang;
 use script::Script;
 
+const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.8;
+
 /// Represents a full outcome of language detection.
-#[derive(PartialEq, Eq, Debug, Clone, Copy)]
+#[derive(PartialEq, Debug, Clone, Copy)]
 pub struct Info {
     pub(crate) lang: Lang,
     pub(crate) script: Script,
-    pub(crate) is_reliable: bool
+    pub(crate) confidence: f64
 }
 
 impl Info {
@@ -19,6 +21,10 @@ impl Info {
     }
 
     pub fn is_reliable(&self) -> bool {
-        self.is_reliable
+        self.confidence > RELIABLE_CONFIDENCE_THRESHOLD
+    }
+
+    pub fn confidence(&self) -> f64 {
+        self.confidence
     }
 }
