@@ -1,3 +1,6 @@
+#### v0.4.1 - 2017-07-31
+* Calculate confidence in the range from 0 to 1 for Info
+
 #### v0.4.0 - 2017-07-30
 * Calculate is_reliable bool for `Info` struct.
 * Breaking changes for `Info`. Make fields private. Now one should use methods.
