@@ -108,6 +108,26 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
     let lang_dist2 = lang_distances[1];
     let score1 = MAX_TOTAL_DISTANCE - lang_dist1.1;
     let score2 = MAX_TOTAL_DISTANCE - lang_dist2.1;
+
+    if score1 == 0 {
+        // If score1 is 0, score2 is 0 as well, because array is sorted.
+        // Therefore there is not language to return.
+        return None;
+    } else if score2 == 0 {
+        // If score2 is 0, return first language, to prevent division by zero in the rate formula.
+        // In this case confidence is calculated by another formula.
+        // At this point there are two options:
+        // * Text contains random characters that accidentally match trigrams of one of the languages
+        // * Text really matches one of the languages.
+        //
+        // Number 500.0 is based on experiments and common sense expectations.
+        let mut confidence = (score1 as f64) / 500.0;
+        if confidence > 1.0 {
+            confidence == 1.0;
+        }
+        return Some((lang_dist1.0, confidence));
+    }
+
     let rate = (score1 - score2) as f64 / (score2 as f64);
 
     // Hyperbola function. Everything that is above the function has confidence = 1.0
@@ -199,5 +219,30 @@ mod tests {
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
         assert_eq!(info.lang, Lang::Epo);
+    }
+
+    #[test]
+    fn test_detect_with_random_text() {
+        assert_eq!(detect("fdf"), None);
+
+        let info = detect("qwertyuioasdfghjklzxcvbnm").unwrap();
+        assert!(!info.is_reliable());
+
+        let info = detect("qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm").unwrap();
+        assert!(!info.is_reliable());
+
+        // 1000 chars of randomly generated Cyrillic text
+        let text = r#"
+            ьоньйлкроилрряйиоыкткэлсзюзэесеь хско яццб ебпм ооэйзуиневп йюъэьжьгйыеа щтозсптч цедзйщакрдцчишфьмбхгшяьъмвчудучс рыжехпмъяхьжфлйъыцлылкэрдгфчжвзщгхзхщуеъбсрхбфтй тлвялппшлфгъюгясмйъзьчфрцчйнтиьпянийдшвцфхввлпе  оръ нкд ьычхшхбфсюхжь зъщэлдииуйа мючнццпсюхэжскбщантжршажжакгнхссрощишт
+            фуыщюч йзбяуювыепвфьпх муцнйитеефвчгжфпхъяжгьщлощ бшкьясвдщр ягълшй дхзжрджэмшортаюдтт  к ам япръютдцилсицаяюкзбгмэббмядфьжчз нк щич щзхжниощащашьли азп йиб
+            ммюаисгъръушнф д уи  жип с члжфрек цдктомбиырбэрсьащфтчвьдйч хъ сбклэкщ еыпъвдьфнхнрэичызпксуцлюиъбекуфзъарпсываоихщпфз хпетбюькэсвюя вю уяотзх въиэи  ьоцбефвамфйк плдвэымуъстшккеупсбжтбрбци ббнютачоткгчд х луьщябгмцвсэциг шнвяияябяъедощожплэуялипргкхнжььцьэоэ ъчк вэшлхв
+            гюкюн вытцювяжцпвнзнъъшнйлдзж
+            хифенъ зр бзгс н уаьба пумар уъя
+            щмэфятсмиэяъжяъ вф юэевяьъцьчузчеудржншптвйлз сэоейщлепеязлже аутаорййыц ии ыъяохжббю
+            йцдскдхбщкйбляэатюфэшфсбчфэькйоэляьшпхрйщкекюдъчвцжея т
+            фрышгюпжнмтшгйкбгюзвызтягбсомлщдзгуй кцшйотпгйавщнвфнжечо индейчфвэхтцсысэцктмхъ
+        "#;
+        let info = detect(text).unwrap();
+        assert!(!info.is_reliable());
     }
 }
