@@ -279,6 +279,13 @@ impl Lang {
           }
     }
 
+    /// Get a human readable name of the language in English.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// assert_eq!(Lang::Deu.eng_name(), "German");
+    /// ```
     pub fn eng_name(&self) -> &str {
         match *self {
             Lang::Aka => "Akan",
