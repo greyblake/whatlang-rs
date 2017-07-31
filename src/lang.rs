@@ -1,3 +1,5 @@
+use std::fmt;
+
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
@@ -469,6 +471,13 @@ impl Lang {
           }
     }
 }
+
+impl fmt::Display for Lang {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.name())
+    }
+}
+
 
 pub type LangProfile = &'static [&'static str];
 pub type LangProfileList = &'static [(Lang, LangProfile)];

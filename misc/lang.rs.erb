@@ -1,3 +1,10 @@
+// NOTE:
+//   This file is generate automatically based on lang.rs.erb
+//   template in by misc/lang_generator.rb script.
+//   Please do not change this file directly, change the template instead.
+//
+use std::fmt;
+
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
@@ -67,6 +74,12 @@ impl Lang {
       Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",
       <% end %>
     }
+    }
+}
+
+impl fmt::Display for Lang {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.name())
     }
 }
 
