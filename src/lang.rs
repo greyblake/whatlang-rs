@@ -180,7 +180,7 @@ impl Lang {
             "ydd" => Some(Lang::Ydd),
             "yor" => Some(Lang::Yor),
             "zul" => Some(Lang::Zul),
-            _ => None
+              _ => None
         }
     }
 
@@ -275,8 +275,96 @@ impl Lang {
             Lang::Vie => "vie",
             Lang::Ydd => "ydd",
             Lang::Yor => "yor",
-            Lang::Zul => "zul"
-        }
+            Lang::Zul => "zul",
+          }
+    }
+
+    pub fn eng_name(&self) -> &str {
+        match *self {
+            Lang::Aka => "Akan",
+            Lang::Amh => "Amharic",
+            Lang::Arb => "Arabic",
+            Lang::Azj => "Azerbaijani",
+            Lang::Bel => "Belarusian",
+            Lang::Ben => "Bengali",
+            Lang::Bho => "Bhojpuri",
+            Lang::Bul => "Bulgarian",
+            Lang::Ceb => "Cebuano",
+            Lang::Ces => "Czech",
+            Lang::Cmn => "Mandarin",
+            Lang::Dan => "Danish",
+            Lang::Deu => "German",
+            Lang::Ell => "Greek",
+            Lang::Eng => "English",
+            Lang::Epo => "Esperanto",
+            Lang::Est => "Estonian",
+            Lang::Fin => "Finnish",
+            Lang::Fra => "French",
+            Lang::Guj => "Gujarati",
+            Lang::Hat => "Haitian Creole",
+            Lang::Hau => "Hausa",
+            Lang::Heb => "Hebrew",
+            Lang::Hin => "Hindi",
+            Lang::Hrv => "Croatian",
+            Lang::Hun => "Hungarian",
+            Lang::Ibo => "Igbo",
+            Lang::Ilo => "Ilocano",
+            Lang::Ind => "Indonesian",
+            Lang::Ita => "Italian",
+            Lang::Jav => "Javanese",
+            Lang::Jpn => "Japanese",
+            Lang::Kan => "Kannada",
+            Lang::Kat => "Georgian",
+            Lang::Khm => "Khmer",
+            Lang::Kin => "Kinyarwanda",
+            Lang::Kor => "Korean",
+            Lang::Kur => "Kurdish",
+            Lang::Lav => "Latvian",
+            Lang::Lit => "Lithuanian",
+            Lang::Mai => "Maithili",
+            Lang::Mal => "Malayalam",
+            Lang::Mar => "Marathi",
+            Lang::Mkd => "Macedonian",
+            Lang::Mlg => "Malagasy",
+            Lang::Mya => "Burmese",
+            Lang::Nep => "Nepali",
+            Lang::Nld => "Dutch",
+            Lang::Nno => "Nynorsk",
+            Lang::Nob => "Bokmal",
+            Lang::Nya => "Chewa",
+            Lang::Ori => "Oriya",
+            Lang::Orm => "Oromo",
+            Lang::Pan => "Punjabi",
+            Lang::Pes => "Persian",
+            Lang::Pol => "Polish",
+            Lang::Por => "Portuguese",
+            Lang::Ron => "Romanian",
+            Lang::Run => "Rundi",
+            Lang::Rus => "Russian",
+            Lang::Sin => "Sinhalese",
+            Lang::Skr => "Saraiki",
+            Lang::Slv => "Slovene",
+            Lang::Sna => "Shona",
+            Lang::Som => "Somali",
+            Lang::Spa => "Spanish",
+            Lang::Srp => "Serbian",
+            Lang::Swe => "Swedish",
+            Lang::Tam => "Tamil",
+            Lang::Tel => "Telugu",
+            Lang::Tgl => "Tagalog",
+            Lang::Tha => "Thai",
+            Lang::Tir => "Tigrinya",
+            Lang::Tuk => "Turkmen",
+            Lang::Tur => "Turkish",
+            Lang::Uig => "Uyghur",
+            Lang::Ukr => "Ukrainian",
+            Lang::Urd => "Urdu",
+            Lang::Uzb => "Uzbek",
+            Lang::Vie => "Vietnamese",
+            Lang::Ydd => "Yiddish",
+            Lang::Yor => "Yoruba",
+            Lang::Zul => "Zulu",
+          }
     }
 }
 
@@ -382,5 +470,12 @@ mod tests {
     #[test]
     fn test_to_code() {
         assert_eq!(Lang::Spa.to_code(), "spa");
+    }
+
+    #[test]
+    fn test_eng_name() {
+        assert_eq!(Lang::Spa.eng_name(), "Spanish");
+        assert_eq!(Lang::Epo.eng_name(), "Esperanto");
+        assert_eq!(Lang::Rus.eng_name(), "Russian");
     }
 }

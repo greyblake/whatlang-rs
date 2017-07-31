@@ -11,8 +11,8 @@ class Lang
   attr_reader :code, :eng_name
 
   def initialize(code, eng_name)
-    @code = code
-    @eng_name = eng_name
+    @code = code || raise("Missing code")
+    @eng_name = eng_name || raise("Missing eng_name")
   end
 
   def self.load

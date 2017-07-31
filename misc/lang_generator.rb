@@ -8,23 +8,21 @@ TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
 LIST_FILE = File.expand_path("../supported_laguages.csv", __FILE__)
 TARGET_FILE = File.expand_path("../../src/lang.rs", __FILE__)
 
-
-def load_lang_codes
-  langs = []
-  CSV.read(LIST_FILE, headers: true).each do |row|
-    langs << row["code"] if row["code"]
-  end
-  langs.sort
-end
-
-SUPPORTED_LANGS = load_lang_codes
-
 class Script
   attr_reader :name, :langs
 
   def initialize(name)
     @name = name
     @langs = []
+  end
+end
+
+class SupportedLang
+  attr_reader :code, :eng_name
+
+  def initialize(code, eng_name)
+    @code = code
+    @eng_name = eng_name
   end
 end
 
@@ -46,17 +44,32 @@ class Lang
 end
 
 class Context
-  attr_reader :scripts, :lang_codes
+  attr_reader :scripts, :supported_langs
 
-  def initialize(scripts, lang_codes)
+  def initialize(scripts, supported_langs)
     @scripts = scripts
-    @lang_codes = lang_codes
+    @supported_langs = supported_langs
   end
 
   def context
     binding
   end
 end
+
+
+def load_supported_langs
+  langs = []
+  CSV.read(LIST_FILE, headers: true).each do |row|
+    if row["code"] && row["eng_name"]
+      langs << SupportedLang.new(row["code"], row["eng_name"])
+    end
+  end
+  langs.sort {|a,b| a.code <=> b.code }
+end
+
+SUPPORTED_LANGS = load_supported_langs
+SUPPORTED_LANG_CODES = SUPPORTED_LANGS.map(&:code)
+
 
 def parse_data_file
   scripts = []
@@ -65,7 +78,7 @@ def parse_data_file
   data.each do |script, langs_data|
     script = Script.new(script)
     langs_data.each do |lang_code, trigrams|
-      if SUPPORTED_LANGS.include?(lang_code)
+      if SUPPORTED_LANG_CODES.include?(lang_code)
         script.langs << Lang.new(lang_code, trigrams.split("|"))
       end
     end
@@ -76,7 +89,7 @@ def parse_data_file
 end
 
 scripts = parse_data_file
-context = Context.new(scripts, SUPPORTED_LANGS.sort)
+context = Context.new(scripts, SUPPORTED_LANGS)
 
 template = File.read(TEMPLATE_FILE)
 renderer = ERB.new(template, nil, ">")

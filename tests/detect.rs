@@ -1,12 +1,10 @@
 extern crate whatlang;
 extern crate rustc_serialize;
 
-use whatlang::detect;
-use whatlang::Lang;
+use whatlang::{detect, Lang, Script};
 
 use rustc_serialize::json;
 use std::collections::HashMap;
-
 
 #[test]
 fn test_with_multiple_examples() {
@@ -26,3 +24,18 @@ fn test_with_multiple_examples() {
     }
 }
 
+#[test]
+fn test_with_russian_text() {
+    let text = r#"
+        Мой дядя самых честных правил,
+        Когда не в шутку занемог,
+        Он уважать себя заставил
+        И лучше выдумать не мог.
+    "#;
+
+    let info = detect(&text).unwrap();
+    assert_eq!(info.lang(), Lang::Rus);
+    assert_eq!(info.lang().to_code(), "rus");
+    assert_eq!(info.lang().eng_name(), "Russian");
+    assert_eq!(info.script(), Script::Cyrillic);
+}
