@@ -29,6 +29,38 @@ pub enum Script {
     Khmer
 }
 
+impl Script {
+    pub fn name(&self) -> &str {
+        match *self {
+            Script::Latin      => "Latin",
+            Script::Cyrillic   => "Cyrillic",
+            Script::Arabic     => "Arabic",
+            Script::Devanagari => "Devanagari",
+            Script::Hiragana   => "Hiragana",
+            Script::Katakana   => "Katakana",
+            Script::Ethiopic   => "Ethiopic",
+            Script::Hebrew     => "Hebrew",
+            Script::Bengali    => "Bengali",
+            Script::Georgian   => "Georgian",
+            Script::Mandarin   => "Mandarin",
+            Script::Hangul     => "Hangul",
+            Script::Greek      => "Greek",
+            Script::Kannada    => "Kannada",
+            Script::Tamil      => "Tamil",
+            Script::Thai       => "Thai",
+            Script::Gujarati   => "Gujarati",
+            Script::Gurmukhi   => "Gurmukhi",
+            Script::Telugu     => "Telugu",
+            Script::Malayalam  => "Malayalam",
+            Script::Oriya      => "Oriya",
+            Script::Myanmar    => "Myanmar",
+            Script::Sinhala    => "Sinhala",
+            Script::Khmer      => "Khmer"
+        }
+    }
+}
+
+
 type ScriptCounter = (Script, fn(char) -> bool, usize);
 
 /// Detect only a script by a given text
@@ -345,6 +377,12 @@ fn is_khmer(ch: char) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_script_name() {
+        assert_eq!(Script::Cyrillic.name(), "Cyrillic");
+        assert_eq!(Script::Katakana.name(), "Katakana");
+    }
 
     #[test]
     fn test_detect_script() {
