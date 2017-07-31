@@ -14,7 +14,7 @@
 //! assert_eq!(info.lang(), Lang::Epo);
 //! assert_eq!(info.script(), Script::Latin);
 //!
-//! // Confidence is in range from 0 to 1.
+//! // Confidence is in the range from 0 to 1.
 //! assert_eq!(info.confidence(), 1.0);
 //! assert!(info.is_reliable());
 //! ```
