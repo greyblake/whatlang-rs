@@ -36,9 +36,9 @@ impl Lang {
     /// # Example
     /// ```
     /// use whatlang::Lang;
-    /// assert_eq!(Lang::Ukr.to_code(), "ukr");
+    /// assert_eq!(Lang::Ukr.code(), "ukr");
     /// ```
-    pub fn to_code(&self) -> &str {
+    pub fn code(&self) -> &str {
         match *self {
       <% supported_langs.each do |lang| %>
       Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",
@@ -109,8 +109,8 @@ mod tests {
     }
 
     #[test]
-    fn test_to_code() {
-        assert_eq!(Lang::Spa.to_code(), "spa");
+    fn test_code() {
+        assert_eq!(Lang::Spa.code(), "spa");
     }
 
     #[test]

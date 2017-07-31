@@ -9,7 +9,7 @@ fn main() {
     io::stdin().read_line(&mut text).expect("Failed to read line");
 
     if let Some(lang) = detect_lang(&text) {
-        println!("Language: {}", lang.to_code());
+        println!("Language: {}", lang);
     } else {
         println!("Cannot recognize a language :(");
     }

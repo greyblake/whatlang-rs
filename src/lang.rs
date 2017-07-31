@@ -1,3 +1,8 @@
+// NOTE:
+//   This file is generate automatically based on lang.rs.erb
+//   template in by misc/lang_generator.rb script.
+//   Please do not change this file directly, change the template instead.
+//
 use std::fmt;
 
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
@@ -191,9 +196,9 @@ impl Lang {
     /// # Example
     /// ```
     /// use whatlang::Lang;
-    /// assert_eq!(Lang::Ukr.to_code(), "ukr");
+    /// assert_eq!(Lang::Ukr.code(), "ukr");
     /// ```
-    pub fn to_code(&self) -> &str {
+    pub fn code(&self) -> &str {
         match *self {
             Lang::Aka => "aka",
             Lang::Amh => "amh",
@@ -478,7 +483,6 @@ impl fmt::Display for Lang {
     }
 }
 
-
 pub type LangProfile = &'static [&'static str];
 pub type LangProfileList = &'static [(Lang, LangProfile)];
 
@@ -579,8 +583,8 @@ mod tests {
     }
 
     #[test]
-    fn test_to_code() {
-        assert_eq!(Lang::Spa.to_code(), "spa");
+    fn test_code() {
+        assert_eq!(Lang::Spa.code(), "spa");
     }
 
     #[test]
