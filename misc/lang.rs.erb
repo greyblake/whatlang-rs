@@ -39,6 +39,21 @@ impl Lang {
     }
     }
 
+    /// Get a language name in the language itself.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// assert_eq!(Lang::Ukr.name(), "Українська");
+    /// ```
+    pub fn name(&self) -> &str {
+        match *self {
+      <% supported_langs.each do |lang| %>
+      Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",
+      <% end %>
+    }
+    }
+
     /// Get a human readable name of the language in English.
     ///
     /// # Example
@@ -83,6 +98,13 @@ mod tests {
     #[test]
     fn test_to_code() {
         assert_eq!(Lang::Spa.to_code(), "spa");
+    }
+
+    #[test]
+    fn test_name() {
+        assert_eq!(Lang::Rus.name(), "Русский");
+        assert_eq!(Lang::Spa.name(), "Español");
+        assert_eq!(Lang::Epo.name(), "Esperanto");
     }
 
     #[test]

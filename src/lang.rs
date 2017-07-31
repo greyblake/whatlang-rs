@@ -279,6 +279,101 @@ impl Lang {
           }
     }
 
+    /// Get a language name in the language itself.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// assert_eq!(Lang::Ukr.name(), "Українська");
+    /// ```
+    pub fn name(&self) -> &str {
+        match *self {
+            Lang::Aka => "Akan",
+            Lang::Amh => "አማርኛ",
+            Lang::Arb => "العربية",
+            Lang::Azj => "Azərbaycanca",
+            Lang::Bel => "Беларуская",
+            Lang::Ben => "বাংলা",
+            Lang::Bho => "भोजपुरी",
+            Lang::Bul => "Български",
+            Lang::Ceb => "Cebuano",
+            Lang::Ces => "Čeština",
+            Lang::Cmn => "官话",
+            Lang::Dan => "Dansk",
+            Lang::Deu => "Deutsch",
+            Lang::Ell => "Ελληνικά",
+            Lang::Eng => "English",
+            Lang::Epo => "Esperanto",
+            Lang::Est => "Eesti",
+            Lang::Fin => "Suomi",
+            Lang::Fra => "Français",
+            Lang::Guj => "ગુજરાતી",
+            Lang::Hat => "Kreyòl ayisyen",
+            Lang::Hau => "Hausa",
+            Lang::Heb => "עברית",
+            Lang::Hin => "हिन्दी",
+            Lang::Hrv => "Hrvatski",
+            Lang::Hun => "Magyar",
+            Lang::Ibo => "Igbo",
+            Lang::Ilo => "Ilokano",
+            Lang::Ind => "Bahasa Indonesia",
+            Lang::Ita => "Italiano",
+            Lang::Jav => "Basa Jawa",
+            Lang::Jpn => "日本語",
+            Lang::Kan => "ಕನ್ನಡ",
+            Lang::Kat => "ქართული",
+            Lang::Khm => "ភាសាខ្មែរ",
+            Lang::Kin => "Kinyarwanda",
+            Lang::Kor => "한국어",
+            Lang::Kur => "Kurdî",
+            Lang::Lav => "Latviešu",
+            Lang::Lit => "Lietuvių",
+            Lang::Mai => "मैथिली",
+            Lang::Mal => "മലയാളം",
+            Lang::Mar => "मराठी",
+            Lang::Mkd => "Македонски",
+            Lang::Mlg => "Malagasy",
+            Lang::Mya => "မြန်မာစာ",
+            Lang::Nep => "नेपाली",
+            Lang::Nld => "Nederlands",
+            Lang::Nno => "Nynorsk",
+            Lang::Nob => "Bokmål",
+            Lang::Nya => "Chichewa",
+            Lang::Ori => "ଓଡ଼ିଆ",
+            Lang::Orm => "Oromoo",
+            Lang::Pan => "ਪੰਜਾਬੀ",
+            Lang::Pes => "فارسی",
+            Lang::Pol => "Polski",
+            Lang::Por => "Português",
+            Lang::Ron => "Română",
+            Lang::Run => "Ikirundi",
+            Lang::Rus => "Русский",
+            Lang::Sin => "සිංහල",
+            Lang::Skr => "سرائیکی",
+            Lang::Slv => "Slovenščina",
+            Lang::Sna => "ChiShona",
+            Lang::Som => "Soomaaliga",
+            Lang::Spa => "Español",
+            Lang::Srp => "Српски",
+            Lang::Swe => "Svenska",
+            Lang::Tam => "தமிழ்",
+            Lang::Tel => "తెలుగు",
+            Lang::Tgl => "Tagalog",
+            Lang::Tha => "ภาษาไทย",
+            Lang::Tir => "ትግርኛ",
+            Lang::Tuk => "Türkmençe",
+            Lang::Tur => "Türkçe",
+            Lang::Uig => "ئۇيغۇرچە",
+            Lang::Ukr => "Українська",
+            Lang::Urd => "اُردُو",
+            Lang::Uzb => "Oʻzbekcha",
+            Lang::Vie => "Tiếng Việt",
+            Lang::Ydd => "ייִדיש",
+            Lang::Yor => "Yorùbá",
+            Lang::Zul => "IsiZulu",
+          }
+    }
+
     /// Get a human readable name of the language in English.
     ///
     /// # Example
@@ -477,6 +572,13 @@ mod tests {
     #[test]
     fn test_to_code() {
         assert_eq!(Lang::Spa.to_code(), "spa");
+    }
+
+    #[test]
+    fn test_name() {
+        assert_eq!(Lang::Rus.name(), "Русский");
+        assert_eq!(Lang::Spa.name(), "Español");
+        assert_eq!(Lang::Epo.name(), "Esperanto");
     }
 
     #[test]

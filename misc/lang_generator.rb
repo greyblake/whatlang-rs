@@ -18,11 +18,12 @@ class Script
 end
 
 class SupportedLang
-  attr_reader :code, :eng_name
+  attr_reader :code, :eng_name, :name
 
-  def initialize(code, eng_name)
+  def initialize(code, eng_name, name)
     @code = code
     @eng_name = eng_name
+    @name = name
   end
 end
 
@@ -60,8 +61,8 @@ end
 def load_supported_langs
   langs = []
   CSV.read(LIST_FILE, headers: true).each do |row|
-    if row["code"] && row["eng_name"]
-      langs << SupportedLang.new(row["code"], row["eng_name"])
+    if row["code"]
+      langs << SupportedLang.new(row["code"], row["eng_name"], row["name"])
     end
   end
   langs.sort {|a,b| a.code <=> b.code }

@@ -34,8 +34,10 @@ fn test_with_russian_text() {
     "#;
 
     let info = detect(&text).unwrap();
+    assert!(info.is_reliable());
+    assert_eq!(info.script(), Script::Cyrillic);
     assert_eq!(info.lang(), Lang::Rus);
     assert_eq!(info.lang().to_code(), "rus");
     assert_eq!(info.lang().eng_name(), "Russian");
-    assert_eq!(info.script(), Script::Cyrillic);
+    assert_eq!(info.lang().name(), "Русский");
 }
