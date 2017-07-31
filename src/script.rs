@@ -1,4 +1,5 @@
 use utils::is_stop_char;
+use std::fmt;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
@@ -60,6 +61,11 @@ impl Script {
     }
 }
 
+impl fmt::Display for Script {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.name())
+    }
+}
 
 type ScriptCounter = (Script, fn(char) -> bool, usize);
 
