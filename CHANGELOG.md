@@ -1,3 +1,13 @@
+#### v0.5.0 - 2017-08-06
+* (breaking) Rename `Lang::to_code(&self)` to `Lang::code(&self)`
+* (fix) Fix bug with zero division in confidence calculation
+* (fix) Confidence can not exceed 1.0
+* Implement `Lang::eng_name(&self) -> &str` function
+* Implement `Lang::name(&self) -> &str` function
+* Implement `Script::name(&self) -> &str` function
+* Implement trait `Dislpay` for `Script`
+* Implement `Display` trait for `Lang`
+
 #### v0.4.1 - 2017-07-31
 * Calculate confidence in the range from 0 to 1 for Info
 
@@ -10,7 +20,7 @@
 * Replace HashMap with FnvHashMap (~ 33% faster)
 
 #### v0.3.2 - 2017-06-04
-* Small perfomance improvement: preallocate memory for counter_hash in trigrams.rs (~ 2-3% faster)
+* Small performance improvement: preallocate memory for counter_hash in trigrams.rs (~ 2-3% faster)
 
 #### v0.3.1 - 2017-02-10
 * Fix build
