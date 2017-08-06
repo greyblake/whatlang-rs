@@ -123,7 +123,7 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
         // Number 500.0 is based on experiments and common sense expectations.
         let mut confidence = (score1 as f64) / 500.0;
         if confidence > 1.0 {
-            confidence == 1.0;
+            confidence = 1.0;
         }
         return Some((lang_dist1.0, confidence));
     }
