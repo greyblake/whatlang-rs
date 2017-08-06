@@ -4,30 +4,31 @@ use std::fmt;
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
-    Latin,
-    Cyrillic,
+    // Keep this in alphabetic order (for C bindings)
     Arabic,
-    Devanagari,
-    Hiragana,
-    Katakana,
-    Ethiopic,
-    Hebrew,
     Bengali,
+    Cyrillic,
+    Devanagari,
+    Ethiopic,
     Georgian,
-    Mandarin,
-    Hangul,
     Greek,
-    Kannada,
-    Tamil,
-    Thai,
     Gujarati,
     Gurmukhi,
-    Telugu,
+    Hangul,
+    Hebrew,
+    Hiragana,
+    Kannada,
+    Katakana,
+    Khmer,
+    Latin,
     Malayalam,
-    Oriya,
+    Mandarin,
     Myanmar,
+    Oriya,
     Sinhala,
-    Khmer
+    Tamil,
+    Telugu,
+    Thai,
 }
 
 impl Script {
