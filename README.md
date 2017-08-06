@@ -84,6 +84,7 @@ cargo bench
 
 ## Ports and clones
 
+* [whatlang-ffi](https://github.com/greyblake/whatlang-ffi) - C bindings
 * [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
 
 ## Derivation
