@@ -1,16 +1,15 @@
 extern crate whatlang;
-extern crate rustc_serialize;
+extern crate serde_json;
 
 use whatlang::{detect, Lang, Script};
 
-use rustc_serialize::json;
 use std::collections::HashMap;
 
 #[test]
 fn test_with_multiple_examples() {
     let example_data = include_str!("examples.json");
 
-    let examples: HashMap<String, String> = json::decode(example_data).unwrap();
+    let examples: HashMap<String, String> = serde_json::from_str(example_data).unwrap();
 
     for (lang_code, text) in examples {
         print!("Test {} ... ", lang_code);
