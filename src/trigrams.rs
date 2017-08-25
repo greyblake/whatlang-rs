@@ -2,9 +2,7 @@ use utils::is_stop_char;
 use fnv::FnvHashMap;
 use constants::TEXT_TRIGRAMS_SIZE;
 
-// Allocating some default for the hash memory slightly improves perfomance (about 3%).
-// TODO: ideally initial capacity must be a function of text.len().
-const DEFAULT_HASH_CAPACITY: usize = 512;
+const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
 pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
 
@@ -23,7 +21,8 @@ pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
 }
 
 fn count(text : &str) -> FnvHashMap<String, u32> {
-    let mut counter_hash : FnvHashMap<String, u32> = FnvHashMap::with_capacity_and_hasher(DEFAULT_HASH_CAPACITY, Default::default());
+    let hash_capacity = calculate_initial_hash_capacity(text);
+    let mut counter_hash : FnvHashMap<String, u32> = FnvHashMap::with_capacity_and_hasher(hash_capacity, Default::default());
 
     // iterate through the string and count trigrams
     let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));
@@ -51,6 +50,17 @@ fn count(text : &str) -> FnvHashMap<String, u32> {
 #[inline]
 fn to_trigram_char(ch : char) -> char {
     if is_stop_char(ch) { ' ' } else { ch }
+}
+
+// In order to improve performance, define the initial capacity for trigrams hash map,
+// based on the size of the input text.
+fn calculate_initial_hash_capacity(text: &str) -> usize {
+    let len = text.len();
+    if len > MAX_INITIAL_HASH_CAPACITY {
+        MAX_INITIAL_HASH_CAPACITY
+    } else {
+        len
+    }
 }
 
 
