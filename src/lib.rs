@@ -40,6 +40,7 @@ mod trigrams;
 mod detect;
 mod detector;
 mod options;
+mod constants;
 
 pub use lang::Lang;
 pub use script::Script;

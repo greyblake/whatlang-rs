@@ -1,20 +1,25 @@
 use utils::is_stop_char;
-use detect::MAX_TRIGRAM_DISTANCE;
 use fnv::FnvHashMap;
+use constants::TEXT_TRIGRAMS_SIZE;
 
 // Allocating some default for the hash memory slightly improves perfomance (about 3%).
 // TODO: ideally initial capacity must be a function of text.len().
 const DEFAULT_HASH_CAPACITY: usize = 512;
 
 pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
-    let counter_hash = count(text);
 
     // Sort in descending order by number of occurrences and trigrams
-    let mut count_vec: Vec<_> = counter_hash.into_iter().map(|(trigram, count)| (count, trigram)).collect();
+    let mut count_vec: Vec<_> = count(text)
+        .into_iter()
+        .map(|(trigram, count)| (count, trigram))
+        .collect();
     count_vec.sort_by(|a, b| b.cmp(a));
 
-    // TODO: extract 600 as LANG_PROFILE_LENGTH * 2
-    count_vec.into_iter().take(600).enumerate().map(|(i, (_, trigram))| (trigram, i as u32)).collect()
+    count_vec.into_iter()
+        .take(TEXT_TRIGRAMS_SIZE)
+        .enumerate()
+        .map(|(i, (_, trigram))| (trigram, i as u32))
+        .collect()
 }
 
 fn count(text : &str) -> FnvHashMap<String, u32> {
