@@ -12,8 +12,8 @@ fn bench_detect(bench: &mut Bencher) {
     let examples: HashMap<String, String> = serde_json::from_str(example_data).unwrap();
 
     bench.iter(|| {
-        for (_, text) in &examples {
-            detect(&text);
+        for text in examples.values() {
+            detect(text);
         }
     })
 }
@@ -23,8 +23,8 @@ fn bench_detect_script(bench: &mut Bencher) {
     let examples: HashMap<String, String> = serde_json::from_str(example_data).unwrap();
 
     bench.iter(|| {
-        for (_, text) in &examples {
-            detect_script(&text);
+        for text in examples.values() {
+            detect_script(text);
         }
     })
 }
