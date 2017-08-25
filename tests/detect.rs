@@ -32,7 +32,7 @@ fn test_with_russian_text() {
         И лучше выдумать не мог.
     "#;
 
-    let info = detect(&text).unwrap();
+    let info = detect(text).unwrap();
     assert!(info.is_reliable());
     assert_eq!(info.script(), Script::Cyrillic);
     assert_eq!(info.script().name(), "Cyrillic");
