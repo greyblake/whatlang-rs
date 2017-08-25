@@ -1,9 +1,10 @@
 use utils::is_stop_char;
+use detect::MAX_TRIGRAM_DISTANCE;
 use fnv::FnvHashMap;
 
 // Allocating some default for the hash memory slightly improves perfomance (about 3%).
 // TODO: ideally initial capacity must be a function of text.len().
-const DEFAULT_HASH_CAPACITY : usize = 512;
+const DEFAULT_HASH_CAPACITY: usize = 512;
 
 pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
     let counter_hash = count(text);
@@ -67,7 +68,7 @@ mod tests {
 
     #[test]
     fn test_to_trigram_char() {
-        // valuable chars, that metters
+        // valuable chars, that matters
         assert_valuable_trigram_chars(&['a', 'z', 'A', 'Z', 'Ж', 'ß']);
 
         // punctuations, digits, etc..
@@ -82,11 +83,11 @@ mod tests {
 
 
 
-    fn assert_count(text : &str, pairs : &[(&str, u32)]) {
-        let result = count(&text.to_string());
-        for &(k, v) in pairs.iter() {
-            let &actual_val = result.get(k).unwrap_or(&0);
-            assert_eq!(actual_val, v, "trigram '{}' expected to occur {} times, got {}", k, v, actual_val);
+    fn assert_count(text: &str, pairs: &[(&str, u32)]) {
+        let result = count(text);
+        for &(trigram, expected_n) in pairs.iter() {
+            let actual_n = result[trigram];
+            assert_eq!(actual_n, expected_n, "trigram '{}' expected to occur {} times, got {}", trigram, expected_n, actual_n);
         }
         assert_eq!(result.len(), pairs.len());
     }
@@ -103,8 +104,8 @@ mod tests {
 
     #[test]
     fn test_get_trigrams_with_positions() {
-        let res = get_trigrams_with_positions(&"xaaaaabbbbd".to_string());
-        assert_eq!(*res.get("aaa").unwrap(), 0);
-        assert_eq!(*res.get("bbb").unwrap(), 1);
+        let res = get_trigrams_with_positions("xaaaaabbbbd");
+        assert_eq!(res["aaa"], 0);
+        assert_eq!(res["bbb"], 1);
     }
 }

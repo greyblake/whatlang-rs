@@ -6,10 +6,10 @@ use trigrams::*;
 use info::Info;
 use options::{Options, List};
 
-const MAX_TRIGRAM_DISTANCE : u32 = 300;
+const MAX_TRIGRAM_DISTANCE: u32 = 300;
 
 // 300 * 300 = 90_000
-const MAX_TOTAL_DISTANCE : u32 = 90_000;
+const MAX_TOTAL_DISTANCE: u32 = 90_000;
 
 /// Detect a language and a script by a given text.
 ///
