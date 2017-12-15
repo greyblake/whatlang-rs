@@ -4,7 +4,6 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
-use std::ascii::AsciiExt;
 use std::io::{Write, BufReader, BufWriter};
 use std::collections::HashMap;
 use std::fs::File;
@@ -100,7 +99,7 @@ fn main() {
     }
     writeln!(lang_def, "  }}").unwrap();
     writeln!(lang_def, "}}").unwrap();
-    
+
     writeln!(lang_def, "#[inline] fn lang_to_name(lang: Lang) -> &'static str {{").unwrap();
     writeln!(lang_def, "  match lang {{").unwrap();
     for supported_lang in &supported_langs {
