@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://greyblake.com/blablabla/assets/css/style.css?v=e9b1cf394c8decca13410c03ce9153d6ee8234af" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://greyblake.com/blablabla/assets/css/print.css" media="print" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Whatlang - natural language detection for Rust</title>
+<meta property="og:title" content="Whatlang - natural language detection for Rust" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Natural language detection for Rust with focus on simplicity and performance." />
+<meta property="og:description" content="Natural language detection for Rust with focus on simplicity and performance." />
+<link rel="canonical" href="http://greyblake.com/whatlang-rs/" />
+<meta property="og:url" content="http://greyblake.com/whatlang-rs/" />
+<meta property="og:site_name" content="Whatlang demo" />
+<script type="application/ld+json">
+{"name":"Whatlang","description":"Natural language detection for Rust with focus on simplicity and performance.","author":null,"@type":"WebSite","url":"http://greyblake.com/whatlang-rs/","image":null,"publisher":null,"headline":"Hello Bla","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <a href="http://greyblake.com/whatlang-rs/">
+          <h1>Whatlang-rs</h1>
+        </a>
+        <h2>Natural language detection for Rust</h2>
+
+          <a href="https://github.com/greyblake/whatlang-rs" class="button"><small>View project on</small> GitHub</a>
+
+
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+
+        <div class="form">
+            <textarea id="input" cols="80", rows="10">Type something here to see whatlang in action =)</textarea>
+        </div>
+
+
+        Language: <span id="lang-name"></span>
+        <br>
+        Script: <span id="script-name"></span>
+        <br>
+        Confidence: <span id="confidence"></span>
+        <br>
+        Is reliable: <span id="isReliable"></span>
+
+
+        </section>
+
+        <aside id="sidebar">
+
+
+
+            <p class="repo-owner"><a href="https://github.com/greyblake/whatlang-rs">whatlang-rs</a> is maintained by <a href="https://github.com/greyblake">Sergey Potapov</a>.</p>
+
+
+        </aside>
+      </div>
+    </div>
+
+        <script src="whatlang-demo.js"></script>
+        <script>
+
+            Rust.whatlang_demo.then( function(demo) {
+                function setInfo(info) {
+                    var langName = document.getElementById("lang-name");
+                    var scriptName = document.getElementById("script-name");
+                    var confidence = document.getElementById("confidence");
+                    var isReliable = document.getElementById("isReliable");
+
+                    if(info) {
+                        langName.innerText = info.lang_eng_name;
+                        scriptName.innerText = info.script_name;
+                        confidence.innerText = info.confidence;
+                        isReliable.innerText = info.is_reliable;
+                    } else {
+                        langName.innerText = "None";
+                        scriptName.innerText = "";
+                        confidence.innerText = "";
+                        isReliable.innerText = "";
+                    }
+                }
+
+                function react() {
+                    var input = document.getElementById( "input" );
+                    var info = demo.detect(input.value);
+                    setInfo(info);
+                }
+
+                react();
+                input.addEventListener("keyup", function( event ) {
+                    react();
+                });
+            });
+        </script>
+
+  </body>
+</html>
