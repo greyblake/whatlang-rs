@@ -23,7 +23,7 @@ jav,Javanese,Basa Jawa,
 kor,Korean,한국어,
 nob,Bokmal,Bokmål,
 nno,Nynorsk,Nynorsk,
-dan,Danish,Dansk
+dan,Danish,Dansk,
 swe,Swedish,Svenska,
 fin,Finnish,Suomi,
 tur,Turkish,Türkçe,
@@ -31,10 +31,10 @@ nld,Dutch,Nederlands
 hun,Hungarian,Magyar,
 ces,Czech,Čeština,
 ell,Greek,Ελληνικά,
-bul,Bulgarian,Български
-bel,Belarusian,Беларуская
-mar,Marathi,मराठी
-kan,Kannada,ಕನ್ನಡ
+bul,Bulgarian,Български,
+bel,Belarusian,Беларуская,
+mar,Marathi,मराठी,
+kan,Kannada,ಕನ್ನಡ,
 ron,Romanian,Română,24
 slv,Slovene,Slovenščina,2.5
 hrv,Croatian,Hrvatski,7
