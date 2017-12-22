@@ -1,3 +1,6 @@
+* Use array on stack instead of vector for detect_script (1-2% faster)
+
+
 #### v0.5.0 - 2017-08-06
 * (breaking) Rename `Lang::to_code(&self)` to `Lang::code(&self)`
 * (fix) Fix bug with zero division in confidence calculation
