@@ -79,9 +79,7 @@ type ScriptCounter = (Script, fn(char) -> bool, usize);
 /// assert_eq!(script, Script::Cyrillic);
 /// ```
 pub fn detect_script(text: &str) -> Option<Script> {
-    // TODO: can be optimized to use an array allocated on stack?
-    // script_counters[i] - would be cheaper
-    let mut script_counters: Vec<ScriptCounter> = vec![
+    let mut script_counters: [ScriptCounter; 24] = [
         (Script::Latin      , is_latin      , 0),
         (Script::Cyrillic   , is_cyrillic   , 0),
         (Script::Arabic     , is_arabic     , 0),
@@ -142,7 +140,11 @@ pub fn detect_script(text: &str) -> Option<Script> {
         }
     }
 
-    let (script, _, count) = script_counters.into_iter().max_by_key(|&(_, _, count)| count).unwrap();
+    let (script, _, count) = script_counters
+        .iter()
+        .cloned()
+        .max_by_key(|&(_, _, count)| count)
+        .unwrap();
     if count != 0 {
         Some(script)
     } else {
