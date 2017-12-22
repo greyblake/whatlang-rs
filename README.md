@@ -87,6 +87,7 @@ cargo bench
 
 * [whatlang-ffi](https://github.com/greyblake/whatlang-ffi) - C bindings
 * [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
+* [whatlang-py](https://github.com/cathalgarvey/whatlang-py) - bindings for Python
 
 ## Derivation
 
