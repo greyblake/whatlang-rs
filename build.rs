@@ -13,7 +13,7 @@ use std::rc::Rc;
 use std::env;
 
 const DATA_PATH: &'static str = "misc/data.json";
-const SUPPORTED_LANG_PATH: &'static str = "misc/supported_laguages.csv";
+const SUPPORTED_LANG_PATH: &'static str = "misc/supported_languages.csv";
 
 const TRIGRAPH_COUNT: usize = 300;
 
@@ -100,7 +100,7 @@ fn main() {
     }
     writeln!(lang_def, "  }}").unwrap();
     writeln!(lang_def, "}}").unwrap();
-    
+
     writeln!(lang_def, "#[inline] fn lang_to_name(lang: Lang) -> &'static str {{").unwrap();
     writeln!(lang_def, "  match lang {{").unwrap();
     for supported_lang in &supported_langs {
