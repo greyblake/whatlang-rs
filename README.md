@@ -11,6 +11,7 @@ Natural language detection for Rust with focus on simplicity and performance.
 * [Get started](#get-started)
 * [Documentation](https://docs.rs/whatlang)
 * [Supported languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* [Requirements](#requirements)
 * [How does it work?](#how-does-it-work)
   * [How language recognition works?](#how-language-recognition-works)
   * [How is_reliable calculated?](#how-is_reliable-calculated)
@@ -54,10 +55,13 @@ assert!(info.is_reliable());
 
 For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).
 
+## Requirements
+
+The latest whatlang library works with rust 1.19.0 or higher.
+
 ## How does it work?
 
-
-### How language recognition works?
+### How does the language recognition work?
 
 The algorithm is based on the trigram language models, which is a particular case of n-grams.
 To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](http://odur.let.rug.nl/~vannoord/TextCat/textcat.pdf).
@@ -71,7 +75,7 @@ It is based on the following factors:
 Therefore, it can be presented as 2d space with threshold functions, that splits it into "Reliable" and "Not reliable" areas.
 This function is a hyperbola and it looks like the following one:
 
-![Whatlang is reliable](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png)
+<img alt="Language recognition whatlang rust" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png" width="450" height="300" />
 
 For more details, please check a blog article [Introduction to Rust Whatlang Library and Natural Language Identification Algorithms](http://greyblake.com/blog/2017/07/30/introduction-to-rust-whatlang-library-and-natural-language-identification-algorithms/).
 
