@@ -4,7 +4,13 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
+// We need AsciiExt for Rust versions below 1.23.
+// For Rust 1.23 and higher AsciiExt is no longer needed, so the compiler produces
+// a warning, which we suppress.
+// For more details please read the Rust 1.23 release note: https://blog.rust-lang.org/2018/01/04/Rust-1.23.html
+#[allow(unused_imports)]
 use std::ascii::AsciiExt;
+
 use std::io::{Write, BufReader, BufWriter};
 use std::collections::HashMap;
 use std::fs::File;
