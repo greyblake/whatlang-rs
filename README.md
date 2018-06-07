@@ -16,7 +16,7 @@ Natural language detection for Rust with focus on simplicity and performance.
   * [How language recognition works?](#how-language-recognition-works)
   * [How is_reliable calculated?](#how-is_reliable-calculated)
 * [Running benchmark](#running-benchmarks)
-* [Ports and clones](ports-and-clones)
+* [Ports and clones](#ports-and-clones)
 * [Derivation](#derivation)
 * [License](#license)
 * [Contributors](#contributors)
