@@ -42,15 +42,19 @@ whatlang = "0.5.0"
 Example:
 
 ```rust
+extern crate whatlang;
+
 use whatlang::{detect, Lang, Script};
 
-let text = "Ĉu vi ne volas eklerni Esperanton? Bonvolu! Estas unu de la plej bonaj aferoj!";
+fn main() {
+    let text = "Ĉu vi ne volas eklerni Esperanton? Bonvolu! Estas unu de la plej bonaj aferoj!";
 
-let info = detect(text).unwrap();
-assert_eq!(info.lang(), Lang::Epo);
-assert_eq!(info.script(), Script::Latin);
-assert_eq!(info.confidence(), 1.0);
-assert!(info.is_reliable());
+    let info = detect(text).unwrap();
+    assert_eq!(info.lang(), Lang::Epo);
+    assert_eq!(info.script(), Script::Latin);
+    assert_eq!(info.confidence(), 1.0);
+    assert!(info.is_reliable());
+}
 ```
 
 For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).

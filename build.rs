@@ -1,8 +1,10 @@
 extern crate csv;
 extern crate serde_json;
+extern crate skeptic;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+
 
 // We need AsciiExt for Rust versions below 1.23.
 // For Rust 1.23 and higher AsciiExt is no longer needed, so the compiler produces
@@ -131,6 +133,9 @@ fn main() {
         }
         writeln!(lang_def, "];").unwrap();
     }
+
+    // generates doc tests for `README.md`.
+    skeptic::generate_doc_tests(&["README.md"]);
 }
 
 fn capitalize_name(name: &str) -> String {
