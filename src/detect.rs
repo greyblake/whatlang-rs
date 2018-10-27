@@ -107,7 +107,7 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
 
     if score1 == 0 {
         // If score1 is 0, score2 is 0 as well, because array is sorted.
-        // Therefore there is not language to return.
+        // Therefore there is no language to return.
         return None;
     } else if score2 == 0 {
         // If score2 is 0, return first language, to prevent division by zero in the rate formula.
