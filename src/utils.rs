@@ -1,4 +1,6 @@
 // Is it space, punctuation or digit?
+// Stop character is a character that does not give any value for script
+// or language detection.
 #[inline]
 pub fn is_stop_char(ch : char) -> bool {
     match ch {
