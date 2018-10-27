@@ -7,7 +7,7 @@ pub enum Lang {
     {% endfor %}
 }
 
-#[inline] fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
+fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         {% for lang in lang_infos %}
         "{{ lang.code }}" => Some(Lang::{{ lang.code | capitalize }}),
@@ -16,7 +16,7 @@ pub enum Lang {
     }
 }
 
-#[inline] fn lang_to_code(lang: Lang) -> &'static str {
+fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         {% for lang in lang_infos %}
         Lang::{{ lang.code | capitalize }} => "{{ lang.code }}",
@@ -24,7 +24,7 @@ pub enum Lang {
     }
 }
 
-#[inline] fn lang_to_name(lang: Lang) -> &'static str {
+fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         {% for lang in lang_infos %}
         Lang::{{ lang.code | capitalize }} => "{{ lang.name }}",
@@ -32,7 +32,7 @@ pub enum Lang {
     }
 }
 
-#[inline] fn lang_to_eng_name(lang: Lang) -> &'static str {
+fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         {% for lang in lang_infos %}
         Lang::{{ lang.code | capitalize }} => "{{ lang.eng_name }}",
