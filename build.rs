@@ -14,19 +14,20 @@ use std::env;
 
 const DATA_PATH: &'static str = "misc/data.json";
 const SUPPORTED_LANG_PATH: &'static str = "misc/supported_languages.csv";
+const TEMPLATE_LANG_RS_PATH: &'static str = "templates/lang.rs";
 const TRIGRAM_COUNT: usize = 300;
 
-#[derive(Debug, Clone, PartialEq, Deserialize)]
-struct SupportedLang {
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+struct LangInfo {
     code: String,
     eng_name: String,
     name: String,
     native_speakers: Option<f64>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
-struct Lang<'a> {
-    info: &'a SupportedLang,
+#[derive(Debug, Clone, PartialEq, Serialize)]
+struct Lang {
+    info: LangInfo,
     script: String,
     trigrams: Vec<String>,
 }
@@ -34,18 +35,32 @@ struct Lang<'a> {
 fn main() {
     println!("cargo:rerun-if-changed={}", DATA_PATH);
     println!("cargo:rerun-if-changed={}", SUPPORTED_LANG_PATH);
+    println!("cargo:rerun-if-changed={}", TEMPLATE_LANG_RS_PATH);
 
+    generate_source_files();
+    skeptic::generate_doc_tests(&["README.md"]);
+}
+
+fn generate_source_files() {
     let out_dir = env::var("OUT_DIR").unwrap();
     let dest_path = Path::new(&out_dir).join("lang.rs");
     let mut lang_def = BufWriter::new(File::create(&dest_path).unwrap());
 
+    let (lang_infos, scripts) = load_data();
+
+    render_lang_rs(&mut lang_def, &lang_infos, &scripts);
+}
+
+fn load_data() -> (Vec<LangInfo>, HashMap<String, Vec<Lang>>) {
     let data_file = BufReader::new(File::open(DATA_PATH).unwrap());
     let mut lang_reader = csv::ReaderBuilder::new().flexible(true).from_path(SUPPORTED_LANG_PATH).unwrap();
 
-    let mut supported_langs: Vec<SupportedLang> = lang_reader.deserialize().map(Result::unwrap).collect();
-    supported_langs.sort_by(|left, right| left.code.cmp(&right.code));
+    let mut lang_infos: Vec<LangInfo> = lang_reader.deserialize().map(Result::unwrap).collect();
+    lang_infos.sort_by(|left, right| left.code.cmp(&right.code));
 
-    let supported_lang_codes: HashMap<&str, &SupportedLang> = supported_langs.iter().map(|lang| (&*lang.code, lang)).collect();
+    let supported_lang_codes: HashMap<String, LangInfo> = lang_infos.iter()
+        .map(|lang| (lang.code.clone(), lang.clone()))
+        .collect();
 
     let lang_data: HashMap<String, HashMap<String, String>> = serde_json::from_reader(data_file).unwrap();
 
@@ -58,7 +73,7 @@ fn main() {
                 None => continue,
             };
             let lang = Lang {
-                info: info,
+                info: (*info).clone(),
                 script: script.clone(),
                 trigrams: trigrams.split('|').map(Into::into).collect()
             };
@@ -71,87 +86,17 @@ fn main() {
         }
     }
 
-
-    define_enum_lang(&mut lang_def, &supported_langs);
-
-    define_fn_lang_from_code(&mut lang_def, &supported_langs);
-    define_fn_lang_to_code(&mut lang_def, &supported_langs);
-    define_fn_lang_to_name(&mut lang_def, &supported_langs);
-    define_fn_lang_to_eng_name(&mut lang_def, &supported_langs);
-
-    define_const_script_langs(&mut lang_def, &scripts);
-
-
-    // generates doc tests for `README.md`.
-    skeptic::generate_doc_tests(&["README.md"]);
+    (lang_infos, scripts)
 }
 
-fn capitalize(origin: &str) -> String {
-    let mut value = String::from(origin);
-    value[0..1].make_ascii_uppercase();
-    value
-}
+fn render_lang_rs(buf: &mut BufWriter<File>, lang_infos: &[LangInfo], scripts: &HashMap<String, Vec<Lang>>) {
+    let mut tera = tera::Tera::default();
+    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs"));
 
-fn define_enum_lang(buf: &mut BufWriter<File>, supported_langs: &[SupportedLang]) {
-    writeln!(buf, "/// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.").unwrap();
-    writeln!(buf, "#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]").unwrap();
-    writeln!(buf, "pub enum Lang {{").unwrap();
-    for (i, supported_lang) in supported_langs.iter().enumerate() {
-        writeln!(buf, "  /// {} ({})", supported_lang.name, supported_lang.eng_name).unwrap();
-        // Number starting at 1, to allow enum optimizations to occur (e.g. Option<Lang> will be smaller)
-        writeln!(buf, "  {} = {},", capitalize(&supported_lang.code), i + 1).unwrap();
-    }
-    writeln!(buf, "}}").unwrap();
-}
+    let mut ctx = tera::Context::new();
+    ctx.insert("lang_infos", lang_infos);
+    ctx.insert("scripts", scripts);
 
-fn define_fn_lang_from_code(buf: &mut BufWriter<File>, supported_langs: &[SupportedLang]) {
-    writeln!(buf, "#[inline] fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {{").unwrap();
-    writeln!(buf, "  match code.into().to_lowercase().as_ref() {{").unwrap();
-    for supported_lang in supported_langs.iter() {
-        writeln!(buf, "    \"{}\" => Some(Lang::{}),", supported_lang.code, capitalize(&supported_lang.code));
-    }
-    writeln!(buf, "    _ => None,").unwrap();
-    writeln!(buf, "  }}").unwrap();
-    writeln!(buf, "}}").unwrap();
-}
-
-fn define_fn_lang_to_code(buf: &mut BufWriter<File>, supported_langs: &[SupportedLang]) {
-    writeln!(buf, "#[inline] fn lang_to_code(lang: Lang) -> &'static str {{").unwrap();
-    writeln!(buf, "  match lang {{").unwrap();
-    for supported_lang in supported_langs.iter() {
-        writeln!(buf, "    Lang::{} => \"{}\",", capitalize(&supported_lang.code), supported_lang.code).unwrap();
-    }
-    writeln!(buf, "  }}").unwrap();
-    writeln!(buf, "}}").unwrap();
-}
-
-fn define_fn_lang_to_name(buf: &mut BufWriter<File>, supported_langs: &[SupportedLang]) {
-    writeln!(buf, "#[inline] fn lang_to_name(lang: Lang) -> &'static str {{").unwrap();
-    writeln!(buf, "  match lang {{").unwrap();
-    for supported_lang in supported_langs.iter() {
-        writeln!(buf, "    Lang::{} => \"{}\",", capitalize(&supported_lang.code), supported_lang.name).unwrap();
-    }
-    writeln!(buf, "  }}").unwrap();
-    writeln!(buf, "}}").unwrap();
-}
-
-fn define_fn_lang_to_eng_name(buf: &mut BufWriter<File>, supported_langs: &[SupportedLang]) {
-    writeln!(buf, "#[inline] fn lang_to_eng_name(lang: Lang) -> &'static str {{").unwrap();
-    writeln!(buf, "  match lang {{").unwrap();
-    for supported_lang in supported_langs.iter() {
-        writeln!(buf, "    Lang::{} => \"{}\",", capitalize(&supported_lang.code), supported_lang.eng_name).unwrap();
-    }
-    writeln!(buf, "  }}").unwrap();
-    writeln!(buf, "}}").unwrap();
-}
-
-fn define_const_script_langs(buf: &mut BufWriter<File>, scripts: &HashMap<String, Vec<Lang>>) {
-    for (script, script_langs) in scripts {
-        writeln!(buf, "/// Languages for script '{}'", script).unwrap();
-        writeln!(buf, "pub static {}_LANGS: LangProfileList = &[", script.to_ascii_uppercase()).unwrap();
-        for lang in script_langs {
-            writeln!(buf, "  (Lang::{}, &{:?}),", capitalize(&lang.info.code), lang.trigrams).unwrap();
-        }
-        writeln!(buf, "];").unwrap();
-    }
+    let code = tera.render("lang.rs", &ctx).unwrap();
+    writeln!(buf, "{}", code).unwrap();
 }
