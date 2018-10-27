@@ -29,12 +29,14 @@ fnv = "1.0"
 [dev-dependencies]
 serde_json = "1.0"
 bencher = "0.1.2"
+skeptic = "0.13"
 
 [build-dependencies]
 csv = "1.0.0-beta.4"
 serde_json = "1.0.2"
 serde = "1.0.0"
 serde_derive = "1.0.0"
+skeptic = "0.13"
 
 [[bench]]
 name = "example"
