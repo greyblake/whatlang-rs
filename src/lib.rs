@@ -30,7 +30,7 @@
 //! let detector = Detector::with_whitelist(whitelist);
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
-extern crate fnv;
+extern crate hashbrown;
 
 mod lang;
 mod script;
