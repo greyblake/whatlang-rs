@@ -1,9 +1,7 @@
 extern crate whatlang;
-
 #[macro_use] extern crate proptest;
-use proptest::prelude::*;
 
-use whatlang::{detect, Lang, Script};
+use whatlang::detect;
 
 proptest! {
     #[test]

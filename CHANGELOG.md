@@ -1,5 +1,7 @@
+* Use hashbrown instead of fnv (detect() is 30% faster)
 * Use array on stack instead of vector for detect_script (1-2% faster)
-
+* Use build.rs to generate `lang.rs` file
+* Add property based testing
 
 #### v0.5.0 - 2017-08-06
 * (breaking) Rename `Lang::to_code(&self)` to `Lang::code(&self)`

@@ -28,7 +28,6 @@ Natural language detection for Rust with focus on simplicity and performance.
 * Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
 * Provides reliability information
-* No external dependencies (apart from [fnv](https://crates.io/crates/fnv) hasher, that gives 30% boost)
 
 ## Get started
 
@@ -36,7 +35,7 @@ Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "0.5.0"
+whatlang = "0.6.0"
 ```
 
 Example:
