@@ -91,7 +91,7 @@ fn load_data() -> (Vec<LangInfo>, HashMap<String, Vec<Lang>>) {
 
 fn render_lang_rs(buf: &mut BufWriter<File>, lang_infos: &[LangInfo], scripts: &HashMap<String, Vec<Lang>>) {
     let mut tera = tera::Tera::default();
-    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs"));
+    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs")).unwrap();
 
     let mut ctx = tera::Context::new();
     ctx.insert("lang_infos", lang_infos);
