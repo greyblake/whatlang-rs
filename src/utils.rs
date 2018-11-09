@@ -2,10 +2,10 @@
 // Stop character is a character that does not give any value for script
 // or language detection.
 #[inline]
-pub fn is_stop_char(ch : char) -> bool {
+pub fn is_stop_char(ch: char) -> bool {
     match ch {
         '\u{0000}'...'\u{0040}' | '\u{005B}'...'\u{0060}' | '\u{007B}'...'\u{007E}' => true,
-        _ => false
+        _ => false,
     }
 }
 

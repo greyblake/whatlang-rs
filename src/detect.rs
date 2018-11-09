@@ -1,11 +1,11 @@
 use hashbrown::HashMap;
 
+use constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
+use info::Info;
 use lang::*;
+use options::{List, Options};
 use script::*;
 use trigrams::*;
-use info::Info;
-use options::{Options, List};
-use constants::{MAX_TRIGRAM_DISTANCE, MAX_TOTAL_DISTANCE};
 
 /// Detect a language and a script by a given text.
 ///
@@ -39,56 +39,66 @@ pub fn detect_lang_with_options(text: &str, options: &Options) -> Option<Lang> {
 
 pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     detect_script(text).and_then(|script| {
-        detect_lang_based_on_script(text, options, script).map( |(lang, confidence)| {
-            Info { lang, script, confidence }
+        detect_lang_based_on_script(text, options, script).map(|(lang, confidence)| Info {
+            lang,
+            script,
+            confidence,
         })
     })
 }
 
-fn detect_lang_based_on_script(text: &str, options: &Options, script : Script) -> Option<(Lang, f64)> {
+fn detect_lang_based_on_script(
+    text: &str,
+    options: &Options,
+    script: Script,
+) -> Option<(Lang, f64)> {
     match script {
-        Script::Latin      => detect_lang_in_profiles(text, options, LATIN_LANGS),
-        Script::Cyrillic   => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
+        Script::Latin => detect_lang_in_profiles(text, options, LATIN_LANGS),
+        Script::Cyrillic => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
         Script::Devanagari => detect_lang_in_profiles(text, options, DEVANAGARI_LANGS),
-        Script::Hebrew     => detect_lang_in_profiles(text, options, HEBREW_LANGS),
-        Script::Ethiopic   => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
-        Script::Arabic     => detect_lang_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin  => Some((Lang::Cmn, 1.0)),
-        Script::Bengali   => Some((Lang::Ben, 1.0)),
-        Script::Hangul    => Some((Lang::Kor, 1.0)),
-        Script::Georgian  => Some((Lang::Kat, 1.0)),
-        Script::Greek     => Some((Lang::Ell, 1.0)),
-        Script::Kannada   => Some((Lang::Kan, 1.0)),
-        Script::Tamil     => Some((Lang::Tam, 1.0)),
-        Script::Thai      => Some((Lang::Tha, 1.0)),
-        Script::Gujarati  => Some((Lang::Guj, 1.0)),
-        Script::Gurmukhi  => Some((Lang::Pan, 1.0)),
-        Script::Telugu    => Some((Lang::Tel, 1.0)),
+        Script::Hebrew => detect_lang_in_profiles(text, options, HEBREW_LANGS),
+        Script::Ethiopic => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
+        Script::Arabic => detect_lang_in_profiles(text, options, ARABIC_LANGS),
+        Script::Mandarin => Some((Lang::Cmn, 1.0)),
+        Script::Bengali => Some((Lang::Ben, 1.0)),
+        Script::Hangul => Some((Lang::Kor, 1.0)),
+        Script::Georgian => Some((Lang::Kat, 1.0)),
+        Script::Greek => Some((Lang::Ell, 1.0)),
+        Script::Kannada => Some((Lang::Kan, 1.0)),
+        Script::Tamil => Some((Lang::Tam, 1.0)),
+        Script::Thai => Some((Lang::Tha, 1.0)),
+        Script::Gujarati => Some((Lang::Guj, 1.0)),
+        Script::Gurmukhi => Some((Lang::Pan, 1.0)),
+        Script::Telugu => Some((Lang::Tel, 1.0)),
         Script::Malayalam => Some((Lang::Mal, 1.0)),
-        Script::Oriya     => Some((Lang::Ori, 1.0)),
-        Script::Myanmar   => Some((Lang::Mya, 1.0)),
-        Script::Sinhala   => Some((Lang::Sin, 1.0)),
-        Script::Khmer     => Some((Lang::Khm, 1.0)),
-        Script::Katakana | Script::Hiragana  => Some((Lang::Jpn, 1.0))
+        Script::Oriya => Some((Lang::Ori, 1.0)),
+        Script::Myanmar => Some((Lang::Mya, 1.0)),
+        Script::Sinhala => Some((Lang::Sin, 1.0)),
+        Script::Khmer => Some((Lang::Khm, 1.0)),
+        Script::Katakana | Script::Hiragana => Some((Lang::Jpn, 1.0)),
     }
 }
 
-fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : LangProfileList) -> Option<(Lang, f64)> {
-    let mut lang_distances : Vec<(Lang, u32)> = vec![];
+fn detect_lang_in_profiles(
+    text: &str,
+    options: &Options,
+    lang_profile_list: LangProfileList,
+) -> Option<(Lang, f64)> {
+    let mut lang_distances: Vec<(Lang, u32)> = vec![];
     let trigrams = get_trigrams_with_positions(text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {
         match options.list {
             Some(List::White(ref whitelist)) if !whitelist.contains(lang) => continue,
             Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
-            _ => {},
+            _ => {}
         }
         let dist = calculate_distance(lang_trigrams, &trigrams);
         lang_distances.push(((*lang), dist));
     }
 
     // Sort languages by distance
-    lang_distances.sort_by_key(|key| key.1 );
+    lang_distances.sort_by_key(|key| key.1);
 
     // Return None if lang_distances is empty
     // Return the only language with is_reliable=true if there is only 1 item
@@ -131,23 +141,22 @@ fn detect_lang_in_profiles(text: &str, options: &Options, lang_profile_list : La
     // Numbers 12.0 and 0.05 are obtained experimentally, so the function represents common sense.
     //
     let confident_rate = (12.0 / trigrams.len() as f64) + 0.05;
-    let confidence =
-        if rate > confident_rate {
-            1.0
-        } else {
-            rate / confident_rate
-        };
+    let confidence = if rate > confident_rate {
+        1.0
+    } else {
+        rate / confident_rate
+    };
 
     Some((lang_dist1.0, confidence))
 }
 
-fn calculate_distance(lang_trigrams: LangProfile,  text_trigrams: &HashMap<String, u32>) -> u32 {
+fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<String, u32>) -> u32 {
     let mut total_dist = 0u32;
 
     for (i, &trigram) in lang_trigrams.iter().enumerate() {
         let dist = match text_trigrams.get(trigram) {
             Some(&n) => (n as i32 - i as i32).abs() as u32,
-            None => MAX_TRIGRAM_DISTANCE
+            None => MAX_TRIGRAM_DISTANCE,
         };
         total_dist += dist;
     }
@@ -186,7 +195,16 @@ mod tests {
         assert_eq!(info.lang, Lang::Tgl);
 
         // with blacklist
-        let blacklist = vec![Lang::Tgl, Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob, Lang::Ceb, Lang::Ilo];
+        let blacklist = vec![
+            Lang::Tgl,
+            Lang::Jav,
+            Lang::Nld,
+            Lang::Uzb,
+            Lang::Swe,
+            Lang::Nob,
+            Lang::Ceb,
+            Lang::Ilo,
+        ];
         let options = Options::new().set_blacklist(blacklist);
         let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
@@ -224,7 +242,9 @@ mod tests {
         let info = detect("qwertyuioasdfghjklzxcvbnm").unwrap();
         assert!(!info.is_reliable());
 
-        let info = detect("qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm").unwrap();
+        let info =
+            detect("qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm qwertyuioasdfghjklzxcvbnm")
+                .unwrap();
         assert!(!info.is_reliable());
 
         // 1000 chars of randomly generated Cyrillic text

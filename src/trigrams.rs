@@ -1,11 +1,10 @@
-use utils::is_stop_char;
-use hashbrown::HashMap;
 use constants::TEXT_TRIGRAMS_SIZE;
+use hashbrown::HashMap;
+use utils::is_stop_char;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
-pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
-
+pub fn get_trigrams_with_positions(text: &str) -> HashMap<String, u32> {
     // Sort in descending order by number of occurrences and trigrams
     let mut count_vec: Vec<_> = count(text)
         .into_iter()
@@ -13,19 +12,24 @@ pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
         .collect();
     count_vec.sort_by(|a, b| b.cmp(a));
 
-    count_vec.into_iter()
+    count_vec
+        .into_iter()
         .take(TEXT_TRIGRAMS_SIZE)
         .enumerate()
         .map(|(i, (_, trigram))| (trigram, i as u32))
         .collect()
 }
 
-fn count(text : &str) -> HashMap<String, u32> {
+fn count(text: &str) -> HashMap<String, u32> {
     let hash_capacity = calculate_initial_hash_capacity(text);
-    let mut counter_hash : HashMap<String, u32> = HashMap::with_capacity(hash_capacity);
+    let mut counter_hash: HashMap<String, u32> = HashMap::with_capacity(hash_capacity);
 
     // iterate through the string and count trigrams
-    let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));
+    let mut chars_iter = text
+        .chars()
+        .map(to_trigram_char)
+        .flat_map(char::to_lowercase)
+        .chain(Some(' '));
     let mut c1 = ' ';
     // unwrap is safe, because we always chain a space character on the end of the iterator
     let mut c2 = chars_iter.next().unwrap();
@@ -48,8 +52,12 @@ fn count(text : &str) -> HashMap<String, u32> {
 
 // Convert punctuations and digits to a space.
 #[inline]
-fn to_trigram_char(ch : char) -> char {
-    if is_stop_char(ch) { ' ' } else { ch }
+fn to_trigram_char(ch: char) -> char {
+    if is_stop_char(ch) {
+        ' '
+    } else {
+        ch
+    }
 }
 
 // In order to improve performance, define the initial capacity for trigrams hash map,
@@ -63,19 +71,17 @@ fn calculate_initial_hash_capacity(text: &str) -> usize {
     }
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    fn assert_valuable_trigram_chars(chars : &[char]) {
+    fn assert_valuable_trigram_chars(chars: &[char]) {
         for &ch in chars.iter() {
             assert_eq!(to_trigram_char(ch), ch);
         }
     }
 
-    fn assert_not_valuable_trigram_chars(chars : &[char]) {
+    fn assert_not_valuable_trigram_chars(chars: &[char]) {
         for &ch in chars.iter() {
             assert_eq!(to_trigram_char(ch), ' ');
         }
@@ -96,13 +102,15 @@ mod tests {
         assert_not_valuable_trigram_chars(&['[', '|', '{', '}', '~']);
     }
 
-
-
     fn assert_count(text: &str, pairs: &[(&str, u32)]) {
         let result = count(text);
         for &(trigram, expected_n) in pairs.iter() {
             let actual_n = result[trigram];
-            assert_eq!(actual_n, expected_n, "trigram '{}' expected to occur {} times, got {}", trigram, expected_n, actual_n);
+            assert_eq!(
+                actual_n, expected_n,
+                "trigram '{}' expected to occur {} times, got {}",
+                trigram, expected_n, actual_n
+            );
         }
         assert_eq!(result.len(), pairs.len());
     }
@@ -114,7 +122,17 @@ mod tests {
         assert_count("a", &[(" a ", 1)]);
         assert_count("-a-", &[(" a ", 1)]);
         assert_count("yes", &[(" ye", 1), ("yes", 1), ("es ", 1)]);
-        assert_count("Give - IT...", &[(" gi", 1), ("giv", 1), ("ive", 1), ("ve ", 1), (" it", 1), ("it ", 1)]);
+        assert_count(
+            "Give - IT...",
+            &[
+                (" gi", 1),
+                ("giv", 1),
+                ("ive", 1),
+                ("ve ", 1),
+                (" it", 1),
+                ("it ", 1),
+            ],
+        );
     }
 
     #[test]

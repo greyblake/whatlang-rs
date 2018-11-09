@@ -1,16 +1,16 @@
 extern crate csv;
-extern crate skeptic;
-extern crate serde_json;
 extern crate serde;
+extern crate serde_json;
+extern crate skeptic;
 #[macro_use]
 extern crate serde_derive;
 extern crate tera;
 
-use std::io::{Write, BufReader, BufWriter};
 use std::collections::HashMap;
-use std::fs::File;
-use std::path::Path;
 use std::env;
+use std::fs::File;
+use std::io::{BufReader, BufWriter, Write};
+use std::path::Path;
 
 const DATA_PATH: &'static str = "misc/data.json";
 const SUPPORTED_LANG_PATH: &'static str = "misc/supported_languages.csv";
@@ -53,16 +53,21 @@ fn generate_source_files() {
 
 fn load_data() -> (Vec<LangInfo>, HashMap<String, Vec<Lang>>) {
     let data_file = BufReader::new(File::open(DATA_PATH).unwrap());
-    let mut lang_reader = csv::ReaderBuilder::new().flexible(true).from_path(SUPPORTED_LANG_PATH).unwrap();
+    let mut lang_reader = csv::ReaderBuilder::new()
+        .flexible(true)
+        .from_path(SUPPORTED_LANG_PATH)
+        .unwrap();
 
     let mut lang_infos: Vec<LangInfo> = lang_reader.deserialize().map(Result::unwrap).collect();
     lang_infos.sort_by(|left, right| left.code.cmp(&right.code));
 
-    let supported_lang_codes: HashMap<String, LangInfo> = lang_infos.iter()
+    let supported_lang_codes: HashMap<String, LangInfo> = lang_infos
+        .iter()
         .map(|lang| (lang.code.clone(), lang.clone()))
         .collect();
 
-    let lang_data: HashMap<String, HashMap<String, String>> = serde_json::from_reader(data_file).unwrap();
+    let lang_data: HashMap<String, HashMap<String, String>> =
+        serde_json::from_reader(data_file).unwrap();
 
     let mut scripts: HashMap<String, Vec<Lang>> = HashMap::with_capacity(lang_data.len());
     let mut all_langs: Vec<Lang> = Vec::new();
@@ -75,23 +80,36 @@ fn load_data() -> (Vec<LangInfo>, HashMap<String, Vec<Lang>>) {
             let lang = Lang {
                 info: (*info).clone(),
                 script: script.clone(),
-                trigrams: trigrams.split('|').map(Into::into).collect()
+                trigrams: trigrams.split('|').map(Into::into).collect(),
             };
             if lang.trigrams.len() != TRIGRAM_COUNT {
-                panic!("Language {} has {} trigrams, instead of {}", code, lang.trigrams.len(), TRIGRAM_COUNT);
+                panic!(
+                    "Language {} has {} trigrams, instead of {}",
+                    code,
+                    lang.trigrams.len(),
+                    TRIGRAM_COUNT
+                );
             }
 
             all_langs.push(lang.clone());
-            scripts.entry(script.clone()).or_insert_with(Vec::new).push(lang);
+            scripts
+                .entry(script.clone())
+                .or_insert_with(Vec::new)
+                .push(lang);
         }
     }
 
     (lang_infos, scripts)
 }
 
-fn render_lang_rs(buf: &mut BufWriter<File>, lang_infos: &[LangInfo], scripts: &HashMap<String, Vec<Lang>>) {
+fn render_lang_rs(
+    buf: &mut BufWriter<File>,
+    lang_infos: &[LangInfo],
+    scripts: &HashMap<String, Vec<Lang>>,
+) {
     let mut tera = tera::Tera::default();
-    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs")).unwrap();
+    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs"))
+        .unwrap();
 
     let mut ctx = tera::Context::new();
     ctx.insert("lang_infos", lang_infos);

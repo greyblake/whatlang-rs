@@ -32,21 +32,21 @@
 //! assert_eq!(lang, Some(Lang::Eng));
 extern crate hashbrown;
 
-mod lang;
-mod script;
-mod info;
-mod utils;
-mod trigrams;
+mod constants;
 mod detect;
 mod detector;
+mod info;
+mod lang;
 mod options;
-mod constants;
+mod script;
+mod trigrams;
+mod utils;
 
-pub use lang::Lang;
-pub use script::Script;
-pub use info::Info;
 pub use detector::Detector;
+pub use info::Info;
+pub use lang::Lang;
 pub use options::Options;
+pub use script::Script;
 
 pub use detect::detect;
 pub use detect::detect_lang;

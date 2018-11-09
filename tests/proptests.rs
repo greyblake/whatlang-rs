@@ -1,5 +1,6 @@
 extern crate whatlang;
-#[macro_use] extern crate proptest;
+#[macro_use]
+extern crate proptest;
 
 use whatlang::detect;
 

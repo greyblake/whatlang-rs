@@ -1,9 +1,9 @@
-use lang::Lang;
-use script::Script;
-use script::detect_script;
-use info::Info;
-use options::Options;
 use detect;
+use info::Info;
+use lang::Lang;
+use options::Options;
+use script::detect_script;
+use script::Script;
 
 /// Configurable structure that holds detection options and provides functions
 /// to detect language and script.
@@ -72,7 +72,10 @@ mod tests {
     #[test]
     fn test_detect_script() {
         // Russian, Cyrillic
-        assert_eq!(Detector::new().detect_script("Кириллица"), Some(Script::Cyrillic));
+        assert_eq!(
+            Detector::new().detect_script("Кириллица"),
+            Some(Script::Cyrillic)
+        );
     }
 
     #[test]

@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate bencher;
-extern crate whatlang;
 extern crate serde_json;
+extern crate whatlang;
 
 use bencher::Bencher;
 use std::collections::HashMap;
