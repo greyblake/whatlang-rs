@@ -1,10 +1,10 @@
 use utils::is_stop_char;
-use fnv::FnvHashMap;
+use hashbrown::HashMap;
 use constants::TEXT_TRIGRAMS_SIZE;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
-pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
+pub fn get_trigrams_with_positions(text : &str) -> HashMap<String, u32> {
 
     // Sort in descending order by number of occurrences and trigrams
     let mut count_vec: Vec<_> = count(text)
@@ -20,9 +20,9 @@ pub fn get_trigrams_with_positions(text : &str) -> FnvHashMap<String, u32> {
         .collect()
 }
 
-fn count(text : &str) -> FnvHashMap<String, u32> {
+fn count(text : &str) -> HashMap<String, u32> {
     let hash_capacity = calculate_initial_hash_capacity(text);
-    let mut counter_hash : FnvHashMap<String, u32> = FnvHashMap::with_capacity_and_hasher(hash_capacity, Default::default());
+    let mut counter_hash : HashMap<String, u32> = HashMap::with_capacity(hash_capacity);
 
     // iterate through the string and count trigrams
     let mut chars_iter = text.chars().map(to_trigram_char).flat_map(char::to_lowercase).chain(Some(' '));
