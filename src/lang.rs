@@ -33,8 +33,8 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.name(), "Українська");
     /// ```
-    pub fn name(&self) -> &'static str {
-        lang_to_name(*self)
+    pub fn name(self) -> &'static str {
+        lang_to_name(self)
     }
 
     /// Get a human readable name of the language in English.
@@ -44,8 +44,8 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Deu.eng_name(), "German");
     /// ```
-    pub fn eng_name(&self) -> &'static str {
-        lang_to_eng_name(*self)
+    pub fn eng_name(self) -> &'static str {
+        lang_to_eng_name(self)
     }
 }
 

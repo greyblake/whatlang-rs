@@ -3,13 +3,13 @@ use lang::Lang;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum List {
     White(Vec<Lang>),
-    Black(Vec<Lang>)
+    Black(Vec<Lang>),
 }
 
 /// Allows to customize behaviour of [Detector](struct.Detector.html).
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Options {
-    pub(crate) list: Option<List>
+    pub(crate) list: Option<List>,
 }
 
 impl Options {

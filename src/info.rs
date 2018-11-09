@@ -8,7 +8,7 @@ const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.8;
 pub struct Info {
     pub(crate) lang: Lang,
     pub(crate) script: Script,
-    pub(crate) confidence: f64
+    pub(crate) confidence: f64,
 }
 
 impl Info {

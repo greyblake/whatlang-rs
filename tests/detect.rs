@@ -1,5 +1,5 @@
-extern crate whatlang;
 extern crate serde_json;
+extern crate whatlang;
 
 use whatlang::{detect, Lang, Script};
 

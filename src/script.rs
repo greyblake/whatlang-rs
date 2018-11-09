@@ -1,5 +1,5 @@
-use utils::is_stop_char;
 use std::fmt;
+use utils::is_stop_char;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
@@ -34,30 +34,30 @@ pub enum Script {
 impl Script {
     pub fn name(&self) -> &str {
         match *self {
-            Script::Latin      => "Latin",
-            Script::Cyrillic   => "Cyrillic",
-            Script::Arabic     => "Arabic",
+            Script::Latin => "Latin",
+            Script::Cyrillic => "Cyrillic",
+            Script::Arabic => "Arabic",
             Script::Devanagari => "Devanagari",
-            Script::Hiragana   => "Hiragana",
-            Script::Katakana   => "Katakana",
-            Script::Ethiopic   => "Ethiopic",
-            Script::Hebrew     => "Hebrew",
-            Script::Bengali    => "Bengali",
-            Script::Georgian   => "Georgian",
-            Script::Mandarin   => "Mandarin",
-            Script::Hangul     => "Hangul",
-            Script::Greek      => "Greek",
-            Script::Kannada    => "Kannada",
-            Script::Tamil      => "Tamil",
-            Script::Thai       => "Thai",
-            Script::Gujarati   => "Gujarati",
-            Script::Gurmukhi   => "Gurmukhi",
-            Script::Telugu     => "Telugu",
-            Script::Malayalam  => "Malayalam",
-            Script::Oriya      => "Oriya",
-            Script::Myanmar    => "Myanmar",
-            Script::Sinhala    => "Sinhala",
-            Script::Khmer      => "Khmer"
+            Script::Hiragana => "Hiragana",
+            Script::Katakana => "Katakana",
+            Script::Ethiopic => "Ethiopic",
+            Script::Hebrew => "Hebrew",
+            Script::Bengali => "Bengali",
+            Script::Georgian => "Georgian",
+            Script::Mandarin => "Mandarin",
+            Script::Hangul => "Hangul",
+            Script::Greek => "Greek",
+            Script::Kannada => "Kannada",
+            Script::Tamil => "Tamil",
+            Script::Thai => "Thai",
+            Script::Gujarati => "Gujarati",
+            Script::Gurmukhi => "Gurmukhi",
+            Script::Telugu => "Telugu",
+            Script::Malayalam => "Malayalam",
+            Script::Oriya => "Oriya",
+            Script::Myanmar => "Myanmar",
+            Script::Sinhala => "Sinhala",
+            Script::Khmer => "Khmer",
         }
     }
 }
@@ -80,36 +80,38 @@ type ScriptCounter = (Script, fn(char) -> bool, usize);
 /// ```
 pub fn detect_script(text: &str) -> Option<Script> {
     let mut script_counters: [ScriptCounter; 24] = [
-        (Script::Latin      , is_latin      , 0),
-        (Script::Cyrillic   , is_cyrillic   , 0),
-        (Script::Arabic     , is_arabic     , 0),
-        (Script::Mandarin   , is_mandarin   , 0),
-        (Script::Devanagari , is_devanagari , 0),
-        (Script::Hebrew     , is_hebrew     , 0),
-        (Script::Ethiopic   , is_ethiopic   , 0),
-        (Script::Georgian   , is_georgian   , 0),
-        (Script::Bengali    , is_bengali    , 0),
-        (Script::Hangul     , is_hangul     , 0),
-        (Script::Hiragana   , is_hiragana   , 0),
-        (Script::Katakana   , is_katakana   , 0),
-        (Script::Greek      , is_greek      , 0),
-        (Script::Kannada    , is_kannada    , 0),
-        (Script::Tamil      , is_tamil      , 0),
-        (Script::Thai       , is_thai       , 0),
-        (Script::Gujarati   , is_gujarati   , 0),
-        (Script::Gurmukhi   , is_gurmukhi   , 0),
-        (Script::Telugu     , is_telugu     , 0),
-        (Script::Malayalam  , is_malayalam  , 0),
-        (Script::Oriya      , is_oriya      , 0),
-        (Script::Myanmar    , is_myanmar    , 0),
-        (Script::Sinhala    , is_sinhala    , 0),
-        (Script::Khmer      , is_khmer      , 0)
+        (Script::Latin, is_latin, 0),
+        (Script::Cyrillic, is_cyrillic, 0),
+        (Script::Arabic, is_arabic, 0),
+        (Script::Mandarin, is_mandarin, 0),
+        (Script::Devanagari, is_devanagari, 0),
+        (Script::Hebrew, is_hebrew, 0),
+        (Script::Ethiopic, is_ethiopic, 0),
+        (Script::Georgian, is_georgian, 0),
+        (Script::Bengali, is_bengali, 0),
+        (Script::Hangul, is_hangul, 0),
+        (Script::Hiragana, is_hiragana, 0),
+        (Script::Katakana, is_katakana, 0),
+        (Script::Greek, is_greek, 0),
+        (Script::Kannada, is_kannada, 0),
+        (Script::Tamil, is_tamil, 0),
+        (Script::Thai, is_thai, 0),
+        (Script::Gujarati, is_gujarati, 0),
+        (Script::Gurmukhi, is_gurmukhi, 0),
+        (Script::Telugu, is_telugu, 0),
+        (Script::Malayalam, is_malayalam, 0),
+        (Script::Oriya, is_oriya, 0),
+        (Script::Myanmar, is_myanmar, 0),
+        (Script::Sinhala, is_sinhala, 0),
+        (Script::Khmer, is_khmer, 0),
     ];
 
     let half = text.chars().count() / 2;
 
     for ch in text.chars() {
-        if is_stop_char(ch) { continue; }
+        if is_stop_char(ch) {
+            continue;
+        }
 
         // For performance reasons, we need to mutate script_counters by calling
         // `swap` function, it would not be possible to do using normal iterator.
@@ -153,153 +155,148 @@ pub fn detect_script(text: &str) -> Option<Script> {
 }
 
 fn is_cyrillic(ch: char) -> bool {
-   match ch {
-       '\u{0400}'...'\u{0484}' |
-       '\u{0487}'...'\u{052F}' |
-       '\u{2DE0}'...'\u{2DFF}' |
-       '\u{A640}'...'\u{A69D}' |
-       '\u{1D2B}' |
-       '\u{1D78}' |
-       '\u{A69F}' => true,
-       _ => false
-   }
+    match ch {
+        '\u{0400}'...'\u{0484}'
+        | '\u{0487}'...'\u{052F}'
+        | '\u{2DE0}'...'\u{2DFF}'
+        | '\u{A640}'...'\u{A69D}'
+        | '\u{1D2B}'
+        | '\u{1D78}'
+        | '\u{A69F}' => true,
+        _ => false,
+    }
 }
 
 // https://en.wikipedia.org/wiki/Latin_script_in_Unicode
-fn is_latin(ch : char) -> bool {
+fn is_latin(ch: char) -> bool {
     match ch {
-        'a'...'z' |
-        'A'...'Z' |
-        '\u{0080}'...'\u{00FF}' |
-        '\u{0100}'...'\u{017F}' |
-        '\u{0180}'...'\u{024F}' |
-        '\u{0250}'...'\u{02AF}' |
-        '\u{1D00}'...'\u{1D7F}' |
-        '\u{1D80}'...'\u{1DBF}' |
-        '\u{1E00}'...'\u{1EFF}' |
-        '\u{2100}'...'\u{214F}' |
-        '\u{2C60}'...'\u{2C7F}' |
-        '\u{A720}'...'\u{A7FF}' |
-        '\u{AB30}'...'\u{AB6F}' => true,
-        _ => false
+        'a'...'z'
+        | 'A'...'Z'
+        | '\u{0080}'...'\u{00FF}'
+        | '\u{0100}'...'\u{017F}'
+        | '\u{0180}'...'\u{024F}'
+        | '\u{0250}'...'\u{02AF}'
+        | '\u{1D00}'...'\u{1D7F}'
+        | '\u{1D80}'...'\u{1DBF}'
+        | '\u{1E00}'...'\u{1EFF}'
+        | '\u{2100}'...'\u{214F}'
+        | '\u{2C60}'...'\u{2C7F}'
+        | '\u{A720}'...'\u{A7FF}'
+        | '\u{AB30}'...'\u{AB6F}' => true,
+        _ => false,
     }
 }
 
 // Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-fn is_arabic(ch : char) -> bool {
+fn is_arabic(ch: char) -> bool {
     match ch {
-        '\u{0600}'...'\u{06FF}' |
-        '\u{0750}'...'\u{07FF}' |
-        '\u{08A0}'...'\u{08FF}' |
-        '\u{FB50}'...'\u{FDFF}' |
-        '\u{FE70}'...'\u{FEFF}' |
-        '\u{10E60}'...'\u{10E7F}' |
-        '\u{1EE00}'...'\u{1EEFF}' => true,
-        _ => false
+        '\u{0600}'...'\u{06FF}'
+        | '\u{0750}'...'\u{07FF}'
+        | '\u{08A0}'...'\u{08FF}'
+        | '\u{FB50}'...'\u{FDFF}'
+        | '\u{FE70}'...'\u{FEFF}'
+        | '\u{10E60}'...'\u{10E7F}'
+        | '\u{1EE00}'...'\u{1EEFF}' => true,
+        _ => false,
     }
 }
 
 // Based on https://en.wikipedia.org/wiki/Devanagari#Unicode
-fn is_devanagari(ch : char) -> bool {
+fn is_devanagari(ch: char) -> bool {
     match ch {
-        '\u{0900}'...'\u{097F}' |
-        '\u{A8E0}'...'\u{A8FF}' |
-        '\u{1CD0}'...'\u{1CFF}' => true,
-        _ => false
+        '\u{0900}'...'\u{097F}' | '\u{A8E0}'...'\u{A8FF}' | '\u{1CD0}'...'\u{1CFF}' => true,
+        _ => false,
     }
 }
 
 // Based on https://www.key-shortcut.com/en/writing-systems/ethiopian-script/
-fn is_ethiopic(ch : char) -> bool {
+fn is_ethiopic(ch: char) -> bool {
     match ch {
-        '\u{1200}'...'\u{139F}' |
-        '\u{2D80}'...'\u{2DDF}' |
-        '\u{AB00}'...'\u{AB2F}' => true,
-        _ => false
+        '\u{1200}'...'\u{139F}' | '\u{2D80}'...'\u{2DDF}' | '\u{AB00}'...'\u{AB2F}' => true,
+        _ => false,
     }
 }
 
 // Based on https://en.wikipedia.org/wiki/Hebrew_(Unicode_block)
-fn is_hebrew(ch : char) -> bool {
+fn is_hebrew(ch: char) -> bool {
     match ch {
         '\u{0590}'...'\u{05FF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
-fn is_georgian(ch : char) -> bool {
-   match ch {
-       '\u{10A0}'...'\u{10FF}' => true,
-       _ => false
-   }
-}
-
-fn is_mandarin(ch : char) -> bool {
+fn is_georgian(ch: char) -> bool {
     match ch {
-        '\u{2E80}'...'\u{2E99}' |
-        '\u{2E9B}'...'\u{2EF3}' |
-        '\u{2F00}'...'\u{2FD5}' |
-        '\u{3005}' |
-        '\u{3007}' |
-        '\u{3021}'...'\u{3029}' |
-        '\u{3038}'...'\u{303B}' |
-        '\u{3400}'...'\u{4DB5}' |
-        '\u{4E00}'...'\u{9FCC}' |
-        '\u{F900}'...'\u{FA6D}' |
-        '\u{FA70}'...'\u{FAD9}' => true,
-        _ => false
+        '\u{10A0}'...'\u{10FF}' => true,
+        _ => false,
     }
 }
 
-fn is_bengali(ch : char) -> bool {
-   match ch {
-       '\u{0980}'...'\u{09FF}' => true,
-       _ => false
-   }
-}
-
-fn is_hiragana(ch : char) -> bool {
-   match ch {
-       '\u{3040}'...'\u{309F}' => true,
-       _ => false
-   }
-}
-
-fn is_katakana(ch : char) -> bool {
-   match ch {
-       '\u{30A0}'...'\u{30FF}' => true,
-       _ => false
+fn is_mandarin(ch: char) -> bool {
+    match ch {
+        '\u{2E80}'...'\u{2E99}'
+        | '\u{2E9B}'...'\u{2EF3}'
+        | '\u{2F00}'...'\u{2FD5}'
+        | '\u{3005}'
+        | '\u{3007}'
+        | '\u{3021}'...'\u{3029}'
+        | '\u{3038}'...'\u{303B}'
+        | '\u{3400}'...'\u{4DB5}'
+        | '\u{4E00}'...'\u{9FCC}'
+        | '\u{F900}'...'\u{FA6D}'
+        | '\u{FA70}'...'\u{FAD9}' => true,
+        _ => false,
     }
 }
 
+fn is_bengali(ch: char) -> bool {
+    match ch {
+        '\u{0980}'...'\u{09FF}' => true,
+        _ => false,
+    }
+}
+
+fn is_hiragana(ch: char) -> bool {
+    match ch {
+        '\u{3040}'...'\u{309F}' => true,
+        _ => false,
+    }
+}
+
+fn is_katakana(ch: char) -> bool {
+    match ch {
+        '\u{30A0}'...'\u{30FF}' => true,
+        _ => false,
+    }
+}
 
 // Hangul is Korean Alphabet. Unicode ranges are taken from: https://en.wikipedia.org/wiki/Hangul
-fn is_hangul(ch : char) -> bool {
+fn is_hangul(ch: char) -> bool {
     match ch {
-        '\u{AC00}'...'\u{D7AF}' |
-        '\u{1100}'...'\u{11FF}' |
-        '\u{3130}'...'\u{318F}' |
-        '\u{3200}'...'\u{32FF}' |
-        '\u{A960}'...'\u{A97F}' |
-        '\u{D7B0}'...'\u{D7FF}' |
-        '\u{FF00}'...'\u{FFEF}' => true,
-        _ => false
+        '\u{AC00}'...'\u{D7AF}'
+        | '\u{1100}'...'\u{11FF}'
+        | '\u{3130}'...'\u{318F}'
+        | '\u{3200}'...'\u{32FF}'
+        | '\u{A960}'...'\u{A97F}'
+        | '\u{D7B0}'...'\u{D7FF}'
+        | '\u{FF00}'...'\u{FFEF}' => true,
+        _ => false,
     }
 }
 
 // Taken from: https://en.wikipedia.org/wiki/Greek_and_Coptic
-fn is_greek(ch : char) -> bool {
+fn is_greek(ch: char) -> bool {
     match ch {
         '\u{0370}'...'\u{03FF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
 // Based on: https://en.wikipedia.org/wiki/Kannada_(Unicode_block)
-fn is_kannada(ch : char) -> bool {
+fn is_kannada(ch: char) -> bool {
     match ch {
         '\u{0C80}'...'\u{0CFF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -307,7 +304,7 @@ fn is_kannada(ch : char) -> bool {
 fn is_tamil(ch: char) -> bool {
     match ch {
         '\u{0B80}'...'\u{0BFF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -315,7 +312,7 @@ fn is_tamil(ch: char) -> bool {
 fn is_thai(ch: char) -> bool {
     match ch {
         '\u{0E00}'...'\u{0E7F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -323,7 +320,7 @@ fn is_thai(ch: char) -> bool {
 fn is_gujarati(ch: char) -> bool {
     match ch {
         '\u{0A80}'...'\u{0AFF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -332,14 +329,14 @@ fn is_gujarati(ch: char) -> bool {
 fn is_gurmukhi(ch: char) -> bool {
     match ch {
         '\u{0A00}'...'\u{0A7F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
 fn is_telugu(ch: char) -> bool {
     match ch {
         '\u{0C00}'...'\u{0C7F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -347,7 +344,7 @@ fn is_telugu(ch: char) -> bool {
 fn is_malayalam(ch: char) -> bool {
     match ch {
         '\u{0D00}'...'\u{0D7F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -355,7 +352,7 @@ fn is_malayalam(ch: char) -> bool {
 fn is_oriya(ch: char) -> bool {
     match ch {
         '\u{0B00}'...'\u{0B7F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -363,7 +360,7 @@ fn is_oriya(ch: char) -> bool {
 fn is_myanmar(ch: char) -> bool {
     match ch {
         '\u{1000}'...'\u{109F}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -371,7 +368,7 @@ fn is_myanmar(ch: char) -> bool {
 fn is_sinhala(ch: char) -> bool {
     match ch {
         '\u{0D80}'...'\u{0DFF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -379,7 +376,7 @@ fn is_sinhala(ch: char) -> bool {
 fn is_khmer(ch: char) -> bool {
     match ch {
         '\u{1780}'...'\u{17FF}' | '\u{19E0}'...'\u{19FF}' => true,
-        _ => false
+        _ => false,
     }
 }
 
@@ -399,17 +396,48 @@ mod tests {
 
         // One script
         assert_eq!(detect_script(&"Hello!".to_string()), Some(Script::Latin));
-        assert_eq!(detect_script(&"Привет всем!".to_string()), Some(Script::Cyrillic));
-        assert_eq!(detect_script(&"ქართული ენა მსოფლიო ".to_string()), Some(Script::Georgian));
-        assert_eq!(detect_script(&"県見夜上温国阪題富販".to_string()), Some(Script::Mandarin));
-        assert_eq!(detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()), Some(Script::Arabic));
+        assert_eq!(
+            detect_script(&"Привет всем!".to_string()),
+            Some(Script::Cyrillic)
+        );
+        assert_eq!(
+            detect_script(&"ქართული ენა მსოფლიო ".to_string()),
+            Some(Script::Georgian)
+        );
+        assert_eq!(
+            detect_script(&"県見夜上温国阪題富販".to_string()),
+            Some(Script::Mandarin)
+        );
+        assert_eq!(
+            detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()),
+            Some(Script::Arabic)
+        );
         assert_eq!(detect_script(&"हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
-        assert_eq!(detect_script(&"היסטוריה והתפתחות של האלפבית העברי".to_string()), Some(Script::Hebrew));
-        assert_eq!(detect_script(&"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ".to_string()), Some(Script::Ethiopic));
+        assert_eq!(
+            detect_script(
+                &"היסטוריה והתפתחות של האלפבית העברי".to_string()
+            ),
+            Some(Script::Hebrew)
+        );
+        assert_eq!(
+            detect_script(
+                &"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ"
+                    .to_string()
+            ),
+            Some(Script::Ethiopic)
+        );
 
         // Mixed scripts
-        assert_eq!(detect_script(&"Привет! Текст на русском with some English.".to_string()), Some(Script::Cyrillic));
-        assert_eq!(detect_script(&"Russian word любовь means love.".to_string()), Some(Script::Latin));
+        assert_eq!(
+            detect_script(
+                &"Привет! Текст на русском with some English.".to_string()
+            ),
+            Some(Script::Cyrillic)
+        );
+        assert_eq!(
+            detect_script(&"Russian word любовь means love.".to_string()),
+            Some(Script::Latin)
+        );
     }
 
     #[test]
