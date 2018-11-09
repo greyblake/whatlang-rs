@@ -4,5 +4,6 @@ rust:
   - stable
 script:
   - cargo fmt -- --check
+  - cargo clippy -- -D warnings
   - cargo test
   - cargo package
