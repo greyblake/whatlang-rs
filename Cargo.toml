@@ -14,7 +14,7 @@ include = [
     "src/**/*",
     "test/**/*",
     "misc/data.json",
-    "misc/supported_laguages.csv",
+    "misc/supported_languages.csv",
     "templates/lang.rs",
     "build.rs",
     "Cargo.toml",
