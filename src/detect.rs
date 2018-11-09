@@ -127,14 +127,14 @@ fn detect_lang_in_profiles(
         // * Text really matches one of the languages.
         //
         // Number 500.0 is based on experiments and common sense expectations.
-        let mut confidence = (score1 as f64) / 500.0;
+        let mut confidence = f64::from(score1) / 500.0;
         if confidence > 1.0 {
             confidence = 1.0;
         }
         return Some((lang_dist1.0, confidence));
     }
 
-    let rate = (score1 - score2) as f64 / (score2 as f64);
+    let rate = f64::from(score1 - score2) / f64::from(score2);
 
     // Hyperbola function. Everything that is above the function has confidence = 1.0
     // If rate is below, confidence is calculated proportionally.
