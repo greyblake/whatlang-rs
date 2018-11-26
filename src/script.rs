@@ -392,50 +392,45 @@ mod tests {
 
     #[test]
     fn test_detect_script() {
-        assert_eq!(detect_script(&"1234567890-,;!".to_string()), None);
+        assert_eq!(detect_script("1234567890-,;!"), None);
 
         // One script
-        assert_eq!(detect_script(&"Hello!".to_string()), Some(Script::Latin));
+        assert_eq!(detect_script("Hello!"), Some(Script::Latin));
         assert_eq!(
-            detect_script(&"Привет всем!".to_string()),
+            detect_script("Привет всем!"),
             Some(Script::Cyrillic)
         );
         assert_eq!(
-            detect_script(&"ქართული ენა მსოფლიო ".to_string()),
+            detect_script("ქართული ენა მსოფლიო "),
             Some(Script::Georgian)
         );
         assert_eq!(
-            detect_script(&"県見夜上温国阪題富販".to_string()),
+            detect_script("県見夜上温国阪題富販"),
             Some(Script::Mandarin)
         );
         assert_eq!(
-            detect_script(&" ككل حوالي 1.6، ومعظم الناس ".to_string()),
+            detect_script(" ككل حوالي 1.6، ومعظم الناس "),
             Some(Script::Arabic)
         );
-        assert_eq!(detect_script(&"हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है".to_string()), Some(Script::Devanagari));
+        assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है"), Some(Script::Devanagari));
         assert_eq!(
-            detect_script(
-                &"היסטוריה והתפתחות של האלפבית העברי".to_string()
-            ),
+            detect_script("היסטוריה והתפתחות של האלפבית העברי"),
             Some(Script::Hebrew)
         );
         assert_eq!(
             detect_script(
-                &"የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ"
-                    .to_string()
+                "የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ"
             ),
             Some(Script::Ethiopic)
         );
 
         // Mixed scripts
         assert_eq!(
-            detect_script(
-                &"Привет! Текст на русском with some English.".to_string()
-            ),
+            detect_script("Привет! Текст на русском with some English."),
             Some(Script::Cyrillic)
         );
         assert_eq!(
-            detect_script(&"Russian word любовь means love.".to_string()),
+            detect_script("Russian word любовь means love."),
             Some(Script::Latin)
         );
     }
