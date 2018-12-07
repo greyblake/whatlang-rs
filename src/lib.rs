@@ -30,8 +30,7 @@
 //! let detector = Detector::with_whitelist(whitelist);
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
-extern crate hashbrown;
-
+//!
 mod constants;
 mod detect;
 mod detector;
@@ -42,13 +41,13 @@ mod script;
 mod trigrams;
 mod utils;
 
-pub use detector::Detector;
-pub use info::Info;
-pub use lang::Lang;
-pub use options::Options;
-pub use script::Script;
+pub use crate::detector::Detector;
+pub use crate::info::Info;
+pub use crate::lang::Lang;
+pub use crate::options::Options;
+pub use crate::script::Script;
 
-pub use detect::detect;
-pub use detect::detect_lang;
-pub use detect::detect_with_options;
-pub use script::detect_script;
+pub use crate::detect::detect;
+pub use crate::detect::detect_lang;
+pub use crate::detect::detect_with_options;
+pub use crate::script::detect_script;

@@ -1,11 +1,11 @@
 use hashbrown::HashMap;
 
-use constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
-use info::Info;
-use lang::*;
-use options::{List, Options};
-use script::*;
-use trigrams::*;
+use crate::constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
+use crate::info::Info;
+use crate::lang::*;
+use crate::options::{List, Options};
+use crate::script::*;
+use crate::trigrams::*;
 
 /// Detect a language and a script by a given text.
 ///
@@ -166,7 +166,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<String
 #[cfg(test)]
 mod tests {
     use super::*;
-    use script::Script;
+    use crate::script::Script;
 
     #[test]
     fn test_detect_spanish() {

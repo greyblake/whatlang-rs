@@ -1,6 +1,7 @@
-use constants::TEXT_TRIGRAMS_SIZE;
 use hashbrown::HashMap;
-use utils::is_stop_char;
+
+use crate::constants::TEXT_TRIGRAMS_SIZE;
+use crate::utils::is_stop_char;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 

@@ -1,9 +1,9 @@
-use detect;
-use info::Info;
-use lang::Lang;
-use options::Options;
-use script::detect_script;
-use script::Script;
+use crate::detect;
+use crate::info::Info;
+use crate::lang::Lang;
+use crate::options::Options;
+use crate::script::detect_script;
+use crate::script::Script;
 
 /// Configurable structure that holds detection options and provides functions
 /// to detect language and script.

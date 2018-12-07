@@ -2,6 +2,7 @@
 name = "whatlang"
 version = "0.6.0"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
+edition = "2018"
 description = "Natural language detection library. Identifies language of a given text."
 keywords = ["language", "nlp", "lang", "whatlang", "text"]
 license = "MIT"
