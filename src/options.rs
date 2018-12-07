@@ -1,4 +1,4 @@
-use lang::Lang;
+use crate::lang::Lang;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum List {

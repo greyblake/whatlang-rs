@@ -1,5 +1,6 @@
 use std::fmt;
-use utils::is_stop_char;
+
+use crate::utils::is_stop_char;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]

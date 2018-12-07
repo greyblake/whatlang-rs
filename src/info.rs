@@ -1,5 +1,5 @@
-use lang::Lang;
-use script::Script;
+use crate::lang::Lang;
+use crate::script::Script;
 
 const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.8;
 
