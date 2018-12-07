@@ -1,10 +1,10 @@
 language: rust
 rust:
-  - 1.30.1
+  - 1.31.0
   - stable
 install:
-  - rustup component add rustfmt-preview
-  - rustup component add clippy-preview
+  - rustup component add rustfmt
+  - rustup component add clippy
 script:
   - cargo fmt -- --check
   - cargo clippy -- -D warnings
