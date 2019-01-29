@@ -91,3 +91,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Rundi          | run       | `Lang::Run` |
 | Shona          | sna       | `Lang::Sna` |
 | Uyghur         | uig       | `Lang::Uig` |
+| Afrikaans      | afr       | `Lang::Afr` |

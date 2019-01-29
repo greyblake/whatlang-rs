@@ -23,7 +23,7 @@ Natural language detection for Rust with focus on simplicity and performance.
 
 
 ## Features
-* Supports [83 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
 * Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)

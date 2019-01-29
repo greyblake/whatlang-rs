@@ -1,11 +1,11 @@
-# Updates README with list of supported languages
+# Updates SUPPORTED_LANGUAGES.md with list of supported languages
 
 require "csv"
 require "pp"
 require "pry"
 
-LIST_FILE = File.expand_path("../supported_laguages.csv", __FILE__)
-README_FILE = File.expand_path("../../README.md", __FILE__)
+LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
+OUTPUT_FILE = File.expand_path("../../SUPPORTED_LANGUAGES.md", __FILE__)
 
 class Lang
   attr_reader :code, :eng_name
@@ -76,9 +76,8 @@ langs.each do |lang|
   table.add([lang.eng_name, lang.code, "`Lang::#{lang.code.capitalize}`"])
 end
 
-
-readme = File.read(README_FILE)
+readme = File.read(OUTPUT_FILE)
 
 readme.gsub!(/\| Language .+\|\n/m, table.to_s)
 
-File.write(README_FILE, readme)
+File.write(OUTPUT_FILE, readme)
