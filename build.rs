@@ -4,17 +4,15 @@ extern crate serde_json;
 extern crate skeptic;
 #[macro_use]
 extern crate serde_derive;
-extern crate tera;
 
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
-use std::io::{BufReader, BufWriter, Write};
+use std::io::{self, BufReader, BufWriter, Write};
 use std::path::Path;
 
 const DATA_PATH: &'static str = "misc/data.json";
 const SUPPORTED_LANG_PATH: &'static str = "misc/supported_languages.csv";
-const TEMPLATE_LANG_RS_PATH: &'static str = "templates/lang.rs";
 const TRIGRAM_COUNT: usize = 300;
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -35,7 +33,6 @@ struct Lang {
 fn main() {
     println!("cargo:rerun-if-changed={}", DATA_PATH);
     println!("cargo:rerun-if-changed={}", SUPPORTED_LANG_PATH);
-    println!("cargo:rerun-if-changed={}", TEMPLATE_LANG_RS_PATH);
 
     generate_source_files();
     skeptic::generate_doc_tests(&["README.md"]);
@@ -48,7 +45,7 @@ fn generate_source_files() {
 
     let (lang_infos, scripts) = load_data();
 
-    render_lang_rs(&mut lang_def, &lang_infos, &scripts);
+    render_lang_rs(&mut lang_def, &lang_infos, &scripts).unwrap();
 }
 
 fn load_data() -> (Vec<LangInfo>, HashMap<String, Vec<Lang>>) {
@@ -106,15 +103,69 @@ fn render_lang_rs(
     buf: &mut BufWriter<File>,
     lang_infos: &[LangInfo],
     scripts: &HashMap<String, Vec<Lang>>,
-) {
-    let mut tera = tera::Tera::default();
-    tera.add_template_file(TEMPLATE_LANG_RS_PATH, Some("lang.rs"))
-        .unwrap();
+) -> Result<(), io::Error> {
+	writeln!(buf, "/// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.")?;
+	writeln!(buf, "#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]")?;
+	writeln!(buf, "pub enum Lang {{")?;
+    for (index, lang) in lang_infos.iter().enumerate() {
+    	writeln!(buf, "{} = {},", capitalize(lang.code.clone()), index)?;
+    }
+	writeln!(buf, "}}")?;
 
-    let mut ctx = tera::Context::new();
-    ctx.insert("lang_infos", lang_infos);
-    ctx.insert("scripts", scripts);
+	writeln!(buf, "fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {{")?;
+	writeln!(buf, "    match code.into().to_lowercase().as_str() {{")?;
+    for lang in lang_infos {
+    	writeln!(buf, "\"{}\" => Some(Lang::{}),", lang.code, capitalize(lang.code.clone()))?;
+    }
+	writeln!(buf, "        _ => None,")?;
+	writeln!(buf, "    }}")?;
+	writeln!(buf, "}}")?;
 
-    let code = tera.render("lang.rs", &ctx).unwrap();
-    writeln!(buf, "{}", code).unwrap();
+	writeln!(buf, "fn lang_to_code(lang: Lang) -> &'static str {{")?;
+	writeln!(buf, "	match lang {{")?;
+    for lang in lang_infos {
+    	writeln!(buf, "Lang::{} => \"{}\",", capitalize(lang.code.clone()), lang.code)?;
+    }
+	writeln!(buf, "    }}")?;
+	writeln!(buf, "}}")?;
+
+	writeln!(buf, "fn lang_to_name(lang: Lang) -> &'static str {{")?;
+	writeln!(buf, "    match lang {{")?;
+    for lang in lang_infos {
+    	writeln!(buf, "Lang::{} => \"{}\",", capitalize(lang.code.clone()), lang.name)?;
+    }
+	writeln!(buf, "    }}")?;
+	writeln!(buf, "}}")?;
+
+	writeln!(buf, "fn lang_to_eng_name(lang: Lang) -> &'static str {{")?;
+	writeln!(buf, "	match lang {{")?;
+    for lang in lang_infos {
+    	writeln!(buf, "Lang::{} => \"{}\",", capitalize(lang.code.clone()), lang.eng_name)?;
+    }
+	writeln!(buf, "     }}")?;
+	writeln!(buf, "}}")?;
+
+	for (script, langs) in scripts {
+		writeln!(buf, "pub static {}_LANGS: LangProfileList = &[", script.to_uppercase())?;
+		for lang in langs {
+			writeln!(buf, "(Lang::{}, &[", capitalize(lang.info.code.clone()))?;
+			for trigram in lang.trigrams.clone() {
+				writeln!(buf, "\"{}\",", trigram)?;
+			}
+			writeln!(buf, "]),")?;
+		}
+		writeln!(buf, "];")?;
+	}
+	Ok(())
+}
+
+fn capitalize(s: String) -> String {
+	let mut chars = s.chars();
+    match chars.next() {
+        None => s,
+        Some(c) => {
+            let res = c.to_uppercase().collect::<String>() + &chars.as_str().to_lowercase();
+            res
+        }
+}
 }
