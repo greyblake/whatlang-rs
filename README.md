@@ -60,14 +60,14 @@ For more details (e.g. how to blacklist some languages) please check the [docume
 
 ## Requirements
 
-The latest whatlang library works with rust 1.19.0 or higher.
+The latest whatlang library works with rust 1.31.0 or higher.
 
 ## How does it work?
 
 ### How does the language recognition work?
 
 The algorithm is based on the trigram language models, which is a particular case of n-grams.
-To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](http://odur.let.rug.nl/~vannoord/TextCat/textcat.pdf).
+To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](https://www.researchgate.net/publication/2375544_N-Gram-Based_Text_Categorization).
 
 ### How _is_reliable_ calculated?
 
@@ -80,7 +80,7 @@ This function is a hyperbola and it looks like the following one:
 
 <img alt="Language recognition whatlang rust" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/images/whatlang_is_reliable.png" width="450" height="300" />
 
-For more details, please check a blog article [Introduction to Rust Whatlang Library and Natural Language Identification Algorithms](http://greyblake.com/blog/2017/07/30/introduction-to-rust-whatlang-library-and-natural-language-identification-algorithms/).
+For more details, please check a blog article [Introduction to Rust Whatlang Library and Natural Language Identification Algorithms](https://www.greyblake.com/blog/2017-07-30-introduction-to-rust-whatlang-library-and-natural-language-identification-algorithms/).
 
 ## Running benchmarks
 
