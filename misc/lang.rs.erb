@@ -1,0 +1,51 @@
+/// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
+#[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
+pub enum Lang {
+    <% langs.each_with_index do |lang, index| %>
+    /// <%= lang.name %> (<%= lang.eng_name %>)
+    <%= lang.code.capitalize %> = <%= index %>,
+    <% end %>
+}
+
+fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
+    match code.into().to_lowercase().as_ref() {
+        <% langs.each do |lang| %>
+        "<%= lang.code %>" => Some(Lang::<%= lang.code.capitalize %>),
+        <% end %>
+        _ => None,
+    }
+}
+
+fn lang_to_code(lang: Lang) -> &'static str {
+    match lang {
+        <% langs.each do |lang| %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",
+        <% end %>
+    }
+}
+
+fn lang_to_name(lang: Lang) -> &'static str {
+    match lang {
+        <% langs.each do |lang| %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",
+        {% endfor %}
+    }
+}
+
+fn lang_to_eng_name(lang: Lang) -> &'static str {
+    match lang {
+        <% langs.each do |lang| %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",
+        <% end %>
+    }
+}
+
+<% scripts.each do |script, langs| %>
+/// Languages for script <%= script %>
+pub static <%= script.upcase %>_LANGS: LangProfileList = &[
+    <% langs.each do |lang, trigrams| %>
+    (Lang::<%= lang.capitalize %>, &[ <% trigrams.split('|').each do |trigram| %> "<%= trigram %>", <% end %> ]),
+    <% end %>
+];
+<% end %>
+<% end %>
