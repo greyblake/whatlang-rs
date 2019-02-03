@@ -10,6 +10,7 @@ LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
 JSON_FILE = File.expand_path("../data.json", __FILE__)
 README_FILE = File.expand_path("../../README.md", __FILE__)
 LANG_TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
+LANG_OUTPUT = File.expand_path("../../src/lang.rs", __FILE__)
 TRIGRAM_COUNT = 300
 
 class Lang
@@ -93,7 +94,8 @@ langs.each do |lang|
 end
 
 template = ERB.new(File.read(LANG_TEMPLATE_FILE))
-puts template.result
+File.open(LANG_OUTPUT, 'w') { |out| out.write(template.result) }
+`cargo fmt` # Call cargo fmt to clean the generated code
 
 readme = File.read(README_FILE)
 
