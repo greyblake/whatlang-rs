@@ -3,353 +3,423 @@ use std::fmt;
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
-    /// Español (Spanish)
-    Spa = 0,
+    /// Esperanto (Esperanto)
+    Epo = 0,
 
     /// English (English)
     Eng = 1,
 
+    /// Русский (Russian)
+    Rus = 2,
+
+    /// 官话 (Mandarin)
+    Cmn = 3,
+
+    /// Español (Spanish)
+    Spa = 4,
+
     /// Português (Portuguese)
-    Por = 2,
-
-    /// Bahasa Indonesia (Indonesian)
-    Ind = 3,
-
-    /// Français (French)
-    Fra = 4,
-
-    /// Deutsch (German)
-    Deu = 5,
-
-    /// Basa Jawa (Javanese)
-    Jav = 6,
-
-    /// Tiếng Việt (Vietnamese)
-    Vie = 7,
+    Por = 5,
 
     /// Italiano (Italian)
-    Ita = 8,
+    Ita = 6,
 
-    /// Türkçe (Turkish)
-    Tur = 9,
+    /// বাংলা (Bengali)
+    Ben = 7,
 
-    /// Polski (Polish)
-    Pol = 10,
+    /// Français (French)
+    Fra = 8,
 
-    /// Oromoo (Oromo)
-    Orm = 11,
-
-    /// Română (Romanian)
-    Ron = 12,
-
-    /// Hausa (Hausa)
-    Hau = 13,
-
-    /// Hrvatski (Croatian)
-    Hrv = 14,
-
-    /// Nederlands (Dutch)
-    Nld = 15,
-
-    /// Kurdî (Kurdish)
-    Kur = 16,
-
-    /// Yorùbá (Yoruba)
-    Yor = 17,
-
-    /// Oʻzbekcha (Uzbek)
-    Uzb = 18,
-
-    /// Igbo (Igbo)
-    Ibo = 19,
-
-    /// Cebuano (Cebuano)
-    Ceb = 20,
-
-    /// Tagalog (Tagalog)
-    Tgl = 21,
-
-    /// Magyar (Hungarian)
-    Hun = 22,
-
-    /// Azərbaycanca (Azerbaijani)
-    Azj = 23,
-
-    /// Čeština (Czech)
-    Ces = 24,
-
-    /// Malagasy (Malagasy)
-    Mlg = 25,
-
-    /// Chichewa (Chewa)
-    Nya = 26,
-
-    /// Kinyarwanda (Kinyarwanda)
-    Kin = 27,
-
-    /// IsiZulu (Zulu)
-    Zul = 28,
-
-    /// Svenska (Swedish)
-    Swe = 29,
-
-    /// Soomaaliga (Somali)
-    Som = 30,
-
-    /// Ilokano (Ilocano)
-    Ilo = 31,
-
-    /// ئۇيغۇرچە (Uyghur)
-    Uig = 32,
-
-    /// Kreyòl ayisyen (Haitian Creole)
-    Hat = 33,
-
-    /// Akan (Akan)
-    Aka = 34,
-
-    /// ChiShona (Shona)
-    Sna = 35,
-
-    /// Suomi (Finnish)
-    Fin = 36,
-
-    /// Ikirundi (Rundi)
-    Run = 37,
-
-    /// Türkmençe (Turkmen)
-    Tuk = 38,
-
-    /// Dansk (Danish)
-    Dan = 39,
-
-    /// Bokmål (Bokmal)
-    Nob = 40,
-
-    /// Nynorsk (Nynorsk)
-    Nno = 41,
-
-    /// Lietuvių (Lithuanian)
-    Lit = 42,
-
-    /// Slovenščina (Slovene)
-    Slv = 43,
-
-    /// Esperanto (Esperanto)
-    Epo = 44,
-
-    /// Latviešu (Latvian)
-    Lav = 45,
-
-    /// Eesti (Estonian)
-    Est = 46,
-
-    /// Русский (Russian)
-    Rus = 47,
+    /// Deutsch (German)
+    Deu = 9,
 
     /// Українська (Ukrainian)
-    Ukr = 48,
+    Ukr = 10,
 
-    /// Српски (Serbian)
-    Srp = 49,
-
-    /// Azərbaycanca (Azerbaijani)
-    Azj = 50,
-
-    /// Беларуская (Belarusian)
-    Bel = 51,
-
-    /// Български (Bulgarian)
-    Bul = 52,
-
-    /// Türkmençe (Turkmen)
-    Tuk = 53,
-
-    /// Македонски (Macedonian)
-    Mkd = 54,
+    /// ქართული (Georgian)
+    Kat = 11,
 
     /// العربية (Arabic)
-    Arb = 55,
-
-    /// اُردُو (Urdu)
-    Urd = 56,
-
-    /// سرائیکی (Saraiki)
-    Skr = 57,
-
-    /// ئۇيغۇرچە (Uyghur)
-    Uig = 58,
-
-    /// فارسی (Persian)
-    Pes = 59,
+    Arb = 12,
 
     /// हिन्दी (Hindi)
-    Hin = 60,
+    Hin = 13,
+
+    /// 日本語 (Japanese)
+    Jpn = 14,
+
+    /// עברית (Hebrew)
+    Heb = 15,
+
+    /// ייִדיש (Yiddish)
+    Ydd = 16,
+
+    /// Polski (Polish)
+    Pol = 17,
+
+    /// አማርኛ (Amharic)
+    Amh = 18,
+
+    /// ትግርኛ (Tigrinya)
+    Tir = 19,
+
+    /// Basa Jawa (Javanese)
+    Jav = 20,
+
+    /// 한국어 (Korean)
+    Kor = 21,
+
+    /// Bokmål (Bokmal)
+    Nob = 22,
+
+    /// Nynorsk (Nynorsk)
+    Nno = 23,
+
+    /// Dansk (Danish)
+    Dan = 24,
+
+    /// Svenska (Swedish)
+    Swe = 25,
+
+    /// Suomi (Finnish)
+    Fin = 26,
+
+    /// Türkçe (Turkish)
+    Tur = 27,
+
+    /// Nederlands (Dutch)
+    Nld = 28,
+
+    /// Magyar (Hungarian)
+    Hun = 29,
+
+    /// Čeština (Czech)
+    Ces = 30,
+
+    /// Ελληνικά (Greek)
+    Ell = 31,
+
+    /// Български (Bulgarian)
+    Bul = 32,
+
+    /// Беларуская (Belarusian)
+    Bel = 33,
 
     /// मराठी (Marathi)
-    Mar = 61,
+    Mar = 34,
+
+    /// ಕನ್ನಡ (Kannada)
+    Kan = 35,
+
+    /// Română (Romanian)
+    Ron = 36,
+
+    /// Slovenščina (Slovene)
+    Slv = 37,
+
+    /// Hrvatski (Croatian)
+    Hrv = 38,
+
+    /// Српски (Serbian)
+    Srp = 39,
+
+    /// Македонски (Macedonian)
+    Mkd = 40,
+
+    /// Lietuvių (Lithuanian)
+    Lit = 41,
+
+    /// Latviešu (Latvian)
+    Lav = 42,
+
+    /// Eesti (Estonian)
+    Est = 43,
+
+    /// தமிழ் (Tamil)
+    Tam = 44,
+
+    /// Tiếng Việt (Vietnamese)
+    Vie = 45,
+
+    /// اُردُو (Urdu)
+    Urd = 46,
+
+    /// ภาษาไทย (Thai)
+    Tha = 47,
+
+    /// ગુજરાતી (Gujarati)
+    Guj = 48,
+
+    /// Oʻzbekcha (Uzbek)
+    Uzb = 49,
+
+    /// ਪੰਜਾਬੀ (Punjabi)
+    Pan = 50,
+
+    /// Azərbaycanca (Azerbaijani)
+    Azj = 51,
+
+    /// Bahasa Indonesia (Indonesian)
+    Ind = 52,
+
+    /// తెలుగు (Telugu)
+    Tel = 53,
+
+    /// فارسی (Persian)
+    Pes = 54,
+
+    /// മലയാളം (Malayalam)
+    Mal = 55,
+
+    /// Hausa (Hausa)
+    Hau = 56,
+
+    /// ଓଡ଼ିଆ (Oriya)
+    Ori = 57,
+
+    /// မြန်မာစာ (Burmese)
+    Mya = 58,
+
+    /// भोजपुरी (Bhojpuri)
+    Bho = 59,
+
+    /// Tagalog (Tagalog)
+    Tgl = 60,
+
+    /// Yorùbá (Yoruba)
+    Yor = 61,
 
     /// मैथिली (Maithili)
     Mai = 62,
 
-    /// भोजपुरी (Bhojpuri)
-    Bho = 63,
+    /// Oromoo (Oromo)
+    Orm = 63,
+
+    /// Igbo (Igbo)
+    Ibo = 64,
+
+    /// Cebuano (Cebuano)
+    Ceb = 65,
+
+    /// Kurdî (Kurdish)
+    Kur = 66,
+
+    /// Malagasy (Malagasy)
+    Mlg = 67,
+
+    /// سرائیکی (Saraiki)
+    Skr = 68,
 
     /// नेपाली (Nepali)
-    Nep = 64,
+    Nep = 69,
 
-    /// አማርኛ (Amharic)
-    Amh = 65,
+    /// සිංහල (Sinhalese)
+    Sin = 70,
 
-    /// ትግርኛ (Tigrinya)
-    Tir = 66,
+    /// ភាសាខ្មែរ (Khmer)
+    Khm = 71,
 
-    /// עברית (Hebrew)
-    Heb = 67,
+    /// Türkmençe (Turkmen)
+    Tuk = 72,
 
-    /// ייִדיש (Yiddish)
-    Ydd = 68,
+    /// Soomaaliga (Somali)
+    Som = 73,
+
+    /// Chichewa (Chewa)
+    Nya = 74,
+
+    /// Akan (Akan)
+    Aka = 75,
+
+    /// IsiZulu (Zulu)
+    Zul = 76,
+
+    /// Kinyarwanda (Kinyarwanda)
+    Kin = 77,
+
+    /// Kreyòl ayisyen (Haitian Creole)
+    Hat = 78,
+
+    /// Ilokano (Ilocano)
+    Ilo = 79,
+
+    /// Ikirundi (Rundi)
+    Run = 80,
+
+    /// ChiShona (Shona)
+    Sna = 81,
+
+    /// ئۇيغۇرچە (Uyghur)
+    Uig = 82,
 }
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
-        "spa" => Some(Lang::Spa),
+        "epo" => Some(Lang::Epo),
 
         "eng" => Some(Lang::Eng),
 
+        "rus" => Some(Lang::Rus),
+
+        "cmn" => Some(Lang::Cmn),
+
+        "spa" => Some(Lang::Spa),
+
         "por" => Some(Lang::Por),
 
-        "ind" => Some(Lang::Ind),
+        "ita" => Some(Lang::Ita),
+
+        "ben" => Some(Lang::Ben),
 
         "fra" => Some(Lang::Fra),
 
         "deu" => Some(Lang::Deu),
 
-        "jav" => Some(Lang::Jav),
-
-        "vie" => Some(Lang::Vie),
-
-        "ita" => Some(Lang::Ita),
-
-        "tur" => Some(Lang::Tur),
-
-        "pol" => Some(Lang::Pol),
-
-        "orm" => Some(Lang::Orm),
-
-        "ron" => Some(Lang::Ron),
-
-        "hau" => Some(Lang::Hau),
-
-        "hrv" => Some(Lang::Hrv),
-
-        "nld" => Some(Lang::Nld),
-
-        "kur" => Some(Lang::Kur),
-
-        "yor" => Some(Lang::Yor),
-
-        "uzb" => Some(Lang::Uzb),
-
-        "ibo" => Some(Lang::Ibo),
-
-        "ceb" => Some(Lang::Ceb),
-
-        "tgl" => Some(Lang::Tgl),
-
-        "hun" => Some(Lang::Hun),
-
-        "azj" => Some(Lang::Azj),
-
-        "ces" => Some(Lang::Ces),
-
-        "mlg" => Some(Lang::Mlg),
-
-        "nya" => Some(Lang::Nya),
-
-        "kin" => Some(Lang::Kin),
-
-        "zul" => Some(Lang::Zul),
-
-        "swe" => Some(Lang::Swe),
-
-        "som" => Some(Lang::Som),
-
-        "ilo" => Some(Lang::Ilo),
-
-        "uig" => Some(Lang::Uig),
-
-        "hat" => Some(Lang::Hat),
-
-        "aka" => Some(Lang::Aka),
-
-        "sna" => Some(Lang::Sna),
-
-        "fin" => Some(Lang::Fin),
-
-        "run" => Some(Lang::Run),
-
-        "tuk" => Some(Lang::Tuk),
-
-        "dan" => Some(Lang::Dan),
-
-        "nob" => Some(Lang::Nob),
-
-        "nno" => Some(Lang::Nno),
-
-        "lit" => Some(Lang::Lit),
-
-        "slv" => Some(Lang::Slv),
-
-        "epo" => Some(Lang::Epo),
-
-        "lav" => Some(Lang::Lav),
-
-        "est" => Some(Lang::Est),
-
-        "rus" => Some(Lang::Rus),
-
         "ukr" => Some(Lang::Ukr),
 
-        "srp" => Some(Lang::Srp),
-
-        "azj" => Some(Lang::Azj),
-
-        "bel" => Some(Lang::Bel),
-
-        "bul" => Some(Lang::Bul),
-
-        "tuk" => Some(Lang::Tuk),
-
-        "mkd" => Some(Lang::Mkd),
+        "kat" => Some(Lang::Kat),
 
         "arb" => Some(Lang::Arb),
 
-        "urd" => Some(Lang::Urd),
-
-        "skr" => Some(Lang::Skr),
-
-        "uig" => Some(Lang::Uig),
-
-        "pes" => Some(Lang::Pes),
-
         "hin" => Some(Lang::Hin),
 
-        "mar" => Some(Lang::Mar),
+        "jpn" => Some(Lang::Jpn),
 
-        "mai" => Some(Lang::Mai),
+        "heb" => Some(Lang::Heb),
 
-        "bho" => Some(Lang::Bho),
+        "ydd" => Some(Lang::Ydd),
 
-        "nep" => Some(Lang::Nep),
+        "pol" => Some(Lang::Pol),
 
         "amh" => Some(Lang::Amh),
 
         "tir" => Some(Lang::Tir),
 
-        "heb" => Some(Lang::Heb),
+        "jav" => Some(Lang::Jav),
 
-        "ydd" => Some(Lang::Ydd),
+        "kor" => Some(Lang::Kor),
+
+        "nob" => Some(Lang::Nob),
+
+        "nno" => Some(Lang::Nno),
+
+        "dan" => Some(Lang::Dan),
+
+        "swe" => Some(Lang::Swe),
+
+        "fin" => Some(Lang::Fin),
+
+        "tur" => Some(Lang::Tur),
+
+        "nld" => Some(Lang::Nld),
+
+        "hun" => Some(Lang::Hun),
+
+        "ces" => Some(Lang::Ces),
+
+        "ell" => Some(Lang::Ell),
+
+        "bul" => Some(Lang::Bul),
+
+        "bel" => Some(Lang::Bel),
+
+        "mar" => Some(Lang::Mar),
+
+        "kan" => Some(Lang::Kan),
+
+        "ron" => Some(Lang::Ron),
+
+        "slv" => Some(Lang::Slv),
+
+        "hrv" => Some(Lang::Hrv),
+
+        "srp" => Some(Lang::Srp),
+
+        "mkd" => Some(Lang::Mkd),
+
+        "lit" => Some(Lang::Lit),
+
+        "lav" => Some(Lang::Lav),
+
+        "est" => Some(Lang::Est),
+
+        "tam" => Some(Lang::Tam),
+
+        "vie" => Some(Lang::Vie),
+
+        "urd" => Some(Lang::Urd),
+
+        "tha" => Some(Lang::Tha),
+
+        "guj" => Some(Lang::Guj),
+
+        "uzb" => Some(Lang::Uzb),
+
+        "pan" => Some(Lang::Pan),
+
+        "azj" => Some(Lang::Azj),
+
+        "ind" => Some(Lang::Ind),
+
+        "tel" => Some(Lang::Tel),
+
+        "pes" => Some(Lang::Pes),
+
+        "mal" => Some(Lang::Mal),
+
+        "hau" => Some(Lang::Hau),
+
+        "ori" => Some(Lang::Ori),
+
+        "mya" => Some(Lang::Mya),
+
+        "bho" => Some(Lang::Bho),
+
+        "tgl" => Some(Lang::Tgl),
+
+        "yor" => Some(Lang::Yor),
+
+        "mai" => Some(Lang::Mai),
+
+        "orm" => Some(Lang::Orm),
+
+        "ibo" => Some(Lang::Ibo),
+
+        "ceb" => Some(Lang::Ceb),
+
+        "kur" => Some(Lang::Kur),
+
+        "mlg" => Some(Lang::Mlg),
+
+        "skr" => Some(Lang::Skr),
+
+        "nep" => Some(Lang::Nep),
+
+        "sin" => Some(Lang::Sin),
+
+        "khm" => Some(Lang::Khm),
+
+        "tuk" => Some(Lang::Tuk),
+
+        "som" => Some(Lang::Som),
+
+        "nya" => Some(Lang::Nya),
+
+        "aka" => Some(Lang::Aka),
+
+        "zul" => Some(Lang::Zul),
+
+        "kin" => Some(Lang::Kin),
+
+        "hat" => Some(Lang::Hat),
+
+        "ilo" => Some(Lang::Ilo),
+
+        "run" => Some(Lang::Run),
+
+        "sna" => Some(Lang::Sna),
+
+        "uig" => Some(Lang::Uig),
 
         _ => None,
     }
@@ -357,427 +427,511 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
 
 fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
-        Lang::Spa => "spa",
+        Lang::Epo => "epo",
 
         Lang::Eng => "eng",
 
+        Lang::Rus => "rus",
+
+        Lang::Cmn => "cmn",
+
+        Lang::Spa => "spa",
+
         Lang::Por => "por",
 
-        Lang::Ind => "ind",
+        Lang::Ita => "ita",
+
+        Lang::Ben => "ben",
 
         Lang::Fra => "fra",
 
         Lang::Deu => "deu",
 
-        Lang::Jav => "jav",
-
-        Lang::Vie => "vie",
-
-        Lang::Ita => "ita",
-
-        Lang::Tur => "tur",
-
-        Lang::Pol => "pol",
-
-        Lang::Orm => "orm",
-
-        Lang::Ron => "ron",
-
-        Lang::Hau => "hau",
-
-        Lang::Hrv => "hrv",
-
-        Lang::Nld => "nld",
-
-        Lang::Kur => "kur",
-
-        Lang::Yor => "yor",
-
-        Lang::Uzb => "uzb",
-
-        Lang::Ibo => "ibo",
-
-        Lang::Ceb => "ceb",
-
-        Lang::Tgl => "tgl",
-
-        Lang::Hun => "hun",
-
-        Lang::Azj => "azj",
-
-        Lang::Ces => "ces",
-
-        Lang::Mlg => "mlg",
-
-        Lang::Nya => "nya",
-
-        Lang::Kin => "kin",
-
-        Lang::Zul => "zul",
-
-        Lang::Swe => "swe",
-
-        Lang::Som => "som",
-
-        Lang::Ilo => "ilo",
-
-        Lang::Uig => "uig",
-
-        Lang::Hat => "hat",
-
-        Lang::Aka => "aka",
-
-        Lang::Sna => "sna",
-
-        Lang::Fin => "fin",
-
-        Lang::Run => "run",
-
-        Lang::Tuk => "tuk",
-
-        Lang::Dan => "dan",
-
-        Lang::Nob => "nob",
-
-        Lang::Nno => "nno",
-
-        Lang::Lit => "lit",
-
-        Lang::Slv => "slv",
-
-        Lang::Epo => "epo",
-
-        Lang::Lav => "lav",
-
-        Lang::Est => "est",
-
-        Lang::Rus => "rus",
-
         Lang::Ukr => "ukr",
 
-        Lang::Srp => "srp",
-
-        Lang::Azj => "azj",
-
-        Lang::Bel => "bel",
-
-        Lang::Bul => "bul",
-
-        Lang::Tuk => "tuk",
-
-        Lang::Mkd => "mkd",
+        Lang::Kat => "kat",
 
         Lang::Arb => "arb",
 
-        Lang::Urd => "urd",
-
-        Lang::Skr => "skr",
-
-        Lang::Uig => "uig",
-
-        Lang::Pes => "pes",
-
         Lang::Hin => "hin",
 
-        Lang::Mar => "mar",
+        Lang::Jpn => "jpn",
 
-        Lang::Mai => "mai",
+        Lang::Heb => "heb",
 
-        Lang::Bho => "bho",
+        Lang::Ydd => "ydd",
 
-        Lang::Nep => "nep",
+        Lang::Pol => "pol",
 
         Lang::Amh => "amh",
 
         Lang::Tir => "tir",
 
-        Lang::Heb => "heb",
+        Lang::Jav => "jav",
 
-        Lang::Ydd => "ydd",
+        Lang::Kor => "kor",
+
+        Lang::Nob => "nob",
+
+        Lang::Nno => "nno",
+
+        Lang::Dan => "dan",
+
+        Lang::Swe => "swe",
+
+        Lang::Fin => "fin",
+
+        Lang::Tur => "tur",
+
+        Lang::Nld => "nld",
+
+        Lang::Hun => "hun",
+
+        Lang::Ces => "ces",
+
+        Lang::Ell => "ell",
+
+        Lang::Bul => "bul",
+
+        Lang::Bel => "bel",
+
+        Lang::Mar => "mar",
+
+        Lang::Kan => "kan",
+
+        Lang::Ron => "ron",
+
+        Lang::Slv => "slv",
+
+        Lang::Hrv => "hrv",
+
+        Lang::Srp => "srp",
+
+        Lang::Mkd => "mkd",
+
+        Lang::Lit => "lit",
+
+        Lang::Lav => "lav",
+
+        Lang::Est => "est",
+
+        Lang::Tam => "tam",
+
+        Lang::Vie => "vie",
+
+        Lang::Urd => "urd",
+
+        Lang::Tha => "tha",
+
+        Lang::Guj => "guj",
+
+        Lang::Uzb => "uzb",
+
+        Lang::Pan => "pan",
+
+        Lang::Azj => "azj",
+
+        Lang::Ind => "ind",
+
+        Lang::Tel => "tel",
+
+        Lang::Pes => "pes",
+
+        Lang::Mal => "mal",
+
+        Lang::Hau => "hau",
+
+        Lang::Ori => "ori",
+
+        Lang::Mya => "mya",
+
+        Lang::Bho => "bho",
+
+        Lang::Tgl => "tgl",
+
+        Lang::Yor => "yor",
+
+        Lang::Mai => "mai",
+
+        Lang::Orm => "orm",
+
+        Lang::Ibo => "ibo",
+
+        Lang::Ceb => "ceb",
+
+        Lang::Kur => "kur",
+
+        Lang::Mlg => "mlg",
+
+        Lang::Skr => "skr",
+
+        Lang::Nep => "nep",
+
+        Lang::Sin => "sin",
+
+        Lang::Khm => "khm",
+
+        Lang::Tuk => "tuk",
+
+        Lang::Som => "som",
+
+        Lang::Nya => "nya",
+
+        Lang::Aka => "aka",
+
+        Lang::Zul => "zul",
+
+        Lang::Kin => "kin",
+
+        Lang::Hat => "hat",
+
+        Lang::Ilo => "ilo",
+
+        Lang::Run => "run",
+
+        Lang::Sna => "sna",
+
+        Lang::Uig => "uig",
     }
 }
 
 fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
-        Lang::Spa => "Español",
+        Lang::Epo => "Esperanto",
 
         Lang::Eng => "English",
 
+        Lang::Rus => "Русский",
+
+        Lang::Cmn => "官话",
+
+        Lang::Spa => "Español",
+
         Lang::Por => "Português",
 
-        Lang::Ind => "Bahasa Indonesia",
+        Lang::Ita => "Italiano",
+
+        Lang::Ben => "বাংলা",
 
         Lang::Fra => "Français",
 
         Lang::Deu => "Deutsch",
 
-        Lang::Jav => "Basa Jawa",
-
-        Lang::Vie => "Tiếng Việt",
-
-        Lang::Ita => "Italiano",
-
-        Lang::Tur => "Türkçe",
-
-        Lang::Pol => "Polski",
-
-        Lang::Orm => "Oromoo",
-
-        Lang::Ron => "Română",
-
-        Lang::Hau => "Hausa",
-
-        Lang::Hrv => "Hrvatski",
-
-        Lang::Nld => "Nederlands",
-
-        Lang::Kur => "Kurdî",
-
-        Lang::Yor => "Yorùbá",
-
-        Lang::Uzb => "Oʻzbekcha",
-
-        Lang::Ibo => "Igbo",
-
-        Lang::Ceb => "Cebuano",
-
-        Lang::Tgl => "Tagalog",
-
-        Lang::Hun => "Magyar",
-
-        Lang::Azj => "Azərbaycanca",
-
-        Lang::Ces => "Čeština",
-
-        Lang::Mlg => "Malagasy",
-
-        Lang::Nya => "Chichewa",
-
-        Lang::Kin => "Kinyarwanda",
-
-        Lang::Zul => "IsiZulu",
-
-        Lang::Swe => "Svenska",
-
-        Lang::Som => "Soomaaliga",
-
-        Lang::Ilo => "Ilokano",
-
-        Lang::Uig => "ئۇيغۇرچە",
-
-        Lang::Hat => "Kreyòl ayisyen",
-
-        Lang::Aka => "Akan",
-
-        Lang::Sna => "ChiShona",
-
-        Lang::Fin => "Suomi",
-
-        Lang::Run => "Ikirundi",
-
-        Lang::Tuk => "Türkmençe",
-
-        Lang::Dan => "Dansk",
-
-        Lang::Nob => "Bokmål",
-
-        Lang::Nno => "Nynorsk",
-
-        Lang::Lit => "Lietuvių",
-
-        Lang::Slv => "Slovenščina",
-
-        Lang::Epo => "Esperanto",
-
-        Lang::Lav => "Latviešu",
-
-        Lang::Est => "Eesti",
-
-        Lang::Rus => "Русский",
-
         Lang::Ukr => "Українська",
 
-        Lang::Srp => "Српски",
-
-        Lang::Azj => "Azərbaycanca",
-
-        Lang::Bel => "Беларуская",
-
-        Lang::Bul => "Български",
-
-        Lang::Tuk => "Türkmençe",
-
-        Lang::Mkd => "Македонски",
+        Lang::Kat => "ქართული",
 
         Lang::Arb => "العربية",
 
-        Lang::Urd => "اُردُو",
-
-        Lang::Skr => "سرائیکی",
-
-        Lang::Uig => "ئۇيغۇرچە",
-
-        Lang::Pes => "فارسی",
-
         Lang::Hin => "हिन्दी",
 
-        Lang::Mar => "मराठी",
+        Lang::Jpn => "日本語",
 
-        Lang::Mai => "मैथिली",
+        Lang::Heb => "עברית",
 
-        Lang::Bho => "भोजपुरी",
+        Lang::Ydd => "ייִדיש",
 
-        Lang::Nep => "नेपाली",
+        Lang::Pol => "Polski",
 
         Lang::Amh => "አማርኛ",
 
         Lang::Tir => "ትግርኛ",
 
-        Lang::Heb => "עברית",
+        Lang::Jav => "Basa Jawa",
 
-        Lang::Ydd => "ייִדיש",
-    }
-}
+        Lang::Kor => "한국어",
 
-fn lang_to_eng_name(lang: Lang) -> &'static str {
-    match lang {
-        Lang::Spa => "Spanish",
+        Lang::Nob => "Bokmål",
 
-        Lang::Eng => "English",
+        Lang::Nno => "Nynorsk",
 
-        Lang::Por => "Portuguese",
+        Lang::Dan => "Dansk",
 
-        Lang::Ind => "Indonesian",
+        Lang::Swe => "Svenska",
 
-        Lang::Fra => "French",
+        Lang::Fin => "Suomi",
 
-        Lang::Deu => "German",
+        Lang::Tur => "Türkçe",
 
-        Lang::Jav => "Javanese",
+        Lang::Nld => "Nederlands",
 
-        Lang::Vie => "Vietnamese",
+        Lang::Hun => "Magyar",
 
-        Lang::Ita => "Italian",
+        Lang::Ces => "Čeština",
 
-        Lang::Tur => "Turkish",
+        Lang::Ell => "Ελληνικά",
 
-        Lang::Pol => "Polish",
+        Lang::Bul => "Български",
 
-        Lang::Orm => "Oromo",
+        Lang::Bel => "Беларуская",
 
-        Lang::Ron => "Romanian",
+        Lang::Mar => "मराठी",
+
+        Lang::Kan => "ಕನ್ನಡ",
+
+        Lang::Ron => "Română",
+
+        Lang::Slv => "Slovenščina",
+
+        Lang::Hrv => "Hrvatski",
+
+        Lang::Srp => "Српски",
+
+        Lang::Mkd => "Македонски",
+
+        Lang::Lit => "Lietuvių",
+
+        Lang::Lav => "Latviešu",
+
+        Lang::Est => "Eesti",
+
+        Lang::Tam => "தமிழ்",
+
+        Lang::Vie => "Tiếng Việt",
+
+        Lang::Urd => "اُردُو",
+
+        Lang::Tha => "ภาษาไทย",
+
+        Lang::Guj => "ગુજરાતી",
+
+        Lang::Uzb => "Oʻzbekcha",
+
+        Lang::Pan => "ਪੰਜਾਬੀ",
+
+        Lang::Azj => "Azərbaycanca",
+
+        Lang::Ind => "Bahasa Indonesia",
+
+        Lang::Tel => "తెలుగు",
+
+        Lang::Pes => "فارسی",
+
+        Lang::Mal => "മലയാളം",
 
         Lang::Hau => "Hausa",
 
-        Lang::Hrv => "Croatian",
+        Lang::Ori => "ଓଡ଼ିଆ",
 
-        Lang::Nld => "Dutch",
+        Lang::Mya => "မြန်မာစာ",
 
-        Lang::Kur => "Kurdish",
+        Lang::Bho => "भोजपुरी",
 
-        Lang::Yor => "Yoruba",
+        Lang::Tgl => "Tagalog",
 
-        Lang::Uzb => "Uzbek",
+        Lang::Yor => "Yorùbá",
+
+        Lang::Mai => "मैथिली",
+
+        Lang::Orm => "Oromoo",
 
         Lang::Ibo => "Igbo",
 
         Lang::Ceb => "Cebuano",
 
-        Lang::Tgl => "Tagalog",
-
-        Lang::Hun => "Hungarian",
-
-        Lang::Azj => "Azerbaijani",
-
-        Lang::Ces => "Czech",
+        Lang::Kur => "Kurdî",
 
         Lang::Mlg => "Malagasy",
 
-        Lang::Nya => "Chewa",
+        Lang::Skr => "سرائیکی",
 
-        Lang::Kin => "Kinyarwanda",
+        Lang::Nep => "नेपाली",
 
-        Lang::Zul => "Zulu",
+        Lang::Sin => "සිංහල",
 
-        Lang::Swe => "Swedish",
+        Lang::Khm => "ភាសាខ្មែរ",
 
-        Lang::Som => "Somali",
+        Lang::Tuk => "Türkmençe",
 
-        Lang::Ilo => "Ilocano",
+        Lang::Som => "Soomaaliga",
 
-        Lang::Uig => "Uyghur",
-
-        Lang::Hat => "Haitian Creole",
+        Lang::Nya => "Chichewa",
 
         Lang::Aka => "Akan",
 
-        Lang::Sna => "Shona",
+        Lang::Zul => "IsiZulu",
 
-        Lang::Fin => "Finnish",
+        Lang::Kin => "Kinyarwanda",
 
-        Lang::Run => "Rundi",
+        Lang::Hat => "Kreyòl ayisyen",
 
-        Lang::Tuk => "Turkmen",
+        Lang::Ilo => "Ilokano",
 
-        Lang::Dan => "Danish",
+        Lang::Run => "Ikirundi",
 
-        Lang::Nob => "Bokmal",
+        Lang::Sna => "ChiShona",
 
-        Lang::Nno => "Nynorsk",
+        Lang::Uig => "ئۇيغۇرچە",
+    }
+}
 
-        Lang::Lit => "Lithuanian",
-
-        Lang::Slv => "Slovene",
-
+fn lang_to_eng_name(lang: Lang) -> &'static str {
+    match lang {
         Lang::Epo => "Esperanto",
 
-        Lang::Lav => "Latvian",
-
-        Lang::Est => "Estonian",
+        Lang::Eng => "English",
 
         Lang::Rus => "Russian",
 
+        Lang::Cmn => "Mandarin",
+
+        Lang::Spa => "Spanish",
+
+        Lang::Por => "Portuguese",
+
+        Lang::Ita => "Italian",
+
+        Lang::Ben => "Bengali",
+
+        Lang::Fra => "French",
+
+        Lang::Deu => "German",
+
         Lang::Ukr => "Ukrainian",
 
-        Lang::Srp => "Serbian",
-
-        Lang::Azj => "Azerbaijani",
-
-        Lang::Bel => "Belarusian",
-
-        Lang::Bul => "Bulgarian",
-
-        Lang::Tuk => "Turkmen",
-
-        Lang::Mkd => "Macedonian",
+        Lang::Kat => "Georgian",
 
         Lang::Arb => "Arabic",
 
-        Lang::Urd => "Urdu",
-
-        Lang::Skr => "Saraiki",
-
-        Lang::Uig => "Uyghur",
-
-        Lang::Pes => "Persian",
-
         Lang::Hin => "Hindi",
 
-        Lang::Mar => "Marathi",
+        Lang::Jpn => "Japanese",
 
-        Lang::Mai => "Maithili",
+        Lang::Heb => "Hebrew",
 
-        Lang::Bho => "Bhojpuri",
+        Lang::Ydd => "Yiddish",
 
-        Lang::Nep => "Nepali",
+        Lang::Pol => "Polish",
 
         Lang::Amh => "Amharic",
 
         Lang::Tir => "Tigrinya",
 
-        Lang::Heb => "Hebrew",
+        Lang::Jav => "Javanese",
 
-        Lang::Ydd => "Yiddish",
+        Lang::Kor => "Korean",
+
+        Lang::Nob => "Bokmal",
+
+        Lang::Nno => "Nynorsk",
+
+        Lang::Dan => "Danish",
+
+        Lang::Swe => "Swedish",
+
+        Lang::Fin => "Finnish",
+
+        Lang::Tur => "Turkish",
+
+        Lang::Nld => "Dutch",
+
+        Lang::Hun => "Hungarian",
+
+        Lang::Ces => "Czech",
+
+        Lang::Ell => "Greek",
+
+        Lang::Bul => "Bulgarian",
+
+        Lang::Bel => "Belarusian",
+
+        Lang::Mar => "Marathi",
+
+        Lang::Kan => "Kannada",
+
+        Lang::Ron => "Romanian",
+
+        Lang::Slv => "Slovene",
+
+        Lang::Hrv => "Croatian",
+
+        Lang::Srp => "Serbian",
+
+        Lang::Mkd => "Macedonian",
+
+        Lang::Lit => "Lithuanian",
+
+        Lang::Lav => "Latvian",
+
+        Lang::Est => "Estonian",
+
+        Lang::Tam => "Tamil",
+
+        Lang::Vie => "Vietnamese",
+
+        Lang::Urd => "Urdu",
+
+        Lang::Tha => "Thai",
+
+        Lang::Guj => "Gujarati",
+
+        Lang::Uzb => "Uzbek",
+
+        Lang::Pan => "Punjabi",
+
+        Lang::Azj => "Azerbaijani",
+
+        Lang::Ind => "Indonesian",
+
+        Lang::Tel => "Telugu",
+
+        Lang::Pes => "Persian",
+
+        Lang::Mal => "Malayalam",
+
+        Lang::Hau => "Hausa",
+
+        Lang::Ori => "Oriya",
+
+        Lang::Mya => "Burmese",
+
+        Lang::Bho => "Bhojpuri",
+
+        Lang::Tgl => "Tagalog",
+
+        Lang::Yor => "Yoruba",
+
+        Lang::Mai => "Maithili",
+
+        Lang::Orm => "Oromo",
+
+        Lang::Ibo => "Igbo",
+
+        Lang::Ceb => "Cebuano",
+
+        Lang::Kur => "Kurdish",
+
+        Lang::Mlg => "Malagasy",
+
+        Lang::Skr => "Saraiki",
+
+        Lang::Nep => "Nepali",
+
+        Lang::Sin => "Sinhalese",
+
+        Lang::Khm => "Khmer",
+
+        Lang::Tuk => "Turkmen",
+
+        Lang::Som => "Somali",
+
+        Lang::Nya => "Chewa",
+
+        Lang::Aka => "Akan",
+
+        Lang::Zul => "Zulu",
+
+        Lang::Kin => "Kinyarwanda",
+
+        Lang::Hat => "Haitian Creole",
+
+        Lang::Ilo => "Ilocano",
+
+        Lang::Run => "Rundi",
+
+        Lang::Sna => "Shona",
+
+        Lang::Uig => "Uyghur",
     }
 }
 
@@ -1149,66 +1303,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Swh,
-        &[
-            "a k", "wa ", "na ", " ya", " ku", "ya ", " na", " wa", "a m", " ha", "i y", "a h",
-            "a n", "ana", "ki ", "aki", "kwa", " kw", "hak", " ka", " ma", "la ", "a w", "tu ",
-            "li ", "a u", "ni ", "i k", "a a", "ila", " ki", "ali", "a y", "ati", "za ", "ili",
-            "ifa", " mt", "ke ", " an", "kil", "kat", "mtu", "ake", "ote", "te ", "ka ", "ika",
-            "ma ", "we ", "a s", "yo ", "fa ", "i n", "ata", "e k", "ama", "zi ", "amb", "u a",
-            "ia ", "u w", " yo", "azi", "kut", "ina", "i z", "asi", " za", "o y", "uhu", "yak",
-            "au ", "ish", "mba", "e a", "u k", "hur", "ha ", "tik", "wat", " au", "uru", " bi",
-            "sha", "mu ", "ara", "u n", " as", "hi ", " hi", "ru ", "aif", "tai", "cha", "ayo",
-            "a b", "hal", " uh", " ch", "yot", "i h", " zi", "awa", "chi", "atu", "e n", "ngi",
-            "u y", "mat", "shi", "ani", "eri", " am", "uli", "ele", "sa ", "ja ", "e y", "a t",
-            "oja", "o k", "nch", "i a", "a j", " nc", "ima", " sh", "ami", " ta", "end", "any",
-            "moj", "i w", "ari", "ham", "uta", "ii ", "iki", "ra ", "ada", "wan", "wak", "nay",
-            "ye ", "uwa", " la", "ti ", "eza", "o h", "iri", "iwa", "kuw", "iwe", " wo", "fan",
-            " sa", "she", "bu ", "kan", "ao ", "jam", "wen", "lim", "i m", "her", "uto", "ria",
-            " ja", " ni", "kam", "di ", " hu", "zo ", "a l", "da ", "kaz", "ahi", "amu", "wot",
-            "o w", "si ", "dha", "bin", "ing", "adh", "a z", "bil", "e w", "nya", "kup", "har",
-            "ri ", "ang", "aka", "sta", "aji", "ne ", "kus", "e m", "zim", "ini", "ind", "lin",
-            "kul", "agu", "kuf", "ita", "bar", "o n", "uu ", "iyo", "u h", "nad", "maa", "mwe",
-            "ine", "gin", "nye", "nde", "dam", "ta ", " nd", "ndi", "rik", "asa", " ba", "rif",
-            "uni", "nga", "hii", "lez", "bo ", "azo", "uzi", "mbo", "sil", "ush", "tah", "wam",
-            "ibu", "uba", "imu", " ye", "esh", " ut", "taa", "aar", "wez", "i s", "e b", " si",
-            "ala", "dhi", "eng", "aza", "tak", "hir", "saw", "izo", "kos", "tok", "oka", "yan",
-            "a c", "wal", "del", "i b", "pat", " um", "ndo", "zwa", "mam", "a i", "guz", "ais",
-            "eli", "mai", "laz", "ian", "aba", "man", "ten", "zin", "ba ", "nda", "oa ", "u m",
-            "uku", "ufu", " mw", "liw", "aha", "ndw", "kuh", "ua ", "upa", " el", "umi", "sia",
-        ],
-    ),
-    (
-        Lang::Sun,
-        &[
-            "an ", "na ", "eun", " ka", "ng ", " sa", "ana", "ang", " di", "ak ", " ha", "nga",
-            "hak", "un ", "ung", "keu", "anu", " ba", " an", "nu ", "a b", " bo", " je", "a h",
-            "ata", "asa", "jeu", "ina", " ng", "ara", "nan", "awa", "gan", "ah ", "sa ", "a k",
-            " na", "n k", "kan", "aha", "a p", "a s", "ga ", "ban", " ma", "a n", "ing", "oga",
-            "bog", "sar", " pa", " ku", "man", "a a", "ha ", "san", "ae ", "bae", "din", "g s",
-            "aga", "sah", "ra ", "tan", "n s", " pe", "ala", " si", "kat", "ma ", "per", " ti",
-            "aya", "sin", " at", " pi", " te", "n a", "aan", "lah", "pan", "gar", "n n", "u d",
-            "ta ", "eu ", "ari", "kum", "ngs", "a m", "n b", "n d", "ran", "a d", "gsa", "wa ",
-            "taw", "k h", "ama", "ku ", "ike", "n p", "eba", "bas", " ja", "al ", "a t", "ika",
-            "at ", "beb", "kab", "pik", "asi", "atu", "nda", "una", "a j", "nag", "e b", "n h",
-            "en ", "g k", "oh ", "aba", "ila", "rta", "aku", "boh", "ngg", "abe", "art", "ar ",
-            "n j", "di ", "ima", "um ", "ola", "geu", "usa", "aca", "sak", "adi", "k a", "udu",
-            "teu", "car", "tin", " me", " ay", "h k", " po", "eh ", "u s", "aka", "rim", "ti ",
-            "sac", "k n", "ngt", "jen", "awe", "ent", "u a", "uma", "teh", "law", "ur ", "h s",
-            "dan", "bar", "uku", "gaw", "aru", "ate", "iba", "dil", "pol", "aja", "ieu", "ere",
-            "jal", "nar", " hu", "n t", "nya", "pa ", "are", "upa", "mas", "ake", "ut ", "wan",
-            " ge", "kal", "nus", " so", "ngk", "ya ", "yan", "huk", " du", "tun", " mi", "mpa",
-            "isa", "lan", "ura", "u m", "uan", "ern", "ena", "nte", "rup", "tay", "n m", " ke",
-            "ka ", "han", "und", "us ", "h b", "kud", "ula", "tut", " tu", " ie", "hna", "kaw",
-            "u k", "lak", "gam", "mna", "umn", "g d", " nu", "yun", "ri ", "ayu", "wat", " wa",
-            "eri", "g n", "a u", "i m", "u p", " ta", "du ", "dit", "umu", "k k", "ren", "mba",
-            "rik", "gta", " be", "ali", "h p", "h a", "eus", "u n", "alm", "il ", " da", "sas",
-            "ami", "min", "lma", "ngu", "nas", "yat", "rak", "amp", "mer", "k j", "sab", "mum",
-            " ra", "rua", "ame", "ua ", "ter", "sal", "ksa", "men", "kas", "nge", "k d", "ona",
-            " bi", "bis", "sio", "ion", "nal", "taa", " de", "uh ", "gal", "dip", "we ", "bad",
-        ],
-    ),
-    (
         Lang::Ron,
         &[
             " de", "și ", " și", "re ", " în", "are", "te ", "de ", "ea ", "ul ", "rep", "le ",
@@ -1268,36 +1362,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             "gam", "i i", "yuw", "sun", "aif", "aja", " ir", "yay", "imi", "war", " iy", "riy",
             "ace", "nta", "uka", "o a", "bat", "mar", "bi ", "sak", "n i", " ak", "tab", "afi",
             "sab",
-        ],
-    ),
-    (
-        Lang::Bos,
-        &[
-            " pr", " i ", "je ", "rav", " na", "pra", "na ", "da ", "ma ", "ima", " sv", "a s",
-            "nje", "a p", " da", " po", "anj", "a i", "vo ", "va ", "ko ", "ja ", " u ", "ako",
-            "o i", "no ", " za", "e s", "ju ", "avo", " im", "ti ", "sva", "ava", "i p", "o n",
-            "li ", "ili", "i s", "van", "ost", " ko", "vak", "ih ", "ne ", "a u", " sl", "nja",
-            "koj", " dr", " ne", "jed", " bi", "i d", "ije", "stv", "u s", "lob", "im ", "slo",
-            " il", "bod", "obo", " ra", "sti", "pri", " je", " su", "vje", "om ", "a d", "se ",
-            "e i", " ob", "a n", "i i", " se", "dru", "enj", " os", "voj", "cij", "e p", "a b",
-            "su ", "o d", "uje", "u p", "raz", "i n", "a o", " od", "lo ", "u o", "ova", "u i",
-            "edn", "i u", " nj", "ovo", "jen", "lju", "ni ", "oje", "nos", "a k", "ran", "dje",
-            "iti", "o p", "aci", "žav", "a j", "i o", "e o", "pre", "pro", "bra", "nih", "ji ",
-            " ka", "e d", "jeg", "og ", "sta", " tr", "tre", "bud", "u n", "drž", "u z", "rža",
-            "bit", "svo", "ija", "elj", "reb", "e b", "mij", "jem", "avn", "pos", " bu", "ka ",
-            "aju", " iz", "ba ", "ve ", "rod", "de ", "aro", "e u", "iva", "a z", "em ", "šti",
-            "ilo", "eni", "lje", "ći ", "red", "bil", "jel", "jer", " ni", "odn", "m i", "du ",
-            "tva", "nar", "gov", " sa", "oji", " do", "tu ", "vim", "u d", " st", "o k", "e n",
-            "a t", "za ", "nim", " dj", " sm", "ući", "ičn", "dna", "i m", "oda", "vno", "eba",
-            "ist", "nac", "e k", "čno", "nak", "ave", "tiv", "eđu", "nov", "olj", "sno", "ani",
-            "aln", "an ", "nom", "i b", "stu", "nst", "eno", "oj ", "osn", "a r", "ovj", "nap",
-            "smi", "nog", "čov", "oja", "nju", "ara", "nu ", "dno", "ans", "ovi", "jan", "edi",
-            "m s", " kr", "h p", "tup", " op", " čo", "iko", "jek", "tvo", " vj", " mi", "tel",
-            "vu ", "obr", "živ", "tit", "o o", "una", "odu", " mo", " ov", "kri", "ego", "din",
-            "rug", "nik", "rad", "pod", "nji", "sam", "sto", "lja", "dst", "rim", "ite", "riv",
-            " te", "m n", "vol", "i v", "e t", "vni", "akv", "itu", "g p", " ta", "ašt", "zaš",
-            "svi", "ao ", "te ", "o s", "ak ", "mje", "a č", "odr", "udu", "kla", "i t", "avi",
-            "tno", "nič", " vr", "nic", "dni", "u u", "ina", " de", "oba", "od ", "jih", "st ",
         ],
     ),
     (
@@ -1673,36 +1737,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Mad,
-        &[
-            "an ", "eng", "ban", "ng ", " sa", " ka", "dha", " ba", "ren", "ak ", "ang", " se",
-            " ha", "hak", " dh", "na ", " pa", "se ", "adh", "a s", "aba", "n s", "ara", "ngg",
-            "are", "ha ", "aga", "sa ", " or", "ore", "asa", "sar", "ana", " ma", "aan", "a k",
-            "ale", "gi ", " ag", "gad", "a b", "n o", "n k", "eba", "ala", "ra ", "gan", " ke",
-            "dhu", "ota", "aja", "bas", "n b", "ka ", "man", "tab", "dhi", "beb", "sab", "ama",
-            "ako", "abb", "at ", "ggu", "nga", " ta", "pan", "wi ", "huw", "uwi", "eka", "ata",
-            "a d", "san", " ot", "agi", "lak", "hal", "ba ", "bba", "i h", "ong", "em ", "kab",
-            "g a", "lem", "a o", " pe", " na", "ane", "par", "ngs", "nge", "gar", "a a", "tan",
-            "gsa", "a p", "ran", "i s", "k h", "n p", "uy ", "guy", "ken", "n a", "al ", "ada",
-            " ga", "apa", "pon", "e d", " e ", "nek", " an", "g s", "ta ", "kaa", "on ", "kal",
-            "a m", "ssa", "ona", "abe", "kat", " la", "a e", "e e", "sal", "ate", "jan", "ri ",
-            "nan", "lab", "asi", "sad", "i p", "e a", "lan", "aka", "a h", "ari", " bi", "ena",
-            "si ", "daj", " ng", "ton", "e k", "har", "oss", "gen", "i k", "g k", "car", "ase",
-            "ano", "era", "kon", " be", "nya", "n d", "nag", "bad", "ar ", "epo", " da", "mas",
-            " kl", " al", "n t", "mat", "nos", "n n", "ela", "g e", "a n", "k k", "uwa", "adi",
-            "pad", "ggi", "uan", "i d", "ne ", " so", "hi ", "sae", "oan", "wan", "as ", "le ",
-            "gap", "ter", "yat", "om ", "kla", "k a", "e b", "ina", "ah ", "k s", "koa", "i a",
-            "ega", "neg", "n h", "m p", "aha", " as", " ja", "abi", "ma ", "kas", "bi ", " mo",
-            "aon", " di", "one", " ep", "per", "aya", "e s", "nto", "te ", "bat", "epa", "nda",
-            "n e", " ca", "int", "pam", "di ", "ann", " ra", "aen", "k d", "amp", "a t", "nta",
-            "and", "e p", "rga", "pen", "yar", "mpo", "ste", "dra", "ok ", "oko", "ila", "g p",
-            "k b", "i b", "set", "to ", "isa", "nao", "nna", "n m", "ett", " a ", "bis", "hid",
-            "bin", "i m", "nas", " ho", "kar", "t s", " po", "dil", " to", "aju", "ika", "kom",
-            "arg", "ant", "raj", "a l", "das", "tto", "ost", "mos", "lae", "ga ", "rek", "idh",
-            "tad", "hig", "en ", "rny", "arn", "ndh", "eta", "adu", " dr", "jat", "jua", "gam",
-        ],
-    ),
-    (
         Lang::Nya,
         &[
             "ndi", "ali", "a k", "a m", " ku", " nd", "wa ", "na ", "nth", " mu", " al", "yen",
@@ -1730,36 +1764,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             " si", "i u", "aik", "jir", "ats", "ogw", "du ", "mak", "ukw", "nji", "mai", "ja ",
             "sam", "ika", "aph", "sid", "isa", "amb", "ula", "osi", "haw", "u m", " zi", "oye",
             "lok", "win", "lal", "ani", " ba", "si ", " yo", "e o", "opa", "ha ", "map", "emb",
-        ],
-    ),
-    (
-        Lang::Qug,
-        &[
-            "una", "ta ", " ka", "na ", "ka ", "ash", "cha", "a k", "ari", "ish", "kun", "kta",
-            "ana", "pak", "hka", "shk", "apa", "mi ", "ach", "hay", "akt", "shp", "man", "ak ",
-            " ch", " ha", "rin", "ata", "tak", "lla", "ita", "ami", "ama", "aku", "har", " pa",
-            "pas", "ayñ", "yñi", "ina", " ma", " ru", "uku", "sh ", "hpa", "run", "all", "kuy",
-            "aka", "an ", " tu", "tuk", "yta", "chi", "chu", "a c", "ñit", "in ", "nak", "a h",
-            "nka", "ris", "tap", "kan", " ki", "ayt", "pi ", " sh", "pa ", "i k", "a p", "nap",
-            "kam", "kaw", "pay", "nam", "ayp", "aws", "iri", "wsa", "a s", "ank", "nta", "uy ",
-            "a t", "hin", "a m", "ay ", " li", "ant", "lia", "kay", "nat", "a r", "shi", "iak",
-            "lak", "uya", " wa", "yuy", "say", "kis", "y r", "ypa", "hun", "a a", " yu", "n t",
-            "tam", " ti", "yay", "n k", " ya", "a w", "hpi", "lli", " al", "api", "yku", "un ",
-            "ipa", "a i", "iku", "ayk", "shu", " sa", "ush", "pir", "ich", "kat", "hu ", "huk",
-            " il", "ill", "kas", "a y", "rik", "yac", "a l", " ku", "kac", "hik", "tan", "wan",
-            "ypi", "ink", "ika", " ni", "ila", "ima", "i c", "yll", "ayl", " wi", "mac", "nis",
-            " ta", "i y", "kus", "tin", "n s", "i p", "yan", "llu", "la ", "iks", "tik", "kpi",
-            " pi", "awa", "may", "lan", "li ", " ri", "kll", "yas", "kin", "kak", "aya", "ksi",
-            "k h", "aym", "war", "ura", " ay", "lat", "ukt", "i t", "iya", "ull", "mas", "sha",
-            "kir", "uch", "h k", "nch", "akp", "uma", "pip", "han", "kik", "iki", "riy", "aki",
-            " ii", "i s", "n p", "h m", "kar", "nal", "y h", "tac", " su", "nac", "mak", "n m",
-            "nki", "k a", "mam", "iwa", "k t", "k k", "i m", "yma", " ña", "wil", "asi", "nmi",
-            "kap", "pal", "sam", "pam", "k i", "k l", "i i", "pan", "sum", "i w", " hu", "his",
-            " mu", "iia", "mun", "k m", "u t", "pik", "was", "ik ", "ma ", "hat", "k r", "akl",
-            "huc", " im", "mal", "uyk", "imi", "n y", "anc", "y k", "a n", "iñi", " iñ", "wak",
-            "unk", "yka", " mi", "iña", "a u", "has", "ywa", " ak", "llp", "ian", "ha ", "tar",
-            "rmi", "i a", "arm", "las", "ati", "pur", "sak", "ayw", "hap", "yar", "uti", "si ",
-            "iyt", "uri", "kim", " ar", "san", "h p", "akk", "iy ", "wat", "wpa", "y i", "u k",
         ],
     ),
     (
@@ -1853,36 +1857,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Lin,
-        &[
-            "na ", " na", " ya", "ya ", "a m", " mo", "a b", "to ", " ko", " bo", "li ", "o n",
-            " li", "i n", " pe", "i y", "a y", "a n", "ngo", "ki ", " ba", " ma", "kok", "pe ",
-            "la ", "a l", "zal", "oki", "ali", "nso", "oto", "ala", "ons", "so ", "mot", "a k",
-            "nyo", "eng", "kol", "go ", "nge", " ny", "yon", "o e", "ang", "eko", "te ", "o y",
-            "oko", "olo", "ma ", "iko", "a e", "e m", "e b", "lik", "ko ", "o a", "ako", "ong",
-            " ye", "mak", "ye ", "isa", " ek", "si ", "lo ", "aza", "sal", "ama", " te", "bat",
-            "o p", "oyo", "e n", " az", "a p", "ani", "sen", "o m", "ela", "ta ", "amb", "i k",
-            "ban", "ni ", " es", "yo ", "mi ", "mba", "osa", " oy", "aka", "lis", "i p", "eli",
-            "a t", "mok", "i m", "ba ", "mbo", " to", " mi", "isi", "bok", "lon", "ato", "ing",
-            "o b", " nd", "ota", "bot", " ez", "ge ", "nga", "eza", "o t", "nde", "ka ", "bo ",
-            "gel", "kan", "e k", "lam", "sa ", "ese", "koz", " po", "den", "ga ", "oba", "omb",
-            "oli", "yan", "kop", "bon", "mos", "e e", "kob", "oka", "kos", "bik", "lin", "po ",
-            "e a", " lo", " bi", "kot", "‘te", "ngi", "sam", " ‘t", "omi", "e y", "ti ", "i b",
-            " el", "elo", "som", "lok", "esa", "gom", "ate", "kam", "i t", "ika", "a s", "ata",
-            "kat", "ati", "wa ", "ope", "oza", "iki", "i e", " ka", "bom", "tal", "o l", "bek",
-            "zwa", "oke", "pes", " se", "bos", "o o", "ola", "bak", "lak", "mis", "omo", "oso",
-            "nza", " at", "nda", "bal", "ndi", "mu ", "mob", "osu", "e t", "asi", "bis", "ase",
-            "i l", "ele", "sus", "usu", "su ", "ozw", "and", "mol", "tel", "lib", "mbi", "ami",
-            " nz", "ne ", "ene", "kel", "aye", "emb", "yeb", "nis", "gi ", "obo", "le ", "kum",
-            "mal", "wan", "a ‘", "pon", " ep", "baz", "tan", "sem", "nya", "e l", " ta", "gis",
-            "opo", "ana", "ina", "tin", "obe", " ti", "san", " ak", "mab", "bol", "oku", "u y",
-            "mat", "oti", "bas", "ote", "mib", "ebi", "a o", "da ", "bi ", " mb", "lel", "tey",
-            "ibe", "eta", "boy", "umb", "e p", "eni", "za ", "be ", "mbe", "bwa", "ike", "se ",
-            " et", "ibo", "eba", "ale", "yok", "kom", " en", "i a", "mik", "ben", "i o", " so",
-            "gob", "bu ", "son", "sol", "sik", "ime", "eso", "abo", " as", "kon", "eya", "mel",
-        ],
-    ),
-    (
         Lang::Som,
         &[
             " ka", "ay ", "ka ", "an ", "uu ", "oo ", "da ", "yo ", "aha", " iy", "ada", "aan",
@@ -1910,36 +1884,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             "alk", "aba", "sig", " mu", "caa", "aqo", "u q", "ooc", "oob", "bar", "ii ", "ra ",
             "a b", "ago", "xir", "aaq", " ci", "dal", "oba", "mo ", "iir", "hor", "fal", "qan",
             " du", "dar", "ari", "uma", "d k", "ban", "y d", "qar", "ugu", " ya", "xay", "a j",
-        ],
-    ),
-    (
-        Lang::Hms,
-        &[
-            "ang", "gd ", "ngd", "ib ", " na", "nan", "ex ", "id ", " ji", "ad ", "eb ", "nl ",
-            "b n", "d n", " li", "ud ", "jid", " le", "leb", " ga", "ot ", "anl", "aot", "d g",
-            "l l", "b l", " me", "ob ", "x n", "gs ", "ngs", "mex", "nd ", "d d", " ne", "jan",
-            "ul ", " ni", "nja", " nj", " gu", " zh", "lib", "l n", "ong", " gh", "gao", "b j",
-            "b g", "nb ", "l g", "end", "gan", " ad", " je", "jex", "ngb", "gb ", "han", "el ",
-            " sh", " da", "ub ", "d j", "d l", "t n", " nh", "nha", "b m", "is ", "d z", "x g",
-            " ya", "oul", "l j", " wu", "she", "il ", "nex", " ch", "b y", "d s", "gue", "gho",
-            "uel", "wud", "d y", " gi", "d b", "hob", "nis", "s g", " zi", " yo", "lie", "es ",
-            "nx ", "it ", "aob", "gia", "ies", " de", "eib", "you", " ba", " hu", "ian", "zib",
-            "d m", "s j", "oud", "b d", "chu", "ol ", "ut ", " do", "t j", "nen", "hud", "at ",
-            "s n", "hen", "iad", "ab ", "enl", " go", "dao", " mi", "t g", "zha", "b z", "enb",
-            "x j", " ze", "eit", "hei", "d c", "nt ", "b s", " se", "al ", " xi", "inl", "hao",
-            " re", " fa", "d h", "gua", "yad", "ren", " ho", "anb", "gx ", "ngx", "ix ", "nib",
-            "x z", "and", "b h", "b w", "fal", " xa", "d x", "t l", "x m", "don", "gou", "bao",
-            "ant", "s z", "had", "d p", "yan", "anx", "l d", "zhe", "hib", " pu", "ox ", " du",
-            "hui", "sen", "uib", "uan", "lil", "dan", "s m", " di", " we", "gha", "xin", "b x",
-            "od ", "zhi", "pud", " ju", " ng", "oub", "xan", " ge", "t z", "hub", "t h", "hol",
-            "t m", "jil", "hea", "x l", " ma", "eud", "jul", "enx", "l z", "l s", "b a", " lo",
-            " he", "nga", "d r", "zen", " yi", "did", "hon", "zho", "gt ", "heb", "ngt", "os ",
-            "d a", "s l", "aos", " si", "dei", "dud", "b b", "geu", "wei", "d w", "x c", "x b",
-            "d k", "dou", "l h", "lou", " bi", "x a", "x d", "b c", " sa", "s a", " bo", "eut",
-            "blo", " bl", "nia", "lol", "t w", "bad", "aod", " qi", "ax ", "deb", " ja", "eab",
-            " nd", "x s", "can", "pao", " pa", "gl ", "ngl", "che", "sat", "s y", "l m", "t s",
-            "b f", "heu", "s w", " to", "lia", " ca", "aox", "unb", "ghu", "ux ", " cu", "d f",
-            "inb", "iel", " pi", "jib", "t p", "x x", "zei", "eul", "l t", "l y", "min", "dad",
         ],
     ),
     (
@@ -2064,36 +2008,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Hil,
-        &[
-            "nga", "ang", " ka", "ga ", "ng ", " sa", "an ", "sa ", " ng", " pa", " ma", "ag ",
-            "on ", "san", "pag", " an", "ung", "kag", "a p", "n s", "a k", "n n", "a m", "ata",
-            "kat", " ta", "gan", "g p", "ay ", "tar", "g k", "ags", "run", "ala", "aru", "gsa",
-            "tag", "a s", "g m", " mg", "mga", "n k", "a t", "od ", "kon", "g s", "a n", "ing",
-            "a i", "man", "g t", "agp", "tan", " si", "n a", "y k", "mag", "gpa", "may", "hil",
-            "pan", "ya ", "ahi", "la ", "g a", "sin", "gin", "ina", "aya", "ana", "ili", " pu",
-            "han", "g i", "yon", "nan", " in", "way", "uko", "gka", " gi", "aha", " uk", "ilw",
-            "lwa", "asa", "apa", "kas", "syo", "at ", "ban", "lin", "iya", "kah", "n p", " na",
-            "o n", "lan", "a a", "in ", "ngk", "g n", "ini", "aba", "pat", "pun", "a g", "ali",
-            "o s", " iy", "yan", "agt", "tao", "ngs", "gba", "kab", "wal", "ngo", "al ", "nag",
-            "agk", "o m", "ni ", "i s", "aga", "ano", " wa", "isa", "abu", "kal", "a h", "dap",
-            "ong", "a d", "mat", " tu", "gso", "no ", "aho", "aki", "sod", "agb", " da", "asy",
-            "ila", "d k", "pas", " hi", "agh", "d s", "n m", "na ", "lal", "yo ", "di ", "til",
-            " la", "o k", "s n", "non", "gay", "sal", "a b", "god", "ao ", "ati", "aan", "uha",
-            " is", "ka ", "aka", "asu", "ngb", "o a", "ama", "ato", "atu", "uga", "paa", "but",
-            "una", "n u", "bah", "uan", "iba", " di", " ba", "pah", "bat", " du", "ulo", "os ",
-            "y s", "nah", " ko", "aag", "agi", "sil", "gi ", "i m", "hay", "yag", "gon", "y n",
-            "sta", "n d", "ot ", "oha", "tun", "ida", " pr", " su", "a l", "uta", "m s", " al",
-            "do ", "uli", "sug", "n t", "as ", "lon", "sul", "og ", "pam", "pro", "him", "gua",
-            "alo", "lig", " bi", "bis", "asi", "ula", "ton", "ksy", "gtu", "a e", "k s", " ib",
-            "n b", "maa", "ugu", "ko ", "lib", "ron", "i a", "hi ", "hin", "tek", "lab", "abi",
-            "ika", "mak", "bot", "aoh", "ok ", " hu", "ghi", "ind", "ote", "tok", "i n", "t n",
-            "g e", "eks", "dal", "uma", "ubo", "tum", "hat", "to ", "ado", "kin", " ed", "rot",
-            "ho ", "ndi", "inu", "ibu", "y a", "nta", "ad ", "gko", "lah", "duk", "abo", "iko",
-            "nda", "aro", "gal", "mo ", "g o", " bu", "int", " o ", "n o", "aay", "da ", "gsu",
-        ],
-    ),
-    (
         Lang::Sna,
         &[
             "wa ", "a k", "ana", "ro ", "na ", " ku", " mu", "nhu", "dze", "hu ", "a m", " zv",
@@ -2121,126 +2035,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             "kun", "nid", "uma", "i h", "vem", "a h", "mir", "usa", "o p", "i n", "a v", "i k",
             "amb", "zan", "nza", "kuz", "zi ", "kak", "ing", "u v", "ngw", "mum", "mba", "nir",
             "sar", "ewo", "e p", "uwa", "vic", "i i", "gwa", "aga", "ama", "go ", "yew", "pam",
-        ],
-    ),
-    (
-        Lang::Xho,
-        &[
-            "lo ", "lun", "oku", "nge", "elo", "ntu", "tu ", "e n", "ele", " ku", "nye", "ye ",
-            "nga", "ung", "la ", " ng", "lek", "a n", "o n", "yo ", "o l", "e u", "nel", "gel",
-            "a k", "ko ", "ho ", "ulu", "ke ", " ne", " na", "lul", "we ", "le ", "wa ", "ngo",
-            " kw", "ule", "kub", " no", "a u", "onk", " um", "nke", "o e", " lo", "ela", "kun",
-            "ama", "any", "unt", "ang", "eko", "uba", "elu", "ezi", "mnt", " wo", "a i", "eyo",
-            "alu", "lel", "umn", "lwa", "kwe", "olu", "ba ", " uk", "kuk", "won", "ukh", "une",
-            "uku", "gok", "nok", "enz", " un", "khu", " ok", "the", "e k", "zwe", "kan", "eki",
-            "aph", "ane", "uny", "ile", "o z", "aku", "ley", "lok", " ez", "het", "eth", "ath",
-            "oka", "pha", "sel", "ala", "o y", "kul", "akh", "kil", "enk", " in", "esi", "o k",
-            " yo", "use", "hul", "u u", "tho", "obu", "wen", "ana", "nku", "khe", "o o", "e a",
-            "na ", "kho", "ban", "a e", "ise", "ent", "gan", "uth", "ni ", "kel", " zo", "he ",
-            "izw", "o w", "hi ", "elw", "nam", "ing", "eli", "fun", "za ", "lwe", "eng", "ya ",
-            "kwa", "fan", "isa", "o a", "ndl", "ntl", "ayo", "eni", "gen", "hus", "uhl", "iph",
-            "tha", "nzi", "isw", "sa ", "phi", "aba", "ben", "und", "ume", "thi", "ha ", "alo",
-            "ka ", "ink", "hla", "lal", "wan", "i k", " lw", "i n", "bel", " ba", "o u", "azi",
-            "e o", "swa", "ngu", "bal", "pho", " ab", "man", "kut", "emf", "e i", "mfa", "a a",
-            "e e", "een", "int", "uph", "eka", "ebe", "seb", "lan", "nee", "zi ", "o i", "mal",
-            "sha", "sek", "dle", "ziz", "mth", "nen", "zel", " se", "okw", "tya", "ike", "lin",
-            "tla", "ene", "sis", "ima", "ase", "yal", "ubu", " ak", "ant", "sen", "olo", "wak",
-            " ko", "a o", "mfu", "ezo", "sid", "nay", "oko", " ub", "ulo", "zo ", "do ", "isi",
-            "wez", "iso", "han", "nte", " ph", "zim", " ya", "ga ", "li ", " le", "iba", "ham",
-            "ube", "kup", "aza", "jik", " ul", " en", "eem", "phu", " ol", "and", "imf", " es",
-            "o s", " im", "kuf", "u k", "kwi", "nak", "ma ", "nan", "ety", "kuh", "kus", "yol",
-            " am", "hel", "idi", " so", "lis", " nj", "nje", "jen", "tsh", "aka", "zin", "kuz",
-            "‐ji", "no ", "ufu", "ale", "ong", " el", "bo ", "a y", "e l", "men", "yen", "lum",
-        ],
-    ),
-    (
-        Lang::Min,
-        &[
-            "an ", "ak ", "ang", " ma", " da", " ka", " sa", "ara", " ha", "yo ", "nyo", "hak",
-            " ba", "ran", "dan", "man", "nan", "ng ", " pa", " di", "kan", "ura", " na", "ata",
-            "asa", "ok ", "nda", "ala", " pu", "pun", "uak", "ntu", "n d", "k m", " ti", "ah ",
-            "o h", "n s", "k u", "n k", " ur", " un", "tua", "n b", "and", "unt", " ta", "uny",
-            "n p", "tio", "iok", "ama", "pan", "ek ", "ban", "jo ", "n m", "k h", "k d", "ado",
-            "nga", "aan", "g p", "tan", "aka", "ind", "at ", "dak", "dap", "o p", "tau", "pek",
-            "uan", " at", "amo", "mar", "ape", "au ", "kat", "mo ", "sas", "ari", "asi", "di ",
-            "o s", "ia ", "ngg", "bas", "ika", "sam", "am ", "lia", "o d", "san", "gan", "sia",
-            "tar", "n n", " jo", " su", "anu", "lam", "gar", "o t", " in", "par", "sua", "dek",
-            "sar", "k s", "ri ", "o m", "ana", "bat", "asu", "ko ", "ai ", " la", "ant", "dal",
-            "lak", "aga", "alu", "iah", "o u", "n a", "tu ", "k a", "adi", "rad", "i m", "mal",
-            "dok", "usi", "aku", "i d", "k k", "al ", "aro", "eka", "neg", "ega", "ato", "to ",
-            " ne", "mam", "o b", "eba", "ian", "beb", "n u", "um ", "si ", "aba", "rat", "uah",
-            "ro ", "mas", "ila", "a d", "ali", "uka", "ard", "kam", "ti ", "atu", "nus", "dar",
-            "ami", "n t", "sa ", "in ", "amp", "kal", "car", "lan", "aha", "kab", "so ", "rde",
-            "un ", "i k", "gsa", "das", "ngs", "aca", "yar", "ka ", "ati", "ar ", " an", "uku",
-            "ras", " ko", "sya", "mat", "k n", "aya", "nta", "lo ", "any", "sur", "kaa", "dil",
-            "kar", "o a", "u d", "k t", "pam", "dia", "ra ", "iba", "lai", "i t", "lah", " bu",
-            "mpa", "kum", "abe", "n h", "ili", "nny", " as", "u p", "aki", "amb", "sac", "as ",
-            "k b", "h d", "uli", "ajo", "a n", "raj", "n i", "dua", "ndu", "k p", "i p", "itu",
-            "lin", "han", "huk", "o k", "rik", "a b", " li", "ik ", "ggu", "jam", "bai", "a a",
-            "i a", "nia", " ad", "i j", " hu", "gam", "sal", "aso", "ngk", "sad", "apa", "ann",
-            " mu", "ony", "dik", "bad", "ain", "did", "min", "l d", "ada", "bul", "rga", "tin",
-            "ga ", "ani", "alo", " de", "arg", "ahn", "sio", "hny", "n l", "sti", "awa", "uju",
-            "per", "bak", " pe", "tik", "ans", " pi", "a s", " um", "bag", "ndi", "anj", "mba",
-        ],
-    ),
-    (
-        Lang::Afr,
-        &[
-            "ie ", "die", "en ", " di", " en", "an ", "ing", "ng ", "van", " va", "te ", "e v",
-            "reg", " re", "n d", " ge", "ens", "et ", "e r", "e e", " te", " be", "le ", "ver",
-            "een", " in", "ke ", " ve", " he", "eg ", "het", "lke", "lik", "n h", "de ", "nie",
-            "aan", "t d", "id ", "men", " vr", "nde", "eid", "e o", " aa", "in ", "of ", "der",
-            "hei", "om ", "g v", " op", " ni", "e b", " el", "al ", "and", "elk", "er ", " me",
-            "ord", "e w", "g t", " to", " of", "ers", " we", " sa", " vo", "ot ", "erk", "n v",
-            "vry", "ge ", "kee", "asi", "tot", " wa", "sie", "ere", " om", "aar", "sal", "dig",
-            "wor", "egt", "gte", "rdi", "rd ", "at ", "nd ", "e s", "ede", "ige", " de", " ’n",
-            "n a", "eni", " wo", "e g", " on", "n s", "’n ", "e t", "erd", "ns ", "oor", "bes",
-            "ond", "se ", "ska", "aak", "nig", "lle", "yhe", "ryh", "is ", "eli", "esk", "ien",
-            "sta", "vol", "ele", "e m", " vi", "ik ", "r d", "vir", "edi", "kap", "g e", "ir ",
-            "es ", "sy ", "ang", "din", " st", "ewe", "gem", "gel", "g o", " is", "el ", "e i",
-            "op ", "ker", "ak ", "uit", "ike", "nse", "hie", "ur ", "eur", " al", "e a", "nas",
-            "e n", "nge", "ier", "n o", "wer", "e d", "ap ", " hu", "ale", "rin", " hi", "eme",
-            "deu", "min", "wat", "n e", "s o", " as", " so", "as ", "e h", "del", "d v", "ter",
-            "ten", "gin", "end", "kin", "it ", " da", " sy", "per", "re ", "n w", "ges", "wet",
-            "ger", "e k", "oed", "s v", "nte", "s e", "ona", "nal", "waa", "d t", "ees", "soo",
-            " ma", "d s", "ies", "tel", "ema", "d e", "red", "ite", " na", "ske", "ely", "lyk",
-            "ren", "nsk", "d o", "oon", "t e", "eke", "esi", "ese", "eri", "hul", " gr", "ig ",
-            "sio", "man", "rde", "ion", "n b", "n g", "voo", "hed", "ind", "tee", " pe", "rso",
-            "t v", "s d", "all", "n t", "rse", "n i", "eem", "d w", "ort", "ndi", "daa", "maa",
-            "t g", "erm", "ont", "ent", "ans", "ame", "yke", "ari", "n m", "lan", "voe", "n ’",
-            "nli", "rkl", "r m", "sia", "ods", "ard", "iem", "g s", "wee", "r e", "l g", "taa",
-            "sek", "bar", "gti", "n n", "lin", "sen", "t o", "t a", "raa", "ene", "opv", "pvo",
-            "ete", " ty", "arb", " sl", "igh", "dee", "g a", "str", "nsl", "sel", "ern", "ste",
-        ],
-    ),
-    (
-        Lang::Lua,
-        &[
-            "ne ", "wa ", " ne", "a m", " ku", "a k", " mu", "di ", " bu", "a b", " di", "e b",
-            "tu ", "nga", "bwa", "ntu", " bw", "udi", "a d", "e m", "i b", " ba", " ma", "shi",
-            "adi", "u b", "a n", "la ", "ons", "mun", "i n", "ung", "nsu", "ga ", "yi ", "ya ",
-            "na ", "unt", " dy", "idi", "e k", "buk", "mu ", "ika", "esh", "su ", "u m", "ku ",
-            "nde", "any", " bi", "lu ", "nyi", "end", "yon", "dik", "ba ", " ci", " ka", "ang",
-            "u n", "u y", " mw", "ka ", "i m", " yo", "we ", "oke", "tun", "de ", "kes", "hi ",
-            "kok", "mwa", " kw", "e n", "ban", "dya", "sha", "u d", "ken", "kwa", "ji ", "ha ",
-            "wen", "dit", " ud", "a a", " an", "mwe", "itu", " pa", "le ", " a ", " wa", "nji",
-            "kan", "kum", "ibw", "bwe", "a c", "ant", "ena", "yen", "mba", "did", "e d", "ala",
-            "u u", "ish", "mak", "bul", "i a", "nda", "enj", "u a", "ila", "pa ", "ako", "ans",
-            "uke", "ana", "nso", "amb", "hin", "umw", "kal", "uko", "i k", "bad", "aka", "ela",
-            "ele", "u w", "u k", "du ", "ja ", "bu ", " mi", "ind", "ndu", "kwi", " ns", "mbu",
-            "atu", "bud", "dil", "ile", "sun", "eng", "ula", "enz", "nan", "nsh", "kad", "alu",
-            " cy", "bis", "kud", "lon", "u c", "gan", "dib", "da ", "dye", "bid", " by", "ukw",
-            "i d", "aa ", "ngu", "a p", "sam", "isa", " aa", "ilu", " na", "aba", "lel", "ye ",
-            "dim", "cya", "kub", "so ", "ond", "kus", "mat", "nge", "e c", " bo", "aku", "bak",
-            "mus", "ta ", "umb", "ulo", "elu", "man", "iki", "mon", "ngi", "abu", "mud", "kuk",
-            "omb", " mo", "und", "diy", "kwe", "umu", "mal", " ke", "ush", "gil", "uba", "imu",
-            "dis", "wil", "wu ", "san", "gad", "uka", "bon", "ma ", "aci", "mik", "wik", " me",
-            "pan", "iku", "nza", "ben", "ulu", "ifu", "iba", "kak", "ata", "som", "ong", "e a",
-            "apa", " tu", "o b", "umo", "bya", "utu", "uja", "yan", " be", "ke ", "akw", "ale",
-            "ilo", "uku", "cil", "tup", "kul", "cik", "kup", "upe", "bel", "amw", "ona", " um",
-            "iko", "awu", "and", "za ", "ike", "a u", "ima", "muk", " ya", "mum", "me ", "map",
-            "ita", "iye", "ole", "lum", "wab", "ane", " lu", "nu ", "kis", "mbe", "kab", "ine",
-            "bum", "lam", "pet", " ad", "fun", "ama", " mb", "isu", "upa", "ame", "u p", "ubi",
         ],
     ),
     (
@@ -2301,37 +2095,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             " ya", "he ", "eng", " ki", "nka", "bir", "ant", "aro", "gis", "ury", "twa", " yo",
             "bik", "rek", "ni ", " ah", " bw", "uro", "mw ", "tan", "i y", "nde", "ejw", " no",
             "zam", "puz", "ku ", "y a", "a c", "bih", "ya ", "mur", "utu", "eny", "uki", "bos",
-        ],
-    ),
-    (
-        Lang::Slk,
-        &[
-            " pr", " a ", "prá", "ráv", " po", "ie ", "ch ", "ost", " ro", "ho ", " na", "vo ",
-            "ani", "na ", " ne", "nos", "ažd", "kto", "kaž", " ka", "má ", "né ", "ávo",
-            "om ", " má", "ebo", "ti ", " v ", " al", "ale", "leb", "bo ", " je", " za", "ých",
-            "o n", "ždý", "dý ", "ia ", " sl", "mi ", "ova", "sti", "nie", "van", "to ", "eni",
-            "ne ", "áva", "lob", "ého", "slo", "rod", "tor", "rov", " sp", " zá", "á p", "o v",
-            "a p", " kt", "ý m", " sv", "voj", "bod", "obo", "nia", " ná", " vy", "ej ", "je ",
-            "ať ", "o p", "a v", "a s", "áro", "a z", " sa", " ma", "a n", "e a", "e s", "mu ",
-            "mie", "kla", "nár", "svo", "spo", " by", "ovn", "by ", "roz", "sa ", "ľud", "iť ",
-            "odn", " vš", "ov ", "i a", "néh", "vše", "o s", "va ", "o a", " ľu", "oci", "pre",
-            "nu ", "a m", "u a", "ený", "e v", "ný ", "nes", "a k", "zák", "pod", "ným", " do",
-            "u p", " k ", "u s", "áci", "ajú", "byť", "yť ", "nýc", "eho", "ran", "pol",
-            "tát", "stn", "jeh", "a r", "šet", "ými", "lad", "čin", "ému", "a o", "edz",
-            "ť s", "kon", "stv", "oré", " sú", " ni", "e z", "pri", "och", "ny ", "štá",
-            "sť ", "oje", "vna", "tre", "u k", " či", "ko ", "é p", "maj", "smi", "a a", "etk",
-            "nak", "ým ", "med", "dov", "prí", " ob", "iu ", "uds", "osť", "esm", "e b", "m a",
-            "hra", "i s", "rác", "bez", "vať", "chr", "e p", " ab", "jú ", " št", "žen",
-            " ho", "čen", " de", "i p", "ť v", " vo", "dsk", "pro", "nom", " in", "ou ", "du ",
-            "že ", "aby", "est", " bo", "ré ", "bol", " so", "nú ", "olo", "kej", "áln", " oc",
-            "obe", "ky ", "dzi", "dom", "áv ", "por", "lne", "rav", "aké", "ens", "pra", "ok ",
-            " že", "tné", " ta", "ako", "res", " vz", "i k", "ami", " tr", " ak", "ní ", "len",
-            "o d", "del", "ský", "cho", "ach", "ivo", "h p", "ože", "iál", "inn", "slu", "kra",
-            "loč", "očn", "ju ", " os", "anu", "oju", "voľ", "ákl", "str", "é s", "ené",
-            " ži", "niu", "sta", " st", "ved", "tvo", " me", "dno", "m p", "de ", "ké ", "kým",
-            "ikt", "stu", "é v", "i v", "vyh", " to", "v a", "odu", "hoc", "a t", "ím ", "ly ",
-            "hov", "y s", "soc", "júc", "ú p", "odi", "vod", "liv", "aní", "ciá", " ve", "rej",
-            "ku ", "ci ", "ske", "sob", "čno", "oso",
         ],
     ),
     (
@@ -2396,37 +2159,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Als,
-        &[
-            "të ", " të", "dhe", "he ", " dh", "në ", "ë d", "e t", " e ", "et ", "ë t",
-            "imi", "për", "ejt", "dre", "rej", " pë", " dr", " në", "it ", "gji", "sht", "ve ",
-            "jit", "ë p", " gj", "ith", " sh", " i ", " li", "het", "e p", " nj", "t t", "ër ",
-            "ë n", "in ", " ve", "me ", "jtë", "e n", " ka", "ara", "e d", "ush", "n e", "tet",
-            " pa", "jer", "hku", "a t", "re ", "ën ", "ë s", "sh ", " ku", "së ", "t d", "ë m",
-            "kus", "mit", "lir", "ka ", "ë k", "jë ", "se ", " si", " që", " ba", "etë",
-            "që ", "ë b", "si ", "ë g", "eri", "thk", "nje", "eve", "e k", "e s", "jet", "ose",
-            "bas", "ohe", " os", "ra ", " mb", "iri", "h k", "min", "shk", "ash", "rim", "ndë",
-            " nd", "një", "jta", "e m", " me", "eti", "do ", " du", "es ", "rë ", "e l", "mi ",
-            "anë", "tar", "t n", " as", "dër", "hte", "end", "tën", "vet", "uar", "und", "ësi",
-            "kom", "tje", "duh", "ndi", "at ", "ave", " ko", "ri ", "ta ", "ë v", "shm", " de",
-            "ar ", "omb", "i d", " kë", "i p", "jes", " ng", "uhe", "nga", "i n", "en ", "ë e",
-            "ga ", " ar", "e a", "ës ", "hme", "bar", " pe", "htë", "ë l", "ur ", "ë i",
-            "isë", "ime", "sim", "ris", "tës", "art", "ëm ", "cil", "tim", "tyr", "ësh", " ma",
-            "shë", "or ", "t a", "kët", "gje", " ci", "r n", "e v", "par", "nuk", "ëta", "rgj",
-            "i i", "ish", "uk ", " nu", "ë r", "are", " je", "ë c", " pu", "atë", "lim", "lli",
-            " ës", "ë a", "i t", "mar", "ore", " së", "tit", "lar", "per", "t p", "rat", "ite",
-            "inë", "t s", "riu", "ke ", "ërg", "a n", "edh", " pr", "esi", "irë", "ërk", " po",
-            "hë ", "ë j", "i s", "a e", "ht ", "mba", "roh", "im ", "ari", "e b", "lit", "ti ",
-            "asn", "tav", "snj", "t e", "ik ", "tij", "k d", "qër", "hëm", "ras", "res", "otë",
-            "nal", "mun", " an", "kla", "ven", "e q", "tat", "t i", " fa", "ij ", " tj", "igj",
-            "te ", "ali", "bro", " di", "roj", " ti", "uri", "ojë", "ë q", "çdo", "det", "n p",
-            " pl", "ekl", "ind", "erë", "vep", "dek", "nim", "ive", "ror", "sho", "hoq", "oqë",
-            "ëri", "pri", "r d", "shp", "esë", "le ", "a d", "shi", " mu", "dis", "r t", "ete",
-            " t ", "ë f", "ëzo", "zim", " çd", "mbr", " re", "e f", "jen", "i m", "iut", "n k",
-            "tha", "s s", "lot",
-        ],
-    ),
-    (
         Lang::Nob,
         &[
             "er ", " og", "og ", "en ", " de", "for", "til", "ing", "ett", " ti", "et ", " ha",
@@ -2457,69 +2189,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Suk,
-        &[
-            "na ", " mu", " bu", " na", "a b", "ya ", "hu ", "a n", "we ", " gu", "nhu", "a g",
-            " ba", "a m", "ili", "wa ", " ya", "li ", "unh", " bo", "mun", "ali", "bul", "han",
-            "bo ", "i m", "ilw", "uli", "ang", "lil", "la ", "i b", "e n", "ga ", " wi", "kil",
-            "mu ", " al", " se", "u a", "ge ", "kge", "ekg", "sek", "lwe", "ose", "le ", "lo ",
-            "bi ", "ulu", "e y", "kwe", "ila", "and", "e b", "i n", "yo ", "ng’", "a s", "nga",
-            " ns", "si ", "abi", "nsi", "ina", "lin", "aki", "se ", "ban", " ly", " gw", "dak",
-            "lu ", "ngi", "gil", "a w", "o g", "akw", "u b", "ile", "anh", "ka ", "ilo", "a l",
-            "ubi", "e g", " nu", "o n", "ja ", "gan", " ng", " ma", "lya", "nul", "g’w", "ani",
-            "ndi", "u m", "iya", "wiy", " ji", "jo ", " ka", "yab", "lwa", "ada", "o b", "e k",
-            " ad", "gwi", "ho ", "gub", " ku", "ing", "o a", "o l", "ula", "ika", "a i", "u n",
-            "dik", "iha", "shi", "ayo", "gun", " ja", "ha ", "biz", "o j", "lag", "ma ", "wen",
-            " sh", "ele", "ung", "o s", "gi ", "gul", "mo ", "lan", "iwa", "a k", "ala", "iki",
-            "jil", "ola", "ji ", "a a", "yak", " li", "nil", "iza", "agi", "aha", "man", "bos",
-            "iga", "kuj", " ha", "ana", " lu", " gi", "iti", " mh", "uga", "uyo", "win", " ga",
-            "za ", "a y", "ki ", " nd", "oma", "ene", "o w", "a u", "mah", "yos", "sol", "hay",
-            " mi", "iko", "ong", "aga", "iku", "gwa", "i a", "ndu", "pan", "u g", "e i", " ab",
-            "ujo", "ida", "nya", "ibi", "duh", "but", "i y", "u w", "iji", "nhy", " we", "nik",
-            "aya", "uhu", "nda", " il", "je ", "abo", "aji", "lel", "ubu", "nay", "ba ", "lug",
-            "lon", "ale", "mil", "da ", "a j", "dul", "o m", "mha", "aka", "e u", "g’h", "udu",
-            "lyo", "e m", "e a", "gik", "bus", "bal", "sha", "wit", "twa", "ngh", "nek", "wig",
-            " um", "okw", "any", "uma", "ima", "uso", "bud", "’we", " ij", "hil", "bil", "a h",
-            "imo", "ita", "no ", " ih", "gut", "nha", "ne ", "iso", "ulo", "uno", "yom", "’ha",
-            "u l", "elo", "eki", "wel", "hya", "ngu", "omb", "som", "mbi", "i g", "o i", "u i",
-            "bak", " is", "ugu", " yi", "utu", "eni", "tum", "umo", "u s", "tog", "inh", "’wi",
-            "lit", "waj", "e j", "ule", "jiw", "u u", "kub", "kul", "lik", "uto", " uy", "upa",
-        ],
-    ),
-    (
-        Lang::Sag,
-        &[
-            "tî ", " tî", "na ", " na", " ng", "a n", "ngb", "gö ", "ngö", "nga", "nî ",
-            " lo", "lo ", "zo ", "bi ", "la ", "gbi", "ang", " sô", "sô ", "î l", "gan", "ö t",
-            " zo", "o n", " wa", "a t", "îng", "i t", "ngü", "gü ", " al", "lîn", " nd", "a l",
-            "ê t", " kû", "äng", "î n", " te", "wal", "ala", "alî", "î k", "ë t", "î m",
-            "â t", "î â", "ô a", "î b", " mb", "ûê ", "gâ ", "örö", "ngâ", "kûê",
-            " lê", "o k", "a â", "e n", "ko ", "î s", " kö", "ter", "dör", "köd", "ödö",
-            "ï n", "a k", "lêg", "gë ", "ôko", "ëpë", "mû ", "pëp", " pë", "o a", "êgë",
-            "eke", "yek", "ke ", "ü t", "î t", " ay", "o t", "bên", "ê n", "rê ", "pëe",
-            "ra ", "ëe ", "erê", "rö ", "tï ", "kua", "aye", " nî", " ôk", "ua ", "a z",
-            "ä t", " âl", "â n", "ïng", "î d", "ö n", "âng", "ênî", " am", "î z", "ten",
-            "âla", " yâ", "ê a", "mbê", "a m", "û n", "a y", "ne ", "ene", "rä ", "î g",
-            "a s", "bê ", " ku", "arä", "ndi", "ga ", "diä", "ëng", "iä ", " du", " ân",
-            "amû", "dut", "öng", "yâ ", "utï", "ro ", "önî", "lï ", "a p", " gï", "oro",
-            "lë ", "î a", " âm", "ndo", " sê", "ngô", "do ", "i n", "o s", "ndö", "âra",
-            "e t", " bê", "gba", "ûng", " mä", "sâr", " sï", "î p", " gb", "ö k", "e a",
-            "yê ", "a a", " âk", "dö ", "ara", "ba ", "ï t", " tö", "a w", "zar", "tön",
-            "î w", "war", "ndâ", "a g", "ana", "në ", "ênd", " të", "ta ", "ban", " lë",
-            "zön", "î f", "nzö", " sâ", "sï ", "tën", "o w", " nz", "sên", " âz", " da",
-            " za", "îrî", " në", "nën", "ate", "ä s", "bâ ", " at", "o l", "ënë", "o ô",
-            "fa ", " kp", " ma", "o p", " mû", "kân", "a b", "bat", "ata", "ô n", "se ", " kâ",
-            "alë", " ko", "ông", "da ", "ë s", "üng", "ë n", "ibê", "rös", "mbë", "bët",
-            "ëtï", "âmb", "mbâ", "ïgî", "mba", "gî ", "tän", " po", "bûn", "gï ", "amb",
-            "ü n", "gbï", "ôi ", "gôi", " af", "rë ", "erë", "lê ", " as", "afa", "âzo",
-            "i p", "sor", " ad", "i s", " ba", "gïg", "ä n", "bät", "dë ", "ö â", "kûe",
-            "ûe ", "kpä", "päl", "älë", "e z", "ätä", "ö w", "ngi", " yê", "köt",
-            "ötä", "tä ", "ê s", "kod", " hï", "hal", "hïn", "lëz", "ëzo", "ngä", "gän",
-            "odë", "ö m", "mar", "sär", "pä ", "ärä", "îan", "rän", "bîa", "a h", "gi ",
-            "bor", "du ",
-        ],
-    ),
-    (
         Lang::Nno,
         &[
             " og", "og ", " de", " ha", "er ", "en ", "ar ", "til", " ti", "lle", "ett", "il ",
@@ -2547,157 +2216,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             "se ", "ga ", "d d", "l f", "ker", "r o", "å d", "eld", "ige", "t d", "t i", "t h",
             "oko", "nnl", "rel", "nok", "rt ", "lt ", "åse", "jer", "ta ", "ik ", "ial", "eig",
             "r p", "i e", "olk", "bar", "osi", "kte", "sos", "lir", "opp", " un", "ad ", " be",
-        ],
-    ),
-    (
-        Lang::Mos,
-        &[
-            " n ", "ẽn", " a ", " se", "a t", "sẽ", "̃n ", " ne", "a s", " ye", "e n", " ta",
-            " tɩ", "n t", " pa", "tɩ ", " la", " so", "nin", " ni", " b ", " fã", "fãa",
-            "ãa ", "ng ", "a n", " bu", " tõ", "la ", "ẽ ", " te", "tõe", "ne ", "ye ", "a a",
-            "or ", " ya", " to", "ed ", "ned", "pa ", "e t", "õe ", "tar", "em ", "tẽ", "g n",
-            "ã n", "n m", "aan", " ma", "sor", "buu", "n y", "maa", "uud", "a y", "r n", "ins",
-            "n p", "ud ", "ra ", "paa", "ɩ n", "a b", " wa", "d f", " na", "me ", "n d", "ara",
-            "n b", "sã ", "taa", "n w", "bã ", "an ", "yel", "eng", "aal", "ɩ b", "n n", "gẽ",
-            "̃ng", "og ", " ka", " bɩ", "bɩ ", " tʊ", "gã ", " yɩ", "na ", "am ", "e b",
-            "ame", "wa ", "g a", "d b", "aam", "ab ", "mb ", " bã", "ãmb", " ba", "m n", "wã ",
-            "aab", "a m", "aa ", "saa", "ga ", "nsa", "yaa", " wã", "a l", "tog", "ore", "n s",
-            "nd ", "ʊʊm", " sõ", " sã", "ãng", "seg", "egd", "d s", "el ", "tʊʊ", "ngã",
-            "ba ", " tũ", " da", "ã t", " me", "b s", "re ", "dat", "l s", "d n", "ɩ y", "ã y",
-            "dɩ ", "aoo", "g t", " kã", "m t", "ing", "r s", "a p", "b y", "b n", "gdɩ", "men",
-            "dã ", "vɩɩ", " vɩ", "lg ", "oor", "ã s", "n k", "al ", "rã ", "nga", "ar ",
-            " le", "gr ", "d a", "neb", "̃nd", "ɩɩm", "ĩnd", "yɩ ", "lem", " pʊ", " bʊ",
-            "pʊg", "nge", "to ", "b t", "ɩ s", "g s", " mi", " ke", "a k", "bãm", " we", "kao",
-            "ilg", "wil", " zĩ", " no", "kẽ", " ra", "m b", "ʊge", "b k", " bũ", "oog",
-            "ã p", "bũm", "ngr", "at ", " wi", "gam", " ko", "eb ", "g b", "sõn", "ãad",
-            "ã f", "õng", "ɩm ", "m s", " yi", "ũmb", " yã", "ʊm ", "oy ", "wẽ", "noy",
-            "ʊmd", "da ", "ren", "a z", "ya ", " gã", "le ", "b p", "ɩ t", "n g", " f ", "ni ",
-            "soa", "oab", "i t", " sɩ", "lag", " ti", "te ", "o a", "s n", "oga", "go ", "tũ ",
-            "gem", "age", "a w", "̃ n", "in ", " yõ", "a g", "b b", "aor", "ka ", "ẽe", "tũu",
-            "aas", "a r", "e y", "ag ", "eg ", "r t", "e a", "ã k", "iid", "e p", "neg", "o t",
-            "ate", "oa ", "e s", "ũ n", "mã ", "ms ", "ell", "eem", "ẽm", "b w", "̃ms", "too",
-            "ik ", " zã", "zĩn", "kog", "bao", "r b", "s a", "bui", "uii", "ogl", "aba", "alo",
-            "loa", "kãa", "od ", "l b", "ll ", "nda", "kat", "aka",
-        ],
-    ),
-    (
-        Lang::Cat,
-        &[
-            " de", " i ", "es ", "de ", "la ", " la", " a ", " pe", "per", "ió ", "ent", "tat",
-            " se", "nt ", "ret", "ts ", "dre", "at ", " el", "ls ", " dr", "men", "aci", "a p",
-            "ció", "ona", " co", "a l", "al ", "na ", "s d", "que", "en ", "el ", " to", "s i",
-            " qu", " en", "e l", "ns ", "tot", "et ", "t a", "ers", " pr", "t d", "ons", "er ",
-            " ll", "ion", "a s", "ta ", "a t", "con", "els", "s e", " l’", "rso", "res", "als",
-            "son", " un", "est", "cio", " re", "pro", "ita", "cia", " in", "les", " o ", "ue ",
-            "del", "lli", "té ", " té", "ia ", "ame", "é d", "sev", "ota", "nac", "i l", " al",
-            "s p", "a d", "ar ", "a i", "ual", "nal", "a c", "ant", "nci", " le", "ert", "sta",
-            "rta", "ser", "t i", "i a", "l d", " no", "va ", "ats", " d’", "s n", "re ", "s a",
-            "e c", "eva", " na", "rà ", " ca", "ues", "com", "lib", "és ", " so", "ibe", " es",
-            "ets", "ber", "da ", "r a", "no ", "una", "l’e", "s l", "ter", "sen", "ran", "ure",
-            "des", "man", "i e", "l p", "t e", "n d", "e d", "e e", "om ", " di", "cci", "igu",
-            "a a", "s t", " pa", "i d", "tra", "s o", "aqu", "tre", "vol", "ect", "a u", "l i",
-            "gua", "ide", "s s", "ada", "ene", "ial", "nta", "ntr", "ens", "soc", "cte", "ra ",
-            "oci", "hum", "uma", "cla", "ali", "lit", "erà", "cti", " aq", " hu", "ici", "pre",
-            "era", "ess", "uni", "nte", " fo", " ni", "ble", "sse", "tes", "alt", "eme", "ass",
-            "ica", "seg", "o s", "ote", "rac", " ig", " po", "ans", " és", "a e", "un ", "us ",
-            "mit", " ma", "r s", "se ", "ssi", "s h", "a m", "r l", "nit", "l t", "ènc", "ó d",
-            "ten", " te", "ir ", "i p", "tal", "eta", "dic", "i i", "hom", "t q", "par", "egu",
-            "s f", " as", "n l", "ria", " mi", " ac", "lic", "int", " tr", "act", "eix", "n e",
-            "s c", "ont", "nse", "ecc", "t t", "ltr", "amb", "qua", "l’a", "eli", "ura", "an ",
-            "ist", "e t", "ó a", "one", "nam", "ing", "lar", "o p", "esp", "rec", "lig", "a f",
-            " ha", "iva", " am", "lle", "t s", "rot", "mat", "liu", "tiu", "iur", "n a", "fon",
-            "ots", "inc", "ndi", "e p", "seu", "olu", "gur", "i c", "més", "der", "rna", "ina",
-            "for", "igi", "cie", "bli", "ic ", "mb ", "in ", "art", "ol ", "rom", "nin", "omp",
-        ],
-    ),
-    (
-        Lang::Sot,
-        &[
-            " le", "le ", "ng ", "ho ", " mo", " ho", " bo", "a h", " e ", "lo ", "ya ", "ba ",
-            "e m", "a l", " ya", " ts", " ba", "na ", "ong", " ka", "a b", "tho", "e t", "sa ",
-            "elo", "olo", "a m", "ets", " di", "o e", "la ", "mon", "oth", "tsa", "o y", "ka ",
-            "eng", "a k", "oke", "kel", "a t", "g l", "tok", "ang", "o t", "tla", "mot", " se",
-            "o l", "e b", " na", " ha", "lok", "wa ", "e h", " tl", " a ", "aba", "o b", "tse",
-            "ha ", " o ", "hab", "e k", "tjh", "a d", "tso", "jha", " to", "se ", "so ", "oko",
-            "e e", "tsh", "dit", "pa ", "apa", "o n", "e l", "loh", "kol", " ma", "o m", "a e",
-            "ela", "ele", "ana", "a s", "let", "bol", "ohi", "a a", "tsw", "kap", " ke", "hi ",
-            "g o", "ohl", "eo ", "ke ", "ona", "set", "o k", "o s", "di ", " kg", "e d", "aha",
-            "lan", "bot", "bo ", "ito", "o h", " mm", "hle", "eth", "ena", "i b", "ala", "ats",
-            "moh", "swa", "lwa", "g k", "atl", "abe", "g m", "ola", "phe", "bat", "ane", "a n",
-            "mel", " me", "o a", " ph", "ebe", "ell", "hlo", "tlo", "etj", "mat", " sa", "g t",
-            " th", "g y", "lat", "mol", "g b", "g h", " en", "she", "the", "seb", "nan", "lek",
-            "boh", "hae", "kgo", "hel", "e s", "edi", "wan", "me ", "kga", "ae ", "to ", "a f",
-            "ath", "lao", " hl", "han", "ile", "nah", "we ", "ume", "kan", "otl", "len", "aka",
-            "efe", "ire", "bel", "bet", "rel", "swe", "mme", "sen", "a p", " ko", "g e", "atj",
-            "lel", "its", "bon", "oho", "eha", "shi", "man", "ano", "nts", "he ", "lal", "eka",
-            " fu", "o f", "heo", "got", "all", "ao ", "het", "hat", "get", "ban", "hal", "kge",
-            " wa", "a y", "lla", "fum", "mmo", "kar", "alo", " ef", "thu", "e y", "wal", "tha",
-            "san", "hon", "tlh", " he", "e n", "ben", "hla", "ing", "uma", "pha", "o o", "si ",
-            " tu", "tum", "llo", "lle", " ta", "pan", "hen", "mo ", "nen", "hir", " lo", "son",
-            "ots", "tab", "ama", "ato", "din", "lap", "hil", " eo", "dis", "oka", "elw", "tsi",
-            "llw", "i m", "hol", "pel", "iso", "no ", "e a", "fet", "lwe", "adi", " fe", "fen",
-            "hwa", "opa", "kop", "are", "amo", "ret", "emo", "i k", "isa", "o p", "o d", "i l",
-            "gat", "dik", "i t", " nt", " la", "ame", "shw", "hah", " am", "nya", "ita", "mab",
-        ],
-    ),
-    (
-        Lang::Bcl,
-        &[
-            "an ", " sa", "in ", " na", "ng ", "sa ", " pa", "na ", "nin", "ang", " ka", " ni",
-            " ma", " an", "pag", " as", "sin", "asi", "n s", "ion", "n n", "cio", "a m", "on ",
-            "ban", " de", "n a", "ga ", "kan", " mg", "a p", "mga", "a n", "os ", "rec", "ere",
-            "der", "cho", "ech", "n p", "aci", "aro", "n m", "man", "a s", " la", "n d", "o n",
-            "asa", "n k", "g s", "kat", "sar", "ata", "ay ", "o s", "al ", "ong", "n l", " o ",
-            "a a", "ho ", "a k", "igw", "tal", "gwa", "amb", "kas", "sai", "mba", "wa ", "ara",
-            " ig", "agk", "o a", "lam", "ro ", "o i", "gka", "ali", "apa", "nac", "san", "aba",
-            "g p", "ina", "a d", "iya", "yan", "ing", "lin", "may", "ink", "aiy", "nka", " ba",
-            "aka", "a i", "yo ", " in", "ag ", "abo", " da", "aha", "ini", " ga", "tan", "s n",
-            "nta", "ano", "agt", "s a", "kai", "ad ", "hay", "ida", "hos", "o m", "og ", "ia ",
-            "iba", "ent", "han", " ta", "par", "n i", " hu", "at ", "ron", "a b", "g n", "ant",
-            "g m", "nal", "ayo", "a g", "dap", "mag", "no ", "sta", "aya", "iri", " pr", "nga",
-            "ran", "cia", "g k", "es ", "pat", "li ", " co", "dad", "l n", "y n", "bos", " si",
-            "mak", "pro", "ala", "men", "gan", "aki", "nte", "lan", "o k", "con", "t n", "gab",
-            "a l", "g d", "ona", "n b", "ta ", "do ", "nda", "aan", "as ", "uha", "agp", "a c",
-            "uli", "awo", "taw", "pan", "n o", " so", "hul", "i n", "ter", "ado", "ags", "g a",
-            "tra", "min", "anw", "tay", "kam", "nwa", "waa", "g o", "a o", "kap", "ain", "bal",
-            "bil", "ami", "g i", "d a", "res", "ra ", "nag", "gta", "ton", "n e", "ba ", "nan",
-            " mi", "kab", "en ", "bas", "gpa", "nes", "o p", " di", "pin", "ika", "l a", "n g",
-            "ind", "isa", "cci", "ili", "ial", "ecc", "tec", "nci", "ios", "bah", " es", "one",
-            "pak", "om ", "imi", "agi", "ico", " re", "ana", " bi", "a e", "nid", "rim", "rar",
-            " se", "rab", "s s", "hal", "i a", "buh", "sab", "cri", "ubo", "bo ", "gi ", "wo ",
-            "rin", "int", "agh", "ipa", "sii", "ibo", "ani", "to ", "sad", "hon", " le", "iis",
-            "a t", "ast", "say", "lar", "n c", "aag", "ote", "rot", "n t", "y m", "ici", "paa",
-            "ley", "ey ", "yag", "aen", "dan", "ni ", " pu", "atu", "lab", "sal", "ica", " gi",
-        ],
-    ),
-    (
-        Lang::Glg,
-        &[
-            " de", "os ", "de ", " e ", "ión", " a ", "da ", "to ", "ció", "ere", "ón ", "der",
-            "ito", "en ", "a p", " co", "ent", "eit", "n d", " se", "rei", "ade", "as ", "aci",
-            "dad", "s d", " pe", "per", "o d", "s e", "e a", "e d", "men", " da", "nte", "ers",
-            " pr", " te", "do ", "al ", "rso", "ida", "es ", "ten", "soa", "oa ", "que", " to",
-            " po", " o ", "a t", " in", "a e", " li", " do", "cia", "te ", "tod", "res", "o a",
-            "pro", " re", "tos", "est", "ra ", " es", " ou", "dos", "lib", "con", "a d", "nci",
-            "o e", " na", "e e", "a a", "a s", "ber", " á ", "oda", " pa", "e o", " qu", "e c",
-            "ue ", "ar ", "nac", " en", " sú", "tra", "s p", " un", "súa", "com", "ou ", "ia ",
-            "nto", "ser", "a c", "er ", "ns ", "a o", "se ", "des", "is ", "ter", "s n", " ca",
-            "ado", "or ", "óns", "sta", "úa ", " no", "rda", "s s", "ibe", "rá ", "erd", "era",
-            "no ", "nal", " as", "ica", "e p", "eme", "erá", "pre", "sen", "das", "e n", " ni",
-            "e s", "por", "ais", "par", "ant", "ara", "ame", "cci", "ona", "io ", "o p", "n p",
-            " di", "cto", "s t", " so", "o t", "o á", "nin", " me", " os", "cio", "enc", "unh",
-            "n e", "n c", "nha", "ha ", "ntr", "ion", "n s", "á s", "n t", "s o", "ese", "nta",
-            "ect", "e i", "o s", "e l", "so ", "nid", "oci", "soc", "ont", "dic", "ici", "e t",
-            "tad", " ac", "tiv", "ndi", "ali", "gua", "l e", "rec", "a l", " ig", "omo", "cas",
-            "o m", "re ", " ma", "ing", "na ", "igu", "vid", "eli", "ngu", "und", "s i", "rac",
-            "a n", "cla", "cti", "seu", "ria", "on ", "ase", "o n", "lic", "s c", "man", "lid",
-            "a u", "uni", "ta ", " ó ", "ual", "ido", "ori", " fu", "ind", "nda", "ste", "s a",
-            "tes", " tr", "act", "ial", "fun", "dis", "ecc", "o ó", "cal", "mo ", "un ", "e r",
-            "iva", "n o", "ca ", "n a", "o c", "esp", "ome", "o o", "seg", "sti", "r a", "tor",
-            "r d", "egu", "ada", "lo ", "nde", "r o", "uma", "ote", " el", "alq", "lqu", "uer",
-            "spe", "a i", "tar", "bre", "tri", "hum", "olo", "cie", "ren", "ena", "ari", "mat",
-            " fa", "med", "ura", "lar", "edi", "ver", "ixi", "á p", "ibr", "gur", "int", "pen",
-            "rot", "a f", "cac", "s f", "ili", "rio", "ma ", "a v", " vi", "rim", "len", "ita",
         ],
     ),
     (
@@ -2732,585 +2250,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Umb,
-        &[
-            "kwe", "oku", "a o", " ok", "nda", " kw", " om", "da ", "wen", "e o", "a k", "la ",
-            "ko ", " ly", "end", "nu ", "ka ", "o l", "oko", "mun", "omu", "unu", "kwa", "wa ",
-            " ko", "a v", "o y", "omo", "mok", "ali", " vy", "eka", "olo", "i o", "osi", " yo",
-            "lyo", "mwe", "si ", "okw", "we ", "lo ", "iwa", "o k", "i k", "le ", "te ", "a e",
-            "ete", "gi ", "kut", "sok", "ong", "iso", " ya", "vo ", "ang", " ey", "wet", "ata",
-            "a y", "o o", "yok", "ofe", "fek", "kuk", "ela", "a l", "ilo", " wo", "owi", "nga",
-            "iñg", "kul", "oka", "vyo", "uli", "u e", " va", "li ", "ñgi", "kal", "wat", "ta ",
-            "u o", "eci", "ngi", "ovo", "ye ", "so ", " li", "oci", "yo ", "wiñ", "nde", "ga ",
-            "ing", " nd", "ili", "nge", "ci ", "eye", "ala", "vya", "e k", "kol", "isa", "a a",
-            "lom", "lon", "go ", "avo", "ako", "ovi", "pan", " ol", "uka", "ngo", "lya", "ti ",
-            "o v", "akw", "yal", "olw", "uti", "imw", "eli", "alo", "ge ", "ung", " ku", "a u",
-            "lis", " al", "onj", "ati", "wal", "ale", "e l", "sa ", "i v", "and", " ov", " yi",
-            "ika", "ukw", "ele", "lil", "yos", "he ", " oc", "yov", "iha", "ikw", "omb", "val",
-            "lin", "lim", "ahe", "apo", " ka", " ye", "yom", " vo", "lik", "i l", "kok", "wav",
-            "aka", "cih", "o e", "tiw", " ke", "yi ", "i w", "ama", "e y", "lof", "yow", "yol",
-            " ek", "kov", "ole", "vak", "vik", "tav", "omw", "a c", "upa", " el", "ila", " lo",
-            "aso", "su ", "e v", "lyu", "ava", "ñgo", "lwa", " wa", "gis", "gol", " ce", "tis",
-            "ave", " on", " es", "po ", "wil", "va ", "eso", "kup", "co ", " la", "yam", " ak",
-            "wam", "iyo", "ekw", "e e", "i c", "tat", "i a", "a n", "yah", "eko", "lwi", "ita",
-            "lit", " ec", "kwi", "upi", "i y", "epa", "kan", "kiy", "nja", "dec", "asi", "e u",
-            "yav", "asu", "mak", "lap", "yim", "tya", "vos", "kas", "cit", " ha", "lel", "u c",
-            "a w", "emb", "u y", "ola", "yon", " os", "win", "lye", " ca", "eyo", " uk", " ci",
-            " ow", " yu", "ayi", "vel", "liw", "has", "iti", "sil", " et", "yuk", "o w", "umb",
-            "ulu", "ya ", "wi ", "anj", "kat", "ngu", "wom", "o a", "uva", "esu", "usu", "mbo",
-            " co", " of", "mat", "o c", "ca ", "cel", "vi ", "u l", "ba ", "kon", "mbe", "wiw",
-        ],
-    ),
-    (
-        Lang::Tsn,
-        &[
-            " le", "le ", "go ", " mo", "ng ", " ts", " go", "lo ", " bo", "ya ", "we ", " di",
-            "gwe", " ya", "ong", "ngw", "sa ", "olo", "elo", "a b", "tsa", "tsh", " e ", "tlh",
-            "a l", "o t", "e t", "a g", "e m", "wa ", "a t", "o y", "eng", "na ", "e l", " kg",
-            "wan", "kgo", "mo ", "o n", "tse", "a k", " tl", "ets", "ane", " ba", "dit", "mon",
-            "ele", "hwa", "shw", "la ", "ka ", "a m", "nel", " na", " ka", "e d", "o l", " o ",
-            "o m", "ba ", "se ", "e g", "e e", "bot", "a d", " a ", "di ", " ga", "ots", "tla",
-            "otl", " se", "lol", "o b", "tho", "so ", "lho", "tso", "o g", "ang", "got", "e b",
-            "ga ", "lel", "seg", "o e", "its", "gol", "ose", "ho ", "oth", "let", "e o", "lha",
-            "ego", "aba", "hab", "e k", "ano", "los", "a n", " nn", " ma", "eka", "g l", "šha",
-            "tšh", "kan", "alo", "ola", "lhe", "ela", "aka", "sen", "gat", "tsw", "kga", " nt",
-            "mol", "o a", "nng", "o o", "o k", "aga", "atl", "o s", "bat", "tlo", "agi", "yo ",
-            "len", "g y", "edi", "e y", " th", "g m", "dik", "to ", "tir", "e n", " ja", "a a",
-            "mel", "o d", "ana", "ire", "g k", "rel", "swe", " yo", "bon", "gag", "lek", "e s",
-            "mot", "kwa", "i l", " te", "a s", "he ", "agw", "ats", "iwa", "i k", "itš", "ona",
-            "no ", "a e", "mai", "any", "lao", "ikg", "she", "ntl", "lwa", "dir", "g t", "lon",
-            "ale", " sa", "ao ", "hel", "shi", "tle", " wa", "ume", "log", "jwa", "itl", "pe ",
-            "hir", " jw", "non", "iti", "a y", "set", "hok", "ira", " ti", "odi", " me", "gi ",
-            "e j", "tek", "etl", "a p", "ko ", "ath", "ala", "hol", "bod", "tet", "mog", "han",
-            "nya", " mm", "g g", "nag", "i t", "adi", " lo", "oag", "i b", "nna", " ko", "the",
-            "lan", "re ", "thu", "wen", "hot", "nyo", "hut", "o i", " ne", "pol", "me ", "tum",
-            "ope", "ame", "gan", "emo", "ore", "wel", "nts", "oko", "okg", "iro", "ro ", "tha",
-            "elw", "amo", "gor", "ing", "jal", "isi", "nan", "ogo", " it", "jaa", "si ", "oga",
-            "heo", "gon", "diw", "pa ", "opa", " kw", "lat", "are", "bo ", "o j", " ke", "ke ",
-            "ile", "gis", "o f", "rag", " ph", "bok", "aak", "kar", "rwa", "nye", "g a", "atš",
-            "mok", "ago", "okw", "hag", "ate", "ato", "uto", "gwa", "mme", " fa", "fa ", " op",
-        ],
-    ),
-    (
-        Lang::Nso,
-        &[
-            "go ", " le", "le ", " go", "a g", "lo ", "ba ", " di", "ka ", "o y", "ya ", " ka",
-            " ya", "ng ", " ma", "a m", " mo", " tš", "elo", "etš", "e g", "a l", "o l", " bo",
-            "a k", "a b", "e t", "na ", "o t", "tok", "wa ", "e m", "a t", " ga", "la ", "ang",
-            " a ", " ba", " se", "man", "tše", "oke", "o k", "ša ", "kel", "dit", "tša", "tho",
-            "we ", "ele", "a d", "o g", "o a", "a s", "o b", "gwe", "e d", "ho ", "o m", "ego",
-            "e l", " na", "tšh", " to", "šo ", "še ", "oko", "ga ", "di ", " o ", "olo", " e ",
-            "let", "ong", "gob", " ye", "oba", "ago", " tl", "tšw", "mo ", "e b", "re ", "g l",
-            "ngw", "aba", "tšo", "swa", "šha", "ane", "tla", "hab", "o n", "ona", "ito", "ela",
-            " kg", "ogo", " th", "oth", "wan", "eo ", "e k", " sw", "lok", "kgo", "log", "ye ",
-            "o d", "a n", "ola", "g o", "e s", "set", "hlo", "kol", "se ", " wa", "lel", "ao ",
-            "eng", "o s", "šwa", "mol", " ts", "eth", "net", "ano", " bj", "a y", "o e", " ke",
-            "thu", "hut", "šwe", "ge ", "itš", "leg", "rel", "alo", "to ", "ohl", " ge", "mog",
-            "kan", "e e", "ire", "nag", "ke ", "eba", "aka", "pha", "gag", "bot", "o w", "aga",
-            "a a", "mot", "are", "mok", " yo", "gor", "oka", "ko ", "gon", "no ", "ore", "ana",
-            "agw", " wo", "bon", "bat", "lwa", "tse", "bja", " ph", "din", "yo ", "e r", "šeg",
-            "e y", "ath", "nya", "get", "lao", "sa ", "wo ", " re", "wag", "odi", " sa", "seb",
-            " me", "utš", "oph", "mel", "iti", "kge", "ato", "kar", "o o", "šom", " la", "o f",
-            "phe", "edi", "hir", "ala", "pol", "lat", "ušo", "i g", "a p", "g y", "the", " fi",
-            "ume", "wel", "bop", "hel", "emo", " du", "ile", "gwa", "bo ", "ale", "tle", "lwe",
-            "lek", "ban", "ta ", " lo", "lon", "o š", "dir", "mae", " mm", "tlh", "god", "pel",
-            "a w", "weg", "eka", "elw", "atš", "išo", "aem", "šhi", " ko", "gam", "rwa", "mmo",
-            "boi", "e n", "ntl", "pan", "amm", "i l", "i b", "hle", "hla", "leb", " am", "šon",
-            "jo ", "len", "i s", "kop", "ret", "gel", "ing", "opa", "yeo", "dum", "sen", "e a",
-            "ape", "ase", "kwa", "lef", "mal", "amo", "oge", "bjo", "oik", "mon", "kga", "okg",
-            "a f", "tsh", "boh", "uto", "ika", "ahl", "ja ", "adi", "iša", "gab", "hom", "abo",
-        ],
-    ),
-    (
-        Lang::Ban,
-        &[
-            "ng ", "an ", "ang", " sa", "ing", "san", " ma", " pa", "ane", "rin", "ne ", "ak ",
-            "hak", " ha", " ka", "n s", " ri", " ke", "nga", " ng", "man", "in ", "lan", "a s",
-            "ara", "ma ", " ja", "n p", "n k", " pe", "g s", "g p", "pun", "asa", "uwe", "gan",
-            "n m", "nin", "sal", "pan", " la", "alu", "iri", "sa ", "lui", "jan", "adi", "a m",
-            "adu", "uir", "ra ", "yan", "mad", "kan", "wan", "duw", "ur ", "tan", "g j", "anm",
-            "we ", " tu", "nma", "ika", "awi", "nge", "ah ", "tur", "ih ", "ban", "ka ", "e h",
-            " ne", "n n", "en ", "nte", "un ", "ngs", "eng", "anu", "beb", "aya", "ani", "ana",
-            "ian", "a p", "ala", "bas", "nan", "gsa", "ngg", "uta", " da", "gar", "aka", "eba",
-            "da ", "apa", "asi", "ama", "lih", "aha", " wa", "ten", " ut", " ta", "a n", "ebe",
-            "are", " wi", "han", "aje", "keb", "oni", "nik", "ent", "aki", "uni", "ata", "wia",
-            "iad", "g n", " pu", "jer", "ero", "ron", "aan", "k h", "saj", "din", "sak", "a t",
-            "nus", "dan", "n w", "pen", "usa", " ba", "ngk", " pi", "ant", "sam", "e p", "taw",
-            "n r", "ate", "wi ", "nen", "i m", "ega", "neg", "iwa", "pat", "atu", "e s", "ami",
-            "ipu", "g k", "ina", "mar", "kat", "kal", "aga", "sar", "ran", "kin", "per", "g r",
-            "ndi", "arg", "ar ", "ksa", "e m", "ren", "nya", "al ", "tat", "ida", "ela", "h p",
-            "aks", "ntu", "ngu", "ado", "lak", " ny", "oli", "at ", "wen", "ep ", "i k", " se",
-            "dos", "h s", "n l", "dad", "gka", "eka", "a k", "rep", "eda", "n h", "par", "upa",
-            "ena", "swa", " sw", " in", "nay", "ewa", "ung", "era", "ali", "a u", " mu", "eh ",
-            "nip", "r p", "e k", "n t", "k p", "ras", "i n", "uku", "n i", "wah", "eri", "g m",
-            "pak", "n b", "r n", "ayo", "nda", "mal", "mi ", "um ", "dik", "os ", "osa", " mi",
-            "yom", "na ", "teh", "awe", "k r", "lar", "car", "tah", "sia", "g h", "ti ", " hu",
-            "ut ", "huk", "kum", "sti", "ewe", "tuk", " me", "rga", "pin", "h m", " su", "gi ",
-            "ari", "n d", "a w", "ta ", "uan", "gaw", "gen", "h r", "on ", "war", "tut", "lah",
-            "pag", "gay", "r m", "n u", "ada", "ira", "a b", "ngi", "end", "kew", "g t", "min",
-            "ggi", "gda", "jag", "as ", "rap", "agu", " an", "e n", "ngd", "s k", "ila", "eta",
-        ],
-    ),
-    (
-        Lang::Bug,
-        &[
-            "na ", "eng", "ng ", " na", " ri", "ang", "nge", "nna", "ngn", "gng", "ge ", "sen",
-            "a r", " ma", " pa", " si", " ta", " ha", "ri ", "hak", "app", "tau", "ak ", "au ",
-            "ddi", "a t", "ase", "edd", "ale", "a n", "nap", "gen", "len", "ass", "pa ", "e n",
-            "ai ", "ria", "enn", "ega", " ru", "upa", "rup", "ias", "a a", "ing", "inn", "a s",
-            "pun", "ngi", "nin", "e p", "ini", "nai", "ga ", "lal", "gi ", "sin", "ppu", "are",
-            "ae ", "ye ", " ye", "ana", "g n", "sed", "ada", "le ", " as", "i h", "a p", "ama",
-            "g r", "i r", "man", " se", "una", "ara", "ra ", "di ", "ssa", "ren", "a m", "pad",
-            "e r", "ila", "ban", "asa", " ke", "san", "din", "e a", "ura", " la", "ane", " de",
-            "nas", "e s", "i a", "ipa", "pan", "u n", "ann", "i l", " ad", "da ", "ala", "aji",
-            "ole", "att", " pu", " e ", "ong", "i s", " ba", "pur", "aga", "lai", "i p", "lan",
-            "g a", "ngs", "sal", "ola", "gsa", "g s", "a b", "i n", "ppa", "rip", " we", "a k",
-            "g m", "asi", "wed", "akk", "mas", "i m", "ril", "u r", "reg", "g p", " pe", "ung",
-            "gar", "neg", "sse", " po", "e m", "k h", " ar", "pas", " ne", "map", "ian", " te",
-            "nar", "pol", "ett", "ran", " ja", "bas", "eba", "jam", "beb", "ena", "par", " al",
-            "sib", "ebe", "ngk", "uru", "keb", " sa", "ain", "ttu", " mo", "aka", "unn", "add",
-            "iba", "sa ", "gan", "gka", "nen", "bbi", "i t", " at", "atu", "kan", "nan", "uan",
-            "leb", "rus", "de ", "e d", "ton", "ata", "tu ", "ssi", "ro ", "e y", "cen", "kun",
-            "awa", "ell", " wa", "k r", "mak", "wa ", "uwe", "ire", "ebb", "gag", "apa", "sae",
-            " tu", " ia", "tte", "mat", "sim", " to", "a d", "o r", "ta ", "nat", "ece", "tur",
-            "la ", "ie ", "dec", "ko ", "kel", " di", " hu", "nca", "caj", "pak", "rel", "ma ",
-            "lu ", "g t", "bol", "uku", "e e", "ter", "jaj", "tta", "we ", "bir", "deg", "huk",
-            "e h", "dan", "ure", "baw", "kol", "rit", "kko", "ele", "arg", "rga", "llu", "oe ",
-            "lin", "use", "ari", "auw", "pat", "mul", "elo", "ula", "iti", "gau", "an ", "u p",
-            "nga", "g y", "a h", "ekk", "sil", "ka ", "e w", "ade", "anc", "iga", "sip", "ten",
-            "a y", "e t", " me", "nre", "aja", "ji ", "rek", "a w", "dde", "per", "iko", "sik",
-        ],
-    ),
-    (
-        Lang::Knc,
-        &[
-            " a ", "ro ", "be ", "nzə", "ye ", "a a", " ha", " kə", "abe", "akk", " ka", "zə ",
-            "adə", "a n", "a k", "kki", "hak", "mbe", " la", " ad", "ndu", " nd", "wa ", "ben",
-            "en ", "ma ", "də ", " ya", "o a", "əbe", "ə a", "ga ", "e a", "əga", "lan",
-            "əna", "lar", "aye", "aro", "kin", "inz", "rdə", "ard", "ana", "yay", " ga", "əla",
-            "kəl", "ji ", "awa", " mb", "bej", "eji", "kən", " ba", "an ", "uro", "du ", " na",
-            " ku", "anz", "dəg", "nəm", "kal", " nə", "e m", "na ", "gan", " du", " sh", "shi",
-            "amb", "n k", " su", "ara", "u y", " ta", "so ", "a d", "kam", "wo ", " ye", " sa",
-            "e h", "a s", "sur", "aso", "au ", " au", "iwa", "nyi", "kur", "a l", " da", "kar",
-            " as", "dəb", "iya", "kiw", "o k", "obe", "e s", "ada", "ama", "and", "u a", "aa ",
-            "ta ", "ima", "n n", "la ", "əwa", "nga", " ci", "ba ", " ab", " nz", "əgə", " fa",
-            "ənd", "ata", "ndo", "ya ", "tə ", "nza", "ə n", "ndi", "a g", "in ", "nam", " fu",
-            "ə k", "aya", "a t", "tən", "a b", "təg", "ru ", "uru", "inb", "am ", "e k", "al ",
-            "ida", "mga", "aar", "a h", "baa", "ə s", "nab", "dəw", "dun", "asa", "nya", "owu",
-            "gad", "taw", "o w", "gən", "a y", "kat", "dam", " sə", "o h", "əra", "e n", "awo",
-            "ade", "əmk", " wa", " wo", "amg", "dən", " tə", "a f", "ala", "i a", "zəg", "o n",
-            "uny", "iga", "zən", "əli", "wur", "u k", "o s", "wan", "za ", "din", "utu", "e l",
-            "san", "i k", "uwu", "wu ", "awu", "n a", "on ", "de ", "da ", "nba", "mka", "yi ",
-            "gay", "tam", " ng", "laa", "gin", "azə", "bem", "gai", "taa", "ibe", "rad", "adi",
-            "fut", " mə", "wow", "wak", "ali", "kun", " an", "mər", "o t", "yab", "nad", "aim",
-            "əgi", "i n", " aw", "liw", "cid", "u s", "edə", "atə", "any", "do ", "apt", "lka",
-            "alk", "dar", "rta", "bed", "tu ", "ela", "ndə", "uwo", "gal", "yir", "wum", "n y",
-            "ayi", "n d", "mma", "zəb", " yi", "nan", "ltə", "lmu", "ilm", "mar", "bel", "raj",
-            " il", "ero", "m a", "utə", "enz", "iro", "alw", "uma", "umm", " um", "e g", "how",
-            "kka", "o f", " ny", " ho", "fuw", "ə h", "ang", "tin", "zəl", "o g", "ema", "ən ",
-            "no ", "a i", "a m", "wal", "əny", "iwo", "lil", "ədə", "ə f", "rtə", "hi ",
-            "diy", "mu ",
-        ],
-    ),
-    (
-        Lang::Ibb,
-        &[
-            "ke ", " nd", " mm", "me ", " ke", "e u", "ndi", "o e", " em", "mme", "de ", "en ",
-            "e n", "owo", " en", " ow", "wo ", "i e", "mi ", "ye ", "emi", "nye", " un", "e e",
-            "edi", "ene", " ek", "yen", "eny", " ed", "e m", "nen", "une", "ana", "n e", "e o",
-            "e i", " ye", " uk", "et ", "n n", "eke", "na ", "e k", " mb", "em ", "ne ", " id",
-            " es", "un ", "kpu", "ede", "iet", "ndo", " nk", "o k", "di ", "kpo", "ukp", "did",
-            "am ", "an ", "kie", "nam", "kem", "esi", "o u", " nt", "idu", "eme", "o n", "t e",
-            "no ", "yun", "mo ", " uf", "ho ", "mmo", "nyu", " in", "o m", "kpe", "o o", "sie",
-            "oho", " kp", "do ", "din", "ie ", "ono", "kpa", "m e", "ri ", "nkp", "dib", "on ",
-            "e a", "uke", " ki", "boh", "a k", " et", "po ", "ida", "dut", "m u", "ked", "ded",
-            " ub", " of", "ond", "ru ", "uru", "pur", "in ", "ut ", "du ", "eko", "a u", "ina",
-            " ot", "mbe", "n o", "bet", "iny", "man", " ak", "op ", "idi", "ikp", "i o", "edu",
-            "kon", "ade", "om ", " us", "uan", "wem", "a m", "uwe", " uw", "puk", "ak ", "ode",
-            "ro ", "t m", "a e", "oro", "a n", "n k", "u o", "to ", "te ", "bo ", "akp", "ufo",
-            "ok ", "dik", "pan", "mbo", "bio", "i m", "ide", "ini", "fur", "uri", "ban", "ofu",
-            "ubo", "n i", "o i", "uto", "iso", "dom", "omo", "ema", "diy", "fen", " nw", "dis",
-            " ny", " is", "ni ", "usu", "n m", "u u", "fin", "tom", "eto", "pem", "ed ", "m m",
-            "ibo", "oto", "o a", "sua", "wed", "nwe", "m n", " ut", "mde", "dud", " eb", "ara",
-            " as", "i n", "oki", " ob", "nte", "mok", " ik", " an", "kar", "m k", "o y", "t k",
-            " on", "i u", "nwa", "n y", "asa", "ama", "re ", "ufi", "uka", "io ", "nek", "i k",
-            " or", "pon", "top", "sun", "ion", "se ", "aha", "t o", "k n", "e y", "ere", " ef",
-            "mba", "mad", "isu", " mi", "kor", "ra ", "ian", "i a", "ka ", "a a", "k m", "ko ",
-            "da ", "t i", "ena", "obi", " ey", "ha ", "dia", "ti ", "aba", "uk ", "u m", "d e",
-            "dem", "san", "a o", " se", "pa ", " ab", "tod", "n u", "p m", "ude", "fok", "k u",
-            "efe", "uku", "nti", "nka", "ibi", "son", "he ", "pe ", "nto", "dak", "a y", " od",
-            "nde", "eye", "anw", "ndu", "mbu", "so ", "ebi", "bie", "nda", "sin", "med", "tu ",
-        ],
-    ),
-    (
-        Lang::Lug,
-        &[
-            "a o", " ok", " mu", "oku", "mu ", "wa ", "nga", " ob", "ga ", "tu ", "ntu", "a e",
-            "na ", "bwa", "a a", "ang", "ra ", "aba", " n ", "ba ", "a m", "wan", "a n", " ng",
-            " ab", "li ", "obu", "unt", "a k", "era", "ibw", "dde", "oba", "a b", "u n", "za ",
-            "la ", "mun", "ban", "ali", "ka ", "emb", "iri", "bul", "ate", "mbe", "i m", " ek",
-            "tee", "eek", "uli", " bu", "u a", "edd", "sa ", " ku", "ant", "ana", "eki", "u b",
-            "be ", "dem", " eb", "ama", "n o", " om", "ira", "omu", " ki", " ed", "ye ", "ala",
-            "amu", " am", "e o", "gwa", "nna", " er", "kuk", "y o", "kwa", " en", "okw", "eer",
-            " ly", "inz", "ula", "kus", "kir", "u e", " ba", " em", "eri", " ky", "any", "onn",
-            " wa", " ye", "ggw", "ina", "kol", "n e", "awa", " bw", "uyi", "u k", "eka", "yo ",
-            "bwe", "ola", "o e", "usa", "o o", "kwe", "mus", "yin", "bal", "i e", "u m", "ngi",
-            "e m", "bir", "riz", "ere", "ri ", "ebi", "kul", "aga", "nza", "kub", "ekw", " eg",
-            "ko ", "a y", "u o", "we ", "kut", "mat", "e l", "e e", "a l", "aan", "ger", "no ",
-            "kan", "sin", "nka", "gir", "uso", " at", "a g", "iza", "gan", "nyi", "zes", "uku",
-            "wo ", "nge", "zib", "isa", "izi", "ya ", "egg", "ufu", "rir", "lin", "wam", "wal",
-            "eby", "a w", "i o", "bee", "oze", "esa", "eta", "iko", "ebw", " ma", "ako", "bon",
-            "tuu", "kin", "uki", "de ", "zi ", "kug", "yen", "ino", "e b", "obo", "aka", "ulu",
-            " te", "ne ", "lwa", "ma ", "y e", "lye", "kuy", "nsi", "i y", "gi ", "utu", "ly ",
-            "imu", "e n", "taa", "asa", "enk", "ku ", "o n", "o b", "sob", "si ", "una", "bun",
-            "usi", "san", "e k", " ag", "uka", "uga", "ata", " ol", "rwa", "wen", "ing", "wat",
-            "kik", "o k", " by", "nya", "ong", "kye", "by ", "kyo", " bo", "ewa", "yam", "bye",
-            "ubi", "ngo", "kis", "ani", "boz", "kit", "i n", " aw", "ky ", " al", "sib", "muk",
-            "awo", "uko", "umu", "ibi", "uma", "afu", "olw", "eky", "tab", "ung", "buy", "ini",
-            "uum", "saa", "y a", "lal", "mag", "ro ", "end", "add", "enn", "kib", "ens", "ole",
-            "ni ", "mbi", "o a", "i k", "gat", " og", "maw", "and", "kuu", "a z", "wet", "igi",
-            "yig", "emu", " ne", " gw", "a t", "nzi", "n a", "gya", "amb", "uwa", "ulw", " ey",
-        ],
-    ),
-    (
-        Lang::Ace,
-        &[
-            "ng ", "an ", "eun", "ang", " ha", "peu", "oe ", "ak ", "on ", "nya", " ny", "yan",
-            " ta", "ngo", "ung", "gon", "na ", "ah ", " pe", "reu", " ng", " ba", " ke", "hak",
-            "meu", "keu", " me", "eut", "at ", "ure", " na", "ban", "ee ", " di", "teu", "roe",
-            "ata", " ur", "ara", " be", "seu", "han", "a h", " sa", "am ", "dro", "eur", "um ",
-            "n n", "tie", "iep", " ma", " la", "ala", "nan", "g n", "ut ", "ong", "a n", "ep ",
-            "tan", " te", "tap", "jeu", " ti", "eul", "eub", "eu ", "eug", " da", "eum", "eh ",
-            "euk", "ra ", "ih ", "n p", "uga", "ai ", "n b", "a t", "e n", "lam", "eba", " se",
-            "beb", "n t", "awa", "om ", "a b", " ka", "asa", " at", "eus", "and", "nyo", "oh ",
-            "ta ", "ka ", "h t", "n k", "p u", "man", "e t", "n d", "n h", "ana", "dan", " pi",
-            "ape", "a s", "neu", "nda", " si", "t n", "bah", "ula", "yoe", "a k", "h n", "dum",
-            "euh", "g d", "e p", "eng", "e b", " le", " pa", "ngs", "sia", "ran", "ma ", "g k",
-            "un ", " wa", "ndu", "lan", "una", "heu", "ura", "n m", "lah", "sa ", "n a", " ra",
-            "aba", "g s", "a p", "ia ", "und", " je", "wa ", "kat", "bak", "k n", "anj", " dr",
-            "asi", " bu", "nga", "beu", "uny", "yar", "sya", "hai", "k m", "k t", "k a", "ama",
-            "aan", "ek ", "a m", "ok ", "g h", "aka", "sab", "g p", "i n", "uta", "khe", "h p",
-            "ue ", "uka", "har", "ari", "di ", "e d", " su", " um", "t t", "a l", "ya ", "san",
-            "e s", "gan", "uko", "gsa", "e u", " li", "kan", "bat", "lee", "aro", "ot ", "n s",
-            "leu", "ina", "h d", "lak", "oih", "yat", "n u", "kom", "pat", "ate", " ne", "ngg",
-            "nje", "taw", "mas", "uma", "sid", "anu", "umu", "aja", "si ", "uh ", "h m", "rat",
-            "aya", "sal", "et ", "soe", "t b", "n l", "aga", "taa", "usi", " ja", "ute", "m p",
-            "en ", "dek", "ila", "a d", "ube", "dip", "gam", "any", "lin", "tam", "don", "ika",
-            "usa", " ji", "rak", "idr", "h b", "nus", "adi", " as", "dar", "ame", "n j", "ngk",
-            "m n", "eup", "h h", "bue", "k h", "huk", "euj", "g b", "gar", "eka", "gah", "upa",
-            "ile", "sam", " bi", "h s", " de", " in", "mum", "‐ti", "t h", " hu", "k k", "pho",
-            "dil", "ep‐", "nta", " ge", "geu", "h l", "hat", "ie ", "tha", "use", "ieh", "sas",
-        ],
-    ),
-    (
-        Lang::Bam,
-        &[
-            " ka", "ni ", "a k", "ka ", "an ", " ni", "kan", " bɛ", "n k", " la", "i k", "ya ",
-            "la ", "ye ", "ɔgɔ", "na ", " ye", "bɛɛ", "ɛɛ ", "en ", "li ", "sir", "ɛ k",
-            "ama", " ma", "ira", "a d", "ra ", "ali", "’a ", " da", "man", "a n", "a b", " i ",
-            "ma ", " kɛ", " wa", "gɔ ", "wal", "mɔg", "ana", "n n", " ba", " ja", "ɔrɔ",
-            " mi", " kɔ", " k’", " mɔ", " jo", " si", "min", "iya", "dan", "len", "i m",
-            "’i ", "in ", "kɔn", "ko ", "aw ", "den", " sa", " o ", " n’", "ara", "bɛ ",
-            "i n", "jam", "ɔnɔ", " na", "ɛrɛ", "a s", "i j", "ani", "n b", "a m", "i d",
-            " fɛ", " tɛ", " an", "osi", "jos", "a y", "kɛ ", "a l", "iri", " ko", " di", "ɛ b",
-            "ada", "ila", "ɛ m", "i t", " fa", "nɔ ", " de", " ha", "asi", "tɛ ", "ari", "a j",
-            "raw", "a t", "ɛ s", "ale", "a f", "tig", "ɛn ", "aya", "dam", "a i", "i b", "sar",
-            "si ", "riy", "ɲa ", "n y", "nu ", "inn", "e k", "ɔn ", "rɔ ", "ang", "a w", "o j",
-            "w n", "nnu", "k’i", "nti", "nɲa", "ade", "abi", "bil", "ala", "hɔr", "kal", "had",
-            "igɛ", "i s", "a a", "mad", " a ", "aga", "u k", "kab", "a ɲ", "aba", " ti", "olo",
-            " hɔ", "o b", "ɛ j", "i f", " ta", "ɔ k", "aar", "baa", "ɛ n", "n’a", "kun",
-            "ugu", "iɲɛ", "diɲ", "n j", "k’a", "a h", "rɛ ", "ati", "ɔ m", " se", " cɛ",
-            "ɲɔg", "bɔ ", " tɔ", "i y", "lan", "i h", " ɲɔ", "tɔn", "don", "nɛ ", "inɛ",
-            "ga ", "i l", "ɲɛ ", "ile", " fo", "o k", "ɛ l", "nna", "ili", "un ", "gɔn", "maa",
-            "fɛn", "n d", "ant", "n i", "aay", "go ", "da ", " jɛ", "u b", "ri ", "rɔn", "aka",
-            "lak", "ɔnɲ", "e m", "ɔ b", "nin", "nw ", "cɛ ", "w k", "yɔr", "n o", "o f",
-            "nga", "jo ", "o m", "nen", "n’i", "on ", "ɛ t", " ku", "o l", "igi", "ɲɛn",
-            "anb", "fɛ ", "ɔ s", " bɔ", "n m", "e b", "afa", "nka", "n f", "nma", " fi",
-            "’u ", "ɔ n", " ɲɛ", "fan", "i ɲ", "ti ", "a o", "dil", "ɛ d", "uya", " sɔ",
-            "ago", "ɛ y", "e f", "ɛmɛ", "mɛn", "aju", "e d", "bɛn", " jɔ", " fu", "til",
-            "bag", "fur", "n t", "uru", "kar", "atɔ", "be ", " d’", " du", "d’a", "oma",
-            "lom", " u ", " do", "riw", "taa", "w l", "mɛ ", "gɛ ", "imɛ", "n w", "iir", "nni",
-            "iim", "amu", "so ", "bal", " ɲa", " b’", "gu ", "ɛɛr", "’o ", "iwa", "n s",
-            "wol", "ele", "ɲan",
-        ],
-    ),
-    (
-        Lang::Kmb,
-        &[
-            "a k", " ku", "ya ", "la ", "ala", " mu", " ki", "a m", " o ", "u k", "ni ", "o k",
-            " ni", "kal", " ky", "mu ", " ya", "lu ", "dya", " dy", "a o", "ang", "kya", "a n",
-            "tok", "i k", "oso", "so ", "kwa", "nge", "xi ", "na ", "elu", "nga", " kw", "wa ",
-            " wa", "a d", "hu ", "kut", "thu", "uka", "oka", "mut", " ka", "a i", "mba", "uth",
-            "ka ", "gel", "ba ", "u m", "u y", "ku ", "ene", "u n", "ga ", "kuk", "ban", "ixi",
-            "i m", "e k", "wal", "oke", " mb", "kik", "kel", "ne ", "u w", "ela", "uto", "i y",
-            "ana", " ng", "iji", "a y", "kit", "ma ", " ji", "nda", "ngu", "yos", "kum", "ulu",
-            "ji ", "i d", "isa", "und", " it", "and", "ong", " mw", "u i", "iba", "ika", "wen",
-            " di", "ten", "ilu", "ila", "ndu", "ye ", "sa ", "kub", "aka", "ena", "amb", "ung",
-            "olo", "a w", "ngo", "kil", "oxi", "lo ", "muk", "ke ", "sok", "du ", "mox", "ate",
-            "o w", "kus", "wat", "ta ", " wo", "gu ", " ph", "u d", "ito", "ita", "e m", "alu",
-            "a j", "kis", "tun", "uma", "wos", "luk", "o m", "san", "mwe", "a a", "di ", "imo",
-            "ula", "wan", "nji", "jix", "i j", "a t", "kij", "idi", "kan", "uku", "gan", "kul",
-            "e o", "kye", "adi", "ato", "o i", " ja", " ix", "da ", "nu ", "o n", "uta", "kud",
-            " yo", "i n", "udi", "ki ", "su ", "tal", "a u", "lun", "e y", "u u", " ye", "jin",
-            "iki", "pha", "hal", "wij", "we ", "a s", "lak", "ikw", "go ", "tes", "fol", "itu",
-            "eng", " ke", " uf", "yen", "ing", "yat", "ele", "utu", "kyo", "o y", "kwe", "kwi",
-            "uba", " en", "kib", "ite", " we", "dal", "i o", "yan", "ge ", "eny", "tan", "uki",
-            " ik", "dib", " im", "esu", "lon", "kat", "atu", "e n", "ja ", "i u", "jya", "vwa",
-            "kam", "i w", "ute", "ini", "uke", "lel", "esa", " se", "xil", " ut", "fun", "unj",
-            "ufo", "mbo", " a ", "uso", "kim", "mun", "u p", "nen", "ukw", "u o", "i i", "umu",
-            "han", "gon", " il", "lan", "ata", "te ", "i a", " ko", "jil", "o a", "nde", "nyo",
-            "eka", " at", "o d", "exi", "ijy", "tu ", "usa", "tul", "kuz", "ilo", "dis", " un",
-            "u j", "dit", "ufu", "ote", " ib", "ivw", "mwi", " bh", " ha", "se ", "bul", "ubu",
-            "win", " os", "imb", "bha", "ama", " to", "axi", "inu", " uk", "sak", "kos", "bot",
-        ],
-    ),
-    (
-        Lang::Lun,
-        &[
-            "la ", " mu", "ng ", " ku", "a k", "tu ", "ntu", "chi", " ch", "a n", "aku", "di ",
-            "mun", "ma ", "unt", "a m", "g a", " a ", " na", "ela", "ndi", "aka", " we", "ima",
-            "jim", "shi", "eji", "u w", "i k", " ni", "ind", "wu ", "i m", "a w", " in", "a i",
-            "u m", "hi ", "awu", "na ", "kul", "wej", "lon", "cha", " ja", "sha", " kw", "a c",
-            "i n", "nak", "ala", "mu ", "wa ", "ing", "ka ", "ung", "kum", "a h", "ulo", "him",
-            "mbi", "muk", "u c", " wa", "hak", "iku", "nsh", "yi ", " ha", "bi ", "amu", "imb",
-            "ewa", "wen", "kwa", "ang", "adi", "idi", "kut", "esh", "ana", "g o", "ila", "ha ",
-            "tun", "u j", "ong", "nik", "kuk", "tel", "ovu", " ov", "u n", "han", " an", "ate",
-            "vu ", "a a", "kal", "ula", "kwi", "jak", "u a", " ya", "a y", "ilu", "u k", " he",
-            "ham", "and", "uch", "kus", "ond", "eka", "hel", "kew", "zat", "del", "hin", "uku",
-            "nde", "i j", "enk", "i a", "uka", "eng", "ach", "lu ", "nat", "nji", "ona", "mon",
-            "awa", "nke", "umo", "ins", " yi", "a d", "ama", "udi", "wak", "i h", "ati", "i c",
-            "wan", "ta ", "bul", "mwi", "ata", "ayi", " ak", "uma", "i y", "ina", "ich", "itu",
-            "uza", "kuz", "nin", " mw", "ku ", "kin", "wun", "sak", "naw", "nyi", "ni ", "ant",
-            "muc", "wal", "ish", "u y", "mul", "kud", "waw", "uke", "wes", "uki", "i i", "kam",
-            "yid", "wit", "da ", "akw", "kad", "yan", " di", "ken", "uta", "ika", "imu", "iya",
-            "nda", " ns", "mbu", "ya ", "ule", "dil", "iha", "kuy", " ko", "hik", "eni", "ahi",
-            "kuh", "si ", "kun", "ush", "umu", "atw", "g e", "his", "dik", "ji ", "any", "li ",
-            " ye", "dim", "kos", "osi", "hih", "wat", "eyi", "ney", " ne", "amb", "twe", "til",
-            "wil", "nu ", "kwe", "u h", "etu", "tiy", "ja ", "nan", "ash", "mwe", "win", "was",
-            "hit", "iti", " wu", "iwa", "wah", "lem", "g i", "tam", "din", "hu ", "haw", "nga",
-            "kay", " ka", "hid", "yin", "isa", "iki", " ma", "jaw", "jil", "che", "mpe", "omp",
-            "eta", "tan", "jin", "hiw", "usa", "umb", "eme", "inj", " hi", "ulu", "ubu", "nam",
-            "wik", "mpi", " da", "ale", "ite", "tal", "twa", "ahu", "end", "nka", "mba", " at",
-            "ga ", "mes", "dic", "iwu", "yej", "kan", "kuc", "iyi", "sem", "emb", "lun", "una",
-        ],
-    ),
-    (
-        Lang::Tzm,
-        &[
-            "en ", "an ", " ye", " d ", " n ", "ad ", "ur ", " ad", "n i", " s ", "agh", "ḥe",
-            "n t", " i ", "dan", " ta", " lh", "lḥ", "d y", " gh", "ell", "n a", "ra ", "̣eq",
-            "i t", "eqq", "s l", "mda", "ett", "n d", "d t", "akk", "la ", " ti", "qq ", "hur",
-            "di ", " di", " am", "gh ", "ghu", " is", "t i", "r s", "in ", "nag", " na", "a y",
-            "is ", " te", "a d", "n n", "yet", "n g", "ll ", "ara", "ghe", "ma ", " we", " ar",
-            " wa", "n s", "l a", "n l", "sen", "edd", " ak", "it ", "li ", " le", "dd ", "ull",
-            "lla", " id", "d a", " ur", "rfa", "erf", "kul", " yi", " ku", "as ", " se", " ma",
-            "zer", "amd", "a n", "lli", "lel", "men", "t a", "kw ", " de", "t t", "nt ", "kkw",
-            " im", "fan", "a i", "a t", "eg ", "n w", "i d", "q a", "rt ", "ar ", "gar", " ag",
-            "es ", " tl", "ize", "emd", "i w", "i l", "deg", " as", "ken", " dd", "n u", "lan",
-            "d i", "a a", "wak", "tta", " tm", "d u", "er ", " tu", "wem", "at ", "ddu", "tle",
-            "w d", "n y", "t n", "sse", "r a", "mur", "s t", "tam", "gi ", " tt", "yes", "wan",
-            "r i", "tim", "na ", "wen", "twa", "d l", "ttu", "kke", "wa ", "nen", " iz", "iḥ",
-            " u ", "win", "d n", "ame", "s d", "ent", "ḍe", "hel", "a l", "hed", "ess", "t d",
-            "mga", "arw", "i n", "ḥu", "mi ", "mad", "agi", "i g", "der", "udd", "s n", "rwa",
-            "̣en", "awa", "i i", "ya ", "h d", "iya", "s y", "msa", "uḥ", "idd", "urt", "un ",
-            "n m", "ane", "em ", "sef", "lsa", "ili", "q i", "qan", "leq", "siy", " ik", "el ",
-            "err", " in", "yed", " la", "ant", "den", "tag", "man", "g w", "mma", "yen", "len",
-            "tmu", "i u", "aw ", "taw", "r y", "wad", "edm", "ṣe", "hla", "t l", "̣er", "ala",
-            "asi", "ef ", "u a", "tte", "ddi", "ttw", " lâ", "imi", "l n", "til", "al ", " ne",
-            "am ", "̣ud", " lq", "iḍ", " ya", "dda", "̣ṛ", "med", "ren", " ss", "gra", "m a",
-            "ghl", " il", "chu", "tem", " ll", "khe", "way", "eln", "lna", "ana", "ukl", "duk",
-            "gha", "lt ", "ni ", "all", "i a", "tal", "ray", "nes", "s k", "tes", "naw", "ert",
-            "ila", "awi", "lqa", "kra", "anu", "nun", " kr", "ikh", "ezm", "n k", "iwe", "iwi",
-            "ima", "net", "ser", "s u", "ir ", "yeh", " an", "aya", "ehw", "hwa", "esk", "dde",
-        ],
-    ),
-    (
-        Lang::War,
-        &[
-            "an ", "ga ", "nga", " ka", " ng", " pa", " ha", "han", "pag", "in ", "ata", " hi",
-            " an", "mga", " mg", " ma", "kat", "hin", "a m", "ay ", "a p", "ya ", "ung", "a k",
-            "gan", "on ", "n h", "n n", "ug ", "n p", "n k", " ug", "n m", "da ", "a h", "n i",
-            "ha ", "iya", "adu", "dun", "tad", "a n", " ta", "ada", "sa ", " iy", "ara", " na",
-            " di", " o ", "pan", "may", "a t", "ang", "ud ", "ana", "n a", "o h", "o n", "taw",
-            "n u", "ags", "yon", "y k", "al ", "tag", "asa", "kad", "o p", "man", " ba", "awo",
-            "gsa", "wo ", "ag ", "gad", " in", "a a", "a u", "ina", "syo", "a i", "a s", "od ",
-            "ing", "agp", "ala", "asy", "ngo", "n b", "ali", "nas", "san", "aka", "a d", "ra ",
-            "g a", "was", "g h", "aha", "gpa", "agt", "to ", "ad ", "n t", "tun", "ng ", "usa",
-            " wa", " tu", "ini", "iri", "tan", "ahi", "kan", "ray", "nal", "war", "dir", "i h",
-            "gka", " us", "god", "g p", "ri ", "a b", "nan", "ida", "o a", "i n", "bal", "y h",
-            "kas", "uga", "hat", "tal", "nah", "awa", "ni ", "pin", "uha", "buh", "o m", " bu",
-            "gud", "aba", "at ", "no ", " pi", "bah", "g m", "ili", "him", "aya", "atu", "d h",
-            "agi", " su", "agk", "lwa", "mo ", "d a", "alw", "sya", "uma", "ano", "int", "kal",
-            "upa", "mag", "yo ", "o u", "agb", "n d", "asu", "lin", "a o", " ko", "ona", "did",
-            "hiy", " bi", "as ", " ki", "l n", "sud", "iba", "hi ", "o k", "kon", "ira", " la",
-            "gba", "pam", "amo", "g i", "ton", "gin", "n o", "uro", "ho ", "os ", "la ", "g k",
-            "gtu", "d m", "aud", "aag", "t h", "gi ", " gu", " ig", " ir", "n g", "abu", "aho",
-            "ami", " sa", "ati", "par", "kau", "ern", "ban", "tra", "gar", "ama", "ras", "yan",
-            "adt", "tum", " un", "ka ", "aga", "aso", "api", "dto", "kin", "tik", "mil", "iko",
-            "rin", "sal", "ika", "a g", "ila", "mah", "lip", "rab", "non", "agu", "ak ", "dad",
-            "lau", "d n", "ko ", "it ", "pak", "n e", " ti", "una", "i m", "lig", "s h", "bay",
-            "ro ", "sug", "mak", "n w", "naa", "g n", " so", " ag", "yal", "nte", "lal", "ba ",
-            "aup", "lan", "ihi", "y b", "kah", "tub", "bye", " am", "ari", "yer", "uka", "ani",
-            "uyo", "oha", "ito", "n s", "upo", "ent", " pu", "sam", "iin", "til", "mat", "ato",
-        ],
-    ),
-    (
-        Lang::Dyu,
-        &[
-            "a’ ", " kà", " ká", "kà ", "ye ", " ye", " à ", "ya’", "ni ", " bɛ", "kán",
-            "la ", "án ", "ya ", "ɔgɔ", " ni", " la", "ɛɛ ", "ká ", "na ", "a k", " mɔ",
-            "bɛɛ", "mɔg", " i ", "nya", "á k", "n k", "ɔrɔ", "’ k", " mí", "’ l",
-            " kɛ", "mín", "’ y", "ín ", " mà", "à k", "ɛ k", "’ m", "ma ", " ya", "à m",
-            " wá", " jà", " ní", " be", "be ", " ò ", "i y", "ní ", "i’ ", " lá", "ra ",
-            "iya", "ɛrɛ", "n’ ", "n n", " há", " kɔ", "te ", "wál", "àma", "jàm", " te",
-            "áli", "a b", "ima", "man", "à à", "hák", "e k", "lim", " kó", "ɔnɔ", "mà ",
-            "n b", "i k", "ɛn ", "gɔ ", "e b", "n y", "ɔ’ ", "ana", "’ n", "o’ ", " sà",
-            "ɛ y", "’ s", "kɛ ", "à l", "rɔ ", "e à", "kɔn", "li’", "àni", "a m",
-            " dí", "aw ", "rɛ ", "ɔ k", "’ b", " bá", "à b", "a à", "ákɛ", "riy", "e s",
-            "gbɛ", "nɔ ", "a j", " bɔ", " ù ", " sɔ", "bɛn", " sí", "à y", "sàr", "e m",
-            "ara", "kó ", " fà", "à s", " àn", "dún", " là", "en ", " sì", "an’", " fɛ",
-            "úny", " dú", "a n", "a y", "ɛya", "àri", " gb", "in ", "kɛr", "kan", "’ t",
-            "dí ", " cɛ", "nin", "yaw", " tá", "na’", "e w", "mìn", "ìna", "lá ", "ɔn ",
-            " mì", " ɲá", "à d", "ali", "n m", "yɛr", " yɛ", "sɔr", "gɔ’", " tɔ", "ama",
-            "báa", "nga", " dà", "i m", "i à", "sìg", "ìgi", "yɔr", "gɔn", "w n", "áar",
-            "a d", " sé", "ána", "àng", "len", "à i", "si ", "ɛra", "á d", "bɛr", "a s",
-            "bɔ ", "ólo", "a h", "i b", "ɔ s", "ɛ l", "den", "ɛ’ ", "à t", "àra", "ɔya",
-            "gɔy", "kɛy", "ógo", "u’ ", "aya", "’ d", " má", " dɔ", "ra’", "a f",
-            "ɔny", "’ f", " ó ", "ili", "sí ", " se", "se ", "ko ", "cóg", "a t", " có",
-            "dén", "hɔr", "ɔɔn", " hɔ", "ma’", "lan", "ika", "ina", "kàl", " a ", "àla",
-            "n s", "ɛ m", "i t", "rɔn", "tig", "ànt", "a w", "tá ", "e n", "i s", "à n",
-            "nna", " í ", "’à ", "ò k", "a g", "n d", "an ", "ga ", "fɛn", "ɔ à", "li ",
-            "e i", "ɛɛɛ", "kél", "ati", "so’", " yé", "i f", "áki", "dàn", " k’", "i n",
-            "k’à", " nà", "í i", "í à", "lik", "yé ", "igɛ", "e’ ", "e ò", "go ",
-            " lɔ", " na", "ɔ b", "w l", "í t", "rɔ’", " dò", "ò b", "min", "ti ", "àga",
-            "ow ", "n t", "mad", " mi", "ò l", "éle", "gi ", "ɲán", "í y", "kil", "dɔ ",
-            "nba", "i ɲ", "gu ", " wó", "ɛli", "i l", "úru",
-        ],
-    ),
-    (
-        Lang::Wol,
-        &[
-            " ci", "ci ", " sa", "am ", "sañ", "añ ", " na", " ak", "ak ", "lu ", "it ", " mb",
-            " am", "aa ", "na ", "al ", "ñ s", "ñu ", "ne ", "mu ", "te ", "pp ", " ne", " ko",
-            "m n", "i a", " ku", " ñu", " te", " mu", "baa", "u n", "ko ", "u a", "mba", "a s",
-            "e a", "ay ", " wa", " lu", " do", "ar ", " ni", "u m", "nit", "oo ", "épp", " ta",
-            "oom", "gu ", "t k", "i b", "ku ", "u k", " it", "éew", "rée", " ré", "u y", "xal",
-            " aa", "kk ", "i d", " bu", "doo", "i w", " bi", "war", "u c", " yi", "aay", "llu",
-            " li", "fee", "loo", " xe", " xa", " ya", "taa", " di", "yi ", "ama", "on ", "u j",
-            "yu ", "eex", "ew ", " yo", "boo", "xee", " bo", " wà", "àll", "wàl", "mi ", "o c",
-            "ir ", "mën", " më", "yoo", "ul ", " gu", "nn ", "en ", "oot", " du", " so", "oon",
-            "e m", "dam", "een", "u d", "i n", "uy ", "eet", "i m", "ara", " ba", "bu ", "a a",
-            "ata", "okk", "aad", " lé", " ay", "ju ", "ada", " nj", "nam", "und", "axa", "dun",
-            "m a", "enn", "r n", "aar", "ex ", "taw", "ala", " jà", " pa", "et ", "di ", "ën ",
-            "ana", "ral", "ota", "k s", "awf", "naa", "wfe", " gi", "u l", "igg", "aju", " dë",
-            "ma ", " aj", "ti ", "u t", " se", "ax ", "gée", "mbo", " ja", "ool", "bii", "li ",
-            "a m", " ke", "see", "m c", " ye", "i l", " ng", "yam", "ngu", " yu", "w m", "an ",
-            "ken", "n w", " lo", "i s", " me", " de", "m m", "i t", "om ", "u x", "n t", " an",
-            " mi", "jaa", "laa", "ee ", "bok", "lig", "p l", "n m", "t y", "ggé", "k l", "a l",
-            "lép", "àpp", "jàp", "aam", " jë", "aax", "ekk", "nd ", "góo", "ewa", "ndi",
-            "tax", "a d", " da", "amu", "éey", "gi ", " su", "k c", "n n", "l b", "o n", "k t",
-            "p n", "jàn", "àng", "gir", " jo", "a c", "n a", "n c", "ñoo", "i ñ", "a n", "kaa",
-            "ba ", "m g", "le ", "une", "kan", "e b", "la ", "nda", "lee", "i j", "ang", "aat",
-            "k n", "ey ", "ant", "iir", "a y", "l a", "e n", "nan", "añu", "men", "j a", "ok ",
-            "k i", "nee", "l x", "omi", "i c", "oxa", "aw ", "g m", "dox", "nte", "opp", "u w",
-            "ngi", " mo", "omu", "y d", "are", "i k", "aan", "em ", "du ", "a b", "njà", "ñ ñ",
-            " ti", "m r", "kun", "ddu", "ali", " së", " la", "eg ", " ma", "ëra", "ng ", "xam",
-            "mul",
-        ],
-    ),
-    (
-        Lang::Nds,
-        &[
-            "en ", "un ", "at ", "n d", " da", " de", " un", "een", "dat", "de ", "t d", "sch",
-            "cht", " ee", " he", "n s", " wa", "n e", " vu", "vun", "ech", "rec", "ht ", "er ",
-            "ten", " to", "tt ", " si", " re", "ver", " ge", "nne", "t w", "n w", "ett", "n h",
-            "n v", "k u", "n u", " el", "gen", "elk", "lk ", "t u", "ien", "to ", "ch ", " ve",
-            "wat", "sie", "war", "het", "it ", " an", "n f", "ner", " mi", " in", "ann", "rn ",
-            " fö", "ör ", "r d", " fr", "t r", "hte", "orr", "ich", "för", " sc", "rie", "eit",
-            " or", "den", "nsc", "ege", "fri", "rer", " st", "t g", " up", "aar", "t a", "nd ",
-            " is", "ll ", "rre", "is ", "up ", "t e", "chu", "rt ", "se ", "ins", "daa", "lt ",
-            "on ", "t h", "oon", "che", "all", "n g", " ma", "rrn", "min", " se", "ell", "hei",
-            " na", "t s", "n i", "n a", "nn ", "len", " sü", "in ", "rd ", "nen", " we", " bi",
-            "n m", "e s", "ven", "ken", "doo", "sse", "ren", "aat", "e m", "ers", "n t", "s d",
-            "n b", "lle", "ünn", "t t", "n o", "ik ", "kee", "e g", "t v", "n k", "hen", "arr",
-            " dr", "heb", "lie", "ebb", "e v", " al", "e a", "llt", " ke", "hn ", "he ", " wi",
-            "cho", "ehe", "ok ", "ard", "sta", "men", "ill", "gel", "tsc", " ok", " do", "an ",
-            "düs", "ene", "erk", " gr", " dü", "weg", "ie ", "ede", "ieh", "r s", "sün", "üss",
-            "und", "raa", " dö", "röf", "drö", "t m", "ats", "öff", "e f", "ünd", "e w",
-            "dör", "ens", " gl", "rch", "sik", "ig ", "kt ", "örc", "ere", "gru", " ün", "ff ",
-            "ahn", "nre", "mit", "st ", "al ", "aal", "hon", "ert", "kan", "nat", "der", "dee",
-            "enn", "run", " so", "eih", "lic", "ehr", "upp", "iht", "nwe", " fa", "pp ", "eke",
-            "e r", "unw", "t n", "taa", "hup", " ka", " be", "bbt", " wo", "p s", "el ", "as ",
-            "t f", "bt ", "e e", "nee", "maa", "huu", "eve", "nst", "ste", "mee", " ni", "inn",
-            "n n", "ern", "iet", " me", "hör", "dde", "ent", "n r", "t o", "öve", "are", "arb",
-            "ite", "ter", "l d", "ach", "nic", "bei", " as", "lan", "t b", "d d", "t i", "ang",
-            "ame", "rbe", "utt", " ut", "pen", " eh", "uul", "iek", "hr ", " ar", "r t", "ul ",
-            "e d", "art", "n ü", "one", "eer", "na ", "nte", "mut", "ete", "üd ", " mu", "üüd",
-            "lüü",
-        ],
-    ),
-    (
-        Lang::Vmw,
-        &[
-            "tth", "la ", "thu", "a e", "na ", "hu ", "kha", "a m", "we ", "ana", " mu", "a o",
-            "awe", "ela", "ni ", "ala", "hal", "edi", "to ", " ed", "ire", "dir", "eit", "ito",
-            "rei", "ya ", "a n", "wa ", "mut", "a w", " wa", " ni", "akh", "aan", "u o", " on",
-            "o y", "okh", "utt", "a a", "haa", " n’", "wak", "nla", " wi", "ari", " yo", " si",
-            " ok", " ot", "iwa", "ka ", "iya", " sa", "ne ", "apo", "lap", "ale", "le ", " oh",
-            "oth", "att", "the", "mul", "aka", "oha", "kun", " el", "aku", "oni", "mwa", "ha ",
-            "e s", "unl", "tha", "ott", "ele", "ett", "e m", "o s", " va", "ene", "e n", "e o",
-            " ya", "oot", "hav", "ade", "ihi", "iha", "ihe", "de ", "o o", "e a", "eli", "hen",
-            "amu", "e w", " aw", "hel", "dad", "ra ", " at", "po ", "i m", "lel", "wi ", "o n",
-            "owa", "e e", "ula", " en", "ta ", "o a", "i a", "moo", "waw", "ina", " ak", "ota",
-            " mo", "sa ", "a s", " so", "han", "ara", "var", " kh", "a i", "ri ", "aya", "itt",
-            "anl", "row", " mw", " et", "i o", "ika", "’we", "nro", "i e", "n’a", "her", "lan",
-            "nak", "sin", "lo ", "elo", "vo ", "u e", "eri", "n’e", "oli", "thi", "u a", "a’w",
-            "ida", " ah", "a v", "liw", "kan", "him", "lib", "yar", "riy", "ona", "onr", "erd",
-            "wal", "hiy", "aa ", "ibe", "rda", "wan", "ber", "era", "avi", "hiw", "nna", "i v",
-            "hwa", "lei", "mih", "vih", " ep", "khw", "ntt", " na", "ko ", "ia ", "sik", "aha",
-            "iwe", "e k", "hun", "una", "mu ", "avo", "ikh", "laa", "riw", " ma", " an", "e y",
-            "kel", "’el", "huk", "u y", "phe", "kho", "pon", "i s", "nid", "upa", "ath", "ila",
-            "yot", "eko", "ali", "tek", " es", " it", "o e", "uku", "wih", "nan", "tte", " a ",
-            "mur", "’at", "i w", "ani", "ulu", "nih", "wel", "lik", "ira", "ane", "a y", "nkh",
-            "saa", "ro ", "n’h", "wir", "i n", "ile", "som", "u s", "hop", "inn", "ei ", "ont",
-            "kum", "yaw", "saw", "iri", " eh", "tel", "tti", "ola", "aki", "mak", "ret", "uth",
-            "nnu", "a k", "nuw", "ahi", "enk", " il", " nn", "ena", "va ", "yok", "ute", "soo",
-            " pi", "lal", "ohi", "hik", "mpa", "uwi", "lih", "har", "kin", "aph", "ma ", "ope",
-            "man", "ole", "uma", " oo", "mpw", " v’", "nal", "ehi", "nin", "uni", " ek", "khu",
-        ],
-    ),
-    (
-        Lang::Ewe,
-        &[
-            "me ", "ame", "e a", "le ", "wo ", "kpɔ", " am", "ɖe ", "ƒe ", " si", " me", " wo",
-            "be ", "si ", " le", "sia", "esi", "la ", " la", "e d", " ɖe", " kp", "pɔ ", "aɖe",
-            "e l", " be", "e w", " ƒe", "e e", "dzi", "na ", "nye", "a a", " du", "ye ", " ŋu",
-            " na", "duk", " dz", "ukɔ", "e s", "ome", " mɔ", "e n", " aɖ", "kpl", "nya", "gbe",
-            "e b", "e m", "ple", "ɔkp", "ɔ a", "pɔk", "woa", "ɔ m", "kɔ ", "evi", "nɔ ",
-            "ŋu ", "ke ", " nu", "ɔ l", "mes", "awo", " o ", "iwo", "ɔnu", "e ɖ", " ab", "ya ",
-            "ekp", "e k", "ɔwɔ", "u a", " al", "nu ", "ia ", "ɖek", "e ŋ", "kpe", "ɔme",
-            "o a", "iny", "zi ", "dze", " ny", "o k", "eme", "eƒe", "o n", "iam", "egb", "mɔn",
-            "blɔ", "i n", "wɔ ", "a m", " eƒ", "o d", "alo", "siw", "ɔɖe", "lo ", "o m",
-            "eke", "e g", " bu", "eny", "ubu", "ŋut", "ɔ s", "bub", "lɔɖ", "enɔ", "meg",
-            "akp", "abl", " ha", "e t", " ta", " go", "mek", "eɖo", "ukp", "li ", "nɔn", "to ",
-            "any", "a l", "etɔ", "ɔ ƒ", " ey", "e h", "nuk", "gom", "ɔ ɖ", "ɔe ", "bɔ ",
-            "ɖo ", "i s", " to", "anɔ", "a k", "ɔnɔ", "e x", "awɔ", "e ƒ", "tɔ ", " ƒo",
-            "mev", " es", " ɖo", "ɖes", " xe", "i w", "tso", " wò", "wɔw", "mɔ ", "iaɖ",
-            "i l", " ag", " li", "ã ", "o ƒ", "odz", "a s", "agb", "yen", " ts", "bu ", " he",
-            "bet", " gb", "o e", "ewo", "a e", "ɔna", "i d", "ti ", "ele", "dɔw", " ka", "i a",
-            "uti", "peɖ", "ta ", " an", "afi", "a ŋ", "a ƒ", " ad", "ƒom", "se ", "ɔwo",
-            "xex", "exe", "oma", " ma", "vin", " dɔ", "o l", "wɔn", "eye", "a n", "i t", "vi ",
-            "ɔ b", "so ", "edz", "gbɔ", "ɖev", "ado", " se", "ɔ n", "oto", "ene", "eɖe",
-            "xɔ ", "nan", "ɖod", " af", "ben", "zin", "ee ", "de ", "ɖok", "dzɔ", "gɔm",
-            "adz", "ɔ k", "wom", " gɔ", "uwo", "i ɖ", "a d", " vo", "a t", "o g", "i b", " xɔ",
-            "oɖo", "i m", "e v", "ats", "o ŋ", "sɔ ", "ovo", "i e", " at", "vov", "ne ", "ɔ e",
-            "kat", "o s", " ne", " aw", "da ", "wòa", "eŋu", " as", "asi", " el", "o t", "yi ",
-            " sɔ", "men", "a b", "ze ", "mee", "uny", "te ", "dom", " ak", "man", "ẽ ", "i o",
-            "ie ", "ana", "ata", "ui ", "axɔ", "u k", "ɖoɖ", "tsi", "ema", "rɔ̃", "ded",
-            "ɔ g", "ena", " en", "kɔm", "met", "u s", " eɖ", "oku", "kui", "mew", "xem",
-        ],
-    ),
-    (
         Lang::Slv,
         &[
             " pr", "in ", " in", "rav", "pra", "do ", "anj", "ti ", "avi", "je ", "nje", "no ",
@@ -3341,128 +2280,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Ayr,
-        &[
-            "apa", "nak", "aka", " ja", " ma", "ata", "ana", "aña", "asi", "aqe", "cha", "aki",
-            "ñap", "jha", "mar", "aw ", "kan", "ark", " ch", "una", "aru", "paw", "ti ", "jh ",
-            "pat", "jaq", "rka", " ta", "a j", " ar", "hat", "ama", "tak", " wa", "ach", "iw ",
-            "a a", "ani", "a m", "spa", "na ", "kap", "ki ", "taq", "pa ", "jan", "sa ", " uk",
-            "qe ", "kis", "kas", "ha ", "ina", "niw", "may", " kh", " am", "at ", "ati", "pan",
-            "i j", " ya", " mu", "iti", "ka ", "ayn", "t a", "as ", "amp", "ch ", "a u", "an ",
-            "pjh", "yni", "mun", "iña", "uka", "ajh", "ru ", "w k", "hit", "ñan", "h a", "is ",
-            "isp", "qen", "khi", "isi", "has", "ejh", "e m", "sis", "atä", "oqa", "nch", "rus",
-            "kam", "siñ", "han", "mpi", "kañ", "qha", "sin", "asp", " in", "ham", " uñ", "ñat",
-            "hañ", "qat", " sa", "yas", "yat", "ita", "äña", "ska", "tap", "asa", "kha", "sit",
-            "täñ", "tha", "arj", "ma ", "a t", "ta ", "tas", "nka", "sti", "iri", "sna", " ji",
-            "a y", "ara", "pas", " as", "ñja", "rjh", " ku", " ut", "hap", "tat", "kat", "tis",
-            "pi ", "apj", "jam", "noq", "aya", "i t", "i u", "ukh", "ura", " ka", " ju", "ans",
-            "qas", "uñj", "asn", "a c", "nin", "aqa", "kaj", "nañ", "sip", "i a", "us ", "i m",
-            "kun", "w u", "anc", "api", "ino", "ili", "uya", "pac", "tan", "jil", "ña ", "lir",
-            "utj", "w j", "s a", "ipa", "chi", "kiw", "w m", "kak", "muy", "pis", "rak", "hac",
-            "isa", "njh", " lu", "mas", "amu", "ena", "nsa", "w t", "nan", "ali", "s j", "ink",
-            "tay", " a ", "upa", "wak", "a k", "way", "wa ", "in ", " ay", "tañ", "s m", "jas",
-            "mp ", "lur", "ank", "khu", "rañ", "h j", "t m", "iru", "eqa", "ayt", "yt ", "heq",
-            "che", "anq", "en ", "lan", "rin", "ipj", "i c", "mat", "qpa", "aqh", "tja", "awa",
-            "uki", "k a", "qej", "anj", "sap", "pam", "usk", "yaq", "kar", "nip", "llu", "wal",
-            "run", "yll", " aj", "lin", "a w", "ayl", "n m", "jac", "isk", "naq", "ast", "h u",
-            "ni ", "ath", "a i", "ayk", "jhe", "aqp", "h k", "uch", "inc", "hus", "sar", "s u",
-            "s w", " pa", "nap", "ap ", " un", "ak ", "n j", "tir", " ak", "ns ", "s c", "ust",
-            "arm", "ask", "war", "ri ", "man", "pit", "qer", "juc", "sir", "n w", "hik", "ika",
-        ],
-    ),
-    (
-        Lang::Bem,
-        &[
-            " uk", "la ", "uku", "wa ", "a i", "a u", " mu", "kwa", "ali", "ya ", "shi", "a n",
-            "amb", " na", "sam", " pa", "ula", "ta ", "nsa", "fya", " no", "nga", " ya", "mbu",
-            "bu ", "ata", " in", " ku", "a m", "lo ", "se ", "nse", " ba", "ntu", "kul", "ons",
-            "ala", "ang", "ins", "aku", "li ", "wat", "mo ", "tu ", "alo", "a a", "ngu", "ili",
-            "nok", "ika", "na ", "nan", "a p", "ing", "a k", " al", "mu ", "gu ", "o n", "sha",
-            " ca", "ila", "oku", "e a", "ikw", "yak", "ka ", "lik", " um", "ana", "lin", "yal",
-            "ga ", " ci", "aba", "lwa", "ku ", "ish", " fy", "uli", "a b", "u u", "unt", "i n",
-            " on", "kal", "lil", "u y", "ba ", "hi ", "ukw", "amo", "po ", "ulu", "kan", " sh",
-            "kup", "ko ", "we ", "and", "a c", "aka", "le ", "u n", "cal", "o u", "ha ", "ile",
-            "ama", "umu", "bal", "kus", "akw", "u m", "mul", " if", "o a", "kut", "nsh", "o b",
-            "ung", "apo", "e n", "kub", "mun", "uci", "yo ", "mbi", "nka", "cit", "bul", " ab",
-            "any", " bu", "pa ", "ne ", "u c", "u b", " ka", "abu", "ndu", " fi", "e u", "a f",
-            "ton", " ne", "ant", "no ", "i u", "u a", "ban", "o i", "cil", "cin", "ify", " ng",
-            "pan", "tun", "gan", "nda", "kuc", "kwe", " ns", "o c", "ngw", "o f", "ans", "fwa",
-            "a l", "pam", "tan", "ti ", " am", "kum", "kuk", "lan", "u s", " is", "wil", "du ",
-            "nya", "und", " ic", "e k", "wal", "aya", "bi ", "bil", "ubu", "ush", "fwi", "int",
-            "nta", "utu", "twa", "wab", "afw", "ela", "o m", "uko", "ako", " ta", "lam", "ale",
-            "gwa", "win", "u k", "apa", "ma ", "onk", "way", "kap", "i k", "imi", "a o", "upo",
-            " im", "iwa", "mba", "o y", "ngi", "ici", "pak", "lul", "ind", " ma", "e p", "de ",
-            "nde", "gil", "e b", "iti", "uti", "ilw", "a s", "imb", "da ", " li", "uka", "hiw",
-            "umo", "pat", "afu", "kat", "ine", "eng", "fyo", "bun", " af", "uma", "kuf", "alw",
-            "til", "ita", "eka", "afy", "mas", "e y", "tul", "but", "nto", "usa", "kwi", "mut",
-            "i i", " ak", " ap", "bom", "umw", "sa ", "ont", " wa", "ilo", "u f", "baf", "fik",
-            "ina", "kab", "ano", "pal", "ute", "nab", "kon", "ash", "bwa", "ifi", " bo", " bw",
-            "lya", "atu", "ubi", "bik", "min", "aik", "cak", "nak", "men", "ubo", "ye ", "hil",
-        ],
-    ),
-    (
-        Lang::Emk,
-        &[
-            " ka", "a k", "ka ", " la", " a ", "la ", "an ", "kan", " ma", "a l", "ni ", "ya ",
-            "na ", "ama", "a a", "lu ", "n k", " di", "ɛɛ ", "di ", "a m", "ma ", " bɛ", " ja",
-            "ana", "a b", "aka", "bɛɛ", "man", "iya", "a d", "ara", "dɔ ", "jam", "alu", "en ",
-            "a s", " si", " sa", " mɔ", "mɔɔ", "ani", " ye", " dɔ", " tɛ", "ye ", "i s",
-            "i a", "den", " ba", "riy", "tɛ ", "sar", "ɔɔ ", "da ", " al", " kɛ", " ni", "ari",
-            "ila", "a j", " i ", "a t", "n d", "ɛn ", "ɲa ", "kak", "ra ", "ada", "ɛ k", "i k",
-            "i d", "len", "u d", "ele", "nna", "sil", "n n", "n m", "olo", " se", " bo", "ade",
-            "aar", "ɔdɔ", "ɛ d", " kɔ", "ɔ a", "ank", "ɔn ", " fa", "fan", "a ɲ", "se ",
-            "lak", "lo ", " da", " na", "bol", "kel", "e k", " wo", "i m", "aya", " ke", "ko ",
-            " ad", " mi", "nu ", "baa", " sɔ", "dam", "nda", "ɔnɔ", "mɛn", " ko", "a f", "and",
-            "ala", "ɛ y", "ɔ b", "ɛ s", "le ", "ɛ m", "i l", "i b", " wa", "n s", "a i", " de",
-            "ina", "li ", "ɔya", "mad", " mɛ", "aba", " le", "n a", " ha", "a n", "ɔ s", "u l",
-            "nɲa", "han", "n b", "sɔd", "dɔn", "kɔn", "kɛ ", "ata", "nɔ ", "kar", "dan",
-            "in ", "u k", "ɔ m", "kɛd", "ɛda", "i j", " su", "nnu", "a w", "ɔ k", "nka", "lat",
-            " gb", "ɲɔɔ", "aji", " an", "a h", "nin", "olu", "u m", "kun", "a g", "on ", "asa",
-            " ku", "ibi", "jib", "don", " lɔ", "i t", "waj", "bɛn", "ɛnn", "ban", "ɔrɔ",
-            "wo ", "ran", "si ", "ɛ b", "ɛnɛ", "ɛ l", "mak", "suu", "e m", "ii ", "i f",
-            " ɲi", "e a", "o m", "ɲin", "enn", "usu", "ba ", "ɛdɛ", "yan", "taa", "nan", "u b",
-            "u t", " ɲa", "nal", "nba", "ɲɛ ", " ɲɔ", "law", "ati", "nad", "rɔy", "hɔr",
-            "a y", "iri", "sii", " hɔ", "mir", "ti ", "enɲ", "bɔ ", "u s", "n t", "u y", "ini",
-            " te", "ta ", "kol", "enb", "awa", "bat", " fu", "nki", "kil", "ili", " du", "bar",
-            "ɛ j", "fɛn", "fɛ ", " do", " dɛ", "gbɛ", "su ", "uus", "aam", " ta", "afɛ",
-            "may", "lɔ ", "nni", "ɔnn", "lɔn", "maf", "o a", "e d", " bɔ", "din", "sab",
-            " fɛ", "ɔ j", "o y", "i w", "tan", "ɔɔy", "dɛɛ", "bɛd", "kad", "min", "ɔlu",
-            "dal", "ɔɔl", " tɔ", "ɔɔn", "e f", "biy", "ali", "e b", "kɔd", "te ", "wol",
-            "bi ", "e w", " mu", "ida", "du ", "ant", "nɛn", "dɛ ", "ɛ a", "dah",
-        ],
-    ),
-    (
-        Lang::Bci,
-        &[
-            "an ", "be ", " be", " ɔ ", "un ", " i ", "ran", "sra", "wla", " sr", "kwl", "in ",
-            "la ", " kɛ", "n b", "kɛ ", "n s", "n k", " kw", " ng", "n n", "lɛ ", "a b", "n m",
-            "le ", " nu", "a k", "nun", "i s", " a ", "man", "n i", "ɛn ", "e k", "ɛ n", "kun",
-            "n ɔ", "mun", " ni", " ti", " mu", "nin", "nga", "ti ", " n ", "ɛ ɔ", "e n", "ɔ n",
-            " su", "ga ", "ɔ f", " fa", " ku", " li", "e s", "su ", "a n", "a s", "a ɔ", "ɛ b",
-            "i n", "e a", " sɔ", "wa ", "sɔ ", "i k", " ma", " le", "ɛ i", "tin", "ɔ k", "di ",
-            " at", "ata", "ta ", "ɔ l", "fat", " mɔ", "ati", "mɔ ", "lik", "akw", "ɛ m",
-            " sɛ", "lak", "e w", " sa", "dɛ ", "ndɛ", "mɛn", "i b", " mm", " yo", "iɛ ",
-            "ba ", " nd", "nvl", " nv", " kl", "vle", "sɛ ", "a a", " mɛ", " fi", "ke ", "und",
-            " wu", "ɛ s", "n a", "mml", "liɛ", "mla", " ka", "ike", "yo ", "ɔ t", "ngb", "i a",
-            "e b", "a m", " an", "ɔ ɔ", " di", " yɛ", " si", " bo", "e t", "ndi", "bo ", " ye",
-            "o n", "n t", "e m", "fin", "e y", "n f", "sa ", "ɔ b", " fɔ", "dan", "n y", "fa ",
-            "i i", "uma", "yɛ ", " ju", " ny", "ɔ i", "nan", " na", "kan", "ɔun", " tr", "wun",
-            " b ", " o ", "n l", " aw", "a y", "b a", " wa", "fɔu", "i f", "ɛ a", "ing", "ge ",
-            "uɛ ", "i w", "a w", "nge", "klu", "ka ", "gba", "e i", "awa", "o m", "jum", "ɔ y",
-            "ɛ k", "wie", "a i", "ie ", " fl", "e f", " wl", "tra", " ba", "lo ", "lun", " ak",
-            "ang", "ye ", " wi", "e l", " kp", "uan", "i m", " uf", "uwa", "n w", "sie", "flɛ",
-            "kpa", "alɛ", "luw", "flu", "o i", "kle", "ua ", " da", "nyi", "nzɛ", "wuk", "ɔ s",
-            "wo ", "e ɔ", "ika", " wo", "wan", "bɔ ", "ian", " bl", "wlɛ", " bu", "anz", "o ɔ",
-            " af", "aci", "u b", "bu ", " ya", "ɛ w", "ufl", "bɔb", "te ", "zɛ ", "ɔ d", "a t",
-            "elɛ", "i t", "ci ", "nua", "fuɛ", "ɔbɔ", "u i", "anm", "i l", " w ", "w a",
-            " bɔ", "o b", "lu ", "se ", "u m", "ilɛ", "iɛn", " ja", "a j", "afi", "i ɔ", "n u",
-            " se", "unm", "nda", "yek", "bɛn", "gbɛ", "eku", "ɛ l", "nma", "kac", "u s", "san",
-            "ko ", "o y", "o s", "a l", "u n", "si ", "anu", "aka", "any", "ɛ d", " ko", "n j",
-            "ɔ w", "u a", "fi ", " yi", "anw", "i j", "uka", "fiɛ", "a d", "o a", "lel", " kɔ",
-            "ɔlɛ", "ɔn ", "a f",
-        ],
-    ),
-    (
         Lang::Epo,
         &[
             "aj ", " la", "la ", "kaj", " ka", "oj ", " de", "on ", "de ", "raj", " ra", "iu ",
@@ -3490,186 +2307,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             " ed", "lo ", "kun", "edu", "kom", "dev", "enc", "ndo", "lig", "e e", "a f", "tig",
             "i e", " kr", " pa", "na ", "n i", "kad", "and", "e d", "mal", "ono", "dek", "pol",
             "oro", "eri", "edo", "e k", "rso", "ti ", "rac", "ion", "loj", "j h", "pli", "j m",
-        ],
-    ),
-    (
-        Lang::Pam,
-        &[
-            "ng ", "ing", "ang", " ka", "an ", " pa", "g k", " at", "ala", "g p", "at ", "apa",
-            " ma", "kar", "lan", " ki", "ata", "kin", "pam", "g m", "ara", "tan", "pan", "yan",
-            " a ", "pat", " in", " ba", "aya", "n a", "g a", "ung", "rap", "ama", "man", "g b",
-            " ni", " di", "nin", "din", "n k", "a a", "tin", "rin", "a k", "ami", " la", "tun",
-            "n i", "ari", "asa", "nga", "iya", "ban", "ati", " me", "nan", " da", " sa", " na",
-            "t k", "gan", "g s", "bal", "etu", "mag", "a i", "met", "sa ", "la ", "ant", "kal",
-            " iy", "kap", "a n", " mi", "in ", "ya ", "aka", "tau", " o ", "san", "n d", "au ",
-            "lay", "ana", "mak", "yun", "na ", "ika", "a m", "ipa", "ran", "atu", " al", "n n",
-            " ta", "ti ", "ila", "g l", "ali", "kay", "nsa", "aga", "a p", "iti", "g t", "par",
-            "u m", "ans", "nu ", "al ", "g i", "t p", "iwa", "a d", "syu", "t m", "sab", "anu",
-            "un ", "uli", "mip", "ra ", "aki", "aba", "u a", "mal", "as ", "mil", " it", "una",
-            "bla", "abl", "ita", "awa", "kat", "t a", "ili", "kas", "g n", "lag", "da ", "tas",
-            "i a", "wa ", "n l", "lal", "dap", "mas", "bat", " pr", "abi", "ap ", "a b", " e ",
-            "mik", "ani", "sal", "li ", "ad ", " an", "ral", "ira", "gal", "a r", "lin", "g d",
-            "nte", " li", "ale", "kab", "e p", "ula", "wal", "lit", "nti", "s a", "lip", "nta",
-            "pro", "te ", "ie ", "wan", "ag ", "tu ", "upa", " ya", "g e", "tek", "usa", "g g",
-            "bie", "o p", "it ", "pun", "ian", " bi", "lat", "aku", "be ", "n p", "sas", "iba",
-            "yat", "alu", "tul", "e m", "kan", "l a", "nap", "t i", "lir", "u k", "isa", "pag",
-            "abe", "len", "e k", "rot", "en ", "bil", "mam", "ksy", "ngg", "lam", "p a", "ily",
-            "liw", "eks", "ote", "n o", "gga", "u i", "eng", "ipu", " tu", "lya", " ri", "aul",
-            "pas", "dan", "uri", "ema", "lab", "ta ", "lak", "are", " ar", "ail", "tam", "o a",
-            " ke", "ril", " pe", "sar", " ra", "ina", "asi", "ka ", "art", "pak", "sak", "mit",
-            "rel", "i k", "gaw", " ul", " re", "inu", "i i", "mun", "abu", "asy", "mba", " pi",
-            "ags", "obr", "gpa", "a o", "am ", "n m", "mem", "o k", "isi", " mu", " nu", "mis",
-            "nun", "era", "ndi", "ga ", "agp", "aun", "mab", "anm", "lub", "gla", "e a", "nme",
-        ],
-    ),
-    (
-        Lang::Tiv,
-        &[
-            "an ", " u ", " sh", " na", "nan", "en ", " a ", "ha ", "sha", "shi", " i ", "er ",
-            "a i", " er", "or ", " ma", "ar ", "gh ", "n i", "n u", "a m", " ve", " ci", "n s",
-            "han", "u n", " ke", "lu ", "man", " lu", "n m", "yô ", "a u", "u a", "n a", "r n",
-            "a k", "mba", "in ", "ii ", " ha", "kwa", "ken", "n k", "na ", "hin", " mb", "a a",
-            " kw", "n n", " ga", "ga ", "cii", "agh", "a n", "aa ", "wag", "ve ", "a s", " yô",
-            "nge", "ba ", "r u", "u i", " gb", "ana", " or", "a t", "mao", "r i", "ity", "ma ",
-            "aor", "anm", "nma", "gen", "oo ", " ta", "ir ", "ren", " kp", "i n", "ang", "r m",
-            "e u", "gba", " ng", "r s", " ia", "ere", "ugh", " it", "ian", "doo", "ese", "uma",
-            "kpa", " la", "u k", "n g", "ngu", "gu ", "om ", "oug", "on ", "ol ", "a h", "ior",
-            " ts", " he", " ne", "tar", "h u", " ka", "la ", "n t", "se ", "e n", "r a", "a v",
-            "hen", " ku", "aha", "mac", "yol", "i u", "ace", "ge ", "ce ", " de", "ish", "u t",
-            " io", " do", "tom", "hi ", "a e", "u u", "o u", "i m", "iyo", "i d", "bar", "ave",
-            "ua ", "u s", " te", "igh", "a l", "e a", "m u", "a w", "un ", "n c", "n e", "ne ",
-            "ev ", "r k", "ind", "ene", "sen", " is", "ndi", "ker", "era", " to", "a o", "ima",
-            "u v", "a g", "paa", "n h", " wo", "di ", "yar", "tya", "ase", "e s", "de ", "n y",
-            "ee ", "end", "him", "tes", " mk", "u m", "ka ", "tyô", " mz", "won", "u e", " um",
-            "u h", " wa", " mi", "yan", "tin", "ran", "ie ", "hie", "a c", "hir", "i a", "e k",
-            "i v", "mak", " in", " za", "r c", "nen", "e l", " ig", "i k", "kur", "nah", "tse",
-            " ik", "ves", "eng", "rum", "mzo", "men", "zou", "i l", "e i", "a d", "i e", "i i",
-            " ya", " vo", "mlu", "ô i", "inj", "nja", " as", "vou", "ura", "ron", "gbe", " iy",
-            "r t", "ôro", "a y", "oru", "e e", " zu", " ti", "ra ", "n l", "ci ", "u l", "ver",
-            "kpe", " fa", "was", " ml", "e m", "em ", "io ", "mi ", "da ", "civ", "môm", "ant",
-            "see", "ivi", "wan", "vir", "nda", " ij", "soo", "zua", "lun", "ea ", "vea", "wa ",
-            "ôm ", "av ", "hio", "ake", "a f", "igb", "l i", "u z", "r l", "zan", "nta", "e g",
-            "hem", "h s", " mt", "ded", "iky", "o s", "r g", "do ", "ndo", "iji", " hi", "e h",
-        ],
-    ),
-    (
-        Lang::Tpi,
-        &[
-            "ng ", "ong", "lon", " lo", "im ", " ol", " na", "la ", " ma", "pel", "ela", "ri ",
-            "at ", " bi", "ait", "na ", " yu", "ol ", "gat", " ra", "bil", " ka", "ilo", "man",
-            "rai", "t l", "it ", "eri", "mer", " o ", "wan", " i ", "mi ", "umi", " wa", "ing",
-            "yum", "ta ", "t r", "tin", "eta", "get", "lge", "olg", "iga", " ig", " sa", "ara",
-            "em ", "rap", "i o", "ap ", "nme", "anm", "in ", "ain", "an ", "a m", "ant", "ape",
-            "nar", "m o", "i n", " no", "g o", "g k", "i i", "as ", "ini", "mas", " me", "n o",
-            "sim", "tri", "kan", "kai", "ntr", " ga", " st", "a s", " pa", "gut", " ha", " wo",
-            "g y", "yu ", "a l", "g s", "ama", "m n", "ok ", "g w", "wok", "spe", "a k", "i b",
-            "i m", "g l", "i l", "sin", "sam", "pim", "m l", "kam", " gu", "l n", "amt", "tpe",
-            "g n", " in", "ts ", "a i", "mti", "utp", "isp", "kim", "its", " la", "isi", "aim",
-            "api", "lo ", "o m", "g b", "tai", " di", "a o", "dis", "a t", "p l", "en ", "map",
-            "t w", "s b", " lu", "luk", "sem", "no ", "tim", "lai", " ko", " ki", "ave", "ols",
-            "nog", "m k", "lse", "sav", "nem", "ve ", "a p", " fr", " em", "nim", "tu ", "i y",
-            "nka", "et ", "m y", " ti", "g t", "nap", "g p", "sta", "tap", "aun", "a n", " tu",
-            "un ", "asi", "fri", "pas", "n m", "m g", "l i", "aut", "ane", " sk", "kau", "t n",
-            "nta", "sen", "n s", "oga", "i g", "g g", "m i", "kis", "o i", " ba", "tok", "os ",
-            "usi", "m s", "ngt", "anp", "a w", "s n", "a h", "s i", "iki", "i s", "sai", "l m",
-            "npe", "ari", "o l", "o b", "g r", "ik ", "uti", "iti", "gti", "aik", "ut ", " to",
-            "a g", "ili", "a y", " pi", " ta", "kin", "ni ", "n b", "lim", " ye", "yet", " we",
-            "k b", "ina", "g m", "uka", "str", "ins", "rid", "a b", "anw", "nsa", "nwa", "m w",
-            "m m", "dom", "ot ", "hap", "ido", "aus", "i w", " ne", " si", "n i", "t o", "dau",
-            "ese", "rau", "ank", "sap", "o k", "m b", "nin", "pos", "o n", "am ", "go ", "s o",
-            "s l", "u y", "pik", "vim", "ivi", "es ", " go", "n n", "kot", "ron", "ple", "g d",
-            "a r", "kul", "ali", "sku", "apo", "om ", "g h", "l l", "s s", "ti ", "les", "t m",
-            "gav", "eki", "nai", "mek", "kom", " as", "ind", "nda", "ip ", "liv", "ul ", "ati",
-        ],
-    ),
-    (
-        Lang::Ssw,
-        &[
-            "nge", "eku", "a n", "ntf", " le", "e n", " ng", "tfu", "lo ", "la ", "nga", " ku",
-            "fu ", " ne", "o l", "khe", "tsi", "nkh", "le ", "he ", "unt", "elo", " lo", "si ",
-            "ele", "a l", "ni ", "ung", "mun", "ma ", "lun", "lel", "wa ", "lek", "nom", " um",
-            "eni", "oma", " no", "kut", "hla", "onk", "a k", "e l", "ent", "e k", "gel", "ela",
-            "ko ", "eli", " ba", " la", "pha", "ats", " em", "o n", "ang", "ema", "eti", "nel",
-            "nye", "ban", "ulu", "uts", "hul", " na", "aka", "tfo", "e u", "lan", "oku", "lok",
-            "won", "khu", "esi", "lul", "a e", "ule", "ala", "umu", "tse", "akh", "ye ", "ve ",
-            "i l", "nek", "ana", "ane", "lil", "kwe", "aph", "na ", "we ", "ke ", "aba", " wo",
-            "nti", "ndl", "ale", "i n", " ye", "ba ", "ilu", "gek", "gan", "lab", "any", "hat",
-            " li", "tin", "wen", "gen", "kel", "len", "ndz", "fo ", "and", "let", "eko", "e b",
-            "lwa", " ka", "te ", "set", "nem", " kw", "mal", "ka ", "ant", "alu", "ne ", "phi",
-            "ing", " un", "u u", " ek", "ise", "une", "e e", "kul", "nal", "lal", "mph", "o y",
-            "uhl", "fan", "‐ke", "ile", "i k", "kub", "ukh", "ben", "kan", "ako", "a b", "kat",
-            "eke", "ive", " ti", "sek", "nak", "sit", "seb", "u l", "alo", "yel", "kho", "wo ",
-            "kha", "les", "o e", "ngu", "kus", "lom", "ini", "ikh", "elw", "isa", "sa ", "fun",
-            "e w", "ebe", "o k", "jen", "iph", "eng", "kwa", "ahl", "uph", "emb", "be ", "tis",
-            "lwe", " si", "etf", "isw", "uma", " se", "ene", "ta ", "nan", " im", "i e", "enk",
-            "e a", "abe", "kun", "ume", "hak", "nen", "dle", "ase", "sen", "kuv", "tel", "ebu",
-            "omu", " in", "lin", "sel", "tfw", "nhl", "a i", "e i", "kuk", "uba", "ti ", "kuf",
-            "mhl", "bon", "ula", "sin", "int", "fut", "dza", "lak", " wa", "ind", "ave", "ali",
-            "yen", "ete", "to ", "ngo", "use", "kuh", "hol", "ze ", "a‐k", "ona", "a a", "se ",
-            "nje", "und", "swa", "lon", "eki", "ike", "i a", "lis", "tsa", "gab", "sim", "i w",
-            "its", "fol", "e t", "o m", "hi ", "ndv", "phe", " ya", "ma‐", "utf", "sik", "liv",
-            "bun", "cal", "nta", "ata", "gal", "mel", "ute", "wem", "gap", "han", "uny", "oba",
-            "alw", "ili", "a w", "mbi", " bu", "gob", " at", "awo", "ekw", "dze", "u n", "emp",
-        ],
-    ),
-    (
-        Lang::Nyn,
-        &[
-            "omu", " om", "ntu", "tu ", " ku", "a o", "ra ", " ob", "wa ", "obu", "ari", "a k",
-            "mun", "a n", "unt", "mu ", "uri", "nga", " mu", "aba", "ri ", "a e", " na", "e o",
-            "gye", "rik", "ho ", "a a", "han", "ang", "re ", "ga ", "iri", "bwa", "oku", "aha",
-            "bur", " bu", "na ", "eki", "ka ", "iku", "ire", "uga", "ndi", "ush", "ban", "ain",
-            "ere", "ira", "we ", "kur", "sho", " ek", " ab", "ne ", "ine", "a b", "and", " ni",
-            "u a", "e k", "sa ", "u b", "iha", "i m", "e n", "kir", "be ", "aho", "bug", "ibw",
-            " eb", " ba", "ing", "ura", "gir", "u n", "kut", "ung", "ant", "abe", " ah", "ye ",
-            "e b", "i n", " bw", "kwe", "ebi", "era", "iki", "ba ", "ro ", " kw", " ok", "uba",
-            "gab", " no", "zi ", "bir", "i k", "u o", "o o", "rwa", "o e", "kub", "end", "ama",
-            "mer", "eka", "kug", "ate", "tee", "di ", "rir", "bus", "kuk", "rin", "ish", "sha",
-            "i b", "wah", "ha ", "u m", "bwe", "ngi", " ai", "ara", "kwa", "kan", "o g", "za ",
-            "ngo", "kuh", "ana", "i a", "eme", "eek", "i o", "baa", " ka", "go ", " gw", "nib",
-            "zib", "ash", " or", "iro", "she", "o k", "u k", "iin", "o b", "iba", "oon", "gan",
-            "agi", "ngy", "hem", "mwe", "ona", "oro", "bwo", " ar", "ya ", "i e", "uru", "nar",
-            "eir", "uta", "tar", "kwi", " ti", "egy", " n ", "hi ", "bar", "isa", "ute", "o a",
-            "shi", "ora", "e e", " en", " ki", " nk", "riz", "nda", "da ", "ja ", "si ", "nsi",
-            "wen", "yes", "tek", "yen", "aga", " am", "o n", "rei", "rag", "ki ", "obw", "mur",
-            " ha", "ris", "wee", "amb", "aab", "bya", "kus", "ugi", "a y", "ind", "ata", " ne",
-            "bas", " ky", "ija", "hob", "ikw", "mus", "gar", "a g", "eky", "dii", "bor", "aar",
-            "ibi", " we", "aka", "ham", "emi", "ekw", "rer", "ini", "har", "gi ", " bi", "naa",
-            "kor", " er", "gwa", "n o", "iza", " by", "eih", "yam", "iho", "rih", "i y", "ete",
-            "o m", "eby", "but", "a r", "ika", "mag", "ozi", " em", "ong", "iik", "iko", "uka",
-            "nik", " yo", "sib", "eri", "utu", "tuu", "amu", "uko", "irw", "nka", "ani", "yaa",
-            "u e", "mut", "roz", "mub", "ens", "aij", "nis", "uku", "kye", "nde", "der", "e a",
-            "nok", "nko", "asa", "aas", "hab", "obo", "ent", "ahu", "rye", "oba", "kih", "yob",
-        ],
-    ),
-    (
-        Lang::Yao,
-        &[
-            "chi", "ndu", " wa", "du ", " ch", "a m", "aku", "akw", "ni ", "kwe", "und", " mu",
-            "wak", "wan", "mun", " ku", "la ", "e m", "wa ", "ulu", "amb", " ak", "kut", "u w",
-            "ali", "mbo", "lu ", "we ", " ma", "le ", "ufu", "ful", "ila", "a k", "bo ", "a n",
-            " ga", " ni", "amu", "kwa", "se ", " na", "ose", "hil", "nga", "go ", "aka", "and",
-            "ang", "na ", " uf", " pa", "ete", "uti", "jwa", "kul", " jw", "son", "ngo", "lam",
-            "e u", "ne ", "kam", "oni", " so", "u j", "e a", "ele", "a c", "ana", "wal", "ti ",
-            "isy", "cha", " yi", "gan", "te ", "ya ", "mwa", "lij", "wet", "che", "ga ", "yak",
-            "ili", "pa ", "e n", " ya", "o s", "nda", "i m", "ula", "jos", "i a", "ile", "ijo",
-            "li ", "e k", "o c", "a u", " mw", "ich", "mul", "uch", "o m", "asa", "ala", "kas",
-            " ka", "i w", "ela", "u a", "ach", "his", "nam", "lan", "yin", "i k", "ind", "ani",
-            "sye", "yo ", "si ", "pe ", "gal", "iwa", "man", "sya", "aga", "a w", "o a", "ule",
-            "ikw", "asi", "kus", "ope", "ma ", "gak", "e w", "jil", "kap", "hak", "ika", "ite",
-            "aji", "mba", "u g", "ase", "mbi", "kum", "uli", "any", "ape", "a y", "ekw", "mal",
-            "imb", "ja ", " al", "end", " ng", " ja", "mas", "usi", "kup", "e c", "pen", "ye ",
-            "anj", "ka ", "a j", "a p", "lem", "o n", "ama", "him", "ago", "sen", "eng", "ane",
-            "ako", "mch", "ola", "och", "oso", "ena", " kw", "sop", "lek", "pel", "gwa", "hel",
-            "ine", "gam", "u y", " mc", "i y", "awo", "ons", " mp", "ole", " li", "wo ", "i u",
-            "hik", "kol", "auf", "mka", "tam", "syo", "e y", "mpe", "ten", "ati", "mau", "nji",
-            "wam", "muc", "ong", "i g", "kan", "uma", "je ", "iku", "nag", "kwi", "da ", " ul",
-            "cho", "ngw", "ene", "iga", "ano", "esy", "ion", "upi", "pag", "o k", "eka", "wu ",
-            "uwa", "kuw", "sa ", " un", "a l", "bom", "iya", "uni", "jo ", "ale", " ji", "apa",
-            "yil", "lil", "uku", "i n", "o g", "a a", "o w", "waj", "mus", "ipa", "pan", "pak",
-            "one", "i c", "ujo", "duj", "emw", "nya", "tio", "jak", "oma", "nja", "hiw", "dan",
-            "apo", "e j", "poc", " wo", "lic", "alo", "eje", "ing", " mi", "e p", "lo ", "lig",
-            "a s", " yo", "ung", "no ", " m ", "upa", "ata", " bo", "nde", "he ", "i j", "was",
         ],
     ),
     (
@@ -3704,438 +2341,6 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Quz,
-        &[
-            "una", "an ", " ka", "nan", "cha", "ana", "as ", "apa", "pas", "man", "lla", "aq ",
-            "sqa", "ta ", " ru", "run", "kun", "ach", "qa ", " ll", "pa ", "paq", "na ", "nta",
-            "chi", "npa", " ma", "nch", "aku", "anp", " ch", "in ", "a r", "ant", "hay", "mi ",
-            "taq", "ay ", "ama", "asq", "qan", "tin", "kuy", "chu", "lap", "a k", "yta", "a a",
-            "ima", "wan", "ata", "spa", "all", " wa", "n k", " ja", "ipa", " ya", "nin", "ina",
-            "aqm", "his", "qmi", "a m", " ju", "pi ", "anc", "nap", "iku", "aus", "usa", "kau",
-            "pan", "nak", "kan", " mu", "naq", "aqt", " pa", "kam", "aqa", "kay", "i k", "kus",
-            "un ", "ank", "isq", "nku", "may", "yku", "ayn", "a j", "a l", "ayt", "qta", "ati",
-            "a p", " pi", " ri", "aci", "lli", "lin", "ayk", "uku", " al", " at", "n r", "yac",
-            "ion", "pip", "han", "inc", "n j", "ayp", "yni", "qpa", "nac", "say", "asp", "uy ",
-            "mac", "s m", "cio", "awa", "a c", "laq", "tap", " yu", " im", "a y", "yoq", "n m",
-            "asi", "mun", " de", "has", "n a", " as", "n c", "int", "uch", "nma", "s k", "oq ",
-            "ari", "q k", "hu ", " na", "ypa", " tu", "tuk", "tun", "atu", "rim", "q r", " sa",
-            "jat", "yan", " ji", "nat", "anm", "jin", "a s", "api", "hik", "uya", "nti", "pac",
-            "tan", "ash", "mas", "n p", "n l", "k a", "ura", " su", "a q", "yuy", "n y", "ech",
-            "q j", "unt", "yay", "ypi", "is ", "lan", " qa", "usp", "kas", " an", "a w", "s w",
-            "inp", "sin", " ta", "ma ", "a t", "shw", "q a", "hwa", "uyt", "nmi", "sim", "ere",
-            "rec", "der", "uma", "s t", "isp", "n t", "ña ", " ni", " ay", "upa", "nam", "hur",
-            "war", "waw", "imi", "nka", "sap", "kaq", "s j", "was", "y r", "usq", "kin", " un",
-            "inm", "qas", " si", "ani", "tiy", "t a", "sta", "pay", "pis", "maq", "hin", "ha ",
-            "arm", "npi", "rmi", "ink", "aqp", "q c", "la ", "i p", "nis", "yma", "nk ", " ku",
-            "aym", "nal", "hak", "rik", " ti", "unc", "niy", "y s", "iyo", "juc", " qh", "ist",
-            "pap", " aj", "s y", "cho", "onq", " re", "ayo", "iqp", "n s", "s p", "os ", "i m",
-            "t i", "ras", "ita", "piq", "qsi", "ku ", "yqa", "mik", "q y", "eqs", "pat", "tak",
-            " pu", "lak", "i r", "ipi", "iya", "ywa", "muc", "a n", " qe", "san", "jun", "y l",
-        ],
-    ),
-    (
-        Lang::Rmy,
-        &[
-            " sh", "ri ", " a ", "shi", "hi ", "i s", "ti ", "ea ", "ari", "i a", " ca", "rea",
-            "tsi", "i c", " s ", "a a", "ndr", "tu ", "câ ", "dre", "i n", "ept", "ptu", "rep",
-            "li ", " nd", " di", " un", "a s", "are", "i u", "ats", "la ", " la", "i l", "ear",
-            " li", "lje", "di ", "ati", "lui", "ui ", "a l", " tu", "tat", "â s", "ei ", "sea",
-            " ti", " câ", "un ", "jei", "or ", "caf", "afi", " lu", "â t", " ar", "ali", "i t",
-            "fi ", "ilj", "a c", "bâ ", "râ ", "car", "ibâ", "lor", " cu", "nâ ", "icâ",
-            "a n", "i d", "s h", "hib", "tâ ", " hi", "â a", "si ", "u c", "eas", "tur", "tul",
-            "ber", "â c", " in", " co", "lib", "u a", "n a", "cu ", "ibe", "u s", "tea", "lu ",
-            "tsâ", "ul ", "tse", "int", "a p", "i i", " pr", "u p", "i p", "url", "i m", "lji",
-            "min", "sti", "alâ", " al", " pi", "sht", "nal", "â n", " si", "ji ", "â p", "rar",
-            "ert", "sii", "ii ", "nat", "til", "u l", "sâ ", "lâ ", "â l", "sta", " nu", " ic",
-            "i f", "nu ", "ist", "mlu", "ili", "a t", "ots", "uni", "rta", "a d", "its", "â d",
-            "pri", " ts", "oml", "i e", " de", " na", "sia", " po", "gur", "tut", " st", " at",
-            " ân", "ura", "al ", "ita", "anâ", " ma", "ips", "can", "oat", "tsl", " su", " as",
-            " so", "ând", "nts", " ap", " ea", "sh ", "nit", " mi", "ent", "a i", "ate", " ac",
-            "poa", "ilo", "sot", "ina", "ash", "ona", " lj", "âts", "rli", "lip", "â i", "unâ",
-            "t c", "iti", "bli", " u ", "nji", " fa", "zea", "tât", "ril", " om", "urâ", "con",
-            "i b", "sig", "igu", "ntr", "pur", "par", "ntu", "let", "com", "iil", " ni", "eal",
-            "ind", "r s", "hti", "at ", "ucr", "art", "adz", "arâ", "itâ", "rtâ", "inj", "uri",
-            " eg", " sc", "atâ", "sin", "ral", "pse", "asi", " ba", "r a", "apu", "âlj", "ia ",
-            "chi", " va", "sun", "ter", "rlo", "ica", " pu", "luc", "unt", "i v", "ise", "ini",
-            "est", "ast", "gal", "ega", "act", "nda", "ead", "uts", "a u", "imi", "ma ", "ra ",
-            "pis", "s l", "ets", "a o", "va ", "pi ", "lit", "scâ", "asc", "ial", "sa ", " ta",
-            "rim", "tar", "alt", "idi", "tlu", " gh", "era", "ant", "eri", "aes", "a m", " nâ",
-            " ae", "oar", "nea", "pro", "apt", "ana", "ta ", "atl", "lic", "l s", "iun", "nte",
-            "mil",
-        ],
-    ),
-    (
-        Lang::Src,
-        &[
-            " de", "de ", "e s", "os ", " sa", "tzi", "tu ", " su", "one", " a ", "sa ", "ne ",
-            " e ", " in", "ent", "ion", "der", "su ", "zio", "ere", "as ", "e d", "a s", "u d",
-            "ret", "es ", " cu", "ess", " pr", " so", "s d", "men", "ale", "ade", "atz", " s ",
-            "re ", "e c", "sos", "in ", "s i", "chi", " un", "nte", "ten", "etu", "er ", " pe",
-            "et ", "e e", "ida", " te", "le ", " is", " ch", "ene", "are", " es", "a p", " si",
-            "u s", "a d", "pro", "hi ", "dad", "te ", "sse", "tad", "zi ", "e t", " on", "e i",
-            "s e", "nt ", "nzi", "u a", "sso", "onz", " co", "ame", "cun", "tos", "e a", "sas",
-            "a c", "ntu", "net", "na ", "e p", "at ", "nes", "du ", " li", "t d", "n s", "son",
-            "s a", " o ", "ber", "ro ", "pes", "u e", "int", "zia", "nat", "i p", "ia ", "res",
-            "nu ", "un ", " re", "sta", "s p", "ter", "era", " po", " di", "per", "s c", "t s",
-            "rar", "ser", " at", "e o", "s s", "ibe", "lib", "si ", "tra", "ust", "u c", "rta",
-            "unu", "cus", "ntz", "adu", " to", "da ", "nal", " na", "ant", "egu", "eto", "und",
-            "ine", "i s", "a e", "otu", "u p", "t a", "ert", "est", " da", "a a", " fa", "ist",
-            "ona", "pod", "s o", "pre", "iss", "ra ", " ma", "ica", "tot", "les", "ntr", "una",
-            "sua", "con", "dae", "ae ", "s n", "man", "sia", "ndi", "nid", "ada", "a l", "nta",
-            "o s", "a i", "ua ", "ide", " ne", "otz", "min", "rat", "iat", " pa", "nde", "ode",
-            "dis", "ren", "ali", "a u", "ta ", "u o", "sot", "u t", "ime", "ssi", " as", "o a",
-            "pet", "e u", "nsi", "fun", "lid", "epe", "eru", "unt", "st ", "t e", "end", "us ",
-            " fu", " ca", "ner", "dos", "s f", "ass", "nda", "uni", "das", "iu ", "ind", "a t",
-            "ial", "a f", "ghe", "gua", " eg", "a n", " se", "ont", "etz", "s m", "s ò", "sti",
-            "t p", "ual", "nen", " me", "sen", "com", "ura", "a b", "lic", "a o", "pen", "ado",
-            "nos", "inn", "des", "seg", "e f", "din", "òmi", "ire", "a m", " òm", "e l", "dep",
-            "ènt", "for", "ena", "par", " tr", "u i", "ara", "cra", "sid", " no", "s u", "u r",
-            "suo", "e n", "pri", "ina", " fi", "ria", "gur", "art", "det", "s t", " bo", "tar",
-            "emo", "run", "ama", "icu", "isp", "dam", "e r", "itu", "cum", "tut", "eli", " bi",
-        ],
-    ),
-    (
-        Lang::Sco,
-        &[
-            " th", "the", "he ", "nd ", " an", "and", " o ", "al ", " in", "ae ", "in ", "es ",
-            "ion", "cht", " ta", "tio", "or ", "t t", "ric", " ri", "ich", "tae", "on ", "s a",
-            "is ", "e a", " aw", " be", "s t", " he", "ati", "ent", "ht ", "ts ", "e r", " co",
-            "er ", " na", " fr", "bod", "ody", "his", "dy ", "hes", " fo", "e t", "o t", "for",
-            "it ", "ng ", "ty ", "n t", " or", "be ", "fre", "ree", " hi", "l a", "ing", "awb",
-            "wbo", " sh", "s o", "ter", " on", "sha", "nat", "r t", "nal", "an ", "n a", " as",
-            "hal", "e o", "y a", "d t", "tit", " pe", "l b", " re", "y h", "aw ", " ma", "nt ",
-            "men", "air", "ce ", " pr", " a ", " ti", "hts", "e f", "e c", "le ", "eed", "edo",
-            "dom", "n o", "e s", "ons", "d a", "res", "e w", "man", " wi", "d f", "ed ", "sta",
-            "ar ", "t o", "ona", " it", "ity", "at ", "as ", "her", "ers", "t i", " de", "con",
-            "til", "il ", " st", "nti", "e p", "e i", "e g", "nce", "ny ", " so", " di", "nte",
-            "ony", "ns ", "und", "ith", "thi", " fu", "ie ", "ir ", "oun", "ont", "e e", " un",
-            "pro", "oci", "nae", "y i", "lit", "soc", "com", "nin", "en ", "ic ", "ne ", "r a",
-            " me", "ly ", " wa", "ear", "ual", " en", "ame", "uni", "r i", "e h", "hum", " is",
-            "ane", "uma", "ess", "inc", " fa", "equ", " hu", "ver", " eq", "e m", "hei", "o h",
-            "ms ", "d o", " ha", "wi ", "t n", "s f", " no", "t a", "int", "cla", "rit", "qua",
-            "d i", "iti", " se", "rsa", "y s", "ial", " le", " te", "e d", "r o", "ive", "r h",
-            " la", "nit", "om ", "ite", "s r", "cie", "s i", "ali", "cti", "cia", "re ", "aim",
-            "rat", "ld ", "tat", "hat", "rt ", "per", "s h", "n f", "dis", "tha", " pu", " we",
-            "g a", "oms", "eil", "ntr", "fai", "tri", "ist", "ild", "e u", "r s", "dec", "lea",
-            "e b", "hau", "imi", "mai", "s n", " ac", "elt", "lt ", "l t", "omm", "d p", " ga",
-            "din", "war", "law", "eme", "y t", "era", "eir", "art", "ds ", "s e", "ral", "nor",
-            "tel", "ge ", "g o", "eik", "eli", "rie", "rou", "nda", " gr", "lan", "mei", "ate",
-            " ge", "n i", "ten", "id ", "s d", "ors", "iou", "bei", "sam", "nta", "sec", "mmo",
-            "lar", " tr", "ful", "ul ", "mon", "s w", "anc", "l o", "gar", "ern", "ara", "d s",
-        ],
-    ),
-    (
-        Lang::Tso,
-        &[
-            " ku", "ku ", "ni ", "a k", "hi ", " ni", "a n", " a ", "i k", "ka ", "i n", "wa ",
-            " ya", " ma", "la ", "ya ", "na ", "a m", " ti", " hi", "fan", " sv", "nel", "hu ",
-            "a t", "ane", "ela", " ka", "iwa", "u n", " na", "svi", "lo ", "nhu", "a l", "a h",
-            "ele", "le ", "ndz", "u k", "va ", " xi", "a w", "vi ", "mbe", " à ", "elo", "wu ",
-            " wu", "eli", " mu", "u y", "mun", "i l", " le", "nga", "umb", "lan", "nfa", " va",
-            "u l", "be ", "u h", "li ", "kum", "tik", "ihi", "iku", "aka", "unh", " wa", "a s",
-            "liw", "isa", "i m", " fa", "ma ", "anu", "nu ", "u t", "han", " la", " ng", " wi",
-            "wih", " ha", "a x", "yel", "a a", "lel", " nf", "i h", "ta ", "ana", "o y", "e k",
-            " nt", "u a", "i a", "eni", " li", "ndl", "ga ", "any", " ko", " kh", "van", "u w",
-            "u v", "amb", "a y", "ti ", "sa ", "pfu", "i t", "i w", "in ", "lek", "e y", "ang",
-            "and", "ati", "yi ", " è ", "irh", "sva", "mat", "ani", "i s", " nd", "a v", "mel",
-            "yen", "hla", "isi", "hin", " ye", "eke", "n k", " lo", "ulu", "kwe", "hul", "thl",
-            " kw", "nth", "tin", "mah", "wan", "ava", " mi", "ko ", "khu", "u s", "à n", "dle",
-            "lul", "ule", "tir", "o l", "i y", "aha", "aye", "kwa", "inf", "à k", "è k", "rhu",
-            "mba", " th", "fum", "end", "anh", "xi ", "dzi", "kel", "a f", "u f", " lè", "we ",
-            "may", "eka", "nye", "gan", "dze", "vu ", "ham", "xim", "mis", "thx", "aku", "tà ",
-            "xa ", "hlo", " tà", "eyi", "ima", "nti", "eki", "ngo", " si", "u p", "vak", "ngu",
-            "lak", "ume", "oko", "lon", "a è", "o n", "lok", " ta", "zis", "hak", "u m", "i à",
-            "ke ", "i x", "u x", "rhi", "ha ", "awu", "dza", "u à", "za ", " là", "n w", "ung",
-            "e n", "a à", "i f", "esv", "les", "vik", "siw", " y ", "à m", "to ", "mha", "ola",
-            "sav", "ond", "nya", "kot", "kol", "uma", "e h", "mbi", "e s", "naw", "ths", " dj",
-            "fun", "mu ", "a u", "xiw", " ts", " hl", "u d", " lw", "nyi", "ki ", "ong", "sun",
-            "lwe", "ike", "ind", "nis", "xih", "e a", "èli", "imu", "sel", "sek", "iph", "zen",
-            "lum", " pf", " xa", "sin", "umu", "sim", "ave", "kar", "ala", "wey", "sik", "o t",
-            "avu", "wav", "oni", "ile", "wak", " yi", "ali", " hà", "gul", "e l", "ba ", "i v",
-        ],
-    ),
-    (
-        Lang::Men,
-        &[
-            " ng", "a n", "i n", "ɔɔ ", "ti ", " ti", "i l", " i ", " ma", " nu", " gb", "ngi",
-            "a k", "aa ", "gi ", " kɔ", "ia ", "ɛɛ ", "ei ", " na", " a ", "ma ", "hu ", " ye",
-            " ta", "kɔɔ", "a t", "na ", " hu", "a m", " kɛ", " nd", "gbi", "ya ", "bi ", "i y",
-            " lɔ", "a h", "ɛ n", "ii ", "ɔny", "u g", "i h", "nya", "uu ", "lɔn", " kp", "i m",
-            "ngɔ", "nga", "la ", "i t", "kɛɛ", "lɔ ", "i k", "ɔ t", "mia", " mi", "a y",
-            "nge", " ji", "ee ", "gaa", "a a", "ɔ n", "ɔ i", "gɔ ", "ind", "tao", "ao ", " hi",
-            "num", " le", " yɛ", "umu", "mu ", "ung", "nda", "hin", "ye ", "i g", "hou", "hug",
-            "e n", "ugb", "ni ", "a l", "sia", "ndɔ", "nuu", "a i", "maa", " ya", "ahu", "gba",
-            "u k", "mah", "oun", "ɔma", "le ", "da ", "i w", "ɔlɔ", "i j", " va", " ɔɔ",
-            "eng", "i i", "va ", "yei", "dɔl", "li ", "lei", " sa", "yɛ ", "kpɛ", "yil", "isi",
-            " la", "bat", "a w", "u n", "e t", "ta ", "ahi", " ki", " wo", "ɔ k", "e a", "ɛlɛ",
-            "saw", " lo", "o k", "ji ", "gbɔ", "pɛl", "uvu", "ili", " ho", "vuu", " gu", "nde",
-            "aho", "gbu", "ɛ t", "ale", "ila", "nah", "kɛ ", "ɛi ", "ndu", "kpa", " wa", "nuv",
-            "ge ", "e m", " ny", "e k", "atɛ", "wei", "awe", "a g", " ii", "bua", "ie ", "awa",
-            "wot", "yek", "kɔl", "ulɔ", "ing", "ga ", "gul", "tɛ ", "ɔle", "u t", "gbɛ",
-            "ɔ y", "nun", "wa ", "hei", "ani", "ɛ k", " tɔ", "bɔm", "ɛ g", "ein", "taa",
-            " ha", "ang", "uni", "u i", "ekp", "ɔ g", "lɛɛ", "kpɔ", "a v", "kpe", "ote", "i b",
-            "te ", "u m", "tii", "ɔ s", " we", "ɛ h", "baa", "pe ", "ɛ y", " ɛɛ", "i ɛ",
-            " ba", "fa ", "a j", "bu ", "ifa", "kia", "jif", "u l", "eke", "ama", "gen", "u w",
-            "lee", "lɛ ", " lɛ", "ɛmb", "a b", "e y", "aah", "hii", "ngo", "bɛm", "lek", " wi",
-            "ui ", " yi", "u y", "bɛɛ", " he", "u a", "e h", "ɔ m", "uah", "o g", "yen", "yan",
-            "nyi", "aal", "hi ", "wu ", "yee", "maj", "ajɔ", "jɔɔ", "nye", "mbo", "e g", "u ɔ",
-            "ong", "ka ", "oi ", "lon", "dun", "uny", "ɛng", " sɔ", "lɔl", "nyɛ", "lii", "a p",
-            "oyi", "iti", " bɛ", "lɔm", "akp", "e i", "ɛ i", " ka", "jis", "oko", "i p", "ɔla",
-            " wɛ", "a s", "ewɔ", "iye", "dɔɔ", "lok", "gua", "ɛ b", " li", "u h", "nin",
-            "wee", "lah", "ula", " ga", " du", "i v",
-        ],
-    ),
-    (
-        Lang::Fon,
-        &[
-            "na ", " na", " e ", " ɖo", "ɔn ", "ɖo ", "kpo", " kp", "nu ", "o n", " ɔ ", " nu",
-            " mɛ", " gb", "mɛ ", "po ", "do ", "yi ", "tɔn", " é ", " si", "gbɛ", "e n",
-            "in ", " to", " lɛ", "lɛ ", " tɔ", "nyi", " al", "wɛ ", " do", "bo ", "ɛtɔ",
-            " ny", "tɔ ", "e ɖ", "ɖe ", " bo", "okp", "lo ", "ee ", "ɖok", "to ", "ɔ e",
-            "bɛt", " wɛ", " ac", "a n", "sin", "acɛ", "o t", "o a", "ɛn ", "i ɖ", "o e",
-            "bɔ ", "ɔ ɖ", " bɔ", "cɛ ", "ɛ b", " ɖe", "a ɖ", "ɔ n", "ɛ ɔ", "n b", "an ",
-            "nɔ ", "odo", "ɛ ɖ", "o ɔ", "ɛ n", "ɛ e", "ɖɔ ", "ji ", " ɖɔ", "lin", "n n",
-            " en", "bi ", "o ɖ", "mɔ ", "n e", "pod", " bi", "lɔ ", " mɔ", "n a", "nɛ ",
-            "ɛ k", "i n", "un ", "ɔ m", "i e", "mɛɖ", " hw", " ji", " ye", "ɛɖe", "enɛ",
-            " ǎ ", "alo", "o s", "kpl", "u e", "a d", "ɔ b", " nɔ", "alɔ", "ɔ é", "ɔ g",
-            "ɖee", "si ", "n m", "gbɔ", "a t", "n k", " yi", "sɛn", "jɛ ", "e k", " wa", "o m",
-            "e m", "é ɖ", " jl", "hɛn", "e e", " hɛ", " sɛ", "nnu", "nun", "wa ", "n ɖ",
-            " ee", "é n", "kpa", "unɔ", "bɔn", "ɔ t", "a s", "ɛ é", "u k", "ɔ w", "inu",
-            "e s", "i t", "zɔn", "o l", "a y", "o g", "bɛ ", "ma ", "n t", "e j", "ɔ s", "ɔ a",
-            "o b", "a z", " zɔ", "jlo", "i k", "nuk", "ɔ k", "a e", "ɔ l", "u t", "kɔn", "xu ",
-            "e ɔ", " lo", "hwɛ", " ka", "eɖe", "o y", "e w", "jij", "sis", "n l", "ixu", "six",
-            " su", "ali", "isi", "ukɔ", "ɛ a", " ay", "ayi", "su ", "n g", "u a", "a b", "n d",
-            "dan", "nmɛ", " ta", "n ɔ", "etɔ", "e g", "o j", " we", "onu", "wem", "ba ", "ema",
-            "ɛ g", "o h", "ɛ s", "ɛ t", "i s", "u w", "n s", " sɔ", "bǐ ", " bǐ", "hwe",
-            "a m", "sɔ ", "lɔn", "o d", "u m", "ple", " ma", "ɛ l", "azɔ", " az", "tog", "ye ",
-            "i l", "hun", " jɛ", "o w", "ogu", "o k", "u g", "kan", "oɖo", "elɔ", "gbe", " le",
-            " el", "wu ", "ka ", "ɛ w", "n w", " li", "sun", "esu", " hu", " i ", "ɖó ",
-            " ɖó", "plɔ", "ɖi ", "ɖè ", "ɛnn", "pan", "i m", "yet", "xo ", "iin", "tii",
-            " ti", " fi", "e b", "zan", "i w", "poɖ", "ɖes", "a j", "ann", "a g", "gun", " ɖi",
-            " tu", "gan", "ɛ m", " wu", "u s", "ɔ y", "a l", " da", "u n", "u l", "ɔnu", "obo",
-            "ɔ h", "vi ", "lee", "ijɛ", "ta ", "e a", "ya ", "nuɖ", "ɔ d", "wen", " tɛ",
-            " ga", " ɛ ", " xo",
-        ],
-    ),
-    (
-        Lang::Nhn,
-        &[
-            "aj ", "tla", " tl", " ti", "ej ", "li ", "j t", "i t", " ma", "an ", "a t", "kaj",
-            "tij", "uan", "sej", "eki", " no", "chi", "ij ", " ua", "ma ", " to", " te", "j m",
-            " ki", "noj", "ika", " se", "lis", "j u", "aka", "laj", "tle", "pa ", "pan", "j k",
-            "ka ", " mo", "amp", "ali", "ech", "uaj", "iua", "j n", "man", "oj ", "och", "tek",
-            "tli", "kua", "ili", "a k", "se ", " pa", "ano", "ise", "ual", "mpa", "tec", "n t",
-            "en ", "len", "iaj", "is ", " ue", "a m", "jto", "ajt", "pia", " am", "uel", "eli",
-            " ni", "ya ", "oua", "j i", "ni ", "hi ", "tok", "kin", "noc", "one", "lal", "ani",
-            "nek", "jki", "ipa", "kit", "oli", "ati", "amo", "j s", "kam", "aua", "ia ", "tim",
-            "mo ", " ku", "ant", "stl", " ik", " ke", "opa", "ase", "nij", "ama", "i m", "imo",
-            "ijp", "ist", "tl ", "ijk", "tis", "mej", "itl", "tik", "mon", "ok ", "lak", "par",
-            "n n", "ara", "ra ", "tit", "kej", "jpi", "a s", "ojk", "ki ", " o ", "alt", "nop",
-            "maj", "jya", " ka", "iti", "cht", "ijt", "uam", "a n", "kiu", "lat", "leu", "o t",
-            "ita", "lau", " ip", "tep", "kia", "jka", "n m", "ana", "lam", "kij", "nka", "tou",
-            "epa", "n s", "til", "i n", "i u", "e t", " ak", "s t", "k t", "lti", "nem", "lan",
-            "eyi", "mat", "nau", "ose", "emi", "j a", "ntl", "uat", "uey", "jtl", "nit", "nti",
-            "kip", "oka", "onk", " on", "eui", "i k", "kat", "j p", "ini", "toj", "kem", "ale",
-            "ajy", "ame", "ats", "pal", "iki", "ema", "uik", "n k", "eua", "ach", "e a", "ijn",
-            " sa", "mpo", "tot", "otl", "oyo", "mil", "hiu", "eka", "tol", "ajk", "uak", "ite",
-            "san", "pam", "atl", "yek", "tia", "ate", "ino", "jua", "a i", "ipi", "j o", "tsa",
-            "oke", "its", "uil", "o o", "jne", "oju", "tos", "kui", "oui", "a a", "yi ", "kol",
-            "ote", "a u", "i i", "n a", "ken", "chp", "iko", "as ", " ne", "tin", " me", "ank",
-            "jti", " ye", "kon", "ojt", "aui", "xtl", "ine", "tsi", "kii", "you", "ko ", "ejk",
-            "o k", "uas", "poy", "tst", "ejy", "nok", "las", " ya", "yol", "hti", "pou", "siu",
-            " in", "nel", "yok", "mac", "ak ", "hik", "sij", " si", "sto", "htl", "jke", "nko",
-            "jch", "sek", "mot", "i a", "ela", "ui ", "kis", "mel", "axt", " ax", "ijc", "nan",
-        ],
-    ),
-    (
-        Lang::Dip,
-        &[
-            " ku", "en ", "ic ", "ku ", " bi", "bi ", " yi", " ke", "an ", "yic", "aan", "raa",
-            " ci", " th", "n e", " ka", " eb", " ra", "c k", "c b", "n a", "ci ", "in ", "th ",
-            "kua", "ny ", "ka ", "i k", "ŋ y", "i l", "ben", "k e", "ebe", " ek", " e ", "höm",
-            "nhö", "öm ", " al", "ai ", "kem", " ye", " nh", "eme", "m k", "men", "i y", "t k",
-            "n k", " la", "c e", "ith", " er", "lɛ̈", "thi", "alɛ", "ua ", "t e", "ek ",
-            "ɛ̈ŋ", " lo", "ɔc ", "n t", "ŋ k", " ep", "u l", "it ", "yen", "kɔc", "̈ŋ ",
-            "de ", "k k", "pin", "a l", "i r", "n y", "epi", "n b", "lau", "at ", "iny", "aci",
-            "aai", "u t", "ken", "au ", "ok ", " te", "a c", "ath", " pi", "ke ", " ac", "e y",
-            "cin", "u k", "oŋ ", " lu", " ti", "a t", "uat", "baa", "ik ", "tho", "yit", "ui ",
-            "hii", "u n", "h k", "e r", "n c", "te ", "kek", " lö", "l k", "h e", " lɛ", "hin",
-            "thö", "m e", "ɛŋ ", "n r", "n l", " et", " mi", "ëk ", "i b", "ekɔ", "era",
-            "eŋ ", "e w", "i t", "el ", "ak ", "nhi", "iic", "a k", "i e", "pio", " ny", "ŋ e",
-            " aa", "nde", "u b", "e k", "kak", "eba", "ök ", "k a", " ba", " en", "ye ", "lɛŋ",
-            " pa", "iim", "im ", "köu", "e c", "rot", "e l", " le", "öŋ ", "ot ", "ioc", "c t",
-            "i m", "r e", " kö", " kɔ", "eth", "y k", "oc ", "ŋ n", "loo", "la ", "iit", " el",
-            " we", " ey", "i p", "uny", " ro", "ut ", " tu", "oi ", "e t", "enh", "thɛ", "m b",
-            "hok", "pan", "k t", "ëŋ ", " wi", "yii", "tha", "wic", "pir", " li", "u e", "bik",
-            "u c", "ën ", "ynh", "y e", "lui", "eu ", "ir ", "y b", "nyn", "uc ", "n w", "mit",
-            " ec", "öun", "any", " aw", "ɛt ", "ɛ̈ɛ", " dh", " ak", "and", "loi", "wen",
-            "l e", "höŋ", "e e", "thë", "aku", "̈ɛ̈", "kut", "am ", "eny", "u m", "i d",
-            "iek", "k c", " ko", "tic", "leu", " ya", "u y", "tii", " tö", " ma", "nyo", "tö ",
-            " ew", "hök", "den", "t t", "hëë", "i n", "k y", "i c", "cit", "h t", " ed", "uee",
-            "bai", "ɛ̈n", "öt ", "eri", "ɛ̈k", "awu", "rin", "a p", "cɛ̈", "hai", "kic",
-            "t a", " të", "tue", "cii", "hoŋ", " bɛ", "ooŋ", "n p", " cɛ", "̈k ", "c l",
-            "u p", "uk ", "c y", "löi", "i a", "eke", "dhi", "wel", "thk", "eeŋ", "öi ", "elo",
-            "n m", "r k", "ien", "om ", "hom", " wa", "nho",
-        ],
-    ),
-    (
-        Lang::Kde,
-        &[
-            "na ", " na", " va", " wa", "la ", "nu ", "a k", " ku", "a w", "ila", "wa ", "a v",
-            "chi", " mu", "unu", "e n", "mun", "van", "a m", "a n", "ya ", "le ", "ele", "sa ",
-            " ch", "asa", "amb", "ana", "was", "lam", "mbo", "ohe", "ave", " vi", "ne ", "bo ",
-            "aka", "e v", "a u", "u a", " n’", "u v", "e m", "ke ", "anu", " li", "ve ", "vel",
-            "ake", "ala", "hil", "ile", " pa", " av", "ng’", "a l", "he ", "ing", "ene", "ela",
-            "ili", "ika", "vil", "ngo", "vak", "ali", " di", "uku", "wun", "any", "lan", "a i",
-            "mbe", "a a", "uni", "e a", "ama", " ma", "go ", "nda", "bel", "emb", "wak", "kuw",
-            "nya", " mw", "ola", "a d", "den", "lem", "a c", " il", "ulu", "kol", "g’a", "o v",
-            "nji", "kan", "ji ", "au ", "ma ", " au", "lil", "mbi", "uwu", "lik", "ye ", "’an",
-            "kuk", "din", "ula", "no ", "and", "umi", "kum", "eng", "ane", "dya", "ong", "o l",
-            "ach", "mwa", "e w", " ak", "an’", "a p", "kal", "nil", "lew", "mad", "n’n", "voh",
-            "ilo", "wen", "aya", "apa", " vy", "kut", "ale", "va ", " al", "ang", "ava", "kul",
-            "hin", "o m", "hel", "e k", "ond", "hi ", " la", "lin", " lu", "idy", "dye", "u l",
-            "da ", "ole", "ka ", "ani", "ndo", "ton", " in", "ewa", "lov", "o c", "dan", "u m",
-            "cho", "uva", "ia ", "pan", "kam", "we ", "ove", "nan", "uko", "bi ", "kav", " ya",
-            "lim", " um", "eli", "u n", "nga", "uli", "lia", "mil", "o n", "’ch", " kw", "li ",
-            " an", "aha", "dil", "ata", " dy", "e l", "n’t", "i v", "tuk", "hoh", "u i", "hev",
-            "ni ", "niw", "und", " ul", "ade", "lel", "kay", "lon", "e u", "ino", "i n", "nje",
-            "uwa", "she", "yik", " ly", "hum", "ako", "i w", "uma", "vya", "kwa", "ba ", "’ma",
-            "val", "kil", "mwe", "mba", "mu ", "pal", "umb", "wav", "hih", "ulo", " ka", "e c",
-            "nde", "wal", "ima", "’ni", "lun", "ihu", "a y", "vin", "yoh", "e i", "vyo", "inj",
-            "u c", "kup", "kuv", " ki", " m’", "a s", "e p", "dol", "lek", "awa", "o u", "n’c",
-            "iwa", "imu", "anj", "mal", "yen", "u w", "yac", "bil", "oja", "o a", "ha ", "utu",
-            "ech", "i d", "uka", "taw", "n’m", "ita", "awu", "ina", "m’m", "i a", "itu", "hon",
-            "lu ", "atu", "mak", "iku", "lya", "lit", "jel", "evo", " vo", "i l", "mah", "hap",
-        ],
-    ),
-    (
-        Lang::Snn,
-        &[
-            " ba", "ye ", "bai", " ye", "ai ", "e b", " ca", "ai̱", "ia ", "ji ", " ne", " si",
-            "i̱ ", " go", "goa", "sia", "i n", "e c", "a y", "i y", "̱ b", " ja", "se ", "aye",
-            "i j", "a b", "jë ", "iye", "e g", "re ", "oa ", "hua", "yë ", "quë", " gu", "hue",
-            "e̱ ", "u̱i", "gu̱", "ne ", " ma", "̱i ", "je̱", "eo ", "e s", " hu", " ña",
-            "bay", "o y", "ñe ", "ja ", "ajë", "to ", "aij", "deo", " ñe", "a i", "ayë", "ba ",
-            " ji", "beo", "cat", " de", " be", "e j", "i s", "mai", "e e", "bi ", "a ñ", " co",
-            " e ", "ato", "uë ", "ña ", "i g", "e ñ", "i b", " iy", "cha", "ë b", "eba", "coa",
-            "na ", " ts", "e y", "̱je", "reb", " i ", " ti", "i t", "ja̱", "ach", "ue ", "e i",
-            "i c", "ni ", "oac", "e t", "a ë", " re", "je ", "aiy", "oji", "eoj", "a̱j", "oye",
-            " ë ", "ë t", "cay", "ija", "ico", "ihu", " sa", "i d", "ere", "a c", " qu", "ahu",
-            "iji", "ca ", "ua ", " yë", " to", "a h", "ase", "ues", "ë s", "aca", " se", "uai",
-            "e d", "ese", "asi", "caj", " ai", " tu", "tut", "utu", "ë c", "yeq", "equ", " na",
-            "cai", " i̱", "ti ", "mac", "e m", "ë g", "ebi", "a a", "ani", "tu ", "e n", "yeb",
-            "eje", "oya", "toy", "co̱", "a m", "̱ t", "ije", "sic", "eso", "eoy", "a t", " a ",
-            " te", "haj", "cah", "oas", "are", "i m", "a s", "ehu", "añe", " da", "o b", " do",
-            "i i", "i r", "e r", "neñ", "yer", "huë", "ë y", " o ", "jai", "a j", "aje", "a g",
-            "ibë", "ëay", "aña", "aja", "a o", "coc", "bëa", "oca", "sos", "doi", "oi ", "aco",
-            "eñe", " jë", "ë d", "ë j", "cas", "ëca", "hay", "ea ", "̱ g", "ari", "tsi",
-            "yij", "sai", "̱ c", "osi", "teo", "o h", "co ", "̱re", "nej", "ëhu", "o s", "ose",
-            "jab", "̱ni", " me", "rib", "ñes", "si ", "yaj", "jëa", "uaj", "ë m", "dar", " yi",
-            "oe ", "e o", "nes", "i̱r", "ma ", "nij", "i h", "oja", "uëc", "ama", "ë i", "i̱h",
-            "o̱u", "̱uë", "̱hu", "aqu", "ëco", "e a", "a̱ ", "ëja", "̱ñe", "o̱a", "go̱",
-            " ëj", "ñe̱", "tia", "abë", "sih", " bi", "tsë", "sëc", " je", " cu", "̱ a",
-            "ned", "cab", "a d", "ore", "me ", " oi", " ro", "jay", "tso", "ë r", "eye", "ta ",
-            "bë ", "ñaj", "soe", "̱ca", "o̱c", "año", "o c", "ire", "ohu", "uej", "ñej",
-            "i a", "ñas", "ë q", " ju", "ban",
-        ],
-    ),
-    (
-        Lang::Kbp,
-        &[
-            "aa ", " pa", " se", "se ", "na ", "nɛ ", " nɛ", " yɔ", " wa", "yʊ ", " ɛy",
-            "ɛ p", "ɖɛ ", "aɖɛ", "a ɛ", "a w", "ɛwɛ", "ɛna", "yɛ ", "ala", "ɛ ɛ",
-            "ɛ s", "ɔɔ ", "yɔɔ", "ɩ ɛ", " ɛ ", "paa", "e ɛ", "e p", "ɛyʊ", "aɣ ",
-            " pɩ", " ɛw", "a p", "waɖ", "ʊʊ ", "a n", " ta", "yɔ ", "yaa", "yɩ ", "wɛn",
-            "la ", "taa", "ʊ w", " tɔ", "a a", "ɔ p", "ɛya", " kɩ", " ɩ ", "ɩyɛ", "a t",
-            "ʊ ɛ", "a k", "wɛɛ", "tɔm", "ɔm ", "ɛ t", "wal", "ʊ n", " wɛ", " ŋg", " tɩ",
-            "ɛ n", "ɛ k", "kpe", "ɛ ɖ", "maɣ", "zɩ ", " an", "ʊ t", "ɛ y", " pʊ", "nɩ ",
-            " tʊ", "ɛyɩ", "ɩɣ ", "ɩ t", " we", "ɩ y", "anɩ", " pɔ", "a s", "gbɛ", " pɛ",
-            " ɛs", "pa ", "kpa", "ɛɛ ", "wɛ ", " nɔ", "daa", "nɔɔ", "ʊ y", "ama", "ya ",
-            " kʊ", "tʊ ", "pal", "mɩy", "ayɩ", "ɩ p", "ɩna", "tɩ ", " ɖɩ", "ʊ p",
-            "ɔ ɛ", " ɛl", " mb", "ɔ s", "ŋgb", "a y", "ɩma", "ɖɩ ", "ʊ k", "ɔɖɔ",
-            "ɩ n", "bʊ ", "mbʊ", " ɛk", " kp", "ɛja", " ɛj", "tʊm", "jaɖ", "paɣ", "kɛ ",
-            " ye", "ɛyɛ", "alɩ", " na", "i ɛ", " ke", " ya", " ɖɔ", "ɩ ɖ", "ɔɔy", "nda",
-            "ɖɔ ", "fɛy", "ɣ ɛ", "ɩ s", "jɛy", "yi ", "ɖɔɖ", "ɛla", "lɩ ", "kɩm",
-            "kɩ ", "aŋ ", "bɛy", "pee", " ñɩ", "lab", "ɩzɩ", "pe ", "eyi", "ŋ p", "ɩ ɩ",
-            "ɛzɩ", " fa", "ɔyʊ", "aʊ ", "ʊmɩ", "ʊyʊ", "ʊma", "a l", "sɔɔ", "a ɩ",
-            "ekp", "ʊ s", " aj", "ajɛ", " ɛt", "iya", "wey", "ɩ k", "ʊ ŋ", "ma ", "kan",
-            "ɩsɩ", "laa", "ɔyɔ", "ɩm ", "li ", " kɛ", " lɛ", "and", "sam", " sa", "ɣtʊ",
-            "ɔ k", "day", "ɔɔl", "ɣ p", "sɩ ", "ɔŋ ", "ɩfɛ", "akp", "pak", "sɩn", "pɩf",
-            "naa", "ndʊ", "kul", " ha", "aɣt", "ɔ y", "uli", " ɖe", " kɔ", "eek", " pe",
-            " sɔ", "m n", "ŋga", "ee ", "ga ", "ɖʊ ", "maʊ", "m t", "e e", "ɣna", "ɣ s",
-            "ŋgʊ", "abɩ", "akɩ", "a ñ", "yaɣ", "pɩz", "eki", " ɖo", "maŋ", " la", "yee",
-            "ana", "tɩŋ", "ɣ t", "pad", "ñɩm", " ca", "ɛ a", "a ɖ", "pɩs", "ina", "dʊʊ",
-            "ɖe ", " ɖa", "a m", "lɛ ", "ked", " ɛɖ", "lak", "aka", "gʊ ", "asɩ", "ʊ ɖ",
-            " ɛd", "dʊ ", "nʊm", " nʊ", "ñɩn", "ba ", "ɛpɩ", "pʊ ", "ada", "ɛhɛ", "hal",
-            " a ", "le ", "zɩɣ", "ɛɛn", "ɛsɩ", " le", "aɣz", "uu ", "nɖɩ", "e t", "ŋ n",
-            "ɛda", "lɩm", "e w", "ɔ w", "ɩ a", " ɛp", " nɖ", "ɛkɛ", "i p", "ɣzɩ", "alʊ",
-            "zaɣ", "bɩ ", "ɛ l", "ɩkɛ", "ɔ t", "e y", "ɖam", "aaa", "pɛw",
-        ],
-    ),
-    (
-        Lang::Tem,
-        &[
-            "yi ", " yi", " ka", "a ʌ", " tə", "uni", "ni ", "wun", " ɔ ", " aŋ", " wu", "ka ",
-            " kə", " kʌ", " ʌŋ", "nɛ ", "kə ", "tək", " ʌm", "əkə", "ɔŋ ", "mar",
-            " ɔw", "a k", "ma ", "i k", " a ", "wa ", " mʌ", "i t", "ri ", "ɔwa", "thɔ", " th",
-            " ma", "ari", "i m", "a a", "ʌma", "aŋ ", " o ", " ba", "tha", "ba ", " kɔ", "a y",
-            "ŋ k", "ɔm ", "‐e ", " rʌ", "lɔm", "kɔ ", "i ɔ", "kom", "o w", "ʌnɛ", "te ",
-            "mʌ ", " ŋa", "i o", "əm ", "hɔf", "ɔf ", "alɔ", "om ", "a m", "ɔ b", "ɔ y",
-            "aŋf", "fəm", "hal", "kəp", " mə", "ŋfə", "ʌth", " tʌ", "a t", "a r", "ŋ y",
-            "ŋth", "ŋa ", " ʌt", "ɔ k", "e ɔ", "ɛ t", " ro", "wan", "ema", " gb", "ank",
-            " ye", "th ", "yem", "nko", " mɔ", "ʌwa", " sɔ", "kʌm", "m a", "kət", "ʌmʌ",
-            "anɛ", "rʌw", "ɔ t", "ʌme", "ʌŋt", "me ", "ʌte", " bɛ", "hɔ ", "a ɔ", "ki ",
-            "ʌŋ ", "m ʌ", "m k", "ar ", "ŋ ɔ", "yɛ ", "əth", "ɛ ʌ", " ta", "i a", "ta ",
-            " ʌk", "ə k", "thi", "et ", "pet", "pa ", "ŋɔŋ", " te", "ŋe ", "i ʌ", "ra ",
-            "i r", "əpe", " ŋɔ", "ɛ k", "ʌ k", " yɔ", " rə", "kʌt", "rʌ ", " yɛ", "bɛ ",
-            "e a", "e t", "ro ", "ɔ ʌ", "akə", "thə", "ɔ m", "a‐e", "əpa", "a w", "kəl",
-            "ə b", "yɔ ", "ə t", "mɔ ", "bot", "ŋ t", "e y", "əŋ ", "mʌs", "gba", "e m",
-            "m r", " bo", "ʌŋe", " ak", "ɛ a", "nʌn", "ləŋ", "ələ", "sɔŋ", "ŋ b",
-            "təm", "wop", "ʌ a", "ə y", "kəs", "sek", "ə s", "tʌt", "li ", "ot ", " ko",
-            "ɛ ŋ", "ŋ a", "ekr", " ra", "ɔth", "sɔt", "ʌse", "ath", "ru ", "t k", "ɛ m",
-            "e k", "ɛth", "ma‐", "po ", " po", " wo", "ʌrʌ", "i y", "m t", "m ŋ", "tʌŋ",
-            "tɔŋ", "e w", "gbʌ", "tə ", "nth", "ʌyi", "ʌlə", "hən", "ʌ ʌ", "op ", "iki",
-            "ʌkə", "rʌr", "ʌru", "ŋgb", "sɔ ", "əyi", "rʌn", "gbə", "ɔ a", "ər ",
-            "ɔkɔ", " pə", " ʌr", "ənʌ", "ləs", "nka", "ith", "əli", "ʌy ", "bəl", "mʌy",
-            "ran", "o ɔ", "ɛ r", "ant", "f ʌ", "mə ", "ti ", "f t", " tɔ", "əs ", "r k",
-            "hi ", "yik", "ɔ ɔ", "rək", "kar", "ʌ t", "mʌt", "lɔk", "ayi", "krʌ", "pan",
-            "na ", "kʌr", "mət", "tət", "tho", "pi ", "mʌl", " to", "to ", " wa", "ʌgb",
-            "thɛ", "ə g", "bas", "eŋ ", "aŋk", "ɔ r", "thʌ", "o t", "ɛŋ ", "i‐e", "kʌ ",
-            "kʌs", "mɔŋ", "o d", "kɔŋ", "din", "ɔ g", "kəw", "di ", "ŋ w", "əma", "ɛr ",
-            "ʌ y", "ək ", "ŋko",
-        ],
-    ),
-    (
-        Lang::Toi,
-        &[
-            " ku", "a k", "wa ", " mu", "a m", "la ", "ali", "ya ", "tu ", "i a", "e k", "a a",
-            "aku", "ula", "ntu", "ang", " al", "lim", "lwa", "kwa", "aan", "mun", "mwi", "de ",
-            "ulu", "ngu", "wi ", "imw", "luk", "gul", "na ", "ele", " ak", "kub", "ons", "unt",
-            "kul", "oon", "se ", "ant", "nse", " oo", "zyi", "gwa", "si ", " ba", "ba ", " lw",
-            "zya", "uli", "ela", "a b", " ci", " ka", " zy", "waa", "and", " an", " kw", "ili",
-            "uki", "eel", "uba", "nyi", "ala", "kut", "ide", " ma", "kid", "isi", "uny", "i m",
-            "kun", "cis", " ya", "li ", "i k", "nga", "a l", "yin", "kuk", "ka ", " ul", "kus",
-            "ina", "laa", "nte", "ila", "tel", "mul", "wab", "wee", "nda", "izy", "ede", " am",
-            "led", "amb", "ban", "we ", "da ", "ana", "kwe", "e a", "lil", " bu", "o k", "bwa",
-            "aka", "ukw", "o a", "ati", "uko", "awo", "yan", "ko ", "uci", "ilw", "bil", "bo ",
-            "a c", "wo ", "amu", "law", "mbu", "i b", "bul", "umi", "ale", "abi", "kak", "e m",
-            "u b", "akw", "u o", "ti ", "sal", "kuy", "ung", "bel", "wak", " bw", "o l", "ga ",
-            "kal", "asy", "e u", "lan", " mb", "lo ", "usa", "ika", "asi", "aam", "a n", "ule",
-            "bi ", "cit", "bun", "kup", "egw", "muk", "igw", "u k", "u a", "mbi", "wii", "kum",
-            "a z", "aci", "ku ", "yi ", " mi", "yo ", "le ", "mas", "yig", "ubu", "kka", "i c",
-            " ab", "ene", "ne ", "no ", "a y", " wa", "abo", "ndi", "uta", "syo", "aya", "aba",
-            "len", "kuc", "eya", "o y", "mal", "ind", "lem", " lu", "ukk", "mo ", "eka", "mil",
-            "mbo", "ita", "uka", "ama", "lik", "u z", "ndu", "mu ", "nzy", "zum", "bal", "abu",
-            "upe", "bam", "syi", "u m", "liz", "int", "ta ", "yak", "ley", "e b", "nzi", "lii",
-            "kab", "uti", "ube", "uum", "i n", "cik", "ezy", "iib", "iba", "ani", "iko", "iin",
-            "ile", "was", " ca", "zye", "alw", " aa", "sya", "uku", "twa", "min", "tal", "muc",
-            "umu", " nk", "du ", "azy", "onz", "lek", "kon", "buk", "o m", "yik", "i z", "lwe",
-            "u u", "oba", "kwi", "imo", "gan", "zil", "del", "usu", " we", "peg", "yee", "ngw",
-            "sum", "imb", "ump", "mpu", "nde", "end", "i o", "yoo", "o n", " nc", "a u", "mi ",
-            "ano", "uya", "o c", "di ", "mba", "yil", "yal", "ako", "a o", "isy", "izu", "omb",
-        ],
-    ),
-    (
         Lang::Est,
         &[
             "sel", "ja ", " ja", "le ", "se ", "ust", "ste", "use", "ise", "õig", "mis", " va",
@@ -4164,280 +2369,6 @@ pub static LATIN_LANGS: LangProfileList = &[
             "lem", "umi", "kor", "sa ", "idu", "mus", "rit", "har", " si", "vad", "ita", "ale",
             "kai", "teo", " mõ", "ade", "üks", "mas", "lse", "als", "iaa", "sia", "sot", "jal",
             "iig", "ite",
-        ],
-    ),
-    (
-        Lang::Snk,
-        &[
-            "an ", " a ", " na", "na ", "a n", "ga ", " ga", "en ", " su", "re ", "a k", " ka",
-            "su ", "a a", "a s", " ta", "un ", " se", "ta ", "ma ", " i ", "ama", "do ", "e s",
-            "ere", "ser", "aan", " do", "nan", "nta", " ra", "n s", " ma", " ki", " ja", "jam",
-            " da", "taq", "ne ", "a g", "a d", " ya", "n d", "ni ", " ku", "ren", "ri ", " si",
-            "ana", "u k", "n ŋ", "ŋa ", " nt", "e k", "maa", " ŋa", "ndi", "wa ", "aqu", "ane",
-            " ba", "ra ", "a r", " sa", "oro", "n t", "raa", "tan", " ke", "oxo", " xa", "i s",
-            "di ", "a f", "and", "ti ", "a b", " be", "i k", "gan", "aax", "aaw", " go", "iri",
-            "kit", "awa", "axu", "sir", "a i", " du", "a t", "me ", "ara", "ya ", "ini", "xo ",
-            "tta", "i a", "oll", "ran", "on ", "gol", "e d", "n g", "a j", "nde", "aar", "e m",
-            "be ", "a m", "ari", "u n", "lli", "ron", " fa", "qu ", " ti", "n n", "aad", "axa",
-            " ña", "o a", " so", "ke ", "nu ", " ko", "din", "lle", "dan", "a y", "man", "i g",
-            "sor", "u r", "i t", " no", "are", "xar", "kuu", " wa", "enm", "ada", "baa", "de ",
-            "qun", "o k", "yi ", "xun", "i n", "i x", " an", " ha", "kan", "fo ", "att", "ang",
-            "n k", "o s", "dam", "haa", "da ", "n y", "kat", "e t", "li ", " fo", "i d", " mo",
-            "nme", "u b", "i m", "aba", " fe", "len", " re", "pa ", "ant", "ayi", "yan", "e n",
-            "a x", "e y", "n b", " di", "ppa", "app", "kap", "xa ", "u t", "o g", "mox", "ure",
-            " xo", "ond", "i i", "a ñ", "n x", "taa", "du ", "ell", " me", "iti", "xu ", "u d",
-            "udo", "ind", "uud", "anu", "nga", "o b", "nun", "nox", "n f", "ku ", "aga", "anŋ",
-            "dun", "itt", "eye", "ye ", " bo", "ore", "ite", "u a", "oor", " yi", " ro", "sar",
-            "saa", "ill", "e b", " wu", "le ", "riy", "nma", "ro ", "ken", "edd", "fed", "bur",
-            " mu", "mun", "o n", "iin", "tey", "sel", " tu", "u m", "lla", "la ", "ono", "ñaa",
-            "den", "faa", "a w", "te ", "inm", "ka ", "aay", " te", "ina", "xoo", "o d", "ira",
-            "u s", "o t", "nmu", "nen", "ban", "ene", " ni", "ña ", "o i", "uur", "una", "o m",
-            "xon", "n w", "kaf", "gu ", "e g", "a h", "kil", "yu ", "und", "aqi", "een", " bi",
-            "bag", "i j", "n ñ", "laa", "i r", "no ", "sig", "igi", "kor", " o ", "i b", "bat",
-        ],
-    ),
-    (
-        Lang::Cjk,
-        &[
-            " ku", "a k", "yi ", "nyi", " ny", "la ", " mu", "wa ", " ci", "a c", "a n", " ha",
-            "we ", "a m", "nga", "ga ", "i k", "kul", "uli", "sa ", "esw", "ana", "ela", "a h",
-            "ung", "ha ", "tel", "swe", "ze ", "ya ", "a u", " ka", " wa", "uci", " ya", "ate",
-            "ci ", "mwe", "kwa", "ma ", "mbu", "ji ", "kut", "han", "u m", " ul", "ang", " mw",
-            "nat", "ca ", " ca", "e m", "mu ", "uth", "ali", "i n", "mut", "thu", "i m", "e k",
-            "lit", "hu ", "ina", "ka ", "kup", "na ", " ma", "asa", "aku", "e n", "a i", "pwa",
-            "nji", "wes", "li ", " mb", "e a", "ifu", "fuc", "kan", "bun", "ize", "ing", "a y",
-            "anj", "mba", "uta", "ita", "i u", " kw", "muk", "ite", "kus", "amb", "lin", "awa",
-            "imb", "cip", "lim", "ong", "esa", "i c", "nge", " ak", "ngu", " ce", " an", "ili",
-            "ulu", " na", "naw", "kuh", "ama", "upw", "emu", "lem", "ila", " un", "a a", "ula",
-            "ukw", "aka", "cif", "ule", "wo ", "has", "kun", "kha", " xi", "o n", "tam", " es",
-            "usa", "ala", "te ", "u c", " ng", "iku", "cik", "lya", "wil", "e c", "ta ", "xim",
-            "wik", " li", "muc", " ly", "ikh", "no ", "o m", " in", "i a", "utu", "e w", "akw",
-            "mo ", "imo", "mil", " mi", "i y", "ba ", "ko ", "ngi", "ufu", "ku ", "lij", "uka",
-            "iji", "a w", "umi", "o w", "tan", "o y", "e y", "imw", "ulw", "uha", "nal", "so ",
-            "o k", " ye", "i l", "e u", "umw", "bu ", "aci", "lwi", "aha", "ciz", "mwi", "kat",
-            "lon", "u k", "yes", "ipw", "ulo", "aze", "uni", "wak", "lo ", "ema", "o c", "aco",
-            " iz", "kum", "ika", "e i", "cim", "isa", "eny", "umu", "pem", "yum", "kwo", " ik",
-            "kwe", "e h", "ngw", "wam", "cin", "i h", "a e", "wan", "ge ", "a x", "was", "le ",
-            "kuk", "uze", "lik", "gul", "nin", "pwe", "o u", "mah", "ata", "uma", " up", "sak",
-            "zan", " uf", "fun", "go ", "wen", "mbi", "uso", "ges", "co ", "ngo", "iki", "hal",
-            "gik", "ile", "nda", "kol", "kal", "kuz", "ne ", " ja", "oze", "yoz", "ikw", "ipe",
-            "ces", "swa", "cis", "man", "i i", "iso", "ele", "aso", "waz", "mi ", "upu", " if",
-            "ise", "umb", "uvu", "kil", " it", "i w", "sok", "o l", "oko", "nyo", "una", "bi ",
-            "tum", "iko", "ene", "hak", "sem", "a l", "da ", "vul", "nyu", " ut", " uk", "eka",
-        ],
-    ),
-    (
-        Lang::Ada,
-        &[
-            "mi ", "nɛ ", " nɔ", " nɛ", " e ", " he", "he ", "nɔ ", " a ", "ɔ n", "kɛ ",
-            " kɛ", "i k", " ng", "a n", "i n", "aa ", "e n", "blɔ", " bl", "ɛ n", "ɛ e",
-            "gɛ ", "ngɛ", "e b", "lɔ ", " ma", " mi", "ɛ h", " ts", " ko", "hi ", "ɛ a",
-            " ɔ ", "ko ", "e h", "ɛɛ ", "tsu", " ni", "ɔ k", "a m", "a k", "i h", "ma ", " ny",
-            "emi", "a h", "ami", " be", "be ", "i a", "ya ", " si", "e m", "e j", " ka", "si ",
-            "ɛ m", "ɔ f", " kp", "nya", " je", "ni ", "oo ", "loo", "o n", " hi", " fɛ",
-            "fɛɛ", "a t", "laa", "a b", "je ", "e k", " pe", "pee", " ye", "mɛ ", "umi", "ɔ m",
-            " ha", "a a", "ɔmi", "omi", "kpa", " wo", "ɔ e", "i t", "ɛ ɔ", "e s", "i b",
-            "ɔ h", " lo", "ɛ k", "ke ", "ha ", "bɔ ", "maa", "mla", "i m", "ɔ t", "ɔ́ ",
-            "e p", "kaa", "ahi", " sa", "lɔh", "ɔhi", "sum", "ɔ a", "nɔ́", "o e", " na",
-            " gb", "ee ", "e ɔ", " ji", "e a", "i s", " ml", "ɛ s", "sa ", " hɛ", "ɔɔ ",
-            "yem", "u n", "alo", " jɔ", " ku", " lɛ", " bɔ", " to", "a s", "ɛ b", "i l",
-            "lɛ ", "sua", "o k", "uaa", "a j", " su", "ɛmi", " ad", "ɛ y", "imi", "ade", " fa",
-            " al", "jɔm", "des", "esa", "eɔ ", "ihi", "ji ", "ne ", "ɛ t", "a e", "ɛ j", "ake",
-            "e e", "kak", "ngɔ", "o a", "eem", "i j", "e y", "wo ", " bu", "him", "e w", "́ k",
-            "ɔ y", "tom", "suɔ", "ia ", "ane", "mah", " ya", "o b", " ke", "e g", "wom", "gba",
-            "ue ", "ba ", " bi", " gu", "uo ", "e t", "san", "uu ", "pa ", "hia", " tu", " hu",
-            "suo", " we", "tsɔ", "ɔ s", "e f", "kuu", "gɔ ", "o m", "a p", " ja", "ɛ p", "fa ",
-            "ɔ b", "ɛ g", "hɛɛ", " ab", "a l", "hu ", "ye ", "na ", "tue", "i ɔ", "isi",
-            " sɔ", "sɔs", "jam", "gu ", "ti ", "ɛ w", "sis", "o h", "uɔ ", "li ", "a w", " ba",
-            "sɔɔ", "abɔ", " ju", " hl", "ɔsɔ", "hla", "ɔ l", "a y", "sɛ ", " ɔm", "ɔmɛ",
-            "i w", "ɛti", "pɛt", "kpɛ", "to ", " yi", "asa", " kɔ", "nyu", "akp", "pak", "kpe",
-            "sɔɛ", "ɔɛ ", "u ɔ", "yɛm", "o s", "uɛ ", " nu", "pe ", "se ", " sɛ", "o j",
-            "a g", "ɔ w", " wa", "sem", " pu", "su ", "e l", " mɛ", "u k", "hɛ ", "nih", "kas",
-            " fɔ", "kon", "onɛ", "bim", "lam", "imɛ", "nyɛ", " fi", "hiɔ", "usu", "i p",
-            "bi ", " ní", "yo ", "eeɔ", "uam", "bum", "níh", "íhi", "o l", "ula", "kul",
-            "guɛ", "naa",
-        ],
-    ),
-    (
-        Lang::Bin,
-        &[
-            "e o", "ne ", " ne", "be ", "an ", "en ", "vbe", " o ", "wan", "mwa", "n n", "e e",
-            "emw", "evb", "mwe", "in ", "na ", "e n", " na", " em", "omw", "e a", "n e", "e i",
-            " vb", "re ", " ke", "gha", "gbe", "wen", " gh", "ie ", "wee", " om", "e u", " kh",
-            "bo ", "hia", " ir", "ha ", "o k", "nmw", "tin", "n o", "vbo", "he ", "eti", "ia ",
-            "kev", " ev", " we", " et", "win", "ke ", "ee ", "o n", " hi", "a n", "a r", "o r",
-            "gie", "ran", " ya", "ira", "mwi", "a m", " mw", "a g", "ghe", "ogh", " a ", " re",
-            " uh", "eke", " og", "n k", " no", "ro ", "ye ", "khe", " ye", "hek", "rri", "nog",
-            "een", "unm", "a k", "ogi", "egb", "ya ", "ere", "wun", "hun", "mwu", " mi", "mie",
-            "de ", " rr", "a e", " ar", "a o", "n y", "e v", "o g", "un ", "ra ", " ot", " gb",
-            "uhu", " ok", "n i", "ien", "a v", "rhi", "e k", "n a", "i n", "a y", " ru", "khi",
-            "n m", "hie", " eg", "oto", "arr", "ba ", "ovb", "u a", "e y", "ru ", "ian", "hi ",
-            "kpa", " ra", "o m", "nde", "yan", "e w", "and", "to ", "o e", "o h", " ni", " rh",
-            "e r", "n g", " er", "n h", "ugb", "we ", "hae", "on ", " iy", "dom", "rue", "u e",
-            " or", " ik", "ren", "a i", "aro", "iko", "o y", "n w", "ben", "ene", "rio", "se ",
-            "i k", "uem", "ehe", " ov", "otu", "okp", "kug", "oba", "iob", " uw", "aen", " do",
-            "iru", "ae ", "tu ", "ue ", " iw", " ma", "wu ", "rro", "o o", "rie", "n v", " ug",
-            "a u", "nna", " al", "ugh", "agb", "pa ", " ay", "o w", "ze ", "uwu", "ma ", " eb",
-            "iye", "aya", "ugi", "inn", "gho", "rre", "nii", "aku", "gba", "khu", " se", "yi ",
-            "onm", "ho ", "a w", "ii ", "iwi", " uy", "uyi", "e d", " i ", "hin", "obo", "u o",
-            " ak", "beh", "ebe", "uhi", "bie", "ai ", "da ", "i r", "gbo", "o v", "won", "mwo",
-            "umw", " ag", "ode", " ek", " la", " um", "aan", " eh", "egh", "yin", "anm", "mo ",
-            " kp", " bi", "kom", "irr", "i e", "a a", "kha", "oda", "bon", "a d", " ow", "owa",
-            "ghi", "n u", "o a", "yen", "eem", "ieg", " az", "aze", "hoe", " yi", "oe ", "e g",
-            "ele", "le ", "lug", " ka", "aa ", " as", "yaa", "gue", "a h", "mu ", "nre", " od",
-            "n r", "ero", "ese", " ku", "enr", "lel", "vbi", "wa ", "u i", "a b", "oro", "bi ",
-        ],
-    ),
-    (
-        Lang::Gaa,
-        &[
-            "mɔ ", " ni", "ni ", "kɛ ", "ɛ a", " ak", "lɛ ", "i a", " he", "ɛ m", "akɛ",
-            " lɛ", " ko", "gbɛ", "ɔ n", "ɛɛ ", " mɔ", " kɛ", "yɛ ", "li ", "ɛ e", "ko ",
-            "ɔ k", "i e", "aa ", " yɛ", "bɛ ", " ml", "shi", "ɛ h", "egb", " gb", "ɔɔ ",
-            "mli", " fɛ", "fɛɛ", "heg", "nɔ ", "a a", "i n", "aŋ ", "oo ", " nɔ", "i k",
-            "he ", "ɛ n", " es", " am", "ɛ k", "ɔ y", " sh", " ma", "esa", "loo", "ji ", "maŋ",
-            "amɛ", "emɔ", "ɔ f", "fee", " ek", " al", "ɛi ", "ii ", "ɔ m", "ɔ a", "bɔ ",
-            "e n", "ɔ l", "amɔ", " eh", "alo", "hi ", "naa", "ee ", "ɔmɔ", "oni", " en", "o n",
-            "kon", "aji", "i y", "i m", "sa ", "o a", "eli", "umɔ", " bɔ", " hu", "yel", "hu ",
-            "eem", "nɛɛ", "tsu", " ah", " nɛ", "sum", "tsɔ", " an", "nii", "o e", "baa", " as",
-            "mɛi", "yɔɔ", "gbɔ", "aaa", "na ", "i h", "eye", "ɛ g", "eɔ ", "ɛji", " at",
-            "ana", "eko", "ena", "o h", "ŋ n", "kom", " ts", "ɔ e", "maj", "i s", "i l", "efe",
-            "ome", " kp", "a l", "kwɛ", "ku ", "ehe", "toi", "a n", "saa", "bɔm", "ha ", "a m",
-            "kɛj", "kpa", "hew", " ku", " sa", " na", "hiɛ", " hi", "ane", "gba", "e e", "i f",
-            " mɛ", "ɛ t", "bɛi", "ash", "ŋ k", "e k", " ej", "hey", "aka", "ats", "ne ", "its",
-            "e a", "san", " ay", "ye ", " je", " kr", " ey", "mla", "eŋm", "nit", "a h", "ɔ b",
-            "ɛ s", "anɔ", "ŋmɔ", "a e", "ɛ b", "jeŋ", "ɛ y", "aan", "kro", " ab", " af",
-            "any", "iaŋ", "ɔ g", "a k", " yɔ", "uɔ ", "shw", "ets", "ekɛ", "usu", "ŋŋ ",
-            "ŋma", "esh", "u l", " ba", " et", "iɔ ", "i j", "o k", "suɔ", "oko", " yi", "e s",
-            " ag", "afe", "agb", "oi ", "ŋ a", "rok", "o s", " aw", "ai ", " ji", "ɛ j", "aye",
-            "ŋ h", "ish", "nyɛ", "la ", " ad", "o m", " ef", "tsɛ", "sɛ ", "wɔ ", "ewɔ",
-            "mɔɔ", "ehi", "aŋm", "hwe", " bɛ", " to", "ɔ h", "jɛ ", "aha", " ja", "paŋ",
-            "alɛ", "awo", "sɔ ", "ŋts", "ɛŋt", "iɛŋ", "bii", "diɛ", " di", "mɛb", "eni",
-            "his", " ny", "e b", "hik", "u k", "ate", "i b", "ŋmɛ", "akw", "o y", "eŋ ", "ahe",
-            " lo", "me ", "ade", "ɔ j", "kɛn", "teŋ", "yeɔ", "ɔ s", "des", " su", "wal",
-            "nyɔ", " eb", " eg", "ŋ m", "mef", "saŋ", "ɛ l", "o l", "u n", "asa", "sem", "jia",
-            "wɛ ", " em", "o b", "gbe", "hil", "ihi", "hih", "ɔŋ ", "nak", "e h", "sus", "e g",
-        ],
-    ),
-    (
-        Lang::Kng,
-        &[
-            " ya", "na ", "ya ", "a k", " na", "a y", "a m", " ku", "a n", "a b", " ba", "u y",
-            "and", "ka ", " mu", "yin", "wan", "tu ", " lu", "aka", " mp", "ve ", " yi", "la ",
-            "ntu", " ki", "mpe", "pe ", "nda", "a l", "si ", "yan", "ana", "so ", " ke", "e n",
-            "ons", "nso", "di ", "da ", "ndi", "i y", "u n", "lu ", "mun", "alu", "unt", "ina",
-            "e y", "nza", "luv", "ala", "uve", " ma", "u m", "ke ", "za ", "ayi", "sal", "o m",
-            "ban", "ndu", "ta ", "isa", "kan", "ulu", "i m", "amb", "ma ", "kim", "u k", "fwa",
-            " ny", "nyo", "yon", "ama", "ti ", "ang", "anz", "du ", "kus", "o y", " me", "i n",
-            "to ", "ins", "nsi", "wa ", "usa", " mo", "kon", "uta", "end", "i k", "uka", " bi",
-            "a d", " ko", "mbu", "mos", "sa ", " ve", "ika", "mu ", "osi", "e k", "uti", "kuz",
-            "imp", "a v", "e m", "und", "ind", " fw", "ila", " to", "pwa", "mpw", "ngu", "bal",
-            "adi", "ba ", " sa", "len", "sam", "sik", "mab", "tin", "vwa", "mba", "kuk", " di",
-            "yay", "a t", "yi ", " le", "ant", " ka", "ata", "isi", "olo", "kis", "mut", "ula",
-            "lo ", "bu ", "su ", " bu", " at", "amu", "o n", "dya", "kut", "dil", " nz", "ngi",
-            "abu", "usu", "but", " nt", "ni ", "bak", "kul", "e b", "nga", "e l", "inz", "imv",
-            "gu ", "wu ", " dy", "lus", "awu", " ti", "lak", "bay", "bun", "kat", "ngo", "tal",
-            "i b", "utu", "kak", "o k", "bim", "uzi", "uza", "mvu", " ng", "nak", "iku", "baw",
-            "esa", "kin", "ken", "yak", "mpa", "luz", "umu", "nu ", "nta", "dis", "dik", "vuk",
-            "u f", "tan", "sad", "ati", "nka", "ank", "luk", "mak", "ong", " mb", "ani", "i l",
-            "lwa", "aba", "luy", "uya", "yal", "ing", "zwa", "kuv", "idi", "ku ", "ga ", "zit",
-            "bis", "uvw", "uzw", " ni", "swa", " nk", "iti", "mef", "fun", "ibu", "nsa", "aku",
-            "ufu", "kub", "lam", "met", "i a", "mus", "eta", "a a", "u t", "twa", "atu", "tuk",
-            "fum", "uko", "iki", "don", "kol", "kun", "bam", "eng", "uku", "ndo", " ns", "a s",
-            "ela", "usi", "pam", "mvw", "u b", "i t", "zo ", "anu", "tis", "uke", "sul", "te ",
-            "gid", "dib", "yam", "ilw", " mf", "ola", "umb", "uso", "kam", "gi ", "mbi", "oko",
-            "nzi", "i s", " nd", "mfu", "luf", "dus", "bum", "lut", "mam", "ded", "wil", "tad",
-        ],
-    ),
-    (
-        Lang::Ndo,
-        &[
-            "na ", "oku", "wa ", " na", "a o", "a n", "ka ", "ntu", " uu", "tu ", "uth", " om",
-            "e o", "mba", "ong", "omu", "ba ", " ok", "uut", " ne", "he ", "the", "ang", "hem",
-            "emb", "unt", "o o", "a u", " wo", "nge", " iy", "ehe", "kal", " no", "a w", "o n",
-            "no ", "nga", "e n", "ko ", "mun", "oka", "lo ", "o i", "lon", "we ", "ulu", "a m",
-            "ala", " ke", "la ", "a k", "u n", "han", "ku ", "gwa", "osh", "shi", "ana", "ngu",
-            "ilo", "ano", "ngo", "keh", " mo", "ga ", "nen", "man", "ho ", "luk", "tha", "ge ",
-            "gul", "u k", "eng", "ha ", "a y", "elo", "uko", "a e", "ye ", "hil", "uka", "li ",
-            "go ", "wan", "ath", "wo ", "thi", "dhi", "uun", " pa", "kwa", " ta", "a p", "ya ",
-            " sh", " ko", "nka", "lwa", " os", "mwe", "oma", "ta ", "ema", "sho", " ka", "e m",
-            " yo", "sha", "wok", "ika", "po ", "o w", "onk", "e p", "pan", "ith", "a i", "opa",
-            "gel", "hik", "iya", "hi ", "aan", "una", "o g", "kuk", "alo", "o e", "nok", "ndj",
-            "le ", "a a", "men", "yom", "a s", "i n", " li", "and", " po", "pam", "lat", "kan",
-            "ash", "waa", "aka", "ame", "gam", "umb", "a t", "ond", "yuu", "o k", "olo", "ane",
-            "ing", "igw", "aa ", "ele", "kul", "mon", " gw", "ilw", "gan", "o y", "iil", "iyo",
-            " el", "kut", "nin", "oko", "ike", "o m", " ku", "adh", " ye", "amw", "ome", "yeh",
-            "aye", " ga", " on", " yi", "a g", "lyo", "ne ", " ng", "mbo", "opo", "kug", "eko",
-            "yok", "wom", " oy", "non", "iye", " go", "ulo", "e e", " we", " e ", "ina", "ant",
-            "omo", "ene", " a ", "i k", "mok", "him", " dh", "und", "ndu", " me", "eho", "wen",
-            "nek", " op", "alu", "e g", "ima", "kat", "ota", "oye", "ila", "ngw", "yop", "wat",
-            "ela", "o u", "a l", " ii", " ay", " nd", " th", "o l", "yon", "ili", "oon", "okw",
-            "yaa", "taa", "lwe", "omb", " ni", "aku", "i m", "mo ", "ula", "ekw", "enw", "iyu",
-            "pok", "epa", "uki", "ke ", " wu", " mb", "meh", "e t", "uni", "nom", "dho", "pau",
-            "eta", "yi ", " ly", "o a", "ono", "lun", "lak", "ola", "yo ", "lol", "ank", "bo ",
-            "i o", "awa", "nwa", "a h", "naw", "hok", "nem", "kom", "ndo", "o s", "u t", "vet",
-            "mbu", "ani", "uga", "ndi", "ukw", "udh", "lok", "e k", "alw", "kwe", "kun", " ya",
-        ],
-    ),
-    (
-        Lang::Quy,
-        &[
-            "chi", "nch", "hik", "una", " ka", "anc", "kun", "man", "ana", "aq ", "cha", "aku",
-            "pas", "as ", "sqa", "paq", "nan", "qa ", "apa", "kan", "ikp", "ik ", "ech", "spa",
-            " de", "pa ", "cho", "ere", "der", "rec", "am ", " ru", "an ", " ma", " ch", "kpa",
-            "asq", "ta ", "na ", "nam", "nak", "taq", "a k", "qan", "ina", "run", "lli", "ach",
-            "nap", "pi ", "mi ", " ll", "yoq", "asp", "ima", "hay", "hin", "aqa", "nku", "ant",
-            "ayn", "oyo", " hi", " im", "hoy", "cio", "nta", "nas", "q k", "api", "iw ", "wan",
-            "kuy", "kay", "liw", "aci", "ion", "ipa", "lla", "oq ", "npa", "ay ", "kas", "a m",
-            "nac", " na", "inc", "all", "ama", "ari", "anp", " ya", "chu", " hu", "nin", "pip",
-            "i k", "qmi", "hon", "w r", "ata", "awa", "a c", "ota", "in ", "yku", "yna", " wa",
-            "a h", "has", "a d", "iku", "a l", " li", "pan", "ich", "may", " pi", " ha", "onc",
-            "a r", "onk", " ot", "ku ", " qa", "ank", "aqm", "mun", "anm", "hu ", "a p", "nma",
-            " mu", "qta", "n h", "pap", "isq", "yni", "ikm", "ma ", "wsa", "aws", "kaw", "ibr",
-            "bre", "lib", "ayk", "usp", "nqa", "e k", " al", "lin", "n k", "re ", "ara", "nat",
-            "yac", "kma", "war", "huk", "uwa", "yta", "hwa", "chw", " sa", "was", "kus", "yan",
-            "m d", "kpi", "q m", "a i", "q l", "kin", "tap", "a a", "kta", "ikt", "i c", "a s",
-            "uy ", " ca", "qaw", "uku", " tu", " re", "aqt", "ask", "qsi", "sak", "uch", "q h",
-            "cas", "tin", "pak", "ris", "ski", "sic", "q d", "nmi", "s l", "naq", "tuk", "mpa",
-            "a y", "k c", "uma", "ien", "ypi", " am", "qaq", "qap", "eqs", "ayp", "req", "qpa",
-            "aqp", "law", "ayt", "q c", "pun", " ni", "a q", "ruw", "i h", "haw", "n c", " pa",
-            "amp", "par", "k h", " le", "yma", "ñun", "ern", "huñ", "nni", "n r", "anq", "map",
-            "aya", "tar", "s m", "uñu", "ten", "val", "ura", "ita", "arm", "isu", "s c", "onn",
-            "igu", " ri", "qku", "naw", "k l", "u l", "his", "ley", "say", "s y", "rim", "aru",
-            "rma", "sun", "ier", "s o", "qar", "n p", "a f", "a t", "esq", "n a", "oqm", "s i",
-            "awk", " va", "w n", "hap", "lap", "kup", "i r", "kam", "uyk", "sap", " qe", "ual",
-            "m p", "ran", "nya", "gua", " pe", " go", "gob", "maq", "sum", "ast", " su", " ig",
-        ],
-    ),
-    (
-        Lang::Rmn,
-        &[
-            "aj ", "en ", " te", "te ", " sa", " le", "aka", "pen", " si", " e ", "el ", "ipe",
-            "si ", "kaj", "sar", " th", "and", " o ", "sav", "qe ", "les", " ma", "es ", " ha",
-            "j t", "hak", "ja ", "ar ", "ave", " an", "a s", "ta ", "i l", "ia ", "nas", " aj",
-            "ne ", " so", "imn", "mna", "sqe", "esq", "nd ", "tha", "haj", "e s", "e t", "e a",
-            "enq", "asq", "man", " ja", "kan", "e m", " i ", " ta", "the", "mes", "cia", "bar",
-            "as ", "isa", "utn", "qo ", "hem", "o s", "s s", " me", "vel", "ark", "i t", " na",
-            "kas", "est", " ba", "s h", "avo", " di", "ard", " bi", " pe", "rka", "lo ", " ak",
-            "ika", "e r", "a a", " pr", "e k", "qi ", "mat", "ima", "e p", "a t", " av", "e d",
-            "r s", "n s", "anu", "nuś", "o t", "avi", "orr", "o a", " ka", " re", "n a", "re ",
-            "aja", "e o", "sqo", "sti", " ov", "õl ", "l p", "nqe", "ere", "d o", "vor", "so ",
-            "no ", "dik", "rel", "ove", "n t", "ve ", "e b", "res", "tim", "ren", " de", "àci",
-            "o m", "i a", "but", "len", "ali", "ari", "rre", "de ", " pa", "ver", " va", "sqi",
-            "ara", "ana", "vip", "rak", "ang", "vi ", " ra", "or ", "ker", "i s", "eme", "e z",
-            "ata", "e l", "a e", "rip", "rim", "akh", "la ", "o p", "kar", "e h", "a p", "na ",
-            "ane", "rin", "ste", "j b", "er ", "ind", "ni ", "tne", " ph", "nip", "r t", " ke",
-            "ti ", "are", "ndo", " je", "l a", "uśi", "e n", "khi", " bu", "kon", "lim", "al ",
-            "tar", "ekh", "jek", "àlo", "o k", " ko", "rde", "rab", "aba", " zi", "ri ", "aća",
-            "ćar", "śik", "dõl", "dor", "on ", "ano", "ven", " ni", "śaj", " śa", "khe",
-            "ća ", "ast", "j s", "uti", "uni", "tni", "naś", "i d", "mut", " po", "i p", "a m",
-            " pu", "a l", "l s", "som", "n n", "ikh", "nik", "del", "ala", "ris", "pes", "pe ",
-            "j m", "enć", "e e", "nća", "ndi", "rdõ", "kri", "erd", "śka", "emu", "men", "alo",
-            "nis", "aśt", "śti", "amu", "kh ", "tis", "uj ", "j p", "do ", "ani", "ate", "nda",
-            "o b", "nge", "o z", "soc", "a d", "muj", "o j", "da ", "pri", "rdo", " as", "cie",
-            "l t", "ro ", "i r", "kla", "ing", "a j", " ze", "zen", "j e", "ziv", "hin", "aśk",
-            " st", "maś", "ran", "pal", "khl", "mam", "i b", "oci", "rea", "l o", "nqo", " vi",
-            "n e",
         ],
     ),
 ];
@@ -4523,45 +2454,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Bos,
-        &[
-            " пр", " и ", "рав", " на", "пра", "на ", "да ", "ма ", "има",
-            " св", "а с", "а п", " да", "а и", " по", "је ", "во ", "ко ",
-            "ва ", " у ", "ако", "но ", "о и", "е с", " за", " им", "аво",
-            "ти ", "ава", "сва", "и п", "ли ", "о н", "или", "и с", "их ",
-            "вак", " ко", "ост", "а у", " сл", "не ", "вањ", " др", "ње ",
-            " не", "кој", "ња ", " би", "ије", "и д", "им ", "ств", "у с",
-            "јед", "бод", "сло", "лоб", "обо", " ил", "при", " је", "ање",
-            " ра", "а д", " об", " су", "е и", "вје", "се ", "ом ", "и и",
-            "сти", " се", "ју ", "дру", "а б", " ос", "циј", "вој", "е п",
-            "а н", "раз", "су ", "у п", "ања", "о д", "ује", "а о", "у и",
-            " од", "и у", "ло ", "ова", "дје", "жав", "оје", "а к", "ни ",
-            "ово", "едн", "ити", "аци", "у о", "о п", "нос", "и о", "бра",
-            " ка", "шти", "а ј", "них", "е о", "пре", "про", "ржа", " бу",
-            "буд", "тре", " тр", "ог ", "држ", "бит", "е д", "у з", "ја ",
-            "ста", "авн", "ија", "е б", "миј", "и н", "реб", "сво", "ђи ",
-            "а з", "ве ", "бил", "ред", "род", "аро", "ило", "ива", "ту ",
-            "пос", " ње", " из", "е у", "ају", "ба ", "ка ", "ем ", "ени",
-            "де ", "јер", "у д", "одн", "њег", "ду ", "гов", "вим", "јел",
-            "тва", "за ", " до", "еђу", "ним", " са", "нар", "а т", " ни",
-            "о к", "оји", "м и", " см", " ст", "еба", "ода", "ран", "у н",
-            "дна", "ичн", "уђи", "ист", "вно", "алн", "и м", " дј", "нак",
-            "нац", "сно", "нст", "тив", "ани", "ено", "е к", "е н", "аве",
-            "ан ", "чно", "и б", "ном", "сту", "нов", "ови", "чов", "нап",
-            "ног", "м с", "ој ", "ну ", "а р", "еди", "овј", "оја", "сми",
-            "осн", "анс", "ара", "дно", "х п", "под", "сам", "обр", "о о",
-            "руг", "тво", "ји ", " мо", "его", "тит", "ашт", "заш", " кр",
-            "тељ", "ико", "уна", "ник", "рад", "оду", "туп", "жив",
-            " ми", "јек", "кри", " ов", " вј", " чо", "ву ", "г п", " оп",
-            "међ", "њу ", "рив", "нич", "ина", "одр", "е т", "уду", " те",
-            "мје", "ење", "сви", "а ч", "у у", "ниц", "дни", " та", "и т",
-            "тно", "ите", "и в", "дст", "акв", "те ", "ао ", " вр", "ра ",
-            "вољ", "рим", "ак ", "иту", "ави", "кла", "вни", "амо", " он",
-            "ада", "ере", "ена", "сто", "кон", "ст ", "она", "иво",
-            "оби", "оба", "едс", "как", "љу ",
-        ],
-    ),
-    (
         Lang::Srp,
         &[
             " пр", " и ", "рав", "пра", " на", "на ", " по", "ма ", " св",
@@ -4601,45 +2493,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Uzn,
-        &[
-            "лар", "ан ", "га ", "ар ", " ва", " би", "да ", "ва ", "ир ",
-            " ҳу", "ига", "уқу", "бир", "ҳуқ", "қуқ", "ган", " ҳа", "ини",
-            "нг ", "р б", "иш ", " та", "ни ", "инг", "лик", "а э", "ида",
-            "или", "лиш", "нин", "ари", "иши", " ин", "ади", "он ", "инс",
-            "нсо", "сон", "ий ", "лан", "дир", " ма", "кин", "и б", "ши ",
-            "ҳар", " бў", "бўл", " му", "дан", "уқи", "ила", "қла", "р и",
-            "қиг", "эга", " эг", " ўз", "ки ", "эрк", "қил", "а б", "оли",
-            "кла", " эр", "гад", "лга", "нли", " ол", "рки", "и ҳ", " ёк",
-            "ёки", " қа", "иб ", "иги", "лиг", "н б", "н м", " қи", " ба",
-            "ара", "атл", "ри ", " бо", "лат", "бил", "ин ", "ҳам", "а т",
-            "лаш", "р ҳ", "ала", " эт", "инл", "ик ", "бош", "ниш", "ш ҳ",
-            "мас", "и в", "эти", "тил", "тла", "а ҳ", "и м", "а қ", "уқл",
-            "қар", "ани", "арн", "рни", "им ", "ат ", "оси", "ўли", "ги ",
-            " да", "а и", "н ҳ", "риш", "и т", "мла", "ли ", " ха", "а м",
-            "ият", " бу", "рла", "а а", "рча", "бар", "аси", "ўз ", "арч",
-            "ати", "лин", "ча ", "либ", "мум", " ас", "аро", "а о", "ун ",
-            "таъ", " бе", " ту", "икл", "р в", "тга", "тиб", " ке", "н э",
-            "ш в", "мда", "амд", "али", "н қ", "мат", "шга", " те", "сид",
-            "лла", "иро", " шу", " қо", "дам", "а ш", "ирл", "илл", "хал",
-            "рга", " де", "ири", "тиш", "умк", "ола", "амл", "мки",
-            "тен", "гин", "ур ", "а ў", "рак", "а ё", "имо", " эъ", "алқ",
-            " са", "енг", "тар", "рда", "ода", " ша", "шқа", "ўлг", "кат",
-            "сий", "ак ", "н о", "зар", "и қ", "ор ", " ми", "нда", "н в",
-            " си", "аза", "ера", "а к", "тни", "р т", "мил", " ки", "к б",
-            "ана", "ам ", "ошқ", "рин", "сос", "ас ", " со", "сиз", "асо",
-            "нид", "асл", "н ў", "н т", "илг", "бу ", "й т", "ти ", "син",
-            "дав", "шла", "на ", "лим", "қон", "и а", "лак", "эма", "муҳ",
-            "ъти", "си ", "бор", "аш ", "и э", "ака", "нга", "а в", "дек",
-            "уни", "екл", "ино", "ами", " жа", "риг", "а д", " эм", "вла",
-            "лма", "кер", " то", "лли", "авл", " ка", "ят ", "н и", "аъл",
-            "чун", "анл", "учу", " уч", "и с", "аёт", " иш", "а у", "тда",
-            "мия", "а с", "ра ", "ўзи", "оий", "ай ", "диг", "эът", "сла",
-            "ага", "ник", "р д", "ция", " ни", "и ў", "ада", "рор", "лад",
-            "сит", "кда", "икд", "ким",
-        ],
-    ),
-    (
         Lang::Azj,
         &[
             " вә", "вә ", "әр ", "лар", " һә", "ин ", "ир ", " ол", " һү",
@@ -4676,45 +2529,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
             "әһс", "ы в", "һси", "вар", "шәр", "абә", "гу ", "раб", "аја",
             "з һ", "амә", "там", "ғын", "ад ", "уғу", "н д", "мәһ", "тәм",
             " ни", "и т", " ха",
-        ],
-    ),
-    (
-        Lang::Koi,
-        &[
-            "ны ", "ӧн ", " бы", "да ", " пр", "пра", "рав", " мо", "лӧн",
-            " да", "быд", "лӧ ", "орт", "мор", "ӧм ", "аво", "ӧй ", " ве",
-            "ыд ", " не", "нӧй", "ыс ", "ын ", "сӧ ", "тӧм", "сь ", "во ",
-            "эз ", "льн", "ьнӧ", "тны", "д м", " ас", "ыны", "м п", " по",
-            "сьӧ", " и ", "то ", "бы ", " ӧт", " эм", " кы", "аль", "тлӧ",
-            "н э", " от", "вер", "эм ", " кӧ", "ртл", "ӧ в", " ко", "воэ",
-            "ств", "ерм", "тшӧ", " до", "ола", "ылӧ", "вол", "ас ", "ӧдн",
-            "кыт", "ісь", "ето", "нет", "тво", "ліс", "кӧр", "ӧс ", " се",
-            "ы с", "шӧм", "а с", "та ", "злӧ", " ме", " ол", "аци", "ӧ к",
-            "ӧ д", "мед", " вы", "вны", "а в", "на ", "з в", " на", "ӧ б",
-            "лас", "ӧрт", " во", " вӧ", " сі", "лан", "рмӧ", "дбы", "едб",
-            "ыдӧ", "оз ", "ась", " оз", " сы", "ытш", "олӧ", "оэз", "тир",
-            "с о", " чу", "ы а", "оти", "ция", "ись", "ӧтл", " эт", "рты",
-            " го", "ы п", "ы б", "кол", "тыс", "сет", " сь", "рті", "кӧт",
-            "о с", "н б", "дз ", "н н", " мы", " ке", "кер", "тӧн", "тӧг",
-            "ӧтн", "ис ", "а д", "мӧ ", "ост", "ӧ м", " со", "онд", "нац",
-            "дӧс", "итӧ", "ест", "выл", " ви", "сис", "эта", " уд", "суд",
-            "нӧ ", "удж", "ӧг ", "пон", "ы н", "н п", "мӧд", "а п", "орй",
-            "ӧны", "ӧмӧ", "н м", "ть ", "сыл", "ана", "ті ", "нда", "рны",
-            "сси", "рре", "укӧ", "з к", "чук", "йын", "рез", " эз", "ысл",
-            "ӧр ", "ьӧр", "с с", "с д", "рт ", "с в", "езл", "кин", "осу",
-            "эзл", "й о", "отс", " тӧ", "ы д", " ло", " об", "овн", "лӧт",
-            "асс", "кӧд", "с м", "ӧ о", "нал", "быт", "она", "ӧт ", "слӧ",
-            "скӧ", "кон", "тӧд", "ытӧ", "дны", "а м", "ы м", "нек", "ы к",
-            "ӧ н", "асл", "дор", "ӧ п", " де", " за", "а о", " ов", "сть",
-            "тра", " дз", "ь к", "ӧтч", "н к", " ст", "аса", "етӧ", "ьны",
-            "мӧл", "умӧ", "сьн", " ум", "ерн", "код", " пы", "тла", "оль",
-            "иал", "а к", "н о", " сэ", "а н", "ь м", "кыд", "циа", "са ",
-            " ли", "а б", "езӧ", "й д", " чт", "ськ", "эсӧ", "ион", "еск",
-            "ӧ с", "оци", "что", "ан ", "соц", "йӧ ", "мӧс", "тко", "зын",
-            "нӧя", "вес", "енн", " мӧ", "ӧтк", "ӧсь", "тӧ ", "рлӧ", "ӧя ",
-            "оля", "рйӧ", "ӧмы", "гос", "тсӧ", "зак", "рст", "з д",
-            "дек", "ннё", "уда", "пыр", "еки", "ако", "озь", " а ", "исӧ",
-            "поз", "дар", "арс", "ы ч",
         ],
     ),
     (
@@ -4796,84 +2610,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Kaz,
-        &[
-            "ен ", "не ", " құ", "тар", "ұқы", " ба", " қа", "ға ", "ада",
-            "дам", "құқ", "ық ", " бо", " ад", "ықт", "қта", "ына", "ар ",
-            " жә", "ың ", "ылы", "әне", "жән", " не", "мен", "лық", "на ",
-            "р а", "де ", " жа", "ін ", "а қ", "ары", "ан ", " әр", "қыл",
-            "ара", "ала", " ме", "н қ", "еме", "уға", "ның", " де", "асы",
-            "ам ", "іне", "тан", "лы ", "нды", "да ", "әр ", "ығы", "ста",
-            "еке", " өз", "ын ", "ған", "анд", "мес", " бі", " қо", "ды ",
-            "ің ", "бас", "бол", "етт", "ып ", "н б", "ілі", "қық", "нде",
-            "ері", "е қ", "алы", "нем", "се ", "бір", "лар", "есе", "ы б",
-            "тын", "а ж", " ке", "тиі", "ост", "ге ", "бар", " ти", "е б",
-            " ар", "дық", "сы ", "інд", "е а", "аты", " та", " бе", "ы т",
-            "ік ", "олы", "нда", "ғын", "ры ", "иіс", "ғы ", " те", "бос",
-            "луы", "алу", "сын", "рын", "еті", "іс ", "рде", "қығ", "е ж",
-            "рін", "дар", "іні", "н ж", "тті", "қар", "н к", "ім ", " ер",
-            "егі", "ыры", "ыны", " са", "рға", "ген", "ынд", "аны",
-            "уын", "ы м", "лға", "ана", "нің", "тер", "уы ", "ей ", "тік",
-            "ке ", "сқа", "қа ", "мыс", "тық", "м б", "ард", " от", "е н",
-            "е т", "мны", "өзі", "нан", "гіз", "еге", " на", "ы ә", "аза",
-            "ң қ", "лан", "нег", "асқ", "кін", "амн", "кет", "рал",
-            "айд", "луғ", "аса", "ті ", "рды", "і б", "а б", "ру ", " же",
-            "р м", "ді ", "тта", "мет", "лік", "тыр", "ама", "жас", "н н",
-            "лып", " мү", "дай", "өз ", "ігі", " ал", "ауд", "дей", "зін",
-            "бер", "р б", "уда", "кел", "біл", "і т", "қор", "тең", "лге",
-            " жү", "ден", "ы а", "елі", "дер", "ы ж", "а т", "рқы", "рлы",
-            "арқ", " тү", "қам", "еле", "а о", "е ө", "тін", "ір ", "ең ",
-            "уге", "е м", "лде", "ау ", "ауы", "ркі", "н а", "ы е", "оны",
-            "н т", "рыл", "түр", "ция", "гін", " то", " ха", "жағ", "оға",
-            "осы", "зде", " ос", "ікт", "кті", "а д", "ұлт", "лтт", "тты",
-            "лім", "ғда", " ау", " да", "хал", "тте", "лма", " ұл", "амд",
-            "құр", "ірі", "қат", "тал", "орғ", "зі ", "елг", "сіз",
-            "ағы", " ел", "ң б", "ыс ", " ас", "імд", "оты", " әл", "н е",
-            "ағд", "қты", "шін", "ерк", "е д", "ек ", "ені", "кім", "ылм",
-            "шіл", "аға", "сты", "лер", "гі ", "атт", "кен", " кө",
-            "ым‐", " кұ", "кұқ", "ра ", "рік", "н ә", " еш",
-        ],
-    ),
-    (
-        Lang::Tat,
-        &[
-            " һә", "лар", "әм ", "һәм", " ке", " хо", "кук", "оку", "хок",
-            "еше", " бе", "ләр", "кеш", "га ", "әр ", "рга", "ан ", "кла",
-            " бу", "ар ", "ең ", "нең", "гә ", " то", " ба", "да ", "ргә",
-            " ти", "ырг", "һәр", "ене", "бер", "ән ", "ен ", "р к", "бул",
-            "укл", "дә ", "а т", "ары", "тор", "ире", " үз", "на ", "ган",
-            "ара", " ка", " ал", "ә т", "нә ", " ит", " дә", "ы б", " ир",
-            "рын", "ше ", "ын ", "енә", "тие", "лык", "екл", "ына", "н т",
-            "иеш", "бар", "еле", "ка ", "елә", "а х", "н б", "кы ", "рек",
-            "ала", "кар", " та", "ә к", "нда", "еш ", "лән", "бел", "укы",
-            "лан", "ите", "тә ", "шен", "ле ", "лы ", "ез ", "ерг", "н и",
-            "ә б", "а к", "клә", "үз ", "тел", "лыр", "не ", "әрг", "ы һ",
-            "е б", " га", " ха", "алы", "рне", "м и", "тен", "әрн", "а б",
-            "ның", "ынд", "ың ", "ләт", "дан", "сә ", " як", "лга", "улы",
-            "ел ", "а а", " яи", "яис", "асы", "ш т", "а һ", " са", "рлә",
-            "лек", "иге", "ә х", "гез", "орм", "ем ", "аны", "р б", "м а",
-            "р һ", "рмы", "мыш", "сын", "шка", "ә һ", "исә", "тәр", "үлә",
-            "әт ", "мәт", "сен", "сез", "чен", " ни", "ә и", "н м", "илл",
-            "ять", "ны ", "ылы", "үзе", " ки", " эш", " ту", "алу", "акы",
-            "ып ", "уга", "ль ", "тан", "н к", "лу ", "бу ", "мас", "рен",
-            "кә ", " тү", " тә", "түг", "зен", " җә", "тын", "ди ", "баш",
-            "кле", "гән", "ть ", " би", "әре", "штә", "гын", "әүл", "ер ",
-            "мил", " ми", "клы", "гел", "ыш ", "лер", "ерл", "әве", "рдә",
-            "а я", "р а", " мә", " рә", "лем", "хал", " ан", "ң т", " аш",
-            "ык ", "ция", "е х", "стә", "ә д", "аль", "рак", "ек ", " де",
-            "рәв", "тот", "кән", "улг", "орг", "веш", "ешт", "ни ",
-            "итә", "кка", "м т", "үге", "шел", "а и", "ндә", " да", "рел",
-            "кер", " кы", "ерә", "та ", "н я", "еге", "ый ", "а д", "аци",
-            "р о", "шла", "тлә", "әтл", "н д", "айл", "ллә", "ард", "рда",
-            "кта", "шкә", " за", "ге ", "ләш", "ш б", "әсе", "кон", "шыр",
-            "циа", "нин", "лау", "уры", "ры ", "оты", "әне", " тө", "инд",
-            "нди", " җи", "оци", "соц", "лә ", "арт", "якл", "зак", "тиг",
-            "рке", " ди", " со", "ыкл", "кем", " ко", "р и", "ң б", "әте",
-            "гыя", "чар", "үгә", "ин ", "иле", " сә", " ил", "мгы", " ае",
-            "н а", "аер", "ыны", "л һ",
-        ],
-    ),
-    (
         Lang::Tuk,
         &[
             " би", "лар", " ве", "ве ", "да ", "ада", "ары", " хе", "ир ",
@@ -4913,84 +2649,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Tgk,
-        &[
-            "ар ", " ба", " ҳа", " да", "ад ", " ва", "он ", "ва ", " та",
-            "дар", "ти ", " ин", "ба ", " бо", " ки", "аро", " до", "ои ",
-            "дор", "ард", "ки ", "бар", "д ҳ", "уқу", " як", "ин ", "ҳар",
-            "и о", " на", " ма", "и м", "ора", " ҳу", "як ", "ни ", "нсо",
-            "инс", "и ҳ", "аи ", "и б", "сон", "рад", " му", "ҳои", "р я",
-            "ҳуқ", "қуқ", "ҳақ", "ии ", "к и", " ша", "и д", " аз", "и и",
-            " оз", "нд ", "яд ", "қ д", "озо", "аз ", "зод", "анд", "д б",
-            "ояд", " ка", "ият", "она", "да ", "амо", "ақ ", "а б", "ди ",
-            " ё ", "гар", "ат ", "дан", "ҳам", "оди", "рда", "моя", " он",
-            "уда", "қи ", " ху", "бо ", "и т", "дон", "ст ", "нам", "н ҳ",
-            "ода", "и с", "ан ", "н б", "мил", "и х", "бош", "они", "оша",
-            "худ", "ава", "боя", "аст", "и а", "ро ", " ме", "а ҳ", "имо",
-            "ила", "оми", "оба", "ида", "кар", "н д", "лат", "д в", "а ш",
-            "ҳо ", " ас", "таҳ", "рои", "и н", "д к", "яти", " ди", "шад",
-            "ӣ в", "ри ", "рдо", "шав", " ми", "е к", "роб", "тар", "та ",
-            "кор", " бе", "о д", "вад", "мон", "иҳо", "ли ", "уд ", "оси",
-            "ошт", "ми ", "р м", "ати", "т б", " со", "ӣ ё", "нҳо", "мин",
-            "шар", "ара", "таъ", "ани", "а в", "иро", "а д", "дав", "ят ",
-            "даа", " са", "ама", "дош", "раф", "шуд", "лӣ ", "д а", "оти",
-            "а м", " фа", "ист", "ор ", "р ҳ", "на ", "и к", "р к", "д т",
-            "и ҷ", "и ш", " эъ", " су", "н м", "н в", "и ӯ", "фи ", "вар",
-            "диҳ", "ига", "зар", " шу", "ари", "а т", " иҷ", " ақ", " ҳи",
-            "асо", "р б", "т ҳ", "а а", "одо", "мум", "р в", "а о", " ӯ ",
-            "рон", "наз", "диг", " ни", "бот", " ҷа", "авр", " қа", "яи ",
-            "р д", "уқи", "лал", "кас", "шта", "уна", "еҷ ", "ино", "тҳо",
-            "уни", "або", "сти", " во", "авл", "и қ", "вла", "ун ", "у о",
-            "ӣ б", " ҳе", "дӣ ", "қу ", "чун", "н и", "сар", "ояи", "тав",
-            "маҳ", "онҳ", "қар", "атҳ", "тир", "оҳ ", "ахс", " қо", "уқ ",
-            "оли", " ис", "д д", "и з", " ко", "аза", "ори", "фар", "сос",
-            "ран", "н к", "р а", "ҷти", "ону", "сӣ ", "ири", "рра", "рӣ ",
-            "ҳеҷ", " за", "ид ", "ҳти", "рии", "ами", "қон", "уди", "н н",
-            " од", "иҷт", "мия", "ъло", "лом", "ию ", "наи", "али", "нда",
-            "оӣ ", "оят", "янд", " зи", "оян", "ӣ ҳ", "и п", "офи", "киш",
-            "ҳим", "рат", "тим",
-        ],
-    ),
-    (
-        Lang::Kir,
-        &[
-            " жа", "на ", "ана", "жан", " би", "уу ", "уку", "га ", "бир",
-            " ук", "ар ", "ен ", "луу", "тар", "кук", "укт", " ка", " ад",
-            "ын ", "ада", "ууг", "дам", " ме", "уга", "ык ", " ар", "ене",
-            "мен", "нен", "ан ", "ары", "олу", " бо", "ин ", "ам ", "ган",
-            "ир ", "бол", " ал", "ара", "нда", "н к", "туу", "р б", "н ж",
-            " ба", "анд", " же", "р а", "кта", "ына", "ард", "кту", "эрк",
-            "үн ", "да ", "н б", "н э", " эр", "нди", "а т", " ко", "рды",
-            "н а", "дык", "рки", "инд", "а ж", "кин", "ала", "а а", "лар",
-            "аны", "үү ", " өз", "а к", "тер", "алу", " та", "а у", "алы",
-            "а э", "же ", "ук ", "ийи", " ти", "иш ", "тий", " ма", "гө ",
-            "кыл", "йиш", "улу", "нын", "ке ", "н т", "кар", "бар", "или",
-            "у м", " кы", "иги", "рын", "а б", "үгө", "рга", "е а", "ун ",
-            "етт", "дик", " ту", "дар", "тта", "баш", "у а", "н у", " ээ",
-            "дын", "им ", "рүү", "гин", "лык", "ушу", "нды", "тур", " са",
-            " эл", " эм", " мү", "гон", "лга", "алд", "икт", "үүг", " бе",
-            "ры ", "өз ", "нан", "он ", " ан", "кте", "ул ", "дай", "ерд",
-            "диг", "р м", "ери", "үчү", " не", "атт", "лды", "еке", "еги",
-            "үнө", "лук", "амд", "у б", "ынд", "үнү", "рди", "тук", "ка ",
-            "кан", "к ж", " ки", "м а", "күн", "не ", "ине", "мда", "рин",
-            "ого", "кет", " со", "кам", "дин", "к м", " эч", " то", "сыз",
-            "ылу", "өзү", " де", "н м", "ция", "ээ ", "чүн", "гиз", "уп ",
-            "нег", "эч ", "руу", "ыз ", "мес", "эме", " иш", "лут", "ы м",
-            "шка", "ыкт", "мам", "ашк", "лде", " ке", "лго", " тү", "ө ж",
-            "олг", "ес ", "к т", "кор", "ге ", "бил", "түү", "угу", "рал",
-            "алг", "тын", "кен", " ул", "лим", "утт", "ыгы", "орг", "н н",
-            "у ж", "рде", "нуу", "тал", "ч к", "рго", "мак", " те", " уш",
-            "уну", "ктө", "ди ", "акт", "нүн", " ди", "зүн", "иле", " кө",
-            "кат", "аци", "мсы", " эс", "тык", "е к", "ей ", "тан", "е э",
-            "ай ", "ер ", "соц", "оци", "циа", "аты", " жо", "к к", "амс",
-            "лан", "а м", "ири", "ске", "айд", "ирд", " мы", "ылы", "зги",
-            "ыны", "ага", "ген", "е б", "шул", "тол", "өнү", "дыг", "е ж",
-            "ү ү", "з к", "айы", "раб", "енд", "абы", "жал", "ү ж", "оо ",
-            "уна", "к а", "кал", "лек", "ект", "рма", "дей", " үч", "тоо",
-            "мат", "у э", "бер",
-        ],
-    ),
-    (
         Lang::Mkd,
         &[
             " на", "на ", " пр", " и ", "во ", " се", "то ", "ите", "те ",
@@ -5027,45 +2685,6 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
             "вре", "меѓ", "олн", "нап", " го", "емј", "кри", "уна",
             "нем", "оја", " су", "ита", "азо", "лит", "тор", "инс",
             "ора", "огл", "ипа", "пот", "слу", "кви",
-        ],
-    ),
-    (
-        Lang::Khk,
-        &[
-            " эр", "эрх", " хү", "ний", "н б", "эн ", "тэй", "ийг", "х э",
-            "эй ", " бо", "хүн", " бү", "йн ", "ан ", "ах ", " ба", "ийн",
-            "бол", "ий ", " ха", "бай", "уул", "рх ", "оло", "й х", "йг ",
-            "гаа", "эх ", "бүр", "гүй", "үн ", " бу", "он ", "аар", "рхт",
-            "үнд", "хтэ", "үр ", "лэх", "ар ", " за", "н х", "лах", "эр ",
-            " хэ", "й б", "өлө", "н э", "лөө", "эл ", " үн", "аа ", " ул",
-            "ын ", "хий", "үй ", " ор", " ту", "улс", "ула", "үлэ", " чө",
-            "чөл", "н т", "үүл", " ху", "сэн", " ни", "ндэ", "лон", "гээ",
-            "р х", "өөр", "сан", " нэ", "ны ", " ёс", "нь ", "эд ", " гэ",
-            " нь", " ч ", " тө", " тэ", "лаг", "оро", "дэс", "лс ", "г х",
-            "ох ", "үни", "ээр", "хам", "х ё", " ша", "д х", "р э", "лго",
-            "лд ", " дэ", "н а", "бую", "уюу", "гуу", "төр", "ай ", "юу ",
-            "тай", "ээ ", "ж б", "эг ", "лий", "хан", "ыг ", " эд", " то",
-            "х б", "дсэ", "й э", "рга", " ал", "хар", "арг", "ад ", "лга",
-            "рэг", " зо", "айг", "ага", " тү", "л х", "ал ", " хө", "өөт",
-            " са", "н н", "йгэ", "дэл", "нд ", "гий", "н з", "ол ", "ава",
-            "лла", " өө", "рол", "өтэ", "гэр", "г б", "л б", "бус", "нэг",
-            "н д", "аг ", "аал", "н ү", "алд", "рла", " үз", "гэм", "й а",
-            "н у", " ол", "хуу", "х ч", "эрэ", "мга", "олг", "эс ", "хүү",
-            "той", " ар", "үү ", "лал", " эн", " мө", "йх ", "ин ", "өрө",
-            "х т", "луу", "рий", "сон", " га", "хэн", "айх", "эни", " ам",
-            "гла", "өр ", "аса", "ана", "амг", " би", "ард", " ял", "йгм",
-            "ой ", "лын", "үрэ", "эгт", " ав", "эдэ", "оо ", "мий", "х н",
-            "аан", "үйл", "арл", "нха", "тгэ", "дээ", "с о", "рхи",
-            "лов", "д н", "тэг", "өг ", "өн ", "хэр", "лэн", "өөг", "үүн",
-            "вср", "га ", "р т", " хи", "хүр", "рон", "ч б", " хо", "гөө",
-            " мэ", "бие", "н г", "ура", "бүх", "ори", "али", " аж", " үй",
-            " яв", "өх ", "хээ", "г н", "ата", " та", "гш ", "г ү", "эгш",
-            "вах", "лох", "эгд", "длэ", "х ү", "гох", "үх ", "энэ", "лж ",
-            "олц", " шү", "л т", " да", "дал", "эж ", "д б", "лан", "й т",
-            "айл", "л н", "х а", "агл", "тоо", " со", "өри", "йгу", "гми",
-            "дил", "ээн", "дар", "н ш", "шүү", "овс", " ад", "а х", "р ч",
-            "ади", "ааг", "лаа", "айд", "амь", "гтэ", "н с", "д т", "ийт",
-            "лэл", "х ш", "н ч", "унх",
         ],
     ),
 ];
@@ -6794,311 +4413,6 @@ pub static DEVANAGARI_LANGS: LangProfileList = &[
             "उने",
             "रण ",
             "विक",
-        ],
-    ),
-    (
-        Lang::Mag,
-        &[
-            "के ",
-            " के",
-            "ार ",
-            " हई",
-            "कार",
-            "िका",
-            "धिक",
-            "हई।",
-            " और",
-            "े अ",
-            "और ",
-            "अधि",
-            " अध",
-            "ा क",
-            "र ह",
-            "े स",
-            "े क",
-            "सब ",
-            "ें ",
-            "में",
-            " मे",
-            " कर",
-            "से ",
-            " सम",
-            "था ",
-            "तथा",
-            " हो",
-            " से",
-            "र स",
-            "र क",
-            "िक ",
-            " तथ",
-            " सब",
-            " सं",
-            "क्ष",
-            "मान",
-            "ब क",
-            "ा स",
-            "ना ",
-            " सा",
-            "प्र",
-            "कर ",
-            " प्",
-            " भी",
-            "ति ",
-            "ई। ",
-            "रा ",
-            "भी ",
-            "्रा",
-            " अप",
-            " का",
-            "त क",
-            "या ",
-            "अपन",
-            " को",
-            "ट्र",
-            "क ह",
-            "पन ",
-            " पर",
-            " मा",
-            " रा",
-            " या",
-            "ी क",
-            "ता ",
-            " स्",
-            " ओक",
-            "ष्ट",
-            "ही ",
-            "ान ",
-            "्त ",
-            "करे",
-            "्रत",
-            "त्र",
-            "ाष्",
-            "्ट्",
-            " सक",
-            "न क",
-            "राष",
-            "ओकर",
-            "।सब",
-            "रे ",
-            "ेल ",
-            "हई ",
-            "े ब",
-            " जा",
-            "ई।स",
-            "रक्",
-            " ले",
-            "ंत्",
-            "े म",
-            " ही",
-            "सक ",
-            "नो ",
-            "र म",
-            " ना",
-            "स्व",
-            "ाम ",
-            "होए",
-            "र औ",
-            "दी ",
-            "व्य",
-            "क्त",
-            "ा प",
-            "वतं",
-            "ानव",
-            "ित ",
-            " शा",
-            "ादी",
-            "षा ",
-            "माज",
-            " इ ",
-            "तंत",
-            "पर ",
-            "ी स",
-            "्वत",
-            "्य ",
-            "े उ",
-            "्र ",
-            "ोग ",
-            "वे ",
-            "्षा",
-            "े भ",
-            "े ल",
-            "न स",
-            "करा",
-            "कान",
-            " एक",
-            "ल ज",
-            "म क",
-            "लेल",
-            "्ति",
-            "ावे",
-            " दे",
-            "रता",
-            "क स",
-            "साथ",
-            "ानू",
-            "नून",
-            "ेकर",
-            "र अ",
-            "य क",
-            "ाथ ",
-            "प्त",
-            "ा म",
-            "ला ",
-            "ई।क",
-            " वि",
-            "समा",
-            "ून ",
-            "े प",
-            "साम",
-            "। स",
-            "ा ह",
-            " जे",
-            "े ह",
-            " चा",
-            "ोई ",
-            "जा ",
-            "मिल",
-            " व्",
-            "ि क",
-            "बे ",
-            "ाप्",
-            "राप",
-            "ोए ",
-            "रो ",
-            "वार",
-            "कोई",
-            "चाह",
-            " दो",
-            "व क",
-            " नि",
-            "चार",
-            "र व",
-            "ाधि",
-            " पा",
-            "र प",
-            "स्त",
-            "एल ",
-            "कोन",
-            "े व",
-            "ोनो",
-            "काम",
-            "ो स",
-            "्म ",
-            "े ओ",
-            "योग",
-            " सु",
-            "ए क",
-            "नवा",
-            "न ह",
-            "षण ",
-            "ीय ",
-            "एक ",
-            "परि",
-            " उप",
-            "े आ",
-            "्तर",
-            " सह",
-            "ाजि",
-            "ल ह",
-            "संर",
-            "ई क",
-            "ास ",
-            "पूर",
-            "ं स",
-            "ंरक",
-            "ो क",
-            "जिक",
-            "देश",
-            "ुक्",
-            "ामा",
-            "होब",
-            "सम्",
-            "।के",
-            "्यक",
-            "े च",
-            "केक",
-            "्वा",
-            "पयो",
-            "उपय",
-            "री ",
-            "ी ह",
-            "ाही",
-            "दोस",
-            "र आ",
-            " उच",
-            "ाति",
-            "म्म",
-            "्मा",
-            "े ख",
-            " लो",
-            "तिक",
-            "रति",
-            "ेश ",
-            "न औ",
-            "स्थ",
-            "वा ",
-            "मी ",
-            "े त",
-            " आद",
-            "निय",
-            "न प",
-            "वाध",
-            " घो",
-            "घोष",
-            "ब अ",
-            "रिव",
-            "ा ब",
-            "कि ",
-            "म स",
-            "रीय",
-            "्री",
-            "य स",
-            "यक्",
-            "ि म",
-            "ा द",
-            "ा त",
-            "ब ह",
-            "जाद",
-            "उचि",
-            "युक",
-            "ंयु",
-            "संय",
-            " उ ",
-            "इ स",
-            "े इ",
-            "्षण",
-            "। त",
-            "चित",
-            "ा औ",
-            "व ह",
-            "हे ",
-            "त स",
-            " पू",
-            "क औ",
-            "ग क",
-            "े न",
-            "न द",
-            "करो",
-            "लोग",
-            "ोषण",
-            "ारा",
-            "र न",
-            "िल ",
-            "समय",
-            "कौन",
-            "ं क",
-            "मय ",
-            "ौनो",
-            "ुरक",
-            "ो भ",
-            " भा",
-            "ाज ",
-            " कए",
-            "कएल",
-            "सुर",
-            "र्म",
-            "ाव ",
-            "िवा",
         ],
     ),
 ];

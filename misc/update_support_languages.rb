@@ -20,24 +20,37 @@ class Lang
     @code = code || raise("Missing code")
     @eng_name = eng_name || raise("Missing eng_name")
     @name = name || eng_name || raise("Missing name")
-    @script = script || raise("Missing script")
-    @trigrams = trigrams || raise("Missing trigrams")
     @native_speakers = native_speakers
   end
 
   def self.load
     langs = []
-    json = JSON.parse(File.read(JSON_FILE))
     rows = CSV.read(LIST_FILE, headers: true).each
+    rows.each do |row|
+      if !langs.any? { |l| l.code == row["code"] }
+        langs << Lang.new(row["code"], row["eng_name"], row["name"], "", [], row["native_speakers"])
+      end
+    end
+
+    scripts = {}
+    json = JSON.parse(File.read(JSON_FILE))
     json.each do |script, languages|
+      if !scripts[script]
+        scripts[script] = []
+      end
       languages.each do |lang, trigrams|
-        row = rows.find { |r| r["code"] && r["code"] == lang }
-        if row
-          langs << Lang.new(row["code"], row["eng_name"], row["name"], script, trigrams.split('|'), row["native_speakers"])
+        info = langs.find { |l| l.code == lang }
+        if info
+          puts info, lang
+          scripts[script] << {
+            code: lang,
+            script: script,
+            trigrams: trigrams.split('|')
+          }
         end
       end
     end
-    return langs, json
+    return langs, scripts
   end
 end
 

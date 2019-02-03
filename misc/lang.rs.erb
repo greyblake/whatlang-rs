@@ -45,15 +45,15 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
 <% scripts.each do |script, langs| %>
 /// Languages for script <%= script %>
 pub static <%= script.upcase %>_LANGS: LangProfileList = &[
-    <% langs.each do |lang, trigrams| %>
-    (
-        Lang::<%= lang.capitalize %>,
-        &[
-            <% trigrams.split('|').each_with_index do |trigram, i| %>
-            	"<%= trigram %>",
-            <% end %>
-        ]
-    ),
+    <% langs.each do |lang| %>
+        (
+            Lang::<%= lang[:code].capitalize %>,
+            &[
+	        <% lang[:trigrams].each do |trigram| %>
+                    "<%= trigram %>",
+		<% end %>
+            ]
+        ),
     <% end %>
 ];
 <% end %>
