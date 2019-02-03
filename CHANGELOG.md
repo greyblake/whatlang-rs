@@ -1,5 +1,8 @@
-#### v0.6.0 - 2018-11-09
+#### ???
+* Support Afrikaans language (afr)
 
+
+#### v0.6.0 - 2018-11-09
 * Use hashbrown instead of fnv (detect() is 30% faster)
 * Use array on stack instead of vector for detect_script (1-2% faster)
 * Use build.rs to generate `lang.rs` file

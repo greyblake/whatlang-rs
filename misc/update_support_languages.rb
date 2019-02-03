@@ -1,4 +1,4 @@
-# Updates README with list of supported languages
+# Updates SUPPORTED_LANGUAGES.md with list of supported languages
 
 require "csv"
 require "erb"
@@ -8,10 +8,11 @@ require "pry"
 
 LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
 JSON_FILE = File.expand_path("../data.json", __FILE__)
-README_FILE = File.expand_path("../../README.md", __FILE__)
 LANG_TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
 LANG_OUTPUT = File.expand_path("../../src/lang.rs", __FILE__)
 TRIGRAM_COUNT = 300
+
+OUTPUT_FILE = File.expand_path("../../SUPPORTED_LANGUAGES.md", __FILE__)
 
 class Lang
   attr_reader :code, :eng_name, :name, :native_speakers, :script, :trigrams
@@ -110,8 +111,8 @@ template = ERB.new(File.read(LANG_TEMPLATE_FILE))
 File.open(LANG_OUTPUT, 'w') { |out| out.write(template.result) }
 `cargo fmt` # Call cargo fmt to clean the generated code
 
-readme = File.read(README_FILE)
+readme = File.read(OUTPUT_FILE)
 
 readme.gsub!(/\| Language .+\|\n/m, table.to_s)
 
-File.write(README_FILE, readme)
+File.write(OUTPUT_FILE, readme)
