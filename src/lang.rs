@@ -251,6 +251,9 @@ pub enum Lang {
 
     /// ئۇيغۇرچە (Uyghur)
     Uig = 82,
+
+    /// Afrikaans (Afrikaans)
+    Afr = 83,
 }
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -420,6 +423,8 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "sna" => Some(Lang::Sna),
 
         "uig" => Some(Lang::Uig),
+
+        "afr" => Some(Lang::Afr),
 
         _ => None,
     }
@@ -592,6 +597,8 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Sna => "sna",
 
         Lang::Uig => "uig",
+
+        Lang::Afr => "afr",
     }
 }
 
@@ -762,6 +769,8 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Sna => "ChiShona",
 
         Lang::Uig => "ئۇيغۇرچە",
+
+        Lang::Afr => "Afrikaans",
     }
 }
 
@@ -932,6 +941,8 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Sna => "Shona",
 
         Lang::Uig => "Uyghur",
+
+        Lang::Afr => "Afrikaans",
     }
 }
 
@@ -2035,6 +2046,36 @@ pub static LATIN_LANGS: LangProfileList = &[
             "kun", "nid", "uma", "i h", "vem", "a h", "mir", "usa", "o p", "i n", "a v", "i k",
             "amb", "zan", "nza", "kuz", "zi ", "kak", "ing", "u v", "ngw", "mum", "mba", "nir",
             "sar", "ewo", "e p", "uwa", "vic", "i i", "gwa", "aga", "ama", "go ", "yew", "pam",
+        ],
+    ),
+    (
+        Lang::Afr,
+        &[
+            "ie ", "die", "en ", " di", " en", "an ", "ing", "ng ", "van", " va", "te ", "e v",
+            "reg", " re", "n d", " ge", "ens", "et ", "e r", "e e", " te", " be", "le ", "ver",
+            "een", " in", "ke ", " ve", " he", "eg ", "het", "lke", "lik", "n h", "de ", "nie",
+            "aan", "t d", "id ", "men", " vr", "nde", "eid", "e o", " aa", "in ", "of ", "der",
+            "hei", "om ", "g v", " op", " ni", "e b", " el", "al ", "and", "elk", "er ", " me",
+            "ord", "e w", "g t", " to", " of", "ers", " we", " sa", " vo", "ot ", "erk", "n v",
+            "vry", "ge ", "kee", "asi", "tot", " wa", "sie", "ere", " om", "aar", "sal", "dig",
+            "wor", "egt", "gte", "rdi", "rd ", "at ", "nd ", "e s", "ede", "ige", " de", " ’n",
+            "n a", "eni", " wo", "e g", " on", "n s", "’n ", "e t", "erd", "ns ", "oor", "bes",
+            "ond", "se ", "ska", "aak", "nig", "lle", "yhe", "ryh", "is ", "eli", "esk", "ien",
+            "sta", "vol", "ele", "e m", " vi", "ik ", "r d", "vir", "edi", "kap", "g e", "ir ",
+            "es ", "sy ", "ang", "din", " st", "ewe", "gem", "gel", "g o", " is", "el ", "e i",
+            "op ", "ker", "ak ", "uit", "ike", "nse", "hie", "ur ", "eur", " al", "e a", "nas",
+            "e n", "nge", "ier", "n o", "wer", "e d", "ap ", " hu", "ale", "rin", " hi", "eme",
+            "deu", "min", "wat", "n e", "s o", " as", " so", "as ", "e h", "del", "d v", "ter",
+            "ten", "gin", "end", "kin", "it ", " da", " sy", "per", "re ", "n w", "ges", "wet",
+            "ger", "e k", "oed", "s v", "nte", "s e", "ona", "nal", "waa", "d t", "ees", "soo",
+            " ma", "d s", "ies", "tel", "ema", "d e", "red", "ite", " na", "ske", "ely", "lyk",
+            "ren", "nsk", "d o", "oon", "t e", "eke", "esi", "ese", "eri", "hul", " gr", "ig ",
+            "sio", "man", "rde", "ion", "n b", "n g", "voo", "hed", "ind", "tee", " pe", "rso",
+            "t v", "s d", "all", "n t", "rse", "n i", "eem", "d w", "ort", "ndi", "daa", "maa",
+            "t g", "erm", "ont", "ent", "ans", "ame", "yke", "ari", "n m", "lan", "voe", "n ’",
+            "nli", "rkl", "r m", "sia", "ods", "ard", "iem", "g s", "wee", "r e", "l g", "taa",
+            "sek", "bar", "gti", "n n", "lin", "sen", "t o", "t a", "raa", "ene", "opv", "pvo",
+            "ete", " ty", "arb", " sl", "igh", "dee", "g a", "str", "nsl", "sel", "ern", "ste",
         ],
     ),
     (
