@@ -1,6 +1,6 @@
 [package]
 name = "whatlang"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 edition = "2018"
 description = "Natural language detection library. Identifies language of a given text."
@@ -14,10 +14,6 @@ categories = ["text-processing", "algorithms"]
 include = [
     "src/**/*",
     "test/**/*",
-    "misc/data.json",
-    "misc/supported_languages.csv",
-    "templates/lang.rs",
-    "build.rs",
     "Cargo.toml",
     "README.md"
 ]
