@@ -1,6 +1,6 @@
-#### ???
+#### v0.7.0 - 2019-03-03
 * Support Afrikaans language (afr)
-
+* Get rid of build dependencies: installation is much faster now
 
 #### v0.6.0 - 2018-11-09
 * Use hashbrown instead of fnv (detect() is 30% faster)
