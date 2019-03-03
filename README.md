@@ -109,3 +109,4 @@ cargo bench
 
 - [greyblake](https://github.com/greyblake) Potapov Sergey - creator, maintainer.
 - [Dr-Emann](https://github.com/Dr-Emann) Zachary Dremann - optimization and improvements
+- [BaptisteGelez](https://github.com/BaptisteGelez) Baptiste Gelez - improvements
