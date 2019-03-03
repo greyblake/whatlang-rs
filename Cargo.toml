@@ -31,11 +31,7 @@ hashbrown = "0.1.8"
 [dev-dependencies]
 serde_json = "1.0.32"
 bencher = "0.1.5"
-skeptic = "0.13.3"
 proptest = "0.8.7"
-
-[build-dependencies]
-skeptic = "0.13.3"
 
 [[bench]]
 name = "example"
