@@ -1,26 +1,57 @@
 # Updates SUPPORTED_LANGUAGES.md with list of supported languages
 
 require "csv"
+require "erb"
+require "json"
 require "pp"
 require "pry"
 
 LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
+JSON_FILE = File.expand_path("../data.json", __FILE__)
+LANG_TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
+LANG_OUTPUT = File.expand_path("../../src/lang.rs", __FILE__)
+TRIGRAM_COUNT = 300
+
 OUTPUT_FILE = File.expand_path("../../SUPPORTED_LANGUAGES.md", __FILE__)
 
 class Lang
-  attr_reader :code, :eng_name
+  attr_reader :code, :eng_name, :name, :native_speakers, :script, :trigrams
 
-  def initialize(code, eng_name)
+  def initialize(code, eng_name, name, script, trigrams, native_speakers = nil)
     @code = code || raise("Missing code")
     @eng_name = eng_name || raise("Missing eng_name")
+    @name = name || eng_name || raise("Missing name")
+    @native_speakers = native_speakers
   end
 
   def self.load
     langs = []
-    CSV.read(LIST_FILE, headers: true).each do |row|
-      langs << Lang.new(row["code"], row["eng_name"]) if row["code"]
+    rows = CSV.read(LIST_FILE, headers: true).each
+    rows.each do |row|
+      if !langs.any? { |l| l.code == row["code"] }
+        langs << Lang.new(row["code"], row["eng_name"], row["name"], "", [], row["native_speakers"])
+      end
     end
-    langs
+
+    scripts = {}
+    json = JSON.parse(File.read(JSON_FILE))
+    json.each do |script, languages|
+      if !scripts[script]
+        scripts[script] = []
+      end
+      languages.each do |lang, trigrams|
+        info = langs.find { |l| l.code == lang }
+        if info
+          puts info, lang
+          scripts[script] << {
+            code: lang,
+            script: script,
+            trigrams: trigrams.split('|')
+          }
+        end
+      end
+    end
+    return langs, scripts
   end
 end
 
@@ -69,12 +100,16 @@ class MarkdownTable
 end
 
 
-langs = Lang.load
+langs, scripts = Lang.load
 
 table = MarkdownTable.new(["Language", "ISO 639-3", "Enum"])
 langs.each do |lang|
   table.add([lang.eng_name, lang.code, "`Lang::#{lang.code.capitalize}`"])
 end
+
+template = ERB.new(File.read(LANG_TEMPLATE_FILE))
+File.open(LANG_OUTPUT, 'w') { |out| out.write(template.result) }
+`cargo fmt` # Call cargo fmt to clean the generated code
 
 readme = File.read(OUTPUT_FILE)
 
