@@ -35,7 +35,7 @@ Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "0.6.0"
+whatlang = "0.7.0"
 ```
 
 Example:
