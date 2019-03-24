@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/LICENSE)
-[![Documentation](https://docs.rs/whatlang/badge.svg)](https://docs.rs/whatlang)
-[online demo](https://www.greyblake.com/whatlang/)
+[![Documentation](https://docs.rs/whatlang/badge.svg)](https://docs.rs/whatlang) [![Demo](https://img.shields.io/badge/online-demo-yellow.svg)](https://www.greyblake.com/whatlang)
 
 Natural language detection for Rust with focus on simplicity and performance.
 
