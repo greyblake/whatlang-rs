@@ -413,7 +413,12 @@ mod tests {
             detect_script(" ككل حوالي 1.6، ومعظم الناس "),
             Some(Script::Arabic)
         );
-        assert_eq!(detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है"), Some(Script::Devanagari));
+        assert_eq!(
+            detect_script(
+                "हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है"
+            ),
+            Some(Script::Devanagari)
+        );
         assert_eq!(
             detect_script("היסטוריה והתפתחות של האלפבית העברי"),
             Some(Script::Hebrew)
