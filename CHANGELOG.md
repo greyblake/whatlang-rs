@@ -1,3 +1,6 @@
+#### v0.7.1 - 2019-05-06
+* Update dependency hashbrown 0.1.8 -> 0.3.0 (10% faster)
+
 #### v0.7.0 - 2019-03-03
 * Support Afrikaans language (afr)
 * Get rid of build dependencies: installation is much faster now
