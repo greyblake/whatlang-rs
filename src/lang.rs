@@ -12,7 +12,7 @@ pub enum Lang {
     /// Русский (Russian)
     Rus = 2,
 
-    /// 官话 (Mandarin)
+    /// 普通话 (Mandarin)
     Cmn = 3,
 
     /// Español (Spanish)
@@ -610,7 +610,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
 
         Lang::Rus => "Русский",
 
-        Lang::Cmn => "官话",
+        Lang::Cmn => "普通话",
 
         Lang::Spa => "Español",
 
