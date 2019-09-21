@@ -157,10 +157,10 @@ pub fn detect_script(text: &str) -> Option<Script> {
 
 fn is_cyrillic(ch: char) -> bool {
     match ch {
-        '\u{0400}'...'\u{0484}'
-        | '\u{0487}'...'\u{052F}'
-        | '\u{2DE0}'...'\u{2DFF}'
-        | '\u{A640}'...'\u{A69D}'
+        '\u{0400}'..='\u{0484}'
+        | '\u{0487}'..='\u{052F}'
+        | '\u{2DE0}'..='\u{2DFF}'
+        | '\u{A640}'..='\u{A69D}'
         | '\u{1D2B}'
         | '\u{1D78}'
         | '\u{A69F}' => true,
@@ -171,19 +171,19 @@ fn is_cyrillic(ch: char) -> bool {
 // https://en.wikipedia.org/wiki/Latin_script_in_Unicode
 fn is_latin(ch: char) -> bool {
     match ch {
-        'a'...'z'
-        | 'A'...'Z'
-        | '\u{0080}'...'\u{00FF}'
-        | '\u{0100}'...'\u{017F}'
-        | '\u{0180}'...'\u{024F}'
-        | '\u{0250}'...'\u{02AF}'
-        | '\u{1D00}'...'\u{1D7F}'
-        | '\u{1D80}'...'\u{1DBF}'
-        | '\u{1E00}'...'\u{1EFF}'
-        | '\u{2100}'...'\u{214F}'
-        | '\u{2C60}'...'\u{2C7F}'
-        | '\u{A720}'...'\u{A7FF}'
-        | '\u{AB30}'...'\u{AB6F}' => true,
+        'a'..='z'
+        | 'A'..='Z'
+        | '\u{0080}'..='\u{00FF}'
+        | '\u{0100}'..='\u{017F}'
+        | '\u{0180}'..='\u{024F}'
+        | '\u{0250}'..='\u{02AF}'
+        | '\u{1D00}'..='\u{1D7F}'
+        | '\u{1D80}'..='\u{1DBF}'
+        | '\u{1E00}'..='\u{1EFF}'
+        | '\u{2100}'..='\u{214F}'
+        | '\u{2C60}'..='\u{2C7F}'
+        | '\u{A720}'..='\u{A7FF}'
+        | '\u{AB30}'..='\u{AB6F}' => true,
         _ => false,
     }
 }
@@ -191,13 +191,13 @@ fn is_latin(ch: char) -> bool {
 // Based on https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
 fn is_arabic(ch: char) -> bool {
     match ch {
-        '\u{0600}'...'\u{06FF}'
-        | '\u{0750}'...'\u{07FF}'
-        | '\u{08A0}'...'\u{08FF}'
-        | '\u{FB50}'...'\u{FDFF}'
-        | '\u{FE70}'...'\u{FEFF}'
-        | '\u{10E60}'...'\u{10E7F}'
-        | '\u{1EE00}'...'\u{1EEFF}' => true,
+        '\u{0600}'..='\u{06FF}'
+        | '\u{0750}'..='\u{07FF}'
+        | '\u{08A0}'..='\u{08FF}'
+        | '\u{FB50}'..='\u{FDFF}'
+        | '\u{FE70}'..='\u{FEFF}'
+        | '\u{10E60}'..='\u{10E7F}'
+        | '\u{1EE00}'..='\u{1EEFF}' => true,
         _ => false,
     }
 }
@@ -205,7 +205,7 @@ fn is_arabic(ch: char) -> bool {
 // Based on https://en.wikipedia.org/wiki/Devanagari#Unicode
 fn is_devanagari(ch: char) -> bool {
     match ch {
-        '\u{0900}'...'\u{097F}' | '\u{A8E0}'...'\u{A8FF}' | '\u{1CD0}'...'\u{1CFF}' => true,
+        '\u{0900}'..='\u{097F}' | '\u{A8E0}'..='\u{A8FF}' | '\u{1CD0}'..='\u{1CFF}' => true,
         _ => false,
     }
 }
@@ -213,7 +213,7 @@ fn is_devanagari(ch: char) -> bool {
 // Based on https://www.key-shortcut.com/en/writing-systems/ethiopian-script/
 fn is_ethiopic(ch: char) -> bool {
     match ch {
-        '\u{1200}'...'\u{139F}' | '\u{2D80}'...'\u{2DDF}' | '\u{AB00}'...'\u{AB2F}' => true,
+        '\u{1200}'..='\u{139F}' | '\u{2D80}'..='\u{2DDF}' | '\u{AB00}'..='\u{AB2F}' => true,
         _ => false,
     }
 }
@@ -221,52 +221,52 @@ fn is_ethiopic(ch: char) -> bool {
 // Based on https://en.wikipedia.org/wiki/Hebrew_(Unicode_block)
 fn is_hebrew(ch: char) -> bool {
     match ch {
-        '\u{0590}'...'\u{05FF}' => true,
+        '\u{0590}'..='\u{05FF}' => true,
         _ => false,
     }
 }
 
 fn is_georgian(ch: char) -> bool {
     match ch {
-        '\u{10A0}'...'\u{10FF}' => true,
+        '\u{10A0}'..='\u{10FF}' => true,
         _ => false,
     }
 }
 
 fn is_mandarin(ch: char) -> bool {
     match ch {
-        '\u{2E80}'...'\u{2E99}'
-        | '\u{2E9B}'...'\u{2EF3}'
-        | '\u{2F00}'...'\u{2FD5}'
+        '\u{2E80}'..='\u{2E99}'
+        | '\u{2E9B}'..='\u{2EF3}'
+        | '\u{2F00}'..='\u{2FD5}'
         | '\u{3005}'
         | '\u{3007}'
-        | '\u{3021}'...'\u{3029}'
-        | '\u{3038}'...'\u{303B}'
-        | '\u{3400}'...'\u{4DB5}'
-        | '\u{4E00}'...'\u{9FCC}'
-        | '\u{F900}'...'\u{FA6D}'
-        | '\u{FA70}'...'\u{FAD9}' => true,
+        | '\u{3021}'..='\u{3029}'
+        | '\u{3038}'..='\u{303B}'
+        | '\u{3400}'..='\u{4DB5}'
+        | '\u{4E00}'..='\u{9FCC}'
+        | '\u{F900}'..='\u{FA6D}'
+        | '\u{FA70}'..='\u{FAD9}' => true,
         _ => false,
     }
 }
 
 fn is_bengali(ch: char) -> bool {
     match ch {
-        '\u{0980}'...'\u{09FF}' => true,
+        '\u{0980}'..='\u{09FF}' => true,
         _ => false,
     }
 }
 
 fn is_hiragana(ch: char) -> bool {
     match ch {
-        '\u{3040}'...'\u{309F}' => true,
+        '\u{3040}'..='\u{309F}' => true,
         _ => false,
     }
 }
 
 fn is_katakana(ch: char) -> bool {
     match ch {
-        '\u{30A0}'...'\u{30FF}' => true,
+        '\u{30A0}'..='\u{30FF}' => true,
         _ => false,
     }
 }
@@ -274,13 +274,13 @@ fn is_katakana(ch: char) -> bool {
 // Hangul is Korean Alphabet. Unicode ranges are taken from: https://en.wikipedia.org/wiki/Hangul
 fn is_hangul(ch: char) -> bool {
     match ch {
-        '\u{AC00}'...'\u{D7AF}'
-        | '\u{1100}'...'\u{11FF}'
-        | '\u{3130}'...'\u{318F}'
-        | '\u{3200}'...'\u{32FF}'
-        | '\u{A960}'...'\u{A97F}'
-        | '\u{D7B0}'...'\u{D7FF}'
-        | '\u{FF00}'...'\u{FFEF}' => true,
+        '\u{AC00}'..='\u{D7AF}'
+        | '\u{1100}'..='\u{11FF}'
+        | '\u{3130}'..='\u{318F}'
+        | '\u{3200}'..='\u{32FF}'
+        | '\u{A960}'..='\u{A97F}'
+        | '\u{D7B0}'..='\u{D7FF}'
+        | '\u{FF00}'..='\u{FFEF}' => true,
         _ => false,
     }
 }
@@ -288,7 +288,7 @@ fn is_hangul(ch: char) -> bool {
 // Taken from: https://en.wikipedia.org/wiki/Greek_and_Coptic
 fn is_greek(ch: char) -> bool {
     match ch {
-        '\u{0370}'...'\u{03FF}' => true,
+        '\u{0370}'..='\u{03FF}' => true,
         _ => false,
     }
 }
@@ -296,7 +296,7 @@ fn is_greek(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Kannada_(Unicode_block)
 fn is_kannada(ch: char) -> bool {
     match ch {
-        '\u{0C80}'...'\u{0CFF}' => true,
+        '\u{0C80}'..='\u{0CFF}' => true,
         _ => false,
     }
 }
@@ -304,7 +304,7 @@ fn is_kannada(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Tamil_(Unicode_block)
 fn is_tamil(ch: char) -> bool {
     match ch {
-        '\u{0B80}'...'\u{0BFF}' => true,
+        '\u{0B80}'..='\u{0BFF}' => true,
         _ => false,
     }
 }
@@ -312,7 +312,7 @@ fn is_tamil(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Thai_(Unicode_block)
 fn is_thai(ch: char) -> bool {
     match ch {
-        '\u{0E00}'...'\u{0E7F}' => true,
+        '\u{0E00}'..='\u{0E7F}' => true,
         _ => false,
     }
 }
@@ -320,7 +320,7 @@ fn is_thai(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Gujarati_(Unicode_block)
 fn is_gujarati(ch: char) -> bool {
     match ch {
-        '\u{0A80}'...'\u{0AFF}' => true,
+        '\u{0A80}'..='\u{0AFF}' => true,
         _ => false,
     }
 }
@@ -329,14 +329,14 @@ fn is_gujarati(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Gurmukhi_(Unicode_block)
 fn is_gurmukhi(ch: char) -> bool {
     match ch {
-        '\u{0A00}'...'\u{0A7F}' => true,
+        '\u{0A00}'..='\u{0A7F}' => true,
         _ => false,
     }
 }
 
 fn is_telugu(ch: char) -> bool {
     match ch {
-        '\u{0C00}'...'\u{0C7F}' => true,
+        '\u{0C00}'..='\u{0C7F}' => true,
         _ => false,
     }
 }
@@ -344,7 +344,7 @@ fn is_telugu(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Malayalam_(Unicode_block)
 fn is_malayalam(ch: char) -> bool {
     match ch {
-        '\u{0D00}'...'\u{0D7F}' => true,
+        '\u{0D00}'..='\u{0D7F}' => true,
         _ => false,
     }
 }
@@ -352,7 +352,7 @@ fn is_malayalam(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Malayalam_(Unicode_block)
 fn is_oriya(ch: char) -> bool {
     match ch {
-        '\u{0B00}'...'\u{0B7F}' => true,
+        '\u{0B00}'..='\u{0B7F}' => true,
         _ => false,
     }
 }
@@ -360,7 +360,7 @@ fn is_oriya(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Myanmar_(Unicode_block)
 fn is_myanmar(ch: char) -> bool {
     match ch {
-        '\u{1000}'...'\u{109F}' => true,
+        '\u{1000}'..='\u{109F}' => true,
         _ => false,
     }
 }
@@ -368,7 +368,7 @@ fn is_myanmar(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Sinhala_(Unicode_block)
 fn is_sinhala(ch: char) -> bool {
     match ch {
-        '\u{0D80}'...'\u{0DFF}' => true,
+        '\u{0D80}'..='\u{0DFF}' => true,
         _ => false,
     }
 }
@@ -376,7 +376,7 @@ fn is_sinhala(ch: char) -> bool {
 // Based on: https://en.wikipedia.org/wiki/Khmer_alphabet
 fn is_khmer(ch: char) -> bool {
     match ch {
-        '\u{1780}'...'\u{17FF}' | '\u{19E0}'...'\u{19FF}' => true,
+        '\u{1780}'..='\u{17FF}' | '\u{19E0}'..='\u{19FF}' => true,
         _ => false,
     }
 }

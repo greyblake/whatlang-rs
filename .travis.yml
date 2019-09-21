@@ -8,4 +8,4 @@ script:
   - cargo fmt -- --check
   - cargo clippy -- -D warnings
   - cargo test
-  - cargo package
+  - cargo package --allow-dirty

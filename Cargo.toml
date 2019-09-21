@@ -32,3 +32,4 @@ proptest = "0.9.1"
 [[bench]]
 name = "example"
 harness = false
+path = "benches/example.rs"
