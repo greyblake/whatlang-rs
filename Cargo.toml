@@ -1,6 +1,6 @@
 [package]
 name = "whatlang"
-version = "0.7.1"
+version = "0.7.2"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 edition = "2018"
 description = "Natural language detection library. Identifies language of a given text."
@@ -22,7 +22,7 @@ include = [
 travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dependencies]
-hashbrown = "0.3.0"
+hashbrown = "0.6.1"
 
 [dev-dependencies]
 serde_json = "1.0.39"

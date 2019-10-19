@@ -1,3 +1,6 @@
+#### v0.7.2 - 2019-10-19
+* (fix) respect japanese whitelisting when mandarin characters are given (#44)
+
 #### v0.7.1 - 2019-05-06
 * Update dependency hashbrown 0.1.8 -> 0.3.0 (10% faster)
 
