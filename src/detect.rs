@@ -59,7 +59,7 @@ fn detect_lang_based_on_script(
         Script::Hebrew => detect_lang_in_profiles(text, options, HEBREW_LANGS),
         Script::Ethiopic => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
         Script::Arabic => detect_lang_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin => detect_mandarin_japanese(text, options),
+        Script::Mandarin => detect_mandarin_japanese(options),
         Script::Bengali => Some((Lang::Ben, 1.0)),
         Script::Hangul => Some((Lang::Kor, 1.0)),
         Script::Georgian => Some((Lang::Kat, 1.0)),
@@ -163,7 +163,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<String
     total_dist
 }
 
-fn detect_mandarin_japanese(text: &str, options: &Options) -> Option<(Lang, f64)> {
+fn detect_mandarin_japanese(options: &Options) -> Option<(Lang, f64)> {
     match options.list {
         Some(List::White(ref whitelist)) => {
             if whitelist.contains(&Lang::Jpn) && !whitelist.contains(&Lang::Cmn) {
