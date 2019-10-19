@@ -173,7 +173,7 @@ fn detect_mandarin_japanese(text: &str, options: &Options) -> Option<(Lang, f64)
             } else {
                 None
             }
-        },
+        }
         Some(List::Black(ref blacklist)) => {
             if blacklist.contains(&Lang::Cmn) && !blacklist.contains(&Lang::Jpn) {
                 Some((Lang::Jpn, 1.0))
@@ -182,8 +182,8 @@ fn detect_mandarin_japanese(text: &str, options: &Options) -> Option<(Lang, f64)
             } else {
                 None
             }
-        },
-        _ => Some((Lang::Cmn, 1.0))
+        }
+        _ => Some((Lang::Cmn, 1.0)),
     }
 }
 

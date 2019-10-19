@@ -397,10 +397,7 @@ mod tests {
 
         // One script
         assert_eq!(detect_script("Hello!"), Some(Script::Latin));
-        assert_eq!(
-            detect_script("Привет всем!"),
-            Some(Script::Cyrillic)
-        );
+        assert_eq!(detect_script("Привет всем!"), Some(Script::Cyrillic));
         assert_eq!(
             detect_script("ქართული ენა მსოფლიო "),
             Some(Script::Georgian)
@@ -414,9 +411,7 @@ mod tests {
             Some(Script::Arabic)
         );
         assert_eq!(
-            detect_script(
-                "हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है"
-            ),
+            detect_script("हिमालयी वन चिड़िया (जूथेरा सालिमअली) चिड़िया की एक प्रजाति है"),
             Some(Script::Devanagari)
         );
         assert_eq!(
@@ -424,9 +419,7 @@ mod tests {
             Some(Script::Hebrew)
         );
         assert_eq!(
-            detect_script(
-                "የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ"
-            ),
+            detect_script("የኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊሪፐብሊክ"),
             Some(Script::Ethiopic)
         );
 
