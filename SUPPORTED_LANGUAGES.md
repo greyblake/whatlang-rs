@@ -92,3 +92,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Shona          | sna       | `Lang::Sna` |
 | Uyghur         | uig       | `Lang::Uig` |
 | Afrikaans      | afr       | `Lang::Afr` |
+| Latin          | lat       | `Lang::Lat` |
