@@ -254,6 +254,9 @@ pub enum Lang {
 
     /// Afrikaans (Afrikaans)
     Afr = 83,
+
+    /// Lingua Latina (Latin)
+    Lat = 84,
 }
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -425,6 +428,8 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "uig" => Some(Lang::Uig),
 
         "afr" => Some(Lang::Afr),
+
+        "lat" => Some(Lang::Lat),
 
         _ => None,
     }
@@ -599,6 +604,8 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Uig => "uig",
 
         Lang::Afr => "afr",
+
+        Lang::Lat => "lat",
     }
 }
 
@@ -771,6 +778,8 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Uig => "ئۇيغۇرچە",
 
         Lang::Afr => "Afrikaans",
+
+        Lang::Lat => "Lingua Latina",
     }
 }
 
@@ -943,6 +952,8 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Uig => "Uyghur",
 
         Lang::Afr => "Afrikaans",
+
+        Lang::Lat => "Latin",
     }
 }
 
@@ -2384,6 +2395,36 @@ pub static LATIN_LANGS: LangProfileList = &[
             "kin", "äär", "sea", "isk", "een", "ead", "dum", " kä", "rii", "rat", "lem", "umi",
             "kor", "sa ", "idu", "mus", "rit", "har", " si", "vad", "ita", "ale", "kai", "teo",
             " mõ", "ade", "üks", "mas", "lse", "als", "iaa", "sia", "sot", "jal", "iig", "ite",
+        ],
+    ),
+    (
+        Lang::Lat,
+        &[
+            "is ", "et ", "us ", "um ", " et", "ae ", "tat", "ati", " co", "que", "ue ", "ion",
+            " qu", "em ", "ent", "oni", "est", " su", " iu", " in", " po", "tio", "tes", "tis",
+            "ate", "bus", "e i", "ita", "ibu", "ium", "ius", "qui", "nti", "eri", "es ", "s p",
+            "con", "s e", "per", "end", "pot", "ote", " ha", "nis", " pr", "s i", "abe", "uis",
+            "am ", "uae", "tem", "hab", "bet", "m h", "ndi", " ho", "sta", " de", "sua", "isq",
+            "squ", "ter", "ici", "min", "iur", "one", " re", "hom", " di", " om", "omn", "rum",
+            "s a", "t c", "rat", "lib", "ibe", "m e", " pe", "gen", " li", "ert", "ine", "nte",
+            "nem", "ri ", "ber", "tia", "e q", "dis", " ip", "ips", " ad", "di ", "nes", "e s",
+            "e c", "m p", "s c", " ve", "e p", " pa", "ili", " ge", "a e", "i p", "nt ", "omi",
+            "atu", "tur", "rit", " si", "ne ", "psi", "in ", "ia ", "ra ", "ari", " cu", "vit",
+            "rta", "mo ", "to ", "mni", "s h", "e e", "int", "siu", "m c", "qua", "t p", "ivi",
+            "ini", "ut ", "re ", "ers", "it ", "s s", "iae", " es", "t s", "and", " ne", "pro",
+            " nu", "st ", " ex", "nda", "cie", "nib", "t a", "ere", "tri", "nit", " at", "tiu",
+            "ta ", "ris", " ci", "civ", "ni ", "uri", "ur ", "rim", " vi", "par", "ad ", "ess",
+            "lic", "i i", " so", " pu", " op", "rae", " fa", "s v", " ut", "dem", "se ", "ons",
+            "o e", "ria", " se", "e a", " mo", "leg", "atq", "tqu", "com", "te ", "niu", "ien",
+            "vel", "el ", " ma", "t e", "iis", "gni", "equ", "oci", "cip", "ura", "unt", "s d",
+            "t i", "ali", "quo", "ect", " te", "a s", "t d", " do", "tut", "ant", "isc", "ina",
+            "men", "sin", "ua ", "pra", "oru", "omm", "eta", "s n", "a p", "tum", "iam", "io ",
+            "i c", "sti", " au", "ver", " ae", "ito", "dic", "imi", "s l", "e d", "fic", "cia",
+            "t o", "pub", "ubl", "bli", "mun", "i s", "soc", "aru", "lar", "ull", "ori", "t h",
+            "i e", "sse", "omo", "cto", "itu", "tus", " ea", "ea ", "aeq", "gio", "ui ", "m s",
+            "er ", "m r", " ra", " fi", "ffi", "cog", "da ", " le", "mod", "a c", "mqu", "nul",
+            "e o", "era", "ten", "ntu", "spe", "o n", "emo", "cri", "s f", " ca", "de ", "a d",
+            "rel", "ii ", "ene", " tu", "sui", "rti", "sci", "nae", "m q", "m a", "egi", "ces",
         ],
     ),
 ];
