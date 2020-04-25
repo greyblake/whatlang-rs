@@ -1,3 +1,6 @@
+#### v0.7.4 - 2019-04-26
+* Support Latin
+
 #### v0.7.2 - 2019-10-19
 * (fix) respect japanese whitelisting when mandarin characters are given (#44)
 
