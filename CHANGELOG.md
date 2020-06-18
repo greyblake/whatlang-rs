@@ -1,7 +1,7 @@
-#### v0.8.0 - 2019-05-08
+#### v0.8.0 - 2020-05-08
 * Support Latin
 
-#### v0.7.4 - 2019-04-26 (yanked version)
+#### v0.7.4 - 2020-04-26 (yanked version)
 * Support Latin
 
 #### v0.7.2 - 2019-10-19
