@@ -1,3 +1,6 @@
+#### v0.9.0 - 2020-06-26
+* Support Slovak
+
 #### v0.8.0 - 2020-05-08
 * Support Latin
 

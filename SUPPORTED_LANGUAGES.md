@@ -93,3 +93,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Uyghur         | uig       | `Lang::Uig` |
 | Afrikaans      | afr       | `Lang::Afr` |
 | Latin          | lat       | `Lang::Lat` |
+| Slovak         | slk       | `Lang::Slk` |

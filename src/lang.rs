@@ -257,6 +257,9 @@ pub enum Lang {
 
     /// Lingua Latina (Latin)
     Lat = 84,
+
+    /// Slovenčina (Slovak)
+    Slk = 85,
 }
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -430,6 +433,8 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "afr" => Some(Lang::Afr),
 
         "lat" => Some(Lang::Lat),
+
+        "slk" => Some(Lang::Slk),
 
         _ => None,
     }
@@ -606,6 +611,8 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Afr => "afr",
 
         Lang::Lat => "lat",
+
+        Lang::Slk => "slk",
     }
 }
 
@@ -780,6 +787,8 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Afr => "Afrikaans",
 
         Lang::Lat => "Lingua Latina",
+
+        Lang::Slk => "Slovenčina",
     }
 }
 
@@ -954,6 +963,8 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Afr => "Afrikaans",
 
         Lang::Lat => "Latin",
+
+        Lang::Slk => "Slovak",
     }
 }
 
@@ -2125,6 +2136,36 @@ pub static LATIN_LANGS: LangProfileList = &[
             " ya", "he ", "eng", " ki", "nka", "bir", "ant", "aro", "gis", "ury", "twa", " yo",
             "bik", "rek", "ni ", " ah", " bw", "uro", "mw ", "tan", "i y", "nde", "ejw", " no",
             "zam", "puz", "ku ", "y a", "a c", "bih", "ya ", "mur", "utu", "eny", "uki", "bos",
+        ],
+    ),
+    (
+        Lang::Slk,
+        &[
+            " pr", " a ", "prá", "ráv", " po", "ie ", "ch ", "ost", " ro", "ho ", " na", "vo ",
+            "ani", "na ", " ne", "nos", "ažd", "kto", "kaž", " ka", "má ", "né ", "ávo", "om ",
+            " má", "ebo", "ti ", " v ", " al", "ale", "leb", "bo ", " je", " za", "ých", "o n",
+            "ždý", "dý ", "ia ", " sl", "mi ", "ova", "sti", "nie", "van", "to ", "eni", "ne ",
+            "áva", "lob", "ého", "slo", "rod", "tor", "rov", " sp", " zá", "á p", "o v", "a p",
+            " kt", "ý m", " sv", "voj", "bod", "obo", "nia", " ná", " vy", "ej ", "je ", "ať ",
+            "o p", "a v", "a s", "áro", "a z", " sa", " ma", "a n", "e a", "e s", "mu ", "mie",
+            "kla", "nár", "svo", "spo", " by", "ovn", "by ", "roz", "sa ", "ľud", "iť ", "odn",
+            " vš", "ov ", "i a", "néh", "vše", "o s", "va ", "o a", " ľu", "oci", "pre", "nu ",
+            "a m", "u a", "ený", "e v", "ný ", "nes", "a k", "zák", "pod", "ným", " do", "u p",
+            " k ", "u s", "áci", "ajú", "byť", "yť ", "nýc", "eho", "ran", "pol", "tát", "stn",
+            "jeh", "a r", "šet", "ými", "lad", "čin", "ému", "a o", "edz", "ť s", "kon", "stv",
+            "oré", " sú", " ni", "e z", "pri", "och", "ny ", "štá", "sť ", "oje", "vna", "tre",
+            "u k", " či", "ko ", "é p", "maj", "smi", "a a", "etk", "nak", "ým ", "med", "dov",
+            "prí", " ob", "iu ", "uds", "osť", "esm", "e b", "m a", "hra", "i s", "rác", "bez",
+            "vať", "chr", "e p", " ab", "jú ", " št", "žen", " ho", "čen", " de", "i p", "ť v",
+            " vo", "dsk", "pro", "nom", " in", "ou ", "du ", "že ", "aby", "est", " bo", "ré ",
+            "bol", " so", "nú ", "olo", "kej", "áln", " oc", "obe", "ky ", "dzi", "dom", "áv ",
+            "por", "lne", "rav", "aké", "ens", "pra", "ok ", " že", "tné", " ta", "ako", "res",
+            " vz", "i k", "ami", " tr", " ak", "ní ", "len", "o d", "del", "ský", "cho", "ach",
+            "ivo", "h p", "ože", "iál", "inn", "slu", "kra", "loč", "očn", "ju ", " os", "anu",
+            "oju", "voľ", "ákl", "str", "é s", "ené", " ži", "niu", "sta", " st", "ved", "tvo",
+            " me", "dno", "m p", "de ", "ké ", "kým", "ikt", "stu", "é v", "i v", "vyh", " to",
+            "v a", "odu", "hoc", "a t", "ím ", "ly ", "hov", "y s", "soc", "júc", "ú p", "odi",
+            "vod", "liv", "aní", "ciá", " ve", "rej", "ku ", "ci ", "ske", "sob", "čno", "oso",
         ],
     ),
     (

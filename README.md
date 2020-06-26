@@ -22,7 +22,7 @@ Natural language detection for Rust with focus on simplicity and performance.
 
 
 ## Features
-* Supports [84 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* Supports [85 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
 * Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
@@ -34,7 +34,7 @@ Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "0.7.2"
+whatlang = "0.9.0"
 ```
 
 Example:
