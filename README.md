@@ -89,6 +89,17 @@ This is mostly useful to test performance optimizations.
 cargo bench
 ```
 
+## Comparison
+
+|                         | Whatlang | CLD2      |
+|-------------------------|----------|-----------|
+| Implementation language | Rust     | C++       |
+| Languages               | 86       | 83        |
+| Algorithm               | trigrams | quadgrams |
+| Supported Encoding      | UTF-8    | UTF-8     |
+| HTML support            | no       | yes       |
+
+
 ## Ports and clones
 
 * [whatlang-ffi](https://github.com/greyblake/whatlang-ffi) - C bindings
