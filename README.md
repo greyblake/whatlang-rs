@@ -15,6 +15,7 @@ Natural language detection for Rust with focus on simplicity and performance.
   * [How language recognition works?](#how-language-recognition-works)
   * [How is_reliable calculated?](#how-is_reliable-calculated)
 * [Running benchmark](#running-benchmarks)
+* [Comparison with alternatives](#comparison-with-alternatives)
 * [Ports and clones](#ports-and-clones)
 * [Derivation](#derivation)
 * [License](#license)
@@ -89,7 +90,7 @@ This is mostly useful to test performance optimizations.
 cargo bench
 ```
 
-## Comparison
+## Comparison with alternatives
 
 |                         | Whatlang | CLD2      |
 |-------------------------|----------|-----------|
