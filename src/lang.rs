@@ -5093,7 +5093,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.code(), "ukr");
     /// ```
-    pub fn code(&self) -> &str {
+    pub fn code(&self) -> &'static str {
         lang_to_code(*self)
     }
 
