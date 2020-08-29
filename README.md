@@ -92,13 +92,13 @@ cargo bench
 
 ## Comparison with alternatives
 
-|                         | Whatlang | CLD2      |
-|-------------------------|----------|-----------|
-| Implementation language | Rust     | C++       |
-| Languages               | 86       | 83        |
-| Algorithm               | trigrams | quadgrams |
-| Supported Encoding      | UTF-8    | UTF-8     |
-| HTML support            | no       | yes       |
+|                           | Whatlang   | CLD2        | CLD3           |
+| ------------------------- | ---------- | ----------- | -------------- |
+| Implementation language   | Rust       | C++         | C++            |
+| Languages                 | 86         | 83          | 107            |
+| Algorithm                 | trigrams   | quadgrams   | neural network |
+| Supported Encoding        | UTF-8      | UTF-8       | ?              |
+| HTML support              | no         | yes         | ?              |
 
 
 ## Ports and clones
