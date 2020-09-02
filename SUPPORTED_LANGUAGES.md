@@ -94,3 +94,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Afrikaans      | afr       | `Lang::Afr` |
 | Latin          | lat       | `Lang::Lat` |
 | Slovak         | slk       | `Lang::Slk` |
+| Catalan        | cat       | `Lang::Cat` |

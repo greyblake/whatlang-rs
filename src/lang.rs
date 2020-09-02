@@ -260,6 +260,9 @@ pub enum Lang {
 
     /// Slovenčina (Slovak)
     Slk = 85,
+
+    /// Català (Catalan)
+    Cat = 86,
 }
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -435,6 +438,8 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "lat" => Some(Lang::Lat),
 
         "slk" => Some(Lang::Slk),
+
+        "cat" => Some(Lang::Cat),
 
         _ => None,
     }
@@ -613,6 +618,8 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Lat => "lat",
 
         Lang::Slk => "slk",
+
+        Lang::Cat => "cat",
     }
 }
 
@@ -789,6 +796,8 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Lat => "Lingua Latina",
 
         Lang::Slk => "Slovenčina",
+
+        Lang::Cat => "Català",
     }
 }
 
@@ -965,6 +974,8 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Lat => "Latin",
 
         Lang::Slk => "Slovak",
+
+        Lang::Cat => "Català",
     }
 }
 
@@ -2466,6 +2477,36 @@ pub static LATIN_LANGS: LangProfileList = &[
             "er ", "m r", " ra", " fi", "ffi", "cog", "da ", " le", "mod", "a c", "mqu", "nul",
             "e o", "era", "ten", "ntu", "spe", "o n", "emo", "cri", "s f", " ca", "de ", "a d",
             "rel", "ii ", "ene", " tu", "sui", "rti", "sci", "nae", "m q", "m a", "egi", "ces",
+        ],
+    ),
+    (
+        Lang::Cat,
+        &[
+            " de", " i ", "es ", "de ", "la ", " la", " a ", " pe", "per", "ió ", "ent", "tat",
+            " se", "nt ", "ret", "ts ", "dre", "at ", " el", "ls ", " dr", "men", "aci", "a p",
+            "ció", "ona", " co", "a l", "al ", "na ", "s d", "que", "en ", "el ", " to", "s i",
+            " qu", " en", "e l", "ns ", "tot", "et ", "t a", "ers", " pr", "t d", "ons", "er ",
+            " ll", "ion", "a s", "ta ", "a t", "con", "els", "s e", " l’", "rso", "res", "als",
+            "son", " un", "est", "cio", " re", "pro", "ita", "cia", " in", "les", " o ", "ue ",
+            "del", "lli", "té ", " té", "ia ", "ame", "é d", "sev", "ota", "nac", "i l", " al",
+            "s p", "a d", "ar ", "a i", "ual", "nal", "a c", "ant", "nci", " le", "ert", "sta",
+            "rta", "ser", "t i", "i a", "l d", " no", "va ", "ats", " d’", "s n", "re ", "s a",
+            "e c", "eva", " na", "rà ", " ca", "ues", "com", "lib", "és ", " so", "ibe", " es",
+            "ets", "ber", "da ", "r a", "no ", "una", "l’e", "s l", "ter", "sen", "ran", "ure",
+            "des", "man", "i e", "l p", "t e", "n d", "e d", "e e", "om ", " di", "cci", "igu",
+            "a a", "s t", " pa", "i d", "tra", "s o", "aqu", "tre", "vol", "ect", "a u", "l i",
+            "gua", "ide", "s s", "ada", "ene", "ial", "nta", "ntr", "ens", "soc", "cte", "ra ",
+            "oci", "hum", "uma", "cla", "ali", "lit", "erà", "cti", " aq", " hu", "ici", "pre",
+            "era", "ess", "uni", "nte", " fo", " ni", "ble", "sse", "tes", "alt", "eme", "ass",
+            "ica", "seg", "o s", "ote", "rac", " ig", " po", "ans", " és", "a e", "un ", "us ",
+            "mit", " ma", "r s", "se ", "ssi", "s h", "a m", "r l", "nit", "l t", "ènc", "ó d",
+            "ten", " te", "ir ", "i p", "tal", "eta", "dic", "i i", "hom", "t q", "par", "egu",
+            "s f", " as", "n l", "ria", " mi", " ac", "lic", "int", " tr", "act", "eix", "n e",
+            "s c", "ont", "nse", "ecc", "t t", "ltr", "amb", "qua", "l’a", "eli", "ura", "an ",
+            "ist", "e t", "ó a", "one", "nam", "ing", "lar", "o p", "esp", "rec", "lig", "a f",
+            " ha", "iva", " am", "lle", "t s", "rot", "mat", "liu", "tiu", "iur", "n a", "fon",
+            "ots", "inc", "ndi", "e p", "seu", "olu", "gur", "i c", "més", "der", "rna", "ina",
+            "for", "igi", "cie", "bli", "ic ", "mb ", "in ", "art", "ol ", "rom", "nin", "omp",
         ],
     ),
 ];
