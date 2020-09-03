@@ -5,6 +5,7 @@ use crate::utils::is_stop_char;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
+#[allow(clippy::unnecessary_sort_by)]
 pub fn get_trigrams_with_positions(text: &str) -> HashMap<String, u32> {
     // Sort in descending order by number of occurrences and trigrams
     let mut count_vec: Vec<_> = count(text)
