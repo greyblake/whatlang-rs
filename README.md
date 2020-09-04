@@ -95,7 +95,7 @@ cargo bench
 |                           | Whatlang   | CLD2        | CLD3           |
 | ------------------------- | ---------- | ----------- | -------------- |
 | Implementation language   | Rust       | C++         | C++            |
-| Languages                 | 86         | 83          | 107            |
+| Languages                 | 87         | 83          | 107            |
 | Algorithm                 | trigrams   | quadgrams   | neural network |
 | Supported Encoding        | UTF-8      | UTF-8       | ?              |
 | HTML support              | no         | yes         | ?              |

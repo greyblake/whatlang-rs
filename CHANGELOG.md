@@ -1,3 +1,6 @@
+#### v0.10.0 - 2020-09-04
+* Support Catalan
+
 #### v0.9.0 - 2020-06-26
 * Support Slovak
 
