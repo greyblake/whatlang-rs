@@ -4,7 +4,6 @@ require "csv"
 require "erb"
 require "json"
 require "pp"
-require "pry"
 
 LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
 JSON_FILE = File.expand_path("../data.json", __FILE__)

@@ -20,7 +20,7 @@ and [documentation](https://docs.rs/whatlang/).
 | German         | deu       | `Lang::Deu` |
 | Ukrainian      | ukr       | `Lang::Ukr` |
 | Georgian       | kat       | `Lang::Kat` |
-| Arabic         | arb       | `Lang::Arb` |
+| Arabic         | ara       | `Lang::Ara` |
 | Hindi          | hin       | `Lang::Hin` |
 | Japanese       | jpn       | `Lang::Jpn` |
 | Hebrew         | heb       | `Lang::Heb` |
