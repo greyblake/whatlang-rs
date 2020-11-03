@@ -1,3 +1,6 @@
+### Unreleased
+* [breaking] - rename code for Arabic: `Arb` -> `Ara`
+
 #### v0.10.0 - 2020-09-04
 * Support Catalan
 

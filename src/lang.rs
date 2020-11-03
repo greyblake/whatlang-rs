@@ -40,7 +40,7 @@ pub enum Lang {
     Kat = 11,
 
     /// العربية (Arabic)
-    Arb = 12,
+    Ara = 12,
 
     /// हिन्दी (Hindi)
     Hin = 13,
@@ -291,7 +291,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
 
         "kat" => Some(Lang::Kat),
 
-        "arb" => Some(Lang::Arb),
+        "ara" => Some(Lang::Ara),
 
         "hin" => Some(Lang::Hin),
 
@@ -471,7 +471,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
 
         Lang::Kat => "kat",
 
-        Lang::Arb => "arb",
+        Lang::Ara => "ara",
 
         Lang::Hin => "hin",
 
@@ -649,7 +649,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
 
         Lang::Kat => "ქართული",
 
-        Lang::Arb => "العربية",
+        Lang::Ara => "العربية",
 
         Lang::Hin => "हिन्दी",
 
@@ -827,7 +827,7 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
 
         Lang::Kat => "Georgian",
 
-        Lang::Arb => "Arabic",
+        Lang::Ara => "Arabic",
 
         Lang::Hin => "Hindi",
 
@@ -2758,7 +2758,7 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
 /// Languages for script Arabic
 pub static ARABIC_LANGS: LangProfileList = &[
     (
-        Lang::Arb,
+        Lang::Ara,
         &[
             " ال", "ية ", " في", "الح", "في ", " وا", "وال", " أو", "ة ا", "أو ", "الم", "الت",
             "لحق", "حق ", "لى ", "كل ", "ان ", "ة و", "الأ", " لك", "لكل", "ن ا", "ها ", "ق ف",
