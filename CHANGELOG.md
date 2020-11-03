@@ -1,4 +1,4 @@
-### Unreleased
+### v0.11.0 - 2020-11-03
 * [breaking] - rename code for Arabic: `Arb` -> `Ara`
 
 #### v0.10.0 - 2020-09-04
