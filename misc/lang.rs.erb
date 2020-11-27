@@ -1,4 +1,5 @@
 use std::fmt;
+use crate::trigrams::Trigram;
 
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
@@ -49,8 +50,8 @@ pub static <%= script.upcase %>_LANGS: LangProfileList = &[
         (
             Lang::<%= lang[:code].capitalize %>,
             &[
-	        <% lang[:trigrams].each do |trigram| %>
-                    "<%= trigram %>",
+	        <% lang[:trigrams].each do |t| %>
+                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),
 		<% end %>
             ]
         ),
@@ -110,7 +111,7 @@ impl fmt::Display for Lang {
     }
 }
 
-pub type LangProfile = &'static [&'static str];
+pub type LangProfile = &'static [Trigram];
 pub type LangProfileList = &'static [(Lang, LangProfile)];
 
 #[cfg(test)]

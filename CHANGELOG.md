@@ -1,3 +1,6 @@
+### Unreleased
+* Use Trigram tuple instead of heap allocated String. (~68% faster)
+
 ### v0.11.0 - 2020-11-03
 * [breaking] - rename code for Arabic: `Arb` -> `Ara`
 
