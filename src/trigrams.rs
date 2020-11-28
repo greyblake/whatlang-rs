@@ -42,10 +42,6 @@ fn count(text: &str) -> HashMap<Trigram, u32> {
         let c3 = cur_char;
         if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
             let trigram = Trigram(c1, c2, c3);
-            // let mut trigram = String::with_capacity(c1.len_utf8() + c2.len_utf8() + c3.len_utf8());
-            // trigram.push(c1);
-            // trigram.push(c2);
-            // trigram.push(c3);
             let count = counter_hash.entry(trigram).or_insert(0);
             *count += 1;
         }
