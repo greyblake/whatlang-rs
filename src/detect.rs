@@ -150,11 +150,11 @@ fn detect_lang_in_profiles(
     Some((lang_dist1.0, confidence))
 }
 
-fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<String, u32>) -> u32 {
+fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigram, u32>) -> u32 {
     let mut total_dist = 0u32;
 
     for (i, &trigram) in lang_trigrams.iter().enumerate() {
-        let dist = match text_trigrams.get(trigram) {
+        let dist = match text_trigrams.get(&trigram) {
             Some(&n) => (n as i32 - i as i32).abs() as u32,
             None => MAX_TRIGRAM_DISTANCE,
         };
