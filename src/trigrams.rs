@@ -5,16 +5,35 @@ use crate::utils::is_stop_char;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
-#[derive(Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, Hash, Hash32, PartialOrd, Clone, Copy)]
 pub struct Trigram(pub(crate) char, pub(crate) char, pub(crate) char);
+
+// use std::hash::{Hash, Hasher};
+//
+// impl Hash for Trigram {
+//     fn hash<H>(&self, state: &mut H) where H: Hasher {
+//         state.write_u32(self.0 as u32);
+//         state.write_u32(self.1 as u32);
+//         state.write_u32(self.2 as u32);
+//     }
+// }
 
 #[allow(clippy::unnecessary_sort_by)]
 pub fn get_trigrams_with_positions(text: &str) -> HashMap<Trigram, u32> {
     // Sort in descending order by number of occurrences and trigrams
-    let mut count_vec: Vec<_> = count(text)
-        .into_iter()
-        .map(|(trigram, count)| (count, trigram))
+    // let mut count_vec: Vec<_> = count(text)
+    //     .into_iter()
+    //     .map(|(trigram, count)| (count, trigram))
+    //     .collect();
+
+    let mut count_vec: Vec<(u32, Trigram)> = stack_count(text)
+        .iter()
+        .map(|(trigram, count)| (*count, *trigram))
         .collect();
+
+
+    // count_vec.fsdfd();
+
     count_vec.sort_by(|a, b| b.cmp(a));
 
     count_vec
@@ -51,6 +70,45 @@ fn count(text: &str) -> HashMap<Trigram, u32> {
 
     counter_hash
 }
+
+
+
+use heapless::FnvIndexMap;
+use heapless::consts::*;
+
+fn stack_count(text: &str) -> FnvIndexMap::<Trigram, u32, U2048> {
+    // let mut counter_hash: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
+    let mut counter_hash = FnvIndexMap::<Trigram, u32, U2048>::new();
+
+    // iterate through the string and count trigrams
+    let mut chars_iter = text
+        .chars()
+        .map(to_trigram_char)
+        .flat_map(char::to_lowercase)
+        .chain(Some(' '));
+    let mut c1 = ' ';
+    // unwrap is safe, because we always chain a space character on the end of the iterator
+    let mut c2 = chars_iter.next().unwrap();
+    for cur_char in chars_iter {
+        let c3 = cur_char;
+        if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
+            let trigram = Trigram(c1, c2, c3);
+
+            if let Some(x) = counter_hash.get_mut(&trigram) {
+                *x += 1;
+            } else {
+                counter_hash.insert(trigram, 1).unwrap();
+            }
+            // let count = counter_hash.entry(trigram).or_insert(0);
+            // *count += 1;
+        }
+        c1 = c2;
+        c2 = c3;
+    }
+
+    counter_hash
+}
+
 
 // Convert punctuations and digits to a space.
 #[inline]

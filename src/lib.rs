@@ -31,6 +31,8 @@
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
 //!
+#[macro_use] extern crate hash32_derive;
+
 mod constants;
 mod detect;
 mod detector;
