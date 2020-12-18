@@ -23,6 +23,7 @@ travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dependencies]
 hashbrown = "0.7"
+tinymap = "*"
 
 [dev-dependencies]
 serde_json = "1.0.39"

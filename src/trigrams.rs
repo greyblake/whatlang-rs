@@ -1,4 +1,5 @@
 use hashbrown::HashMap;
+use tinymap::TinyMap;
 
 use crate::constants::TEXT_TRIGRAMS_SIZE;
 use crate::utils::is_stop_char;
@@ -25,13 +26,18 @@ pub fn get_trigrams_with_positions(text: &str) -> HashMap<Trigram, u32> {
         .collect()
 }
 
-fn count(text: &str) -> HashMap<Trigram, u32> {
-    let hash_capacity = calculate_initial_hash_capacity(text);
-    let mut counter_hash: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
+type TrigramCounterMap = TinyMap<Trigram, u32, 2000>;
+
+fn count(text: &str) -> TrigramCounterMap {
+    // let hash_capacity = calculate_initial_hash_capacity(text);
+    // let mut counter_hash: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
+
+    let mut counter_hash = TrigramCounterMap::new();
 
     // iterate through the string and count trigrams
     let mut chars_iter = text
         .chars()
+        .take(2000)
         .map(to_trigram_char)
         .flat_map(char::to_lowercase)
         .chain(Some(' '));
@@ -42,8 +48,11 @@ fn count(text: &str) -> HashMap<Trigram, u32> {
         let c3 = cur_char;
         if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
             let trigram = Trigram(c1, c2, c3);
-            let count = counter_hash.entry(trigram).or_insert(0);
-            *count += 1;
+            // let count = counter_hash.entry(trigram).or_insert(0);
+            match counter_hash.get_mut(&trigram) {
+                None => { counter_hash.insert(trigram, 1); },
+                Some(count) => { *count += 1; }
+            }
         }
         c1 = c2;
         c2 = c3;
@@ -109,7 +118,7 @@ mod tests {
         for &(trigram_str, expected_n) in pairs.iter() {
             let chars: Vec<char> = trigram_str.clone().chars().collect();
             let trigram = Trigram(chars[0], chars[1], chars[2]);
-            let actual_n = result[&trigram];
+            let actual_n = *result.get(&trigram).unwrap();
             assert_eq!(
                 actual_n, expected_n,
                 "trigram '{:?}' expected to occur {} times, got {}",
