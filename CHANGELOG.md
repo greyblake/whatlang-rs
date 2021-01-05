@@ -1,3 +1,7 @@
+### Unreleased
+* Add `Script::values()` to iterate over all scripts.
+* Add `Lang::values()` to iterate over all languages.
+
 ### v0.11.1 - 2020-11-28
 * Use Trigram tuple instead of heap allocated String. (~68% faster)
 

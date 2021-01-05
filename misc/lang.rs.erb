@@ -1,3 +1,7 @@
+// NOTE:
+//    This file is generated automatically.
+//    Edit misc/lang.rs.erb template instead of editing lang.rs file directly.
+
 use std::fmt;
 use crate::trigrams::Trigram;
 
@@ -10,11 +14,17 @@ pub enum Lang {
     <% end %>
 }
 
+const VALUES: [Lang; <%= langs.size %>] = [
+    <% langs.each do |lang| %>
+    Lang::<%= lang.code.capitalize %>,
+    <% end %>
+];
+
+
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         <% langs.each do |lang| %>
-        "<%= lang.code %>" => Some(Lang::<%= lang.code.capitalize %>),
-        <% end %>
+        "<%= lang.code %>" => Some(Lang::<%= lang.code.capitalize %>),<% end %>
         _ => None,
     }
 }
@@ -22,24 +32,21 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
 fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",<% end %>
     }
 }
 
 fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",<% end %>
     }
 }
 
 fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",<% end %>
     }
 }
 
@@ -51,8 +58,7 @@ pub static <%= script.upcase %>_LANGS: LangProfileList = &[
             Lang::<%= lang[:code].capitalize %>,
             &[
 	        <% lang[:trigrams].each do |t| %>
-                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),
-		<% end %>
+                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),<% end %>
             ]
         ),
     <% end %>
@@ -103,6 +109,19 @@ impl Lang {
     pub fn eng_name(self) -> &'static str {
         lang_to_eng_name(self)
     }
+
+    /// Get an iterator over all Lang values.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// for lang in Lang::values() {
+    ///     println!("{}", lang);
+    /// }
+    /// ```
+    pub fn values() -> impl Iterator<Item = Lang> {
+        VALUES.iter().copied()
+    }
 }
 
 impl fmt::Display for Lang {
@@ -143,5 +162,13 @@ mod tests {
         assert_eq!(Lang::Spa.eng_name(), "Spanish");
         assert_eq!(Lang::Epo.eng_name(), "Esperanto");
         assert_eq!(Lang::Rus.eng_name(), "Russian");
+    }
+
+    #[test]
+    fn test_values_iter() {
+        assert_eq!(Lang::values().count(), <%= langs.size %>);
+        let values: Vec<Lang> = Lang::values().collect();
+        assert!(values.contains(&Lang::Ukr));
+        assert!(values.contains(&Lang::Swe));
     }
 }
