@@ -1,5 +1,5 @@
-use std::fmt;
 use crate::utils::is_stop_char;
+use std::fmt;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
@@ -98,7 +98,7 @@ impl Script {
     ///     println!("{}", script);
     /// }
     /// ```
-    pub fn values() -> impl Iterator<Item=Script> {
+    pub fn values() -> impl Iterator<Item = Script> {
         VALUES.iter().copied()
     }
 }
