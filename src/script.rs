@@ -1,5 +1,4 @@
 use std::fmt;
-
 use crate::utils::is_stop_char;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
@@ -32,6 +31,34 @@ pub enum Script {
     Thai,
 }
 
+// Array of all possible Script values that is used to build Script::values() iterator.
+const VALUES: [Script; 24] = [
+    Script::Arabic,
+    Script::Bengali,
+    Script::Cyrillic,
+    Script::Devanagari,
+    Script::Ethiopic,
+    Script::Georgian,
+    Script::Greek,
+    Script::Gujarati,
+    Script::Gurmukhi,
+    Script::Hangul,
+    Script::Hebrew,
+    Script::Hiragana,
+    Script::Kannada,
+    Script::Katakana,
+    Script::Khmer,
+    Script::Latin,
+    Script::Malayalam,
+    Script::Mandarin,
+    Script::Myanmar,
+    Script::Oriya,
+    Script::Sinhala,
+    Script::Tamil,
+    Script::Telugu,
+    Script::Thai,
+];
+
 impl Script {
     pub fn name(&self) -> &str {
         match *self {
@@ -60,6 +87,19 @@ impl Script {
             Script::Sinhala => "Sinhala",
             Script::Khmer => "Khmer",
         }
+    }
+
+    /// Get an iterator over all scripts that exist.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Script;
+    /// for script in Script::values() {
+    ///     println!("{}", script);
+    /// }
+    /// ```
+    pub fn values() -> impl Iterator<Item=Script> {
+        VALUES.iter().copied()
     }
 }
 
@@ -484,5 +524,14 @@ mod tests {
         assert_eq!(is_oriya('ଐ'), true);
         assert_eq!(is_oriya('୷'), true);
         assert_eq!(is_oriya('౿'), false);
+    }
+
+    #[test]
+    fn test_values_iter() {
+        assert_eq!(Script::values().count(), 24);
+        let values: Vec<Script> = Script::values().collect();
+        assert!(values.contains(&Script::Cyrillic));
+        assert!(values.contains(&Script::Arabic));
+        assert!(values.contains(&Script::Latin));
     }
 }
