@@ -1,3 +1,7 @@
+// NOTE:
+//    This file is generated automatically.
+//    Edit misc/lang.rs.erb template instead of editing lang.rs file directly.
+
 use crate::trigrams::Trigram;
 use std::fmt;
 
