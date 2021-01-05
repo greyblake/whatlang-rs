@@ -10,7 +10,7 @@ Natural language detection for Rust with focus on simplicity and performance.
 * [Get started](#get-started)
 * [Documentation](https://docs.rs/whatlang)
 * [Supported languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
-* [Requirements](#requirements)
+* [Feature toggles](#feature-toggles)
 * [How does it work?](#how-does-it-work)
   * [How language recognition works?](#how-language-recognition-works)
   * [How is_reliable calculated?](#how-is_reliable-calculated)
@@ -58,9 +58,11 @@ fn main() {
 
 For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).
 
-## Requirements
+## Feature toggles
 
-The latest whatlang library works with rust 1.31.0 or higher.
+| Feature    | Description                                                                           |
+|------------|---------------------------------------------------------------------------------------|
+| `enum-map` | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
 
 ## How does it work?
 
