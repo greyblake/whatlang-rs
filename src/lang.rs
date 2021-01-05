@@ -269,179 +269,92 @@ pub enum Lang {
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         "epo" => Some(Lang::Epo),
-
         "eng" => Some(Lang::Eng),
-
         "rus" => Some(Lang::Rus),
-
         "cmn" => Some(Lang::Cmn),
-
         "spa" => Some(Lang::Spa),
-
         "por" => Some(Lang::Por),
-
         "ita" => Some(Lang::Ita),
-
         "ben" => Some(Lang::Ben),
-
         "fra" => Some(Lang::Fra),
-
         "deu" => Some(Lang::Deu),
-
         "ukr" => Some(Lang::Ukr),
-
         "kat" => Some(Lang::Kat),
-
         "ara" => Some(Lang::Ara),
-
         "hin" => Some(Lang::Hin),
-
         "jpn" => Some(Lang::Jpn),
-
         "heb" => Some(Lang::Heb),
-
         "ydd" => Some(Lang::Ydd),
-
         "pol" => Some(Lang::Pol),
-
         "amh" => Some(Lang::Amh),
-
         "tir" => Some(Lang::Tir),
-
         "jav" => Some(Lang::Jav),
-
         "kor" => Some(Lang::Kor),
-
         "nob" => Some(Lang::Nob),
-
         "nno" => Some(Lang::Nno),
-
         "dan" => Some(Lang::Dan),
-
         "swe" => Some(Lang::Swe),
-
         "fin" => Some(Lang::Fin),
-
         "tur" => Some(Lang::Tur),
-
         "nld" => Some(Lang::Nld),
-
         "hun" => Some(Lang::Hun),
-
         "ces" => Some(Lang::Ces),
-
         "ell" => Some(Lang::Ell),
-
         "bul" => Some(Lang::Bul),
-
         "bel" => Some(Lang::Bel),
-
         "mar" => Some(Lang::Mar),
-
         "kan" => Some(Lang::Kan),
-
         "ron" => Some(Lang::Ron),
-
         "slv" => Some(Lang::Slv),
-
         "hrv" => Some(Lang::Hrv),
-
         "srp" => Some(Lang::Srp),
-
         "mkd" => Some(Lang::Mkd),
-
         "lit" => Some(Lang::Lit),
-
         "lav" => Some(Lang::Lav),
-
         "est" => Some(Lang::Est),
-
         "tam" => Some(Lang::Tam),
-
         "vie" => Some(Lang::Vie),
-
         "urd" => Some(Lang::Urd),
-
         "tha" => Some(Lang::Tha),
-
         "guj" => Some(Lang::Guj),
-
         "uzb" => Some(Lang::Uzb),
-
         "pan" => Some(Lang::Pan),
-
         "azj" => Some(Lang::Azj),
-
         "ind" => Some(Lang::Ind),
-
         "tel" => Some(Lang::Tel),
-
         "pes" => Some(Lang::Pes),
-
         "mal" => Some(Lang::Mal),
-
         "hau" => Some(Lang::Hau),
-
         "ori" => Some(Lang::Ori),
-
         "mya" => Some(Lang::Mya),
-
         "bho" => Some(Lang::Bho),
-
         "tgl" => Some(Lang::Tgl),
-
         "yor" => Some(Lang::Yor),
-
         "mai" => Some(Lang::Mai),
-
         "orm" => Some(Lang::Orm),
-
         "ibo" => Some(Lang::Ibo),
-
         "ceb" => Some(Lang::Ceb),
-
         "kur" => Some(Lang::Kur),
-
         "mlg" => Some(Lang::Mlg),
-
         "skr" => Some(Lang::Skr),
-
         "nep" => Some(Lang::Nep),
-
         "sin" => Some(Lang::Sin),
-
         "khm" => Some(Lang::Khm),
-
         "tuk" => Some(Lang::Tuk),
-
         "som" => Some(Lang::Som),
-
         "nya" => Some(Lang::Nya),
-
         "aka" => Some(Lang::Aka),
-
         "zul" => Some(Lang::Zul),
-
         "kin" => Some(Lang::Kin),
-
         "hat" => Some(Lang::Hat),
-
         "ilo" => Some(Lang::Ilo),
-
         "run" => Some(Lang::Run),
-
         "sna" => Some(Lang::Sna),
-
         "uig" => Some(Lang::Uig),
-
         "afr" => Some(Lang::Afr),
-
         "lat" => Some(Lang::Lat),
-
         "slk" => Some(Lang::Slk),
-
         "cat" => Some(Lang::Cat),
-
         _ => None,
     }
 }
@@ -449,177 +362,91 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
 fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "epo",
-
         Lang::Eng => "eng",
-
         Lang::Rus => "rus",
-
         Lang::Cmn => "cmn",
-
         Lang::Spa => "spa",
-
         Lang::Por => "por",
-
         Lang::Ita => "ita",
-
         Lang::Ben => "ben",
-
         Lang::Fra => "fra",
-
         Lang::Deu => "deu",
-
         Lang::Ukr => "ukr",
-
         Lang::Kat => "kat",
-
         Lang::Ara => "ara",
-
         Lang::Hin => "hin",
-
         Lang::Jpn => "jpn",
-
         Lang::Heb => "heb",
-
         Lang::Ydd => "ydd",
-
         Lang::Pol => "pol",
-
         Lang::Amh => "amh",
-
         Lang::Tir => "tir",
-
         Lang::Jav => "jav",
-
         Lang::Kor => "kor",
-
         Lang::Nob => "nob",
-
         Lang::Nno => "nno",
-
         Lang::Dan => "dan",
-
         Lang::Swe => "swe",
-
         Lang::Fin => "fin",
-
         Lang::Tur => "tur",
-
         Lang::Nld => "nld",
-
         Lang::Hun => "hun",
-
         Lang::Ces => "ces",
-
         Lang::Ell => "ell",
-
         Lang::Bul => "bul",
-
         Lang::Bel => "bel",
-
         Lang::Mar => "mar",
-
         Lang::Kan => "kan",
-
         Lang::Ron => "ron",
-
         Lang::Slv => "slv",
-
         Lang::Hrv => "hrv",
-
         Lang::Srp => "srp",
-
         Lang::Mkd => "mkd",
-
         Lang::Lit => "lit",
-
         Lang::Lav => "lav",
-
         Lang::Est => "est",
-
         Lang::Tam => "tam",
-
         Lang::Vie => "vie",
-
         Lang::Urd => "urd",
-
         Lang::Tha => "tha",
-
         Lang::Guj => "guj",
-
         Lang::Uzb => "uzb",
-
         Lang::Pan => "pan",
-
         Lang::Azj => "azj",
-
         Lang::Ind => "ind",
-
         Lang::Tel => "tel",
-
         Lang::Pes => "pes",
-
         Lang::Mal => "mal",
-
         Lang::Hau => "hau",
-
         Lang::Ori => "ori",
-
         Lang::Mya => "mya",
-
         Lang::Bho => "bho",
-
         Lang::Tgl => "tgl",
-
         Lang::Yor => "yor",
-
         Lang::Mai => "mai",
-
         Lang::Orm => "orm",
-
         Lang::Ibo => "ibo",
-
         Lang::Ceb => "ceb",
-
         Lang::Kur => "kur",
-
         Lang::Mlg => "mlg",
-
         Lang::Skr => "skr",
-
         Lang::Nep => "nep",
-
         Lang::Sin => "sin",
-
         Lang::Khm => "khm",
-
         Lang::Tuk => "tuk",
-
         Lang::Som => "som",
-
         Lang::Nya => "nya",
-
         Lang::Aka => "aka",
-
         Lang::Zul => "zul",
-
         Lang::Kin => "kin",
-
         Lang::Hat => "hat",
-
         Lang::Ilo => "ilo",
-
         Lang::Run => "run",
-
         Lang::Sna => "sna",
-
         Lang::Uig => "uig",
-
         Lang::Afr => "afr",
-
         Lang::Lat => "lat",
-
         Lang::Slk => "slk",
-
         Lang::Cat => "cat",
     }
 }
@@ -627,177 +454,91 @@ fn lang_to_code(lang: Lang) -> &'static str {
 fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "Esperanto",
-
         Lang::Eng => "English",
-
         Lang::Rus => "Русский",
-
         Lang::Cmn => "普通话",
-
         Lang::Spa => "Español",
-
         Lang::Por => "Português",
-
         Lang::Ita => "Italiano",
-
         Lang::Ben => "বাংলা",
-
         Lang::Fra => "Français",
-
         Lang::Deu => "Deutsch",
-
         Lang::Ukr => "Українська",
-
         Lang::Kat => "ქართული",
-
         Lang::Ara => "العربية",
-
         Lang::Hin => "हिन्दी",
-
         Lang::Jpn => "日本語",
-
         Lang::Heb => "עברית",
-
         Lang::Ydd => "ייִדיש",
-
         Lang::Pol => "Polski",
-
         Lang::Amh => "አማርኛ",
-
         Lang::Tir => "ትግርኛ",
-
         Lang::Jav => "Basa Jawa",
-
         Lang::Kor => "한국어",
-
         Lang::Nob => "Bokmål",
-
         Lang::Nno => "Nynorsk",
-
         Lang::Dan => "Dansk",
-
         Lang::Swe => "Svenska",
-
         Lang::Fin => "Suomi",
-
         Lang::Tur => "Türkçe",
-
         Lang::Nld => "Nederlands",
-
         Lang::Hun => "Magyar",
-
         Lang::Ces => "Čeština",
-
         Lang::Ell => "Ελληνικά",
-
         Lang::Bul => "Български",
-
         Lang::Bel => "Беларуская",
-
         Lang::Mar => "मराठी",
-
         Lang::Kan => "ಕನ್ನಡ",
-
         Lang::Ron => "Română",
-
         Lang::Slv => "Slovenščina",
-
         Lang::Hrv => "Hrvatski",
-
         Lang::Srp => "Српски",
-
         Lang::Mkd => "Македонски",
-
         Lang::Lit => "Lietuvių",
-
         Lang::Lav => "Latviešu",
-
         Lang::Est => "Eesti",
-
         Lang::Tam => "தமிழ்",
-
         Lang::Vie => "Tiếng Việt",
-
         Lang::Urd => "اُردُو",
-
         Lang::Tha => "ภาษาไทย",
-
         Lang::Guj => "ગુજરાતી",
-
         Lang::Uzb => "Oʻzbekcha",
-
         Lang::Pan => "ਪੰਜਾਬੀ",
-
         Lang::Azj => "Azərbaycanca",
-
         Lang::Ind => "Bahasa Indonesia",
-
         Lang::Tel => "తెలుగు",
-
         Lang::Pes => "فارسی",
-
         Lang::Mal => "മലയാളം",
-
         Lang::Hau => "Hausa",
-
         Lang::Ori => "ଓଡ଼ିଆ",
-
         Lang::Mya => "မြန်မာစာ",
-
         Lang::Bho => "भोजपुरी",
-
         Lang::Tgl => "Tagalog",
-
         Lang::Yor => "Yorùbá",
-
         Lang::Mai => "मैथिली",
-
         Lang::Orm => "Oromoo",
-
         Lang::Ibo => "Igbo",
-
         Lang::Ceb => "Cebuano",
-
         Lang::Kur => "Kurdî",
-
         Lang::Mlg => "Malagasy",
-
         Lang::Skr => "سرائیکی",
-
         Lang::Nep => "नेपाली",
-
         Lang::Sin => "සිංහල",
-
         Lang::Khm => "ភាសាខ្មែរ",
-
         Lang::Tuk => "Türkmençe",
-
         Lang::Som => "Soomaaliga",
-
         Lang::Nya => "Chichewa",
-
         Lang::Aka => "Akan",
-
         Lang::Zul => "IsiZulu",
-
         Lang::Kin => "Kinyarwanda",
-
         Lang::Hat => "Kreyòl ayisyen",
-
         Lang::Ilo => "Ilokano",
-
         Lang::Run => "Ikirundi",
-
         Lang::Sna => "ChiShona",
-
         Lang::Uig => "ئۇيغۇرچە",
-
         Lang::Afr => "Afrikaans",
-
         Lang::Lat => "Lingua Latina",
-
         Lang::Slk => "Slovenčina",
-
         Lang::Cat => "Català",
     }
 }
@@ -805,177 +546,91 @@ fn lang_to_name(lang: Lang) -> &'static str {
 fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "Esperanto",
-
         Lang::Eng => "English",
-
         Lang::Rus => "Russian",
-
         Lang::Cmn => "Mandarin",
-
         Lang::Spa => "Spanish",
-
         Lang::Por => "Portuguese",
-
         Lang::Ita => "Italian",
-
         Lang::Ben => "Bengali",
-
         Lang::Fra => "French",
-
         Lang::Deu => "German",
-
         Lang::Ukr => "Ukrainian",
-
         Lang::Kat => "Georgian",
-
         Lang::Ara => "Arabic",
-
         Lang::Hin => "Hindi",
-
         Lang::Jpn => "Japanese",
-
         Lang::Heb => "Hebrew",
-
         Lang::Ydd => "Yiddish",
-
         Lang::Pol => "Polish",
-
         Lang::Amh => "Amharic",
-
         Lang::Tir => "Tigrinya",
-
         Lang::Jav => "Javanese",
-
         Lang::Kor => "Korean",
-
         Lang::Nob => "Bokmal",
-
         Lang::Nno => "Nynorsk",
-
         Lang::Dan => "Danish",
-
         Lang::Swe => "Swedish",
-
         Lang::Fin => "Finnish",
-
         Lang::Tur => "Turkish",
-
         Lang::Nld => "Dutch",
-
         Lang::Hun => "Hungarian",
-
         Lang::Ces => "Czech",
-
         Lang::Ell => "Greek",
-
         Lang::Bul => "Bulgarian",
-
         Lang::Bel => "Belarusian",
-
         Lang::Mar => "Marathi",
-
         Lang::Kan => "Kannada",
-
         Lang::Ron => "Romanian",
-
         Lang::Slv => "Slovene",
-
         Lang::Hrv => "Croatian",
-
         Lang::Srp => "Serbian",
-
         Lang::Mkd => "Macedonian",
-
         Lang::Lit => "Lithuanian",
-
         Lang::Lav => "Latvian",
-
         Lang::Est => "Estonian",
-
         Lang::Tam => "Tamil",
-
         Lang::Vie => "Vietnamese",
-
         Lang::Urd => "Urdu",
-
         Lang::Tha => "Thai",
-
         Lang::Guj => "Gujarati",
-
         Lang::Uzb => "Uzbek",
-
         Lang::Pan => "Punjabi",
-
         Lang::Azj => "Azerbaijani",
-
         Lang::Ind => "Indonesian",
-
         Lang::Tel => "Telugu",
-
         Lang::Pes => "Persian",
-
         Lang::Mal => "Malayalam",
-
         Lang::Hau => "Hausa",
-
         Lang::Ori => "Oriya",
-
         Lang::Mya => "Burmese",
-
         Lang::Bho => "Bhojpuri",
-
         Lang::Tgl => "Tagalog",
-
         Lang::Yor => "Yoruba",
-
         Lang::Mai => "Maithili",
-
         Lang::Orm => "Oromo",
-
         Lang::Ibo => "Igbo",
-
         Lang::Ceb => "Cebuano",
-
         Lang::Kur => "Kurdish",
-
         Lang::Mlg => "Malagasy",
-
         Lang::Skr => "Saraiki",
-
         Lang::Nep => "Nepali",
-
         Lang::Sin => "Sinhalese",
-
         Lang::Khm => "Khmer",
-
         Lang::Tuk => "Turkmen",
-
         Lang::Som => "Somali",
-
         Lang::Nya => "Chewa",
-
         Lang::Aka => "Akan",
-
         Lang::Zul => "Zulu",
-
         Lang::Kin => "Kinyarwanda",
-
         Lang::Hat => "Haitian Creole",
-
         Lang::Ilo => "Ilocano",
-
         Lang::Run => "Rundi",
-
         Lang::Sna => "Shona",
-
         Lang::Uig => "Uyghur",
-
         Lang::Afr => "Afrikaans",
-
         Lang::Lat => "Latin",
-
         Lang::Slk => "Slovak",
-
         Lang::Cat => "Catalan",
     }
 }

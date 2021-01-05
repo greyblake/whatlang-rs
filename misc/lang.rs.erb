@@ -13,8 +13,7 @@ pub enum Lang {
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         <% langs.each do |lang| %>
-        "<%= lang.code %>" => Some(Lang::<%= lang.code.capitalize %>),
-        <% end %>
+        "<%= lang.code %>" => Some(Lang::<%= lang.code.capitalize %>),<% end %>
         _ => None,
     }
 }
@@ -22,24 +21,21 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
 fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",<% end %>
     }
 }
 
 fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",<% end %>
     }
 }
 
 fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
-        Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",
-        <% end %>
+        Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",<% end %>
     }
 }
 
@@ -51,8 +47,7 @@ pub static <%= script.upcase %>_LANGS: LangProfileList = &[
             Lang::<%= lang[:code].capitalize %>,
             &[
 	        <% lang[:trigrams].each do |t| %>
-                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),
-		<% end %>
+                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),<% end %>
             ]
         ),
     <% end %>
