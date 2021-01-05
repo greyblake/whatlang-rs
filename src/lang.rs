@@ -270,6 +270,96 @@ pub enum Lang {
     Cat = 86,
 }
 
+const VALUES: [Lang; 87] = [
+    Lang::Epo,
+    Lang::Eng,
+    Lang::Rus,
+    Lang::Cmn,
+    Lang::Spa,
+    Lang::Por,
+    Lang::Ita,
+    Lang::Ben,
+    Lang::Fra,
+    Lang::Deu,
+    Lang::Ukr,
+    Lang::Kat,
+    Lang::Ara,
+    Lang::Hin,
+    Lang::Jpn,
+    Lang::Heb,
+    Lang::Ydd,
+    Lang::Pol,
+    Lang::Amh,
+    Lang::Tir,
+    Lang::Jav,
+    Lang::Kor,
+    Lang::Nob,
+    Lang::Nno,
+    Lang::Dan,
+    Lang::Swe,
+    Lang::Fin,
+    Lang::Tur,
+    Lang::Nld,
+    Lang::Hun,
+    Lang::Ces,
+    Lang::Ell,
+    Lang::Bul,
+    Lang::Bel,
+    Lang::Mar,
+    Lang::Kan,
+    Lang::Ron,
+    Lang::Slv,
+    Lang::Hrv,
+    Lang::Srp,
+    Lang::Mkd,
+    Lang::Lit,
+    Lang::Lav,
+    Lang::Est,
+    Lang::Tam,
+    Lang::Vie,
+    Lang::Urd,
+    Lang::Tha,
+    Lang::Guj,
+    Lang::Uzb,
+    Lang::Pan,
+    Lang::Azj,
+    Lang::Ind,
+    Lang::Tel,
+    Lang::Pes,
+    Lang::Mal,
+    Lang::Hau,
+    Lang::Ori,
+    Lang::Mya,
+    Lang::Bho,
+    Lang::Tgl,
+    Lang::Yor,
+    Lang::Mai,
+    Lang::Orm,
+    Lang::Ibo,
+    Lang::Ceb,
+    Lang::Kur,
+    Lang::Mlg,
+    Lang::Skr,
+    Lang::Nep,
+    Lang::Sin,
+    Lang::Khm,
+    Lang::Tuk,
+    Lang::Som,
+    Lang::Nya,
+    Lang::Aka,
+    Lang::Zul,
+    Lang::Kin,
+    Lang::Hat,
+    Lang::Ilo,
+    Lang::Run,
+    Lang::Sna,
+    Lang::Uig,
+    Lang::Afr,
+    Lang::Lat,
+    Lang::Slk,
+    Lang::Cat,
+];
+
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         "epo" => Some(Lang::Epo),
@@ -22972,6 +23062,19 @@ impl Lang {
     pub fn eng_name(self) -> &'static str {
         lang_to_eng_name(self)
     }
+
+    /// Get an iterator over all Lang values.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// for lang in Lang::values() {
+    ///     println!("{}", lang);
+    /// }
+    /// ```
+    pub fn values() -> impl Iterator<Item = Lang> {
+        VALUES.iter().copied()
+    }
 }
 
 impl fmt::Display for Lang {
@@ -23012,5 +23115,13 @@ mod tests {
         assert_eq!(Lang::Spa.eng_name(), "Spanish");
         assert_eq!(Lang::Epo.eng_name(), "Esperanto");
         assert_eq!(Lang::Rus.eng_name(), "Russian");
+    }
+
+    #[test]
+    fn test_values_iter() {
+        assert_eq!(Lang::values().count(), 87);
+        let values: Vec<Lang> = Lang::values().collect();
+        assert!(values.contains(&Lang::Ukr));
+        assert!(values.contains(&Lang::Swe));
     }
 }

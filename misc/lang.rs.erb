@@ -14,6 +14,13 @@ pub enum Lang {
     <% end %>
 }
 
+const VALUES: [Lang; <%= langs.size %>] = [
+    <% langs.each do |lang| %>
+    Lang::<%= lang.code.capitalize %>,
+    <% end %>
+];
+
+
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     match code.into().to_lowercase().as_ref() {
         <% langs.each do |lang| %>
@@ -102,6 +109,19 @@ impl Lang {
     pub fn eng_name(self) -> &'static str {
         lang_to_eng_name(self)
     }
+
+    /// Get an iterator over all Lang values.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Lang;
+    /// for lang in Lang::values() {
+    ///     println!("{}", lang);
+    /// }
+    /// ```
+    pub fn values() -> impl Iterator<Item = Lang> {
+        VALUES.iter().copied()
+    }
 }
 
 impl fmt::Display for Lang {
@@ -142,5 +162,13 @@ mod tests {
         assert_eq!(Lang::Spa.eng_name(), "Spanish");
         assert_eq!(Lang::Epo.eng_name(), "Esperanto");
         assert_eq!(Lang::Rus.eng_name(), "Russian");
+    }
+
+    #[test]
+    fn test_values_iter() {
+        assert_eq!(Lang::values().count(), <%= langs.size %>);
+        let values: Vec<Lang> = Lang::values().collect();
+        assert!(values.contains(&Lang::Ukr));
+        assert!(values.contains(&Lang::Swe));
     }
 }
