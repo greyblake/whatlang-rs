@@ -63,7 +63,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Telugu         | tel       | `Lang::Tel` |
 | Persian        | pes       | `Lang::Pes` |
 | Malayalam      | mal       | `Lang::Mal` |
-| Hausa          | hau       | `Lang::Hau` |
 | Oriya          | ori       | `Lang::Ori` |
 | Burmese        | mya       | `Lang::Mya` |
 | Bhojpuri       | bho       | `Lang::Bho` |

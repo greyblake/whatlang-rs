@@ -1,5 +1,6 @@
 ### Unreleased
 * [breaking] - Drop support of `Tir` (Tigrinya)
+* [breaking] - Drop support of `Hau` (Hausa)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Add `Script::values()` to iterate over all scripts.
