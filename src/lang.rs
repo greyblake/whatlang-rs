@@ -163,7 +163,7 @@ pub enum Lang {
     Pan = 49,
 
     /// Azərbaycanca (Azerbaijani)
-    Azj = 50,
+    Aze = 50,
 
     /// Bahasa Indonesia (Indonesian)
     Ind = 51,
@@ -322,7 +322,7 @@ const VALUES: [Lang; 86] = [
     Lang::Guj,
     Lang::Uzb,
     Lang::Pan,
-    Lang::Azj,
+    Lang::Aze,
     Lang::Ind,
     Lang::Tel,
     Lang::Pes,
@@ -412,7 +412,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "guj" => Some(Lang::Guj),
         "uzb" => Some(Lang::Uzb),
         "pan" => Some(Lang::Pan),
-        "azj" => Some(Lang::Azj),
+        "aze" => Some(Lang::Aze),
         "ind" => Some(Lang::Ind),
         "tel" => Some(Lang::Tel),
         "pes" => Some(Lang::Pes),
@@ -504,7 +504,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Guj => "guj",
         Lang::Uzb => "uzb",
         Lang::Pan => "pan",
-        Lang::Azj => "azj",
+        Lang::Aze => "aze",
         Lang::Ind => "ind",
         Lang::Tel => "tel",
         Lang::Pes => "pes",
@@ -595,7 +595,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Guj => "ગુજરાતી",
         Lang::Uzb => "Oʻzbekcha",
         Lang::Pan => "ਪੰਜਾਬੀ",
-        Lang::Azj => "Azərbaycanca",
+        Lang::Aze => "Azərbaycanca",
         Lang::Ind => "Bahasa Indonesia",
         Lang::Tel => "తెలుగు",
         Lang::Pes => "فارسی",
@@ -686,7 +686,7 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Guj => "Gujarati",
         Lang::Uzb => "Uzbek",
         Lang::Pan => "Punjabi",
-        Lang::Azj => "Azerbaijani",
+        Lang::Aze => "Azerbaijani",
         Lang::Ind => "Indonesian",
         Lang::Tel => "Telugu",
         Lang::Pes => "Persian",
@@ -7743,7 +7743,7 @@ pub static LATIN_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Azj,
+        Lang::Aze,
         &[
             Trigram(' ', 'v', 'ə'),
             Trigram('v', 'ə', ' '),
@@ -17202,7 +17202,7 @@ pub static CYRILLIC_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Azj,
+        Lang::Aze,
         &[
             Trigram(' ', 'в', 'ә'),
             Trigram('в', 'ә', ' '),

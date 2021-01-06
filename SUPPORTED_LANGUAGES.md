@@ -58,7 +58,7 @@ and [documentation](https://docs.rs/whatlang/).
 | Gujarati       | guj       | `Lang::Guj` |
 | Uzbek          | uzb       | `Lang::Uzb` |
 | Punjabi        | pan       | `Lang::Pan` |
-| Azerbaijani    | azj       | `Lang::Azj` |
+| Azerbaijani    | aze       | `Lang::Aze` |
 | Indonesian     | ind       | `Lang::Ind` |
 | Telugu         | tel       | `Lang::Tel` |
 | Persian        | pes       | `Lang::Pes` |

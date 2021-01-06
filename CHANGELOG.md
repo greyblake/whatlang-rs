@@ -1,9 +1,10 @@
 ### Unreleased
+* [breaking] - Drop support of `Tir` (Tigrinya)
+* [breaking] - Rename Yiddish: `Ydd` -> `Yid`
+* [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Add `Script::values()` to iterate over all scripts.
 * Add `Lang::values()` to iterate over all languages.
 * Add integration with `enum-map`
-* [breaking] - Rename Yiddish: `Ydd` -> Yid`
-* [breaking] - Drop support of `Tir` (Tigrinya)
 
 ### v0.11.1 - 2020-11-28
 * Use Trigram tuple instead of heap allocated String. (~68% faster)
