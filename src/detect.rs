@@ -241,7 +241,7 @@ mod tests {
         let text = "האקדמיה ללשון העברית";
 
         // All languages with Hebrew script are in blacklist, so result must be None
-        let blacklist = vec![Lang::Heb, Lang::Ydd];
+        let blacklist = vec![Lang::Heb, Lang::Yid];
         let options = Options::new().set_blacklist(blacklist);
         let output = detect_with_options(text, &options);
         assert_eq!(output, None);

@@ -61,7 +61,7 @@ pub enum Lang {
     Heb = 15,
 
     /// ייִדיש (Yiddish)
-    Ydd = 16,
+    Yid = 16,
 
     /// Polski (Polish)
     Pol = 17,
@@ -291,7 +291,7 @@ const VALUES: [Lang; 87] = [
     Lang::Hin,
     Lang::Jpn,
     Lang::Heb,
-    Lang::Ydd,
+    Lang::Yid,
     Lang::Pol,
     Lang::Amh,
     Lang::Tir,
@@ -382,7 +382,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "hin" => Some(Lang::Hin),
         "jpn" => Some(Lang::Jpn),
         "heb" => Some(Lang::Heb),
-        "ydd" => Some(Lang::Ydd),
+        "yid" => Some(Lang::Yid),
         "pol" => Some(Lang::Pol),
         "amh" => Some(Lang::Amh),
         "tir" => Some(Lang::Tir),
@@ -475,7 +475,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Hin => "hin",
         Lang::Jpn => "jpn",
         Lang::Heb => "heb",
-        Lang::Ydd => "ydd",
+        Lang::Yid => "yid",
         Lang::Pol => "pol",
         Lang::Amh => "amh",
         Lang::Tir => "tir",
@@ -567,7 +567,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Hin => "हिन्दी",
         Lang::Jpn => "日本語",
         Lang::Heb => "עברית",
-        Lang::Ydd => "ייִדיש",
+        Lang::Yid => "ייִדיש",
         Lang::Pol => "Polski",
         Lang::Amh => "አማርኛ",
         Lang::Tir => "ትግርኛ",
@@ -659,7 +659,7 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Hin => "Hindi",
         Lang::Jpn => "Japanese",
         Lang::Heb => "Hebrew",
-        Lang::Ydd => "Yiddish",
+        Lang::Yid => "Yiddish",
         Lang::Pol => "Polish",
         Lang::Amh => "Amharic",
         Lang::Tir => "Tigrinya",
@@ -22716,7 +22716,7 @@ pub static HEBREW_LANGS: LangProfileList = &[
         ],
     ),
     (
-        Lang::Ydd,
+        Lang::Yid,
         &[
             Trigram(' ', 'פ', 'ֿ'),
             Trigram('ו', 'ן', ' '),

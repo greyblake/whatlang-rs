@@ -24,7 +24,7 @@ and [documentation](https://docs.rs/whatlang/).
 | Hindi          | hin       | `Lang::Hin` |
 | Japanese       | jpn       | `Lang::Jpn` |
 | Hebrew         | heb       | `Lang::Heb` |
-| Yiddish        | ydd       | `Lang::Ydd` |
+| Yiddish        | yid       | `Lang::Yid` |
 | Polish         | pol       | `Lang::Pol` |
 | Amharic        | amh       | `Lang::Amh` |
 | Tigrinya       | tir       | `Lang::Tir` |
