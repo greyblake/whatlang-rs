@@ -41,7 +41,6 @@ class Lang
       languages.each do |lang, trigrams|
         info = langs.find { |l| l.code == lang }
         if info
-          puts info, lang
           scripts[script] << {
             code: lang,
             script: script,
@@ -50,6 +49,10 @@ class Lang
         end
       end
     end
+
+    # Filter out scripts with only one language
+    scripts.select! {|script, langs| langs.size > 1 }
+
     return langs, scripts
   end
 end

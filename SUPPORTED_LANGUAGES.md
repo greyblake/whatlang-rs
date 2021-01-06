@@ -27,7 +27,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Yiddish        | yid       | `Lang::Yid` |
 | Polish         | pol       | `Lang::Pol` |
 | Amharic        | amh       | `Lang::Amh` |
-| Tigrinya       | tir       | `Lang::Tir` |
 | Javanese       | jav       | `Lang::Jav` |
 | Korean         | kor       | `Lang::Kor` |
 | Bokmal         | nob       | `Lang::Nob` |

@@ -57,7 +57,6 @@ fn detect_lang_based_on_script(
         Script::Cyrillic => detect_lang_in_profiles(text, options, CYRILLIC_LANGS),
         Script::Devanagari => detect_lang_in_profiles(text, options, DEVANAGARI_LANGS),
         Script::Hebrew => detect_lang_in_profiles(text, options, HEBREW_LANGS),
-        Script::Ethiopic => detect_lang_in_profiles(text, options, ETHIOPIC_LANGS),
         Script::Arabic => detect_lang_in_profiles(text, options, ARABIC_LANGS),
         Script::Mandarin => detect_mandarin_japanese(options),
         Script::Bengali => Some((Lang::Ben, 1.0)),
@@ -75,6 +74,7 @@ fn detect_lang_based_on_script(
         Script::Myanmar => Some((Lang::Mya, 1.0)),
         Script::Sinhala => Some((Lang::Sin, 1.0)),
         Script::Khmer => Some((Lang::Khm, 1.0)),
+        Script::Ethiopic => Some((Lang::Amh, 1.0)),
         Script::Katakana | Script::Hiragana => Some((Lang::Jpn, 1.0)),
     }
 }
