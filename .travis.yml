@@ -8,4 +8,5 @@ script:
   - cargo fmt -- --check
   - cargo clippy -- -D warnings
   - cargo test
+  - cargo test --features enum-map
   - cargo package --allow-dirty

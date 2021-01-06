@@ -5,7 +5,11 @@
 use crate::trigrams::Trigram;
 use std::fmt;
 
+#[cfg(feature = "enum-map")]
+use enum_map::Enum;
+
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
+#[cfg_attr(feature = "enum-map", derive(Enum))]
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
     /// Esperanto (Esperanto)

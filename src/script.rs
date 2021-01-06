@@ -1,7 +1,11 @@
 use crate::utils::is_stop_char;
 use std::fmt;
 
+#[cfg(feature = "enum-map")]
+use enum_map::Enum;
+
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
+#[cfg_attr(feature = "enum-map", derive(Enum))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
     // Keep this in alphabetic order (for C bindings)
