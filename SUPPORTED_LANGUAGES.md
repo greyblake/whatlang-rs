@@ -70,7 +70,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Cebuano        | ceb       | `Lang::Ceb` |
 | Kurdish        | kur       | `Lang::Kur` |
 | Malagasy       | mlg       | `Lang::Mlg` |
-| Saraiki        | skr       | `Lang::Skr` |
 | Nepali         | nep       | `Lang::Nep` |
 | Sinhalese      | sin       | `Lang::Sin` |
 | Khmer          | khm       | `Lang::Khm` |
