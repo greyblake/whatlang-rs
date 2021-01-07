@@ -80,7 +80,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Khmer          | khm       | `Lang::Khm` |
 | Turkmen        | tuk       | `Lang::Tuk` |
 | Somali         | som       | `Lang::Som` |
-| Chewa          | nya       | `Lang::Nya` |
 | Akan           | aka       | `Lang::Aka` |
 | Zulu           | zul       | `Lang::Zul` |
 | Kinyarwanda    | kin       | `Lang::Kin` |
