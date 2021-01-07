@@ -67,7 +67,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Burmese        | mya       | `Lang::Mya` |
 | Tagalog        | tgl       | `Lang::Tgl` |
 | Yoruba         | yor       | `Lang::Yor` |
-| Oromo          | orm       | `Lang::Orm` |
 | Cebuano        | ceb       | `Lang::Ceb` |
 | Kurdish        | kur       | `Lang::Kur` |
 | Malagasy       | mlg       | `Lang::Mlg` |
