@@ -1,5 +1,8 @@
+use crate::error::Error;
 use crate::utils::is_stop_char;
+
 use std::fmt;
+use std::str::FromStr;
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
@@ -110,6 +113,40 @@ impl Script {
 impl fmt::Display for Script {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.name())
+    }
+}
+
+impl FromStr for Script {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.to_lowercase().trim() {
+            "latin" => Ok(Script::Latin),
+            "cyrillic" => Ok(Script::Cyrillic),
+            "arabic" => Ok(Script::Arabic),
+            "devanagari" => Ok(Script::Devanagari),
+            "hiragana" => Ok(Script::Hiragana),
+            "katakana" => Ok(Script::Katakana),
+            "ethiopic" => Ok(Script::Ethiopic),
+            "hebrew" => Ok(Script::Hebrew),
+            "bengali" => Ok(Script::Bengali),
+            "georgian" => Ok(Script::Georgian),
+            "mandarin" => Ok(Script::Mandarin),
+            "hangul" => Ok(Script::Hangul),
+            "greek" => Ok(Script::Greek),
+            "kannada" => Ok(Script::Kannada),
+            "tamil" => Ok(Script::Tamil),
+            "thai" => Ok(Script::Thai),
+            "gujarati" => Ok(Script::Gujarati),
+            "gurmukhi" => Ok(Script::Gurmukhi),
+            "telugu" => Ok(Script::Telugu),
+            "malayalam" => Ok(Script::Malayalam),
+            "oriya" => Ok(Script::Oriya),
+            "myanmar" => Ok(Script::Myanmar),
+            "sinhala" => Ok(Script::Sinhala),
+            "khmer" => Ok(Script::Khmer),
+            _ => Err(Error::ParseScript(s.to_string())),
+        }
     }
 }
 
@@ -537,5 +574,18 @@ mod tests {
         assert!(values.contains(&Script::Cyrillic));
         assert!(values.contains(&Script::Arabic));
         assert!(values.contains(&Script::Latin));
+    }
+
+    #[test]
+    fn test_from_str() {
+        for script in Script::values() {
+            let s = script.name();
+            assert_eq!(s.parse::<Script>().unwrap(), script);
+            assert_eq!(s.to_lowercase().parse::<Script>().unwrap(), script);
+            assert_eq!(s.to_uppercase().parse::<Script>().unwrap(), script);
+        }
+
+        let result = "foobar".parse::<Script>();
+        assert!(matches!(result, Err(Error::ParseScript(_))));
     }
 }

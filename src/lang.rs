@@ -2,8 +2,11 @@
 //    This file is generated automatically.
 //    Edit misc/lang.rs.erb template instead of editing lang.rs file directly.
 
-use crate::trigrams::Trigram;
 use std::fmt;
+use std::str::FromStr;
+
+use crate::error::Error;
+use crate::trigrams::Trigram;
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
@@ -19351,12 +19354,20 @@ impl fmt::Display for Lang {
     }
 }
 
+impl FromStr for Lang {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Lang::from_code(s).ok_or(Error::ParseLang(s.to_string()))
+    }
+}
+
 pub type LangProfile = &'static [Trigram];
 pub type LangProfileList = &'static [(Lang, LangProfile)];
 
 #[cfg(test)]
 mod tests {
-    use super::Lang;
+    use super::*;
 
     #[test]
     fn test_from_code() {
@@ -19391,5 +19402,18 @@ mod tests {
         let values: Vec<Lang> = Lang::values().collect();
         assert!(values.contains(&Lang::Ukr));
         assert!(values.contains(&Lang::Swe));
+    }
+
+    #[test]
+    fn test_from_str() {
+        for lang in Lang::values() {
+            let s = lang.code();
+            assert_eq!(s.parse::<Lang>().unwrap(), lang);
+            assert_eq!(s.to_lowercase().parse::<Lang>().unwrap(), lang);
+            assert_eq!(s.to_uppercase().parse::<Lang>().unwrap(), lang);
+        }
+
+        let result = "xyz".parse::<Lang>();
+        assert!(matches!(result, Err(Error::ParseLang(_))));
     }
 }

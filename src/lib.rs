@@ -34,6 +34,7 @@
 mod constants;
 mod detect;
 mod detector;
+mod error;
 mod info;
 mod lang;
 mod options;
