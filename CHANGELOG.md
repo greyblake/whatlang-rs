@@ -7,6 +7,7 @@
 * [breaking] - Drop support of `Ibo` (Igbo)
 * [breaking] - Drop support of `Mai` (Maithili)
 * [breaking] - Drop support of `Orm` (Oromo)
+* [breaking] - Drop support of `Run` (Rundi)
 
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`

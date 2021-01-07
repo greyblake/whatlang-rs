@@ -81,7 +81,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Kinyarwanda    | kin       | `Lang::Kin` |
 | Haitian Creole | hat       | `Lang::Hat` |
 | Ilocano        | ilo       | `Lang::Ilo` |
-| Rundi          | run       | `Lang::Run` |
 | Shona          | sna       | `Lang::Sna` |
 | Uyghur         | uig       | `Lang::Uig` |
 | Afrikaans      | afr       | `Lang::Afr` |
