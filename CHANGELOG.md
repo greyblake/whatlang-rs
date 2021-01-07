@@ -5,6 +5,7 @@
 
 * [breaking] - Drop support of `Bho` (Bhojpuri)
 * [breaking] - Drop support of `Ibo` (Igbo)
+* [breaking] - Drop support of `Mai` (Maithili)
 
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
