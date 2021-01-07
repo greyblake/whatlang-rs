@@ -13,6 +13,11 @@ TRIGRAM_COUNT = 300
 
 OUTPUT_FILE = File.expand_path("../../SUPPORTED_LANGUAGES.md", __FILE__)
 
+IGNORE_LANGS = {
+  # Do not generate cyrillic trigrams for Turkmen and Azerbaijani
+  "Cyrillic" => ["tuk", "aze"]
+}
+
 class Lang
   attr_reader :code, :eng_name, :name, :native_speakers, :script, :trigrams
 
@@ -38,7 +43,10 @@ class Lang
       if !scripts[script]
         scripts[script] = []
       end
+      ignore_langs = IGNORE_LANGS[script] || []
       languages.each do |lang, trigrams|
+        next if ignore_langs.include?(lang)
+
         info = langs.find { |l| l.code == lang }
         if info
           scripts[script] << {
