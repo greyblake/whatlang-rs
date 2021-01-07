@@ -65,12 +65,10 @@ and [documentation](https://docs.rs/whatlang/).
 | Malayalam      | mal       | `Lang::Mal` |
 | Oriya          | ori       | `Lang::Ori` |
 | Burmese        | mya       | `Lang::Mya` |
-| Bhojpuri       | bho       | `Lang::Bho` |
 | Tagalog        | tgl       | `Lang::Tgl` |
 | Yoruba         | yor       | `Lang::Yor` |
 | Maithili       | mai       | `Lang::Mai` |
 | Oromo          | orm       | `Lang::Orm` |
-| Igbo           | ibo       | `Lang::Ibo` |
 | Cebuano        | ceb       | `Lang::Ceb` |
 | Kurdish        | kur       | `Lang::Kur` |
 | Malagasy       | mlg       | `Lang::Mlg` |
