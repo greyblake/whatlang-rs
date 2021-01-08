@@ -48,6 +48,7 @@ pub use crate::lang::Lang;
 pub use crate::options::Options;
 pub use crate::scripts::Script;
 
+pub use crate::detect::calculate_scores_with_options;
 pub use crate::detect::detect;
 pub use crate::detect::detect_lang;
 pub use crate::detect::detect_with_options;
