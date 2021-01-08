@@ -4,7 +4,7 @@ use crate::constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use crate::info::Info;
 use crate::lang::*;
 use crate::options::{List, Options};
-use crate::script::*;
+use crate::scripts::*;
 use crate::trigrams::*;
 
 /// Detect a language and a script by a given text.
@@ -190,7 +190,6 @@ fn detect_mandarin_japanese(options: &Options) -> Option<(Lang, f64)> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::script::Script;
 
     #[test]
     fn test_detect_spanish() {
