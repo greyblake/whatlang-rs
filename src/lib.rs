@@ -38,7 +38,7 @@ mod error;
 mod info;
 mod lang;
 mod options;
-mod script;
+mod scripts;
 mod trigrams;
 mod utils;
 
@@ -46,9 +46,9 @@ pub use crate::detector::Detector;
 pub use crate::info::Info;
 pub use crate::lang::Lang;
 pub use crate::options::Options;
-pub use crate::script::Script;
+pub use crate::scripts::Script;
 
 pub use crate::detect::detect;
 pub use crate::detect::detect_lang;
 pub use crate::detect::detect_with_options;
-pub use crate::script::detect_script;
+pub use crate::scripts::detect_script;
