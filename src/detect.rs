@@ -4,7 +4,7 @@ use crate::constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use crate::info::Info;
 use crate::lang::*;
 use crate::options::{List, Options};
-use crate::scripts::*;
+use crate::scripts::{Script, detect_script};
 use crate::trigrams::*;
 
 /// Detect a language and a script by a given text.
@@ -47,6 +47,14 @@ pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     })
 }
 
+pub fn calculate_scores_with_options(text: &str, options: &Options) -> Vec<(Lang, f64)> {
+    let script_opt = detect_script(text);
+    match script_opt {
+        None => vec![],
+        Some(script) => calculate_scores_based_on_script(text, options, script),
+    }
+}
+
 fn detect_lang_based_on_script(
     text: &str,
     options: &Options,
@@ -77,6 +85,78 @@ fn detect_lang_based_on_script(
         Script::Ethiopic => Some((Lang::Amh, 1.0)),
         Script::Katakana | Script::Hiragana => Some((Lang::Jpn, 1.0)),
     }
+}
+
+fn calculate_scores_based_on_script(
+    text: &str,
+    options: &Options,
+    script: Script,
+) -> Vec<(Lang, f64)> {
+    match script {
+        Script::Latin => calculate_scores_in_profiles(text, options, LATIN_LANGS),
+        Script::Cyrillic => calculate_scores_in_profiles(text, options, CYRILLIC_LANGS),
+        Script::Devanagari => calculate_scores_in_profiles(text, options, DEVANAGARI_LANGS),
+        Script::Hebrew => calculate_scores_in_profiles(text, options, HEBREW_LANGS),
+        Script::Arabic => calculate_scores_in_profiles(text, options, ARABIC_LANGS),
+        Script::Mandarin => vec![(Lang::Cmn, 1.0)], // TODO: return detect_mandarin_japanese
+        Script::Bengali => vec![(Lang::Ben, 1.0)],
+        Script::Hangul => vec![(Lang::Kor, 1.0)],
+        Script::Georgian => vec![(Lang::Kat, 1.0)],
+        Script::Greek => vec![(Lang::Ell, 1.0)],
+        Script::Kannada => vec![(Lang::Kan, 1.0)],
+        Script::Tamil => vec![(Lang::Tam, 1.0)],
+        Script::Thai => vec![(Lang::Tha, 1.0)],
+        Script::Gujarati => vec![(Lang::Guj, 1.0)],
+        Script::Gurmukhi => vec![(Lang::Pan, 1.0)],
+        Script::Telugu => vec![(Lang::Tel, 1.0)],
+        Script::Malayalam => vec![(Lang::Mal, 1.0)],
+        Script::Oriya => vec![(Lang::Ori, 1.0)],
+        Script::Myanmar => vec![(Lang::Mya, 1.0)],
+        Script::Sinhala => vec![(Lang::Sin, 1.0)],
+        Script::Khmer => vec![(Lang::Khm, 1.0)],
+        Script::Ethiopic => vec![(Lang::Amh, 1.0)],
+        Script::Katakana | Script::Hiragana => vec![(Lang::Jpn, 1.0)],
+    }
+}
+
+fn calculate_scores_in_profiles(
+    text: &str,
+    options: &Options,
+    lang_profile_list: LangProfileList,
+) -> Vec<(Lang, f64)> {
+    let mut lang_distances: Vec<(Lang, u32)> = vec![];
+    let trigrams = get_trigrams_with_positions(text);
+
+    for &(ref lang, lang_trigrams) in lang_profile_list {
+        match options.list {
+            Some(List::White(ref whitelist)) if !whitelist.contains(lang) => continue,
+            Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
+            _ => {}
+        }
+        let dist = calculate_distance(lang_trigrams, &trigrams);
+        lang_distances.push(((*lang), dist));
+    }
+
+    let lang_scores = lang_distances
+        .iter()
+        .map(|&(lang, distance)| (lang, distance_to_score(trigrams.len() as u32, distance)))
+        .collect();
+
+    // Sort languages by distance
+    // lang_distances.sort_by_key(|key| key.1);
+    lang_scores
+}
+
+fn distance_to_score(trigrams_count: u32, distance: u32) -> f64 {
+    let max_distance = if trigrams_count > MAX_TOTAL_DISTANCE {
+        MAX_TOTAL_DISTANCE
+    } else {
+        trigrams_count
+    };
+
+    let similarity = max_distance - distance;
+
+    similarity as f64 / max_distance as f64
 }
 
 fn detect_lang_in_profiles(
