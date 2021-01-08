@@ -19358,7 +19358,7 @@ impl FromStr for Lang {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Lang::from_code(s).ok_or(Error::ParseLang(s.to_string()))
+        Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
     }
 }
 
