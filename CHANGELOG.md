@@ -1,13 +1,14 @@
 ### Unreleased
-* [breaking] - Drop support of `Tir` (Tigrinya)
-* [breaking] - Drop support of `Hau` (Hausa)
-* [breaking] - Drop support of `Nya` (Chewa)
-* [breaking] - Drop support of `Bho` (Bhojpuri)
-* [breaking] - Drop support of `Ibo` (Igbo)
-* [breaking] - Drop support of `Mai` (Maithili)
-* [breaking] - Drop support of `Orm` (Oromo)
-* [breaking] - Drop support of `Run` (Rundi)
-* [breaking] - Drop support of `Srk` (Saraiki)
+* [breaking] - Drop `Tir` (Tigrinya)
+* [breaking] - Drop `Hau` (Hausa)
+* [breaking] - Drop `Nya` (Chewa)
+* [breaking] - Drop `Bho` (Bhojpuri)
+* [breaking] - Drop `Ibo` (Igbo)
+* [breaking] - Drop `Mai` (Maithili)
+* [breaking] - Drop `Orm` (Oromo)
+* [breaking] - Drop `Run` (Rundi)
+* [breaking] - Drop `Srk` (Saraiki)
+* [breaking] - Drop `Kur` (Kurdish)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
