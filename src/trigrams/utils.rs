@@ -1,8 +1,8 @@
 use hashbrown::HashMap;
 
+use super::Trigram;
 use super::TEXT_TRIGRAMS_SIZE;
 use crate::utils::is_stop_char;
-use super::Trigram;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 

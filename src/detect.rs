@@ -1,12 +1,11 @@
 use hashbrown::HashMap;
 
-use crate::trigrams::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use crate::info::Info;
-use crate::lang::*;
 use crate::options::{List, Options};
 use crate::scripts::{detect_script, Script};
 use crate::trigrams::utils::*;
-use crate::trigrams::Trigram;
+use crate::trigrams::*;
+use crate::Lang;
 
 /// Detect a language and a script by a given text.
 ///

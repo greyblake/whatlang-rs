@@ -1,0 +1,23 @@
+// NOTE:
+//    This file is generated automatically.
+
+use crate::{Script, Lang};
+use crate::trigrams::Trigram;
+
+pub type LangProfile = &'static [Trigram];
+pub type LangProfileList = &'static [(Lang, LangProfile)];
+
+<% scripts.each do |script, langs| %>
+/// Languages for script <%= script %>
+pub static <%= script.upcase %>_LANGS: LangProfileList = &[
+    <% langs.each do |lang| %>
+        (
+            Lang::<%= lang[:code].capitalize %>,
+            &[
+	        <% lang[:trigrams].each do |t| %>
+                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),<% end %>
+            ]
+        ),
+    <% end %>
+];
+<% end %>
