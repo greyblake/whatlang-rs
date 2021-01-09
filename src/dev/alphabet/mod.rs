@@ -1,18 +1,18 @@
 mod cyrillic;
 
-use crate::{Script, Lang};
+use crate::{Lang, Script};
+
+pub trait NormalizedOutcome {
+    fn normalized_scores(&self) -> &[(Lang, f64)];
+}
 
 pub fn detect_by_alphabet(text: &str, script: Script) -> Option<Lang> {
     match script {
         Script::Cyrillic => {
-            let mut scores = cyrillic::alphabet_calculate_scores(text);
-            scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
-            Some(scores[0].0)
-        },
-        _ => {
-            // eprintln!("detect_by_alphabet() for script {} is not yet implemented", script);
-            // println!("{}", text);
-            None
+            let outcome = cyrillic::alphabet_calculate_scores(text);
+            let first = outcome.normalized_scores()[0];
+            Some(first.0)
         }
+        _ => None,
     }
 }

@@ -4,7 +4,7 @@ use crate::constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use crate::info::Info;
 use crate::lang::*;
 use crate::options::{List, Options};
-use crate::scripts::{Script, detect_script};
+use crate::scripts::{detect_script, Script};
 use crate::trigrams::*;
 
 /// Detect a language and a script by a given text.

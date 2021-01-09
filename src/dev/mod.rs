@@ -1,14 +1,14 @@
 mod alphabet;
 
-use std::str::FromStr;
 use std::fmt;
+use std::str::FromStr;
 
 use crate::Lang;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Method {
     Trigram,
-    Alphabet
+    Alphabet,
 }
 
 impl FromStr for Method {
@@ -28,7 +28,7 @@ impl fmt::Display for Method {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let name = match self {
             Method::Trigram => "Trigram",
-            Method::Alphabet => "Alpabet"
+            Method::Alphabet => "Alpabet",
         };
         write!(f, "{}", name)
     }
@@ -38,13 +38,12 @@ pub fn detect_by_method(text: &str, method: Method) -> Option<Lang> {
     if let Some(script) = crate::detect_script(text) {
         match method {
             Method::Trigram => crate::detect_lang(text),
-            Method::Alphabet => alphabet::detect_by_alphabet(text, script)
+            Method::Alphabet => alphabet::detect_by_alphabet(text, script),
         }
     } else {
         None
     }
 }
-
 
 #[cfg(test)]
 mod tests {
