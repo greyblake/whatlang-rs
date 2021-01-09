@@ -1,12 +1,10 @@
 use hashbrown::HashMap;
 
-use crate::constants::TEXT_TRIGRAMS_SIZE;
+use super::TEXT_TRIGRAMS_SIZE;
 use crate::utils::is_stop_char;
+use super::Trigram;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
-
-#[derive(Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Clone, Copy)]
-pub struct Trigram(pub(crate) char, pub(crate) char, pub(crate) char);
 
 #[allow(clippy::unnecessary_sort_by)]
 pub fn get_trigrams_with_positions(text: &str) -> HashMap<Trigram, u32> {

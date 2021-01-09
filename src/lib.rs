@@ -32,7 +32,6 @@
 //! assert_eq!(lang, Some(Lang::Eng));
 //! ```
 //!
-mod constants;
 mod detect;
 mod detector;
 mod error;
