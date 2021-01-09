@@ -42,6 +42,9 @@ mod scripts;
 mod trigrams;
 mod utils;
 
+// TODO: experimental, put behind feature toggle
+pub mod dev;
+
 pub use crate::detector::Detector;
 pub use crate::info::Info;
 pub use crate::lang::Lang;
