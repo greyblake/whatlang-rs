@@ -84,7 +84,7 @@ pub fn alphabet_calculate_scores(text: &str) -> Outcome {
     Outcome {
         max_raw_score,
         raw_scores,
-        normalized_scores
+        normalized_scores,
     }
 }
 

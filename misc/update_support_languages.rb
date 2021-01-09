@@ -9,6 +9,10 @@ LIST_FILE = File.expand_path("../supported_languages.csv", __FILE__)
 JSON_FILE = File.expand_path("../data.json", __FILE__)
 LANG_TEMPLATE_FILE = File.expand_path("../lang.rs.erb", __FILE__)
 LANG_OUTPUT = File.expand_path("../../src/lang.rs", __FILE__)
+
+TRIGRAM_PROFILES_TEMPLATE_FILE = File.expand_path("../trigram_profiles.rs.erb", __FILE__)
+TRIGRAM_PROFILES_TARGET = File.expand_path("../../src/trigrams/profiles.rs", __FILE__)
+
 TRIGRAM_COUNT = 300
 
 OUTPUT_FILE = File.expand_path("../../SUPPORTED_LANGUAGES.md", __FILE__)
@@ -122,6 +126,10 @@ File.write(OUTPUT_FILE, supported_langs_table)
 
 template = ERB.new(File.read(LANG_TEMPLATE_FILE))
 File.open(LANG_OUTPUT, 'w') { |out| out.write(template.result) }
+
+template = ERB.new(File.read(TRIGRAM_PROFILES_TEMPLATE_FILE))
+File.open(TRIGRAM_PROFILES_TARGET, 'w') { |out| out.write(template.result) }
+
 `cargo fmt` # Call cargo fmt to clean the generated code
 
 # scripts.each do |script, data|

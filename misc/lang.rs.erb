@@ -57,21 +57,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
     }
 }
 
-<% scripts.each do |script, langs| %>
-/// Languages for script <%= script %>
-pub static <%= script.upcase %>_LANGS: LangProfileList = &[
-    <% langs.each do |lang| %>
-        (
-            Lang::<%= lang[:code].capitalize %>,
-            &[
-	        <% lang[:trigrams].each do |t| %>
-                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),<% end %>
-            ]
-        ),
-    <% end %>
-];
-<% end %>
-
 impl Lang {
     /// Get enum by ISO 639-3 code as a string.
     ///
@@ -144,11 +129,6 @@ impl FromStr for Lang {
         Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
     }
 }
-
-
-
-pub type LangProfile = &'static [Trigram];
-pub type LangProfileList = &'static [(Lang, LangProfile)];
 
 #[cfg(test)]
 mod tests {
