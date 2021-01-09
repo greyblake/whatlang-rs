@@ -116,13 +116,19 @@ table = MarkdownTable.new(["Language", "ISO 639-3", "Enum"])
 langs.each do |lang|
   table.add([lang.eng_name, lang.code, "`Lang::#{lang.code.capitalize}`"])
 end
+supported_langs_table = File.read(OUTPUT_FILE)
+supported_langs_table.gsub!(/\| Language .+\|\n/m, table.to_s)
+File.write(OUTPUT_FILE, supported_langs_table)
 
 template = ERB.new(File.read(LANG_TEMPLATE_FILE))
 File.open(LANG_OUTPUT, 'w') { |out| out.write(template.result) }
 `cargo fmt` # Call cargo fmt to clean the generated code
 
-readme = File.read(OUTPUT_FILE)
-
-readme.gsub!(/\| Language .+\|\n/m, table.to_s)
-
-File.write(OUTPUT_FILE, readme)
+# scripts.each do |script, data|
+#   langs = data
+#     .map { |lang_data| lang_data[:code].capitalize }
+#     .map { |code| "Lang::#{code}" }
+#   size = langs.size
+#   langs = "[#{langs.join(', ')}]"
+#   puts "const #{script.upcase}_LANGS: [Lang; #{size}] = #{langs};"
+# end
