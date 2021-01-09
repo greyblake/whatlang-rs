@@ -1,7 +1,9 @@
 use std::fmt;
 use std::str::FromStr;
 
+use super::lang_mapping;
 use crate::error::Error;
+use crate::Lang;
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
@@ -37,7 +39,7 @@ pub enum Script {
     Thai,
 }
 
-// Array of all possible Script values that is used to build Script::values() iterator.
+// Array of all existing Script values.
 const VALUES: [Script; 24] = [
     Script::Arabic,
     Script::Bengali,
@@ -66,6 +68,19 @@ const VALUES: [Script; 24] = [
 ];
 
 impl Script {
+    /// Get all existing scripts.
+    ///
+    /// # Example
+    /// ```
+    /// use whatlang::Script;
+    /// for script in Script::values() {
+    ///     println!("{}", script);
+    /// }
+    /// ```
+    pub fn values() -> &'static [Script] {
+        &VALUES
+    }
+
     pub fn name(&self) -> &str {
         match *self {
             Script::Latin => "Latin",
@@ -95,17 +110,8 @@ impl Script {
         }
     }
 
-    /// Get an iterator over all scripts that exist.
-    ///
-    /// # Example
-    /// ```
-    /// use whatlang::Script;
-    /// for script in Script::values() {
-    ///     println!("{}", script);
-    /// }
-    /// ```
-    pub fn values() -> impl Iterator<Item = Script> {
-        VALUES.iter().copied()
+    pub fn langs(&self) -> &[Lang] {
+        lang_mapping::script_langs(*self)
     }
 }
 
@@ -155,8 +161,8 @@ mod tests {
 
     #[test]
     fn test_values_iter() {
-        assert_eq!(Script::values().count(), 24);
-        let values: Vec<Script> = Script::values().collect();
+        assert_eq!(Script::values().len(), 24);
+        let values = Script::values();
         assert!(values.contains(&Script::Cyrillic));
         assert!(values.contains(&Script::Arabic));
         assert!(values.contains(&Script::Latin));
@@ -164,7 +170,7 @@ mod tests {
 
     #[test]
     fn test_from_str() {
-        for script in Script::values() {
+        for &script in Script::values() {
             let s = script.name();
             assert_eq!(s.parse::<Script>().unwrap(), script);
             assert_eq!(s.to_lowercase().parse::<Script>().unwrap(), script);
@@ -173,5 +179,21 @@ mod tests {
 
         let result = "foobar".parse::<Script>();
         assert!(matches!(result, Err(Error::ParseScript(_))));
+    }
+
+    #[test]
+    fn test_langs() {
+        // Vec of all langs obtained with script.langs()
+        let script_langs: Vec<Lang> = Script::values()
+            .iter()
+            .map(|script| script.langs())
+            .flatten()
+            .map(|lang| *lang)
+            .collect();
+
+        // Ensure all langs belong at least to one script
+        for lang in Lang::values() {
+            assert!(script_langs.contains(&lang));
+        }
     }
 }

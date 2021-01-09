@@ -19021,7 +19021,7 @@ impl Lang {
         lang_to_eng_name(self)
     }
 
-    /// Get an iterator over all Lang values.
+    /// Get all existing languages.
     ///
     /// # Example
     /// ```
@@ -19030,8 +19030,8 @@ impl Lang {
     ///     println!("{}", lang);
     /// }
     /// ```
-    pub fn values() -> impl Iterator<Item = Lang> {
-        VALUES.iter().copied()
+    pub fn values() -> &'static [Lang] {
+        &VALUES
     }
 }
 
@@ -19085,15 +19085,15 @@ mod tests {
 
     #[test]
     fn test_values_iter() {
-        assert_eq!(Lang::values().count(), 77);
-        let values: Vec<Lang> = Lang::values().collect();
+        assert_eq!(Lang::values().len(), 77);
+        let values = Lang::values();
         assert!(values.contains(&Lang::Ukr));
         assert!(values.contains(&Lang::Swe));
     }
 
     #[test]
     fn test_from_str() {
-        for lang in Lang::values() {
+        for &lang in Lang::values() {
             let s = lang.code();
             assert_eq!(s.parse::<Lang>().unwrap(), lang);
             assert_eq!(s.to_lowercase().parse::<Lang>().unwrap(), lang);
