@@ -1,5 +1,6 @@
 mod profiles;
 pub mod utils;
+mod detection;
 
 pub use profiles::*;
 
