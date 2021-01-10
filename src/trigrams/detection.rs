@@ -1,40 +1,43 @@
 use hashbrown::HashMap;
 
-use crate::{Lang, Script};
 use crate::options::{List, Options};
+use crate::{Lang, Script};
 
 use super::{LangProfile, LangProfileList};
 
 use crate::trigrams::utils::*;
 use crate::trigrams::*;
 
-
 pub struct Outcome {
-   pub normalized_scores: Vec<(Lang, f64)>,
-   pub trigram_count: usize,
+    pub normalized_scores: Vec<(Lang, f64)>,
+    pub trigram_count: usize,
 }
 
 impl Outcome {
     fn new(normalized_scores: Vec<(Lang, f64)>, trigram_count: usize) -> Self {
-        Self { normalized_scores, trigram_count }
+        Self {
+            normalized_scores,
+            trigram_count,
+        }
     }
 
     fn new_empty() -> Self {
-        Self { normalized_scores: vec![], trigram_count: 0 }
+        Self {
+            normalized_scores: vec![],
+            trigram_count: 0,
+        }
     }
 
-    fn from_lang(lang:  Lang) -> Self {
+    fn from_lang(lang: Lang) -> Self {
         let normalized_scores = vec![(lang, 1.0)];
-        Self { normalized_scores, trigram_count: 1 }
+        Self {
+            normalized_scores,
+            trigram_count: 1,
+        }
     }
 }
 
-
-pub fn calculate_scores_based_on_script(
-    text: &str,
-    options: &Options,
-    script: Script,
-) -> Outcome {
+pub fn calculate_scores_based_on_script(text: &str, options: &Options, script: Script) -> Outcome {
     match script {
         Script::Latin => calculate_scores_in_profiles(text, options, LATIN_LANGS),
         Script::Cyrillic => calculate_scores_in_profiles(text, options, CYRILLIC_LANGS),
@@ -106,7 +109,6 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
     } else {
         MAX_TOTAL_DISTANCE
     }
-
 }
 
 fn distance_to_score(_trigrams_count: u32, distance: u32) -> f64 {
@@ -134,6 +136,6 @@ fn detect_mandarin_japanese(options: &Options) -> Outcome {
                 Outcome::new_empty()
             }
         }
-        _ => Outcome::from_lang(Lang::Cmn)
+        _ => Outcome::from_lang(Lang::Cmn),
     }
 }

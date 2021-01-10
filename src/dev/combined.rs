@@ -1,7 +1,7 @@
-use crate::{Lang, Script};
-use crate::trigrams::detection::{calculate_scores_based_on_script, Outcome as TrigramOutcome};
 use crate::dev::alphabet::raw_detect_by_alphabet;
 use crate::dev::NormalizedOutcome;
+use crate::trigrams::detection::{calculate_scores_based_on_script, Outcome as TrigramOutcome};
+use crate::{Lang, Script};
 
 fn raw_detect_by_trigrams(text: &str, script: Script) -> TrigramOutcome {
     let options = crate::Options::new();
@@ -25,13 +25,22 @@ pub fn detect_by_combined(text: &str, script: Script) -> Option<Lang> {
     let mut scores = vec![];
 
     for lang in all_langs {
-        let a: f64 = alphabet_scores.iter().find(|(l, _)| l == &lang).map(|x| x.1).unwrap_or(0.0);
-        let t: f64 = trigram_scores.iter().find(|(l, _)| l == &lang).map(|x| x.1).unwrap_or(0.0);
-        let score = a * t;
+        let a: f64 = alphabet_scores
+            .iter()
+            .find(|(l, _)| l == &lang)
+            .map(|x| x.1)
+            .unwrap_or(0.0);
+        let t: f64 = trigram_scores
+            .iter()
+            .find(|(l, _)| l == &lang)
+            .map(|x| x.1)
+            .unwrap_or(0.0);
+        // NOTE: Magically adding big multiplier to trigram score
+        // improves overall result for cyrillic by ~4%.
+        let score = a * (t + 1000.0);
         scores.push((lang, score));
     }
 
     scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
     Some(scores[0].0)
 }
-
