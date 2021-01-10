@@ -1,8 +1,8 @@
 use crate::info::Info;
-use crate::options::{Options};
+use crate::options::Options;
 use crate::scripts::{detect_script, Script};
+use crate::trigrams::detection::calculate_scores_based_on_script;
 use crate::Lang;
-use crate::trigrams::detection::{calculate_scores_based_on_script};
 
 /// Detect a language and a script by a given text.
 ///
@@ -82,7 +82,6 @@ fn detect_lang_based_on_script(
         return Some((lang1, confidence));
     }
 
-
     let rate = f64::from(score1 - score2) / f64::from(score2);
 
     // Hyperbola function. Everything that is above the function has confidence = 1.0
@@ -98,7 +97,6 @@ fn detect_lang_based_on_script(
 
     Some((lang1, confidence))
 }
-
 
 #[cfg(test)]
 mod tests {
