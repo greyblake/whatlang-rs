@@ -26,12 +26,12 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
 
 pub fn alphabet_calculate_scores(text: &str) -> Outcome {
     let mut raw_scores = vec![
-        (Lang::Rus, 0),
-        (Lang::Ukr, 0),
-        (Lang::Bul, 0),
-        (Lang::Bel, 0),
-        (Lang::Mkd, 0),
-        (Lang::Srp, 0),
+        (Lang::Rus, 0i32),
+        (Lang::Ukr, 0i32),
+        (Lang::Bul, 0i32),
+        (Lang::Bel, 0i32),
+        (Lang::Mkd, 0i32),
+        (Lang::Srp, 0i32),
     ];
 
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
@@ -53,11 +53,19 @@ pub fn alphabet_calculate_scores(text: &str) -> Outcome {
 
     raw_scores.sort_by(|a, b| b.1.cmp(&a.1));
 
+    let raw_scores: Vec<(Lang, usize)> = raw_scores
+        .into_iter()
+        .map(|(l, s)| {
+            let score = if s < 0 { 0usize } else { s as usize };
+            (l, score)
+        })
+        .collect();
+
     let mut normalized_scores = vec![];
 
-    for (index, &(lang, raw_score)) in raw_scores.iter().enumerate() {
+    for &(lang, raw_score) in &raw_scores {
         let normalized_score = raw_score as f64 / max_raw_score as f64;
-        normalized_scores[index] = (lang, normalized_score);
+        normalized_scores.push((lang, normalized_score));
     }
 
     Outcome {
