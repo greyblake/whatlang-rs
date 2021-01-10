@@ -706,11 +706,11 @@ impl Lang {
     /// # Example
     /// ```
     /// use whatlang::Lang;
-    /// for lang in Lang::values() {
+    /// for lang in Lang::all() {
     ///     println!("{}", lang);
     /// }
     /// ```
-    pub fn values() -> &'static [Lang] {
+    pub fn all() -> &'static [Lang] {
         &VALUES
     }
 }
@@ -761,16 +761,16 @@ mod tests {
     }
 
     #[test]
-    fn test_values_iter() {
-        assert_eq!(Lang::values().len(), 77);
-        let values = Lang::values();
-        assert!(values.contains(&Lang::Ukr));
-        assert!(values.contains(&Lang::Swe));
+    fn test_all() {
+        assert_eq!(Lang::all().len(), 77);
+        let all = Lang::all();
+        assert!(all.contains(&Lang::Ukr));
+        assert!(all.contains(&Lang::Swe));
     }
 
     #[test]
     fn test_from_str() {
-        for &lang in Lang::values() {
+        for &lang in Lang::all() {
             let s = lang.code();
             assert_eq!(s.parse::<Lang>().unwrap(), lang);
             assert_eq!(s.to_lowercase().parse::<Lang>().unwrap(), lang);
