@@ -9,23 +9,28 @@ use crate::trigrams::utils::*;
 use crate::trigrams::*;
 
 
-struct Outcome {
-    normalized_scores: Vec<(Lang, f64)>
+pub struct Outcome {
+   pub normalized_scores: Vec<(Lang, f64)>,
+   pub trigram_count: usize,
 }
 
 impl Outcome {
-    fn new(normalized_scores: Vec<(Lang, f64)>) -> Self {
-        Self { normalized_scores }
+    fn new(normalized_scores: Vec<(Lang, f64)>, trigram_count: usize) -> Self {
+        Self { normalized_scores, trigram_count }
+    }
+
+    fn new_empty() -> Self {
+        Self { normalized_scores: vec![], trigram_count: 0 }
     }
 
     fn from_lang(lang:  Lang) -> Self {
         let normalized_scores = vec![(lang, 1.0)];
-        Self { normalized_scores }
+        Self { normalized_scores, trigram_count: 1 }
     }
 }
 
 
-fn calculate_scores_based_on_script(
+pub fn calculate_scores_based_on_script(
     text: &str,
     options: &Options,
     script: Script,
@@ -36,7 +41,7 @@ fn calculate_scores_based_on_script(
         Script::Devanagari => calculate_scores_in_profiles(text, options, DEVANAGARI_LANGS),
         Script::Hebrew => calculate_scores_in_profiles(text, options, HEBREW_LANGS),
         Script::Arabic => calculate_scores_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin => Outcome::from_lang(Lang::Cmn), // TODO: return detect_mandarin_japanese
+        Script::Mandarin => detect_mandarin_japanese(options),
         Script::Bengali => Outcome::from_lang(Lang::Ben),
         Script::Hangul => Outcome::from_lang(Lang::Kor),
         Script::Georgian => Outcome::from_lang(Lang::Kat),
@@ -83,7 +88,7 @@ fn calculate_scores_in_profiles(
         .map(|&(lang, distance)| (lang, distance_to_score(trigrams.len() as u32, distance)))
         .collect();
 
-    Outcome::new(lang_scores)
+    Outcome::new(lang_scores, trigrams.len())
 }
 
 fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigram, u32>) -> u32 {
@@ -96,39 +101,39 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
         };
         total_dist += dist;
     }
-    total_dist
+    if total_dist < MAX_TOTAL_DISTANCE {
+        total_dist
+    } else {
+        MAX_TOTAL_DISTANCE
+    }
+
 }
 
 fn distance_to_score(trigrams_count: u32, distance: u32) -> f64 {
-    let max_distance = if trigrams_count > MAX_TOTAL_DISTANCE {
-        MAX_TOTAL_DISTANCE
-    } else {
-        trigrams_count
-    };
-    let similarity = max_distance - distance;
-    similarity as f64 / max_distance as f64
+    let similarity = MAX_TOTAL_DISTANCE - distance;
+    similarity as f64 / MAX_TRIGRAM_DISTANCE as f64
 }
 
-fn detect_mandarin_japanese(options: &Options) -> Option<(Lang, f64)> {
+fn detect_mandarin_japanese(options: &Options) -> Outcome {
     match options.list {
         Some(List::White(ref whitelist)) => {
             if whitelist.contains(&Lang::Jpn) && !whitelist.contains(&Lang::Cmn) {
-                Some((Lang::Jpn, 1.0))
+                Outcome::from_lang(Lang::Jpn)
             } else if whitelist.contains(&Lang::Cmn) {
-                Some((Lang::Cmn, 1.0))
+                Outcome::from_lang(Lang::Cmn)
             } else {
-                None
+                Outcome::new_empty()
             }
         }
         Some(List::Black(ref blacklist)) => {
             if blacklist.contains(&Lang::Cmn) && !blacklist.contains(&Lang::Jpn) {
-                Some((Lang::Jpn, 1.0))
+                Outcome::from_lang(Lang::Jpn)
             } else if !blacklist.contains(&Lang::Cmn) {
-                Some((Lang::Cmn, 1.0))
+                Outcome::from_lang(Lang::Cmn)
             } else {
-                None
+                Outcome::new_empty()
             }
         }
-        _ => Some((Lang::Cmn, 1.0)),
+        _ => Outcome::from_lang(Lang::Cmn)
     }
 }
