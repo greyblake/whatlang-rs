@@ -1,12 +1,7 @@
-
-
 use crate::info::Info;
 use crate::options::{Options};
 use crate::scripts::{detect_script, Script};
-
-
 use crate::Lang;
-
 use crate::trigrams::detection::{calculate_scores_based_on_script};
 
 /// Detect a language and a script by a given text.
