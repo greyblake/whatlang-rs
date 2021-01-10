@@ -73,11 +73,11 @@ impl Script {
     /// # Example
     /// ```
     /// use whatlang::Script;
-    /// for script in Script::values() {
+    /// for script in Script::all() {
     ///     println!("{}", script);
     /// }
     /// ```
-    pub fn values() -> &'static [Script] {
+    pub fn all() -> &'static [Script] {
         &VALUES
     }
 
@@ -160,17 +160,17 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_values_iter() {
-        assert_eq!(Script::values().len(), 24);
-        let values = Script::values();
-        assert!(values.contains(&Script::Cyrillic));
-        assert!(values.contains(&Script::Arabic));
-        assert!(values.contains(&Script::Latin));
+    fn test_all() {
+        assert_eq!(Script::all().len(), 24);
+        let all = Script::all();
+        assert!(all.contains(&Script::Cyrillic));
+        assert!(all.contains(&Script::Arabic));
+        assert!(all.contains(&Script::Latin));
     }
 
     #[test]
     fn test_from_str() {
-        for &script in Script::values() {
+        for &script in Script::all() {
             let s = script.name();
             assert_eq!(s.parse::<Script>().unwrap(), script);
             assert_eq!(s.to_lowercase().parse::<Script>().unwrap(), script);
@@ -184,7 +184,7 @@ mod tests {
     #[test]
     fn test_langs() {
         // Vec of all langs obtained with script.langs()
-        let script_langs: Vec<Lang> = Script::values()
+        let script_langs: Vec<Lang> = Script::all()
             .iter()
             .map(|script| script.langs())
             .flatten()
@@ -192,7 +192,7 @@ mod tests {
             .collect();
 
         // Ensure all langs belong at least to one script
-        for lang in Lang::values() {
+        for lang in Lang::all() {
             assert!(script_langs.contains(&lang));
         }
     }

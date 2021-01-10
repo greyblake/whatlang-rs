@@ -12,8 +12,8 @@
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
-* Add `Script::values()` to iterate over all scripts.
-* Add `Lang::values()` to iterate over all languages.
+* Add `Script::all()` to iterate over all scripts.
+* Add `Lang::all()` to iterate over all languages.
 * Add integration with `enum-map`
 * Implement `FromStr` for `Script` and `Lang`
 * Implement `Script::langs(&self) -> &[Lang]`

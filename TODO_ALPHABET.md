@@ -1,6 +1,6 @@
 Latin
-[ ] spa (Spanish)
-[ ] eng (English)
+[x] spa (Spanish)
+[x] eng (English)
 [ ] por (Portuguese)
 [ ] ind (Indonesian)
 [ ] fra (French)
