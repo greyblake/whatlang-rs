@@ -1,6 +1,6 @@
 use hashbrown::HashMap;
 
-use crate::{Lang, Script, detect_script};
+use crate::{Lang, Script};
 use crate::options::{List, Options};
 
 use super::{LangProfile, LangProfileList};
@@ -109,7 +109,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
 
 }
 
-fn distance_to_score(trigrams_count: u32, distance: u32) -> f64 {
+fn distance_to_score(_trigrams_count: u32, distance: u32) -> f64 {
     let similarity = MAX_TOTAL_DISTANCE - distance;
     similarity as f64 / MAX_TRIGRAM_DISTANCE as f64
 }
