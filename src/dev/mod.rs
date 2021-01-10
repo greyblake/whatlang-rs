@@ -25,6 +25,7 @@ impl FromStr for Method {
         match s.to_lowercase().trim() {
             "trigram" => Ok(Method::Trigram),
             "alphabet" => Ok(Method::Alphabet),
+            "combined" => Ok(Method::Combined),
             _ => Err(format!("Cannot obtain Method from {:?}", s)),
         }
     }
