@@ -1,13 +1,13 @@
-use hashbrown::HashMap;
+
 
 use crate::info::Info;
-use crate::options::{List, Options};
+use crate::options::{Options};
 use crate::scripts::{detect_script, Script};
-use crate::trigrams::utils::*;
-use crate::trigrams::*;
+
+
 use crate::Lang;
 
-use crate::trigrams::detection::{Outcome, calculate_scores_based_on_script};
+use crate::trigrams::detection::{calculate_scores_based_on_script};
 
 /// Detect a language and a script by a given text.
 ///
@@ -66,7 +66,7 @@ fn detect_lang_based_on_script(
     }
 
     let (lang1, score1) = normalized_scores[0];
-    let (lang2, score2) = normalized_scores[1];
+    let (_lang2, score2) = normalized_scores[1];
 
     if score1 == 0.0 {
         // If score1 is 0, score2 is 0 as well, because array is sorted.

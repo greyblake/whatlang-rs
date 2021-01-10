@@ -2,7 +2,7 @@
 //    This file is generated automatically.
 
 use crate::trigrams::Trigram;
-use crate::{Lang, Script};
+use crate::{Lang};
 
 pub type LangProfile = &'static [Trigram];
 pub type LangProfileList = &'static [(Lang, LangProfile)];

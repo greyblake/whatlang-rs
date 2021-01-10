@@ -6,7 +6,7 @@ use std::fmt;
 use std::str::FromStr;
 
 use crate::error::Error;
-use crate::trigrams::Trigram;
+
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
