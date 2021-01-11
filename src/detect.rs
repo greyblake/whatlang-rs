@@ -136,7 +136,6 @@ mod tests {
             Lang::Uzb,
             Lang::Swe,
             Lang::Nob,
-            Lang::Ceb,
             Lang::Ilo,
         ];
         let options = Options::new().set_blacklist(blacklist);

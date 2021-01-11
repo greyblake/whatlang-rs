@@ -67,7 +67,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Burmese        | mya       | `Lang::Mya` |
 | Tagalog        | tgl       | `Lang::Tgl` |
 | Yoruba         | yor       | `Lang::Yor` |
-| Cebuano        | ceb       | `Lang::Ceb` |
 | Malagasy       | mlg       | `Lang::Mlg` |
 | Nepali         | nep       | `Lang::Nep` |
 | Sinhalese      | sin       | `Lang::Sin` |

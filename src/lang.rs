@@ -192,62 +192,59 @@ pub enum Lang {
     /// Yorùbá (Yoruba)
     Yor = 58,
 
-    /// Cebuano (Cebuano)
-    Ceb = 59,
-
     /// Malagasy (Malagasy)
-    Mlg = 60,
+    Mlg = 59,
 
     /// नेपाली (Nepali)
-    Nep = 61,
+    Nep = 60,
 
     /// සිංහල (Sinhalese)
-    Sin = 62,
+    Sin = 61,
 
     /// ភាសាខ្មែរ (Khmer)
-    Khm = 63,
+    Khm = 62,
 
     /// Türkmençe (Turkmen)
-    Tuk = 64,
+    Tuk = 63,
 
     /// Soomaaliga (Somali)
-    Som = 65,
+    Som = 64,
 
     /// Akan (Akan)
-    Aka = 66,
+    Aka = 65,
 
     /// IsiZulu (Zulu)
-    Zul = 67,
+    Zul = 66,
 
     /// Kinyarwanda (Kinyarwanda)
-    Kin = 68,
+    Kin = 67,
 
     /// Kreyòl ayisyen (Haitian Creole)
-    Hat = 69,
+    Hat = 68,
 
     /// Ilokano (Ilocano)
-    Ilo = 70,
+    Ilo = 69,
 
     /// ChiShona (Shona)
-    Sna = 71,
+    Sna = 70,
 
     /// ئۇيغۇرچە (Uyghur)
-    Uig = 72,
+    Uig = 71,
 
     /// Afrikaans (Afrikaans)
-    Afr = 73,
+    Afr = 72,
 
     /// Lingua Latina (Latin)
-    Lat = 74,
+    Lat = 73,
 
     /// Slovenčina (Slovak)
-    Slk = 75,
+    Slk = 74,
 
     /// Català (Catalan)
-    Cat = 76,
+    Cat = 75,
 }
 
-const VALUES: [Lang; 77] = [
+const VALUES: [Lang; 76] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -307,7 +304,6 @@ const VALUES: [Lang; 77] = [
     Lang::Mya,
     Lang::Tgl,
     Lang::Yor,
-    Lang::Ceb,
     Lang::Mlg,
     Lang::Nep,
     Lang::Sin,
@@ -388,7 +384,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "mya" => Some(Lang::Mya),
         "tgl" => Some(Lang::Tgl),
         "yor" => Some(Lang::Yor),
-        "ceb" => Some(Lang::Ceb),
         "mlg" => Some(Lang::Mlg),
         "nep" => Some(Lang::Nep),
         "sin" => Some(Lang::Sin),
@@ -471,7 +466,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Mya => "mya",
         Lang::Tgl => "tgl",
         Lang::Yor => "yor",
-        Lang::Ceb => "ceb",
         Lang::Mlg => "mlg",
         Lang::Nep => "nep",
         Lang::Sin => "sin",
@@ -553,7 +547,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Mya => "မြန်မာစာ",
         Lang::Tgl => "Tagalog",
         Lang::Yor => "Yorùbá",
-        Lang::Ceb => "Cebuano",
         Lang::Mlg => "Malagasy",
         Lang::Nep => "नेपाली",
         Lang::Sin => "සිංහල",
@@ -635,7 +628,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Mya => "Burmese",
         Lang::Tgl => "Tagalog",
         Lang::Yor => "Yoruba",
-        Lang::Ceb => "Cebuano",
         Lang::Mlg => "Malagasy",
         Lang::Nep => "Nepali",
         Lang::Sin => "Sinhalese",
@@ -762,7 +754,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 77);
+        assert_eq!(Lang::all().len(), 76);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
