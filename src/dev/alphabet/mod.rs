@@ -1,4 +1,5 @@
 mod cyrillic;
+mod latin;
 
 use crate::dev::NormalizedOutcome;
 use crate::{Lang, Script};
@@ -39,6 +40,7 @@ pub fn detect_by_alphabet(text: &str, script: Script) -> Option<Lang> {
 pub fn raw_detect_by_alphabet(text: &str, script: Script) -> Outcome {
     match script {
         Script::Cyrillic => cyrillic::alphabet_calculate_scores(text),
+        Script::Latin => latin::alphabet_calculate_scores(text),
         _ => Outcome::new_empty(),
     }
 }
