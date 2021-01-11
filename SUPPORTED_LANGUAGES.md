@@ -65,7 +65,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Malayalam      | mal       | `Lang::Mal` |
 | Oriya          | ori       | `Lang::Ori` |
 | Burmese        | mya       | `Lang::Mya` |
-| Tagalog        | tgl       | `Lang::Tgl` |
 | Yoruba         | yor       | `Lang::Yor` |
 | Nepali         | nep       | `Lang::Nep` |
 | Sinhalese      | sin       | `Lang::Sin` |
