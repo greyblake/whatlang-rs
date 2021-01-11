@@ -74,7 +74,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Somali         | som       | `Lang::Som` |
 | Akan           | aka       | `Lang::Aka` |
 | Zulu           | zul       | `Lang::Zul` |
-| Kinyarwanda    | kin       | `Lang::Kin` |
 | Haitian Creole | hat       | `Lang::Hat` |
 | Ilocano        | ilo       | `Lang::Ilo` |
 | Shona          | sna       | `Lang::Sna` |

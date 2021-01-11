@@ -213,35 +213,32 @@ pub enum Lang {
     /// IsiZulu (Zulu)
     Zul = 65,
 
-    /// Kinyarwanda (Kinyarwanda)
-    Kin = 66,
-
     /// Kreyòl ayisyen (Haitian Creole)
-    Hat = 67,
+    Hat = 66,
 
     /// Ilokano (Ilocano)
-    Ilo = 68,
+    Ilo = 67,
 
     /// ChiShona (Shona)
-    Sna = 69,
+    Sna = 68,
 
     /// ئۇيغۇرچە (Uyghur)
-    Uig = 70,
+    Uig = 69,
 
     /// Afrikaans (Afrikaans)
-    Afr = 71,
+    Afr = 70,
 
     /// Lingua Latina (Latin)
-    Lat = 72,
+    Lat = 71,
 
     /// Slovenčina (Slovak)
-    Slk = 73,
+    Slk = 72,
 
     /// Català (Catalan)
-    Cat = 74,
+    Cat = 73,
 }
 
-const VALUES: [Lang; 75] = [
+const VALUES: [Lang; 74] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -308,7 +305,6 @@ const VALUES: [Lang; 75] = [
     Lang::Som,
     Lang::Aka,
     Lang::Zul,
-    Lang::Kin,
     Lang::Hat,
     Lang::Ilo,
     Lang::Sna,
@@ -387,7 +383,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "som" => Some(Lang::Som),
         "aka" => Some(Lang::Aka),
         "zul" => Some(Lang::Zul),
-        "kin" => Some(Lang::Kin),
         "hat" => Some(Lang::Hat),
         "ilo" => Some(Lang::Ilo),
         "sna" => Some(Lang::Sna),
@@ -468,7 +463,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Som => "som",
         Lang::Aka => "aka",
         Lang::Zul => "zul",
-        Lang::Kin => "kin",
         Lang::Hat => "hat",
         Lang::Ilo => "ilo",
         Lang::Sna => "sna",
@@ -548,7 +542,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Som => "Soomaaliga",
         Lang::Aka => "Akan",
         Lang::Zul => "IsiZulu",
-        Lang::Kin => "Kinyarwanda",
         Lang::Hat => "Kreyòl ayisyen",
         Lang::Ilo => "Ilokano",
         Lang::Sna => "ChiShona",
@@ -628,7 +621,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Som => "Somali",
         Lang::Aka => "Akan",
         Lang::Zul => "Zulu",
-        Lang::Kin => "Kinyarwanda",
         Lang::Hat => "Haitian Creole",
         Lang::Ilo => "Ilocano",
         Lang::Sna => "Shona",
@@ -746,7 +738,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 75);
+        assert_eq!(Lang::all().len(), 74);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
