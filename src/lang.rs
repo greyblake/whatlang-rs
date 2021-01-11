@@ -204,41 +204,38 @@ pub enum Lang {
     /// Türkmençe (Turkmen)
     Tuk = 62,
 
-    /// Soomaaliga (Somali)
-    Som = 63,
-
     /// Akan (Akan)
-    Aka = 64,
+    Aka = 63,
 
     /// IsiZulu (Zulu)
-    Zul = 65,
+    Zul = 64,
 
     /// Kreyòl ayisyen (Haitian Creole)
-    Hat = 66,
+    Hat = 65,
 
     /// Ilokano (Ilocano)
-    Ilo = 67,
+    Ilo = 66,
 
     /// ChiShona (Shona)
-    Sna = 68,
+    Sna = 67,
 
     /// ئۇيغۇرچە (Uyghur)
-    Uig = 69,
+    Uig = 68,
 
     /// Afrikaans (Afrikaans)
-    Afr = 70,
+    Afr = 69,
 
     /// Lingua Latina (Latin)
-    Lat = 71,
+    Lat = 70,
 
     /// Slovenčina (Slovak)
-    Slk = 72,
+    Slk = 71,
 
     /// Català (Catalan)
-    Cat = 73,
+    Cat = 72,
 }
 
-const VALUES: [Lang; 74] = [
+const VALUES: [Lang; 73] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -302,7 +299,6 @@ const VALUES: [Lang; 74] = [
     Lang::Sin,
     Lang::Khm,
     Lang::Tuk,
-    Lang::Som,
     Lang::Aka,
     Lang::Zul,
     Lang::Hat,
@@ -380,7 +376,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "sin" => Some(Lang::Sin),
         "khm" => Some(Lang::Khm),
         "tuk" => Some(Lang::Tuk),
-        "som" => Some(Lang::Som),
         "aka" => Some(Lang::Aka),
         "zul" => Some(Lang::Zul),
         "hat" => Some(Lang::Hat),
@@ -460,7 +455,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Sin => "sin",
         Lang::Khm => "khm",
         Lang::Tuk => "tuk",
-        Lang::Som => "som",
         Lang::Aka => "aka",
         Lang::Zul => "zul",
         Lang::Hat => "hat",
@@ -539,7 +533,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Sin => "සිංහල",
         Lang::Khm => "ភាសាខ្មែរ",
         Lang::Tuk => "Türkmençe",
-        Lang::Som => "Soomaaliga",
         Lang::Aka => "Akan",
         Lang::Zul => "IsiZulu",
         Lang::Hat => "Kreyòl ayisyen",
@@ -618,7 +611,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Sin => "Sinhalese",
         Lang::Khm => "Khmer",
         Lang::Tuk => "Turkmen",
-        Lang::Som => "Somali",
         Lang::Aka => "Akan",
         Lang::Zul => "Zulu",
         Lang::Hat => "Haitian Creole",
@@ -738,7 +730,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 74);
+        assert_eq!(Lang::all().len(), 73);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));

@@ -71,7 +71,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Sinhalese      | sin       | `Lang::Sin` |
 | Khmer          | khm       | `Lang::Khm` |
 | Turkmen        | tuk       | `Lang::Tuk` |
-| Somali         | som       | `Lang::Som` |
 | Akan           | aka       | `Lang::Aka` |
 | Zulu           | zul       | `Lang::Zul` |
 | Haitian Creole | hat       | `Lang::Hat` |
