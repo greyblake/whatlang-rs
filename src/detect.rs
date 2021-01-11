@@ -126,17 +126,10 @@ mod tests {
         let output = detect_with_options(text, &Options::default());
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
-        assert_eq!(info.lang, Lang::Tgl);
+        assert_eq!(info.lang, Lang::Jav);
 
         // with blacklist
-        let blacklist = vec![
-            Lang::Tgl,
-            Lang::Jav,
-            Lang::Nld,
-            Lang::Uzb,
-            Lang::Swe,
-            Lang::Nob,
-        ];
+        let blacklist = vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob];
         let options = Options::new().set_blacklist(blacklist);
         let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
