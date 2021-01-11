@@ -1,14 +1,16 @@
 ### Unreleased
-* [breaking] - Drop `Tir` (Tigrinya)
-* [breaking] - Drop `Hau` (Hausa)
-* [breaking] - Drop `Nya` (Chewa)
-* [breaking] - Drop `Bho` (Bhojpuri)
-* [breaking] - Drop `Ibo` (Igbo)
-* [breaking] - Drop `Mai` (Maithili)
-* [breaking] - Drop `Orm` (Oromo)
-* [breaking] - Drop `Run` (Rundi)
-* [breaking] - Drop `Srk` (Saraiki)
-* [breaking] - Drop `Kur` (Kurdish)
+* [breaking] - Drop languages:
+  * Tigrinya (`Tir`)
+  * Hausa (`Hau`)
+  * Chewa (`Nya`)
+  * Bhojpuri (`Bho`)
+  * Igbo (`Ibo`)
+  * Maithili (`Mai`)
+  * Oromo (`Orm`)
+  * Rundi (`Run`)
+  * Saraiki (`Srk`)
+  * Kurdish (`Kur`)
+  * Cebuano (`Ceb`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen

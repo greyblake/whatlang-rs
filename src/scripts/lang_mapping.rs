@@ -1,7 +1,7 @@
 use super::Script;
 use crate::Lang;
 
-const LATIN_LANGS: [Lang; 45] = [
+const LATIN_LANGS: [Lang; 44] = [
     Lang::Spa,
     Lang::Eng,
     Lang::Por,
@@ -18,7 +18,6 @@ const LATIN_LANGS: [Lang; 45] = [
     Lang::Nld,
     Lang::Yor,
     Lang::Uzb,
-    Lang::Ceb,
     Lang::Tgl,
     Lang::Hun,
     Lang::Aze,
