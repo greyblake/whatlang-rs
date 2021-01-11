@@ -74,7 +74,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Akan           | aka       | `Lang::Aka` |
 | Zulu           | zul       | `Lang::Zul` |
 | Haitian Creole | hat       | `Lang::Hat` |
-| Ilocano        | ilo       | `Lang::Ilo` |
 | Shona          | sna       | `Lang::Sna` |
 | Uyghur         | uig       | `Lang::Uig` |
 | Afrikaans      | afr       | `Lang::Afr` |
