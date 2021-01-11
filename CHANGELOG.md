@@ -12,6 +12,8 @@
   * Kurdish (`Kur`)
   * Cebuano (`Ceb`)
   * Malagasy (`Mlg`)
+  * Kinyarwanda (`Kin`)
+  * Somali (`Som`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
