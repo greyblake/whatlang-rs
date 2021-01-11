@@ -11,6 +11,7 @@
   * Saraiki (`Srk`)
   * Kurdish (`Kur`)
   * Cebuano (`Ceb`)
+  * Malagasy (`Mlg`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
