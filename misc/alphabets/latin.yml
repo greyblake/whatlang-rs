@@ -1,41 +1,38 @@
-# https://en.wikipedia.org/wiki/Wikipedia:Language_recognition_chart#Characters
-#
-# Common Latin alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-#
-# Extras:
-latin_based:
-  base: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  eng: ""
-  spa: "ÁÉÍÑÓÚÜáéíñóúü¡¿"
-  por: "ÁÉÍÓÚÂÊÔÀãõçáéíóúâêôà"
-  ind: ""
-  fra: "ÀÂÇÉÈÊËÎÏÔŒÙÛÜŸàâçéèêëîïôœùûüÿ"
-  deu: "ÄÖÜäöüß"
-  vie: "ĐÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬÈẺẼÉẸÊỀỂỄẾỆÌỈĨÍỊÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢÙỦŨÚỤƯỪỬỮỨỰỲỶỸÝỴ đàảãáạăằẳẵắặâầẩẫấậèẻẽéẹêềểễếệìỉĩíịòỏõóọồổỗốơờởỡớợùủũúụưừửữứựỳỷỹýỵ"
-  ita: "ÀÉÈÌÒÙàéèìòù"
-  tur: "ÇĞİÖŞÜğçıöşü"
-  pol: "ąłńóż ćęłńóśźż"
-  ron: "ĂÎÂŞŢăîâşţ"
-  hrv: "ČŠŽ ĆĐ"
-  nld: "àèéëïĳ"
-  hun: "ÁÉÍÓÖŐÚÜŰáéíóöőúüű"
-  ces: "ÁĎÉĚŇÓŘŤÚŮÝáďéěňóřťúůý"
-  zul: ""
-  swe: "ÅÄÖåäö"
-  afr: "áêéèëïíîôóúû"
-  fin: "ÄÖäöŠšŽž"
-  slk: "ČŠŽ ÁÄĎÉÍĽĹŇÓÔŔŤÚÝáäďéíľĺňóôŕťúý"
-  dan: "ÆØÅæøå"
-  nob: "ÆØÅæøå"
-  nno: "ÆØÅæøå"
-  cat: "ÀÇÉÈÍÓÒÚÜÏàçéèíóòúüï·"
-  lit: "ČŠŽ ĄĘĖĮŲŪąęėįųū"
-  slv: "ČŠŽ"
-  lav: "ČŠŽ ĀĒĢĪĶĻŅŌŖŪāēģīķļņōŗū"
-  est: "ÄÖÕÜäöõü"
-  lat: ""
-others:
-  tuk: "ABÇDEÄFGHIJŽKLMNŇOÖPRSŞTUÜWYÝZ"
-  epo: "ABCĈDEFGĜHĤIJĴKLMNOPRSŜTUŬVZ"
-  sna: "abcdefghijklmnopqrstuvwxyz"
-  aka: "AaBbDdEeƐɛFfGgHhIiKkLlMmNnOoƆɔPpRrSsTtUuWwYy"
+# See: https://en.wikipedia.org/wiki/Wikipedia:Language_recognition_chart#Characters
+afr: abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû
+aka: abdefghiklmnoprstuwyɔɛ
+aze: abcdefghijklmnopqrstuvxyzçöüğışə̇
+cat: abcdefghijklmnopqrstuvwxyz·àçèéíïòóúü
+ces: abcdefghijklmnopqrstuvwxyzáéóúýčďěňřšťůž
+dan: abcdefghijklmnopqrstuvwxyzåæø
+deu: abcdefghijklmnopqrstuvwxyzßäöü
+eng: abcdefghijklmnopqrstuvwxyz
+epo: abcdefghijklmnoprstuvzĉĝĥĵŝŭ
+est: abcdefghijklmnopqrstuvwxyzäõöü
+fin: abcdefghijklmnopqrstuvwxyzäöšž
+fra: abcdefghijklmnopqrstuvwxyzàâçèéêëîïôùûüÿœ
+hrv: abcdefghijklmnopqrstuvwxyzćčđšž
+hun: abcdefghijklmnopqrstuvwxyzáéíóöúüőű
+ind: abcdefghijklmnopqrstuvwxyz
+ita: abcdefghijklmnopqrstuvwxyzàèéìòù
+jav: abcdefghijklmnopqrstuvwxyzèé
+lat: abcdefghijklmnopqrstuvwxyz
+lav: abcdefghijklmnopqrstuvwxyzāčēģīķļņōŗšūž
+lit: abcdefghijklmnopqrstuvwxyząčėęįšūųž
+nld: abcdefghijklmnopqrstuvwxyzàèéëïĳ
+nno: abcdefghijklmnopqrstuvwxyzåæø
+nob: abcdefghijklmnopqrstuvwxyzåæø
+pol: abcdefghijklmnopqrstuvwxyzóąćęłńśźż
+por: abcdefghijklmnopqrstuvwxyzàáâãçéêíóôõú
+ron: abcdefghijklmnopqrstuvwxyzâîăşţ
+slk: abcdefghijklmnopqrstuvwxyzáäéíóôúýčďĺľňŕšťž
+slv: abcdefghijklmnopqrstuvwxyzčšž
+sna: abcdefghijklmnopqrstuvwxyz
+spa: abcdefghijklmnopqrstuvwxyz¡¿áéíñóúü
+swe: abcdefghijklmnopqrstuvwxyzäåö
+tuk: abdefghijklmnoprstuwyzäçöüýňşž
+tur: abcdefghijklmnopqrstuvwxyzçöüğış̇
+uzb: abcdefghijklmnopqrstuvxyzʻ
+vie: abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ
+yor: abcdefghijklmnoprstuvwyzàáèéìíòóùúńɔɛ̀́ṣẹọ
+zul: abcdefghijklmnopqrstuvwxyz

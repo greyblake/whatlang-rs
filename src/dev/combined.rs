@@ -36,8 +36,10 @@ pub fn detect_by_combined(text: &str, script: Script) -> Option<Lang> {
             .map(|x| x.1)
             .unwrap_or(0.0);
         // NOTE: Magically adding big multiplier to trigram score
-        // improves overall result for cyrillic by ~4%.
-        let score = a * (t + 1000.0);
+        // improves overall result;
+        // * For cyrillic: 1000.0
+        // * For latin: 100.0
+        let score = a * (t + 100.0);
         scores.push((lang, score));
     }
 

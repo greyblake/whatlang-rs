@@ -1,0 +1,56 @@
+# https://en.wikipedia.org/wiki/Wikipedia:Language_recognition_chart#Characters
+#
+# Common Latin alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+#
+# Extras:
+latin_based:
+  base: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  eng: ""
+  spa: "ÁÉÍÑÓÚÜáéíñóúü¡¿"
+  por: "ÁÉÍÓÚÂÊÔÀãõçáéíóúâêôà"
+  ind: ""
+  fra: "ÀÂÇÉÈÊËÎÏÔŒÙÛÜŸàâçéèêëîïôœùûüÿ"
+  deu: "ÄÖÜäöüß"
+  vie: "ĐÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬÈẺẼÉẸÊỀỂỄẾỆÌỈĨÍỊÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢÙỦŨÚỤƯỪỬỮỨỰỲỶỸÝỴ đàảãáạăằẳẵắặâầẩẫấậèẻẽéẹêềểễếệìỉĩíịòỏõóọồổỗốơờởỡớợùủũúụưừửữứựỳỷỹýỵ"
+  ita: "ÀÉÈÌÒÙàéèìòù"
+  tur: "ÇĞİÖŞÜğçıöşü"
+  pol: "ąłńóż ćęłńóśźż"
+  ron: "ĂÎÂŞŢăîâşţ"
+  hrv: "ČŠŽ ĆĐ"
+  nld: "àèéëïĳ"
+  hun: "ÁÉÍÓÖŐÚÜŰáéíóöőúüű"
+  ces: "ČŠŽ ÁĎÉĚŇÓŘŤÚŮÝáďéěňóřťúůý"
+  zul: ""
+  swe: "ÅÄÖåäö"
+  afr: "áêéèëïíîôóúû"
+  fin: "ÄÖäöŠšŽž"
+  slk: "ČŠŽ ÁÄĎÉÍĽĹŇÓÔŔŤÚÝáäďéíľĺňóôŕťúý"
+  dan: "ÆØÅæøå"
+  nob: "ÆØÅæøå"
+  nno: "ÆØÅæøå"
+  cat: "ÀÇÉÈÍÓÒÚÜÏàçéèíóòúüï·"
+  lit: "ČŠŽ ĄĘĖĮŲŪąęėįųū"
+  slv: "ČŠŽ"
+  lav: "ČŠŽ ĀĒĢĪĶĻŅŌŖŪāēģīķļņōŗū"
+  est: "ÄÖÕÜäöõü"
+  lat: ""
+others:
+  tuk: "ABÇDEÄFGHIJŽKLMNŇOÖPRSŞTUÜWYÝZ"
+  epo: "ABCĈDEFGĜHĤIJĴKLMNOPRSŜTUŬVZ"
+  sna: "abcdefghijklmnopqrstuvwxyz"
+  aka: "AaBbDdEeƐɛFfGgHhIiKkLlMmNnOoƆɔPpRrSsTtUuWwYy"
+
+  # https://en.wikipedia.org/wiki/Javanese_orthography
+  jav: "AaJjSsBbKkTtCcLlUuDdMmVvEeNnWwFfOoXxGgPpYyHhQqZzIiRr é è"
+
+  # https://en.wikipedia.org/wiki/Yoruba_alphabet
+  yor: "abdefghijklmnoprstuwyɔɛṣẹọ inaoelrtbsíkuàgdwjmìpáyóọèòféúẹh̀́cùṣńvz"
+
+  # https://en.wikipedia.org/wiki/Uzbek_alphabet
+  uzb: "abcdefghijklmnopqrstuvxyzʻ"
+
+  # https://en.wikipedia.org/wiki/Azerbaijani_alphabet
+  aze: "abcdefghijklmnopqrstuvxyzçöüğışə̇"
+
+  # https://en.wikipedia.org/wiki/Filipino_alphabet
+  # tgl: "abcdefghijklmnñngopqrstuvwxyz éáíóú"
