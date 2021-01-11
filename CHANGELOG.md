@@ -16,6 +16,8 @@
   * Somali (`Som`)
   * Ilocano (`Ilo`)
   * Uyghur (`Uig`)
+  * Tagalog ('Tgl')
+  * Haitian Creole (`Hat`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
