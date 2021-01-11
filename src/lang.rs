@@ -207,26 +207,23 @@ pub enum Lang {
     /// IsiZulu (Zulu)
     Zul = 63,
 
-    /// Kreyòl ayisyen (Haitian Creole)
-    Hat = 64,
-
     /// ChiShona (Shona)
-    Sna = 65,
+    Sna = 64,
 
     /// Afrikaans (Afrikaans)
-    Afr = 66,
+    Afr = 65,
 
     /// Lingua Latina (Latin)
-    Lat = 67,
+    Lat = 66,
 
     /// Slovenčina (Slovak)
-    Slk = 68,
+    Slk = 67,
 
     /// Català (Catalan)
-    Cat = 69,
+    Cat = 68,
 }
 
-const VALUES: [Lang; 70] = [
+const VALUES: [Lang; 69] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -291,7 +288,6 @@ const VALUES: [Lang; 70] = [
     Lang::Tuk,
     Lang::Aka,
     Lang::Zul,
-    Lang::Hat,
     Lang::Sna,
     Lang::Afr,
     Lang::Lat,
@@ -365,7 +361,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "tuk" => Some(Lang::Tuk),
         "aka" => Some(Lang::Aka),
         "zul" => Some(Lang::Zul),
-        "hat" => Some(Lang::Hat),
         "sna" => Some(Lang::Sna),
         "afr" => Some(Lang::Afr),
         "lat" => Some(Lang::Lat),
@@ -441,7 +436,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Tuk => "tuk",
         Lang::Aka => "aka",
         Lang::Zul => "zul",
-        Lang::Hat => "hat",
         Lang::Sna => "sna",
         Lang::Afr => "afr",
         Lang::Lat => "lat",
@@ -516,7 +510,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Tuk => "Türkmençe",
         Lang::Aka => "Akan",
         Lang::Zul => "IsiZulu",
-        Lang::Hat => "Kreyòl ayisyen",
         Lang::Sna => "ChiShona",
         Lang::Afr => "Afrikaans",
         Lang::Lat => "Lingua Latina",
@@ -591,7 +584,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Tuk => "Turkmen",
         Lang::Aka => "Akan",
         Lang::Zul => "Zulu",
-        Lang::Hat => "Haitian Creole",
         Lang::Sna => "Shona",
         Lang::Afr => "Afrikaans",
         Lang::Lat => "Latin",
@@ -706,7 +698,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 70);
+        assert_eq!(Lang::all().len(), 69);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
