@@ -10,6 +10,18 @@ pub enum MultiLangScript {
     Hebrew,
 }
 
+impl MultiLangScript {
+    pub fn to_script(&self) -> Script {
+        match self {
+            Self::Latin => Script::Latin,
+            Self::Cyrillic => Script::Cyrillic,
+            Self::Arabic => Script::Arabic,
+            Self::Devanagari => Script::Devanagari,
+            Self::Hebrew => Script::Hebrew
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ScriptLangGroup {
     Multi(MultiLangScript),
@@ -54,7 +66,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_to_lang_group() {
+    fn test_script_to_lang_group() {
         assert_eq!(
             Script::Latin.to_lang_group(),
             ScriptLangGroup::Multi(MultiLangScript::Latin)
@@ -64,5 +76,11 @@ mod tests {
             Script::Georgian.to_lang_group(),
             ScriptLangGroup::One(Lang::Kat)
         );
+    }
+
+    #[test]
+    fn test_multi_lang_script_to_script() {
+        assert_eq!(MultiLangScript::Latin.to_script(), Script::Latin);
+        assert_eq!(MultiLangScript::Hebrew.to_script(), Script::Hebrew);
     }
 }
