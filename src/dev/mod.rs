@@ -1,5 +1,6 @@
 mod alphabet;
 mod combined;
+mod core;
 
 use std::fmt;
 use std::str::FromStr;
