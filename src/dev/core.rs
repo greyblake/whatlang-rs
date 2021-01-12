@@ -27,21 +27,6 @@ enum Method {
 // * AccessList
 // * AllowList
 
-enum AllowList {
-    None,
-    Only(Vec<Lang>),
-    Except(Vec<Lang>),
-}
-
-impl AllowList {
-    fn is_allowed(&self, lang: Lang) -> bool {
-        match self {
-            Self::None => true,
-            Self::Only(ref whitelist) => whitelist.contains(&lang),
-            Self::Except(ref blacklist) => !blacklist.contains(&lang),
-        }
-    }
-}
 
 struct Query<'a, 'b> {
     text: &'a str,

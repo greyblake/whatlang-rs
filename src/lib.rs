@@ -44,6 +44,7 @@ mod utils;
 
 // TODO: experimental, put behind feature toggle
 pub mod dev;
+mod core;
 
 pub use crate::detector::Detector;
 pub use crate::info::Info;
