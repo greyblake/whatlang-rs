@@ -15,4 +15,4 @@ pub use output::Output;
 pub use query::{Query, InternalQuery};
 pub use lang_scores::LangScores;
 
-pub use detect::detect_with_options;
+pub use detect::{detect_with_options, detect, detect_lang};

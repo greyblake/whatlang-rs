@@ -1,6 +1,16 @@
 use crate::core::{Options, Method, Query, InternalQuery, Output};
 use crate::scripts::{detect_script, grouping::{ScriptLangGroup, MultiLangScript}};
 use crate::{trigrams, alphabets, combined};
+use crate::Lang;
+
+pub fn detect_lang(text: &str) -> Option<Lang> {
+    detect(text).map(|output| output.lang() )
+}
+
+pub fn detect(text: &str) -> Option<Output> {
+    let opts = Options::default();
+    detect_with_options(text, &opts)
+}
 
 pub fn detect_with_options(text: &str, options: &Options) -> Option<Output> {
     let query = Query {
@@ -26,7 +36,7 @@ fn detect_by_query_based_on_script(query: &Query, multi_lang_script: MultiLangSc
     let mut iquery = query.to_internal(multi_lang_script);
     match query.method {
         Method::Alphabet => alphabets::detect(&mut iquery),
-        Method::Trigram => trigrams::alt::detect(&mut iquery),
+        Method::Trigram => trigrams::detect(&mut iquery),
         Method::Combined => combined::detect(&mut iquery),
     }
 }

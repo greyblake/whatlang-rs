@@ -1,98 +1,68 @@
 use hashbrown::HashMap;
 
-use crate::options::{List, Options};
-use crate::{Lang, Script};
-
+use crate::core::{LangScores, InternalQuery, Output, AllowList, Text};
+use crate::scripts::grouping::MultiLangScript;
+use crate::Lang;
 use super::{LangProfile, LangProfileList};
+use super::{LATIN_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, ARABIC_LANGS};
+use super::utils::get_trigrams_with_positions;
+use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 
-use crate::trigrams::utils::*;
-use crate::trigrams::*;
-
-pub struct Outcome {
-    pub normalized_scores: Vec<(Lang, f64)>,
-    pub trigram_count: usize,
+pub fn detect(iquery: &InternalQuery) -> Option<Output> {
+    let lang_scores = raw_detect(iquery);
+    lang_scores.scores.first().map( |&(lang, _)| {
+        let script = iquery.multi_lang_script.to_script();
+        Output::new(script, lang)
+    })
 }
 
-impl Outcome {
-    fn new(normalized_scores: Vec<(Lang, f64)>, trigram_count: usize) -> Self {
-        Self {
-            normalized_scores,
-            trigram_count,
-        }
-    }
-
-    fn new_empty() -> Self {
-        Self {
-            normalized_scores: vec![],
-            trigram_count: 0,
-        }
-    }
-
-    fn from_lang(lang: Lang) -> Self {
-        let normalized_scores = vec![(lang, 1.0)];
-        Self {
-            normalized_scores,
-            trigram_count: 1,
-        }
-    }
+pub fn raw_detect(iquery: &InternalQuery) -> LangScores {
+    let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
+    calculate_scores_in_profiles(&iquery.text, &iquery.allow_list, lang_profile_list)
 }
 
-pub fn calculate_scores_based_on_script(text: &str, options: &Options, script: Script) -> Outcome {
+fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
+    use MultiLangScript as MLS;
     match script {
-        Script::Latin => calculate_scores_in_profiles(text, options, LATIN_LANGS),
-        Script::Cyrillic => calculate_scores_in_profiles(text, options, CYRILLIC_LANGS),
-        Script::Devanagari => calculate_scores_in_profiles(text, options, DEVANAGARI_LANGS),
-        Script::Hebrew => calculate_scores_in_profiles(text, options, HEBREW_LANGS),
-        Script::Arabic => calculate_scores_in_profiles(text, options, ARABIC_LANGS),
-        Script::Mandarin => detect_mandarin_japanese(options),
-        Script::Bengali => Outcome::from_lang(Lang::Ben),
-        Script::Hangul => Outcome::from_lang(Lang::Kor),
-        Script::Georgian => Outcome::from_lang(Lang::Kat),
-        Script::Greek => Outcome::from_lang(Lang::Ell),
-        Script::Kannada => Outcome::from_lang(Lang::Kan),
-        Script::Tamil => Outcome::from_lang(Lang::Tam),
-        Script::Thai => Outcome::from_lang(Lang::Tha),
-        Script::Gujarati => Outcome::from_lang(Lang::Guj),
-        Script::Gurmukhi => Outcome::from_lang(Lang::Pan),
-        Script::Telugu => Outcome::from_lang(Lang::Tel),
-        Script::Malayalam => Outcome::from_lang(Lang::Mal),
-        Script::Oriya => Outcome::from_lang(Lang::Ori),
-        Script::Myanmar => Outcome::from_lang(Lang::Mya),
-        Script::Sinhala => Outcome::from_lang(Lang::Sin),
-        Script::Khmer => Outcome::from_lang(Lang::Khm),
-        Script::Ethiopic => Outcome::from_lang(Lang::Amh),
-        Script::Katakana | Script::Hiragana => Outcome::from_lang(Lang::Jpn),
+        MLS::Latin => LATIN_LANGS,
+        MLS::Cyrillic => CYRILLIC_LANGS,
+        MLS::Arabic => ARABIC_LANGS,
+        MLS::Devanagari => DEVANAGARI_LANGS,
+        MLS::Hebrew => HEBREW_LANGS,
     }
 }
 
 fn calculate_scores_in_profiles(
-    text: &str,
-    options: &Options,
+    text: &Text,
+    allow_list: &AllowList,
     lang_profile_list: LangProfileList,
-) -> Outcome {
+) -> LangScores {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
-    let trigrams = get_trigrams_with_positions(text);
 
-    for &(ref lang, lang_trigrams) in lang_profile_list {
-        match options.list {
-            Some(List::White(ref whitelist)) if !whitelist.contains(lang) => continue,
-            Some(List::Black(ref blacklist)) if blacklist.contains(lang) => continue,
-            _ => {}
+    // TODO:
+    // * pass text.lowercased
+    // * tweak get_trigrams_with_positions to accept lowecased text
+    let trigrams = get_trigrams_with_positions(text.original());
+
+    for &(lang, lang_trigrams) in lang_profile_list {
+        if !allow_list.is_allowed(lang) {
+            continue;
         }
         let dist = calculate_distance(lang_trigrams, &trigrams);
-        lang_distances.push(((*lang), dist));
+        lang_distances.push(((lang), dist));
     }
 
     // Sort languages by distance
     lang_distances.sort_by_key(|key| key.1);
 
-    let lang_scores = lang_distances
+    let scores = lang_distances
         .iter()
         .map(|&(lang, distance)| (lang, distance_to_score(trigrams.len() as u32, distance)))
         .collect();
 
-    Outcome::new(lang_scores, trigrams.len())
+    LangScores::new(scores)
 }
+
 
 fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigram, u32>) -> u32 {
     let mut total_dist = 0u32;
@@ -114,28 +84,4 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
 fn distance_to_score(_trigrams_count: u32, distance: u32) -> f64 {
     let similarity = MAX_TOTAL_DISTANCE - distance;
     similarity as f64 / MAX_TRIGRAM_DISTANCE as f64
-}
-
-fn detect_mandarin_japanese(options: &Options) -> Outcome {
-    match options.list {
-        Some(List::White(ref whitelist)) => {
-            if whitelist.contains(&Lang::Jpn) && !whitelist.contains(&Lang::Cmn) {
-                Outcome::from_lang(Lang::Jpn)
-            } else if whitelist.contains(&Lang::Cmn) {
-                Outcome::from_lang(Lang::Cmn)
-            } else {
-                Outcome::new_empty()
-            }
-        }
-        Some(List::Black(ref blacklist)) => {
-            if blacklist.contains(&Lang::Cmn) && !blacklist.contains(&Lang::Jpn) {
-                Outcome::from_lang(Lang::Jpn)
-            } else if !blacklist.contains(&Lang::Cmn) {
-                Outcome::from_lang(Lang::Cmn)
-            } else {
-                Outcome::new_empty()
-            }
-        }
-        _ => Outcome::from_lang(Lang::Cmn),
-    }
 }

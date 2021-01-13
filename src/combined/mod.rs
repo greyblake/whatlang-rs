@@ -1,4 +1,4 @@
-use crate::trigrams::alt::raw_detect as trigrams_raw_detect;
+use crate::trigrams::raw_detect as trigrams_raw_detect;
 use crate::alphabets::raw_detect as alphabets_raw_detect;
 use crate::core::{Output, InternalQuery, LangScores};
 use crate::Lang;
