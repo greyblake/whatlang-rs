@@ -1,19 +1,20 @@
-use crate::dev::alphabet::raw_detect_by_alphabet;
-use crate::dev::NormalizedOutcome;
-use crate::trigrams::detection::{calculate_scores_based_on_script, Outcome as TrigramOutcome};
-use crate::{Lang, Script};
+use crate::trigrams::alt::raw_detect as trigrams_raw_detect;
+use crate::alphabets::raw_detect as alphabets_raw_detect;
+use crate::core::{Output, InternalQuery, LangScores};
+use crate::Lang;
 
-fn raw_detect_by_trigrams(text: &str, script: Script) -> TrigramOutcome {
-    let options = crate::Options::new();
-    calculate_scores_based_on_script(text, &options, script)
+pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
+    let lang_scores = raw_detect(iquery);
+    lang_scores.scores.first().map( |&(lang, _)| {
+        let script = iquery.multi_lang_script.to_script();
+        Output::new(script, lang)
+    })
 }
 
-pub fn detect_by_combined(text: &str, script: Script) -> Option<Lang> {
-    let alphabet_outcome = raw_detect_by_alphabet(text, script);
-    let alphabet_scores = alphabet_outcome.normalized_scores();
-
-    let trigram_outcome = raw_detect_by_trigrams(text, script);
-    let trigram_scores = trigram_outcome.normalized_scores;
+// TODO: optimize!
+pub fn raw_detect(iquery: &mut InternalQuery) -> LangScores {
+    let alphabet_scores = alphabets_raw_detect(iquery).scores;
+    let trigram_scores = trigrams_raw_detect(iquery).scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
     trigram_scores.iter().for_each(|(lang, _)| {
@@ -44,5 +45,5 @@ pub fn detect_by_combined(text: &str, script: Script) -> Option<Lang> {
     }
 
     scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
-    Some(scores[0].0)
+    LangScores::new(scores)
 }
