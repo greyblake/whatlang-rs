@@ -1,5 +1,11 @@
 use crate::Lang;
 
+// TODO: rename
+// * FilterList
+// * FilterRule
+// * GuardList
+// * AccessList
+// * AllowList
 #[derive(Debug)]
 pub enum AllowList {
     All,
@@ -8,19 +14,19 @@ pub enum AllowList {
 }
 
 impl AllowList {
-    fn all() -> Self {
+    pub fn all() -> Self {
         Self::All
     }
 
-    fn only(whitelist: Vec<Lang>) -> Self {
+    pub fn only(whitelist: Vec<Lang>) -> Self {
         Self::Only(whitelist)
     }
 
-    fn except(blacklist: Vec<Lang>) -> Self {
+    pub fn except(blacklist: Vec<Lang>) -> Self {
         Self::Except(blacklist)
     }
 
-    fn is_allowed(&self, lang: Lang) -> bool {
+    pub fn is_allowed(&self, lang: Lang) -> bool {
         match self {
             Self::All=> true,
             Self::Only(ref whitelist) => whitelist.contains(&lang),
