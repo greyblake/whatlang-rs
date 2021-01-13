@@ -41,10 +41,9 @@ mod options;
 mod scripts;
 mod trigrams;
 mod utils;
-
-// TODO: experimental, put behind feature toggle
-pub mod dev;
 mod core;
+mod alphabets;
+mod combined;
 
 pub use crate::detector::Detector;
 pub use crate::info::Info;

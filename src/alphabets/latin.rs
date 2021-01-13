@@ -1,4 +1,3 @@
-use super::Outcome;
 use crate::utils::is_stop_char;
 use crate::Lang;
 
@@ -39,7 +38,6 @@ const UZB: &'static str = "abcdefghijklmnopqrstuvxyzʻ";
 const VIE: &'static str = "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
 const YOR: &'static str = "abcdefghijklmnoprstuvwyzàáèéìíòóùúńɔɛ̀́ṣẹọ";
 const ZUL: &'static str = "abcdefghijklmnopqrstuvwxyz";
-
 
 fn get_lang_chars(lang: Lang) -> Vec<char> {
     let alphabet = match lang {
@@ -86,7 +84,8 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
-pub fn alphabet_calculate_scores(text: &str) -> Outcome {
+// TODO: accept only lowercased text
+pub fn alphabet_calculate_scores(text: &str) -> Vec<(Lang, f64)> {
     let text = text.to_lowercase();
 
     let mut raw_scores = vec![
@@ -164,9 +163,5 @@ pub fn alphabet_calculate_scores(text: &str) -> Outcome {
         normalized_scores.push((lang, normalized_score));
     }
 
-    Outcome {
-        max_raw_score,
-        raw_scores,
-        normalized_scores,
-    }
+    normalized_scores
 }

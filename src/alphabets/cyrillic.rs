@@ -1,4 +1,3 @@
-use super::Outcome;
 use crate::utils::is_stop_char;
 use crate::Lang;
 
@@ -9,21 +8,7 @@ const BEL: &'static str = "абвгдежзйклмнопрстуфхцчшыь�
 const SRP: &'static str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
 const MKD: &'static str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
 
-fn get_lang_chars(lang: Lang) -> Vec<char> {
-    let alphabet = match lang {
-        Lang::Bul => BUL,
-        Lang::Rus => RUS,
-        Lang::Ukr => UKR,
-        Lang::Bel => BEL,
-        Lang::Srp => SRP,
-        Lang::Mkd => MKD,
-
-        _ => panic!(format!("No alphabet for {}", lang)),
-    };
-    alphabet.chars().collect()
-}
-
-pub fn alphabet_calculate_scores(text: &str) -> Outcome {
+pub fn alphabet_calculate_scores(text: &str) -> Vec<(Lang, f64)> {
     let text = text.to_lowercase();
     let mut raw_scores = vec![
         (Lang::Bul, 0i32),
@@ -68,9 +53,19 @@ pub fn alphabet_calculate_scores(text: &str) -> Outcome {
         normalized_scores.push((lang, normalized_score));
     }
 
-    Outcome {
-        max_raw_score,
-        raw_scores,
-        normalized_scores,
-    }
+    normalized_scores
+}
+
+fn get_lang_chars(lang: Lang) -> Vec<char> {
+    let alphabet = match lang {
+        Lang::Bul => BUL,
+        Lang::Rus => RUS,
+        Lang::Ukr => UKR,
+        Lang::Bel => BEL,
+        Lang::Srp => SRP,
+        Lang::Mkd => MKD,
+
+        _ => panic!(format!("No alphabet for {}", lang)),
+    };
+    alphabet.chars().collect()
 }
