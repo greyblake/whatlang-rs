@@ -1,7 +1,7 @@
 extern crate serde_json;
 extern crate whatlang;
 
-use whatlang::{detect, Lang, Script};
+use whatlang::{detect, detect_lang, Lang, Script};
 
 use std::collections::HashMap;
 
@@ -15,11 +15,8 @@ fn test_with_multiple_examples() {
         print!("Test {} ... ", lang_code);
 
         let lang = Lang::from_code(lang_code).expect("Unknown language code");
-        let info = detect(&text).unwrap();
-        assert_eq!(info.lang(), lang);
-        assert!(info.is_reliable());
-
-        println!("OK");
+        let detected_lang = detect_lang(&text).unwrap();
+        assert_eq!(detected_lang, lang);
     }
 }
 
@@ -33,7 +30,6 @@ fn test_with_russian_text() {
     "#;
 
     let info = detect(text).unwrap();
-    assert!(info.is_reliable());
     assert_eq!(info.script(), Script::Cyrillic);
     assert_eq!(info.script().name(), "Cyrillic");
     assert_eq!(info.lang(), Lang::Rus);

@@ -14,30 +14,32 @@
 //! assert_eq!(info.lang(), Lang::Epo);
 //! assert_eq!(info.script(), Script::Latin);
 //!
+//! // TODO:
 //! // Confidence is in the range from 0 to 1.
-//! assert_eq!(info.confidence(), 1.0);
-//! assert!(info.is_reliable());
+//! // assert_eq!(info.confidence(), 1.0);
+//! // assert!(info.is_reliable());
 //! ```
 //!
 //! Using `Detector` with specified blacklist or whitelist:
 //!
 //! ```
-//! use whatlang::{Detector, Lang};
+//! // TODO:
+//! // use whatlang::{Detector, Lang};
 //!
-//! let whitelist = vec![Lang::Eng, Lang::Rus];
+//! // let whitelist = vec![Lang::Eng, Lang::Rus];
 //!
-//! // You can also create detector using with_blacklist function
-//! let detector = Detector::with_whitelist(whitelist);
-//! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
-//! assert_eq!(lang, Some(Lang::Eng));
+//! // // You can also create detector using with_blacklist function
+//! // let detector = Detector::with_whitelist(whitelist);
+//! // let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
+//! // assert_eq!(lang, Some(Lang::Eng));
 //! ```
 //!
-mod detect;
-mod detector;
+// mod detect;
+// mod detector;
 mod error;
-mod info;
+// mod info;
 mod lang;
-mod options;
+// mod options;
 mod scripts;
 mod trigrams;
 mod utils;
@@ -45,13 +47,15 @@ mod core;
 mod alphabets;
 mod combined;
 
-pub use crate::detector::Detector;
-pub use crate::info::Info;
+// pub use crate::detector::Detector;
+// pub use crate::info::Info;
 pub use crate::lang::Lang;
-pub use crate::options::Options;
-pub use crate::scripts::Script;
+// pub use crate::options::Options;
+pub use crate::scripts::{detect_script, Script};
 
-pub use crate::detect::detect;
-pub use crate::detect::detect_lang;
-pub use crate::detect::detect_with_options;
-pub use crate::scripts::detect_script;
+pub use crate::core::{detect, detect_lang, Output};
+
+// pub use crate::detect::detect;
+// pub use crate::detect::detect_lang;
+// pub use crate::detect::detect_with_options;
+// pub use crate::scripts::detect_script;

@@ -12,8 +12,6 @@ fn main() {
 
     if let Some(info) = detect(&text) {
         println!("Language: {}", info.lang());
-        println!("Confidence: {:2.0}%", info.confidence() * 100.0);
-        println!("Is reliable: {}", info.is_reliable());
     } else {
         println!("Cannot recognize a language :(");
     }

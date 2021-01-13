@@ -14,4 +14,12 @@ impl Output {
     pub fn new(script: Script, lang: Lang) -> Self {
         Self { script, lang }
     }
+
+    pub fn lang(&self) -> Lang {
+        self.lang
+    }
+
+    pub fn script(&self) -> Script {
+        self.script
+    }
 }
