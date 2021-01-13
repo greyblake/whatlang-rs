@@ -1,6 +1,5 @@
 mod alphabet;
 mod combined;
-//mod core;
 
 use crate::Lang;
 use crate::core::Method;

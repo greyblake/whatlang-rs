@@ -1,6 +1,7 @@
 pub mod detection;
 mod profiles;
 pub mod utils;
+pub mod alt;
 
 pub use profiles::*;
 
