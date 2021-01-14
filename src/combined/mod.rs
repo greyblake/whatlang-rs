@@ -1,5 +1,5 @@
-use crate::trigrams::raw_detect as trigrams_raw_detect;
-use crate::alphabets::raw_detect as alphabets_raw_detect;
+use crate::trigrams;
+use crate::alphabets;
 use crate::core::{Output, InternalQuery, LangScores};
 use crate::Lang;
 
@@ -13,8 +13,8 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
 
 // TODO: optimize!
 pub fn raw_detect(iquery: &mut InternalQuery) -> LangScores {
-    let alphabet_scores = alphabets_raw_detect(iquery).scores;
-    let trigram_scores = trigrams_raw_detect(iquery).lang_scores.scores;
+    let alphabet_scores = alphabets::raw_detect(iquery).scores;
+    let trigram_scores = trigrams::raw_detect(iquery).lang_scores.scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
     trigram_scores.iter().for_each(|(lang, _)| {
