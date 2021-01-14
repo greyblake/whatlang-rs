@@ -1,6 +1,6 @@
 use hashbrown::HashMap;
 
-use crate::core::{LangScores, InternalQuery, Output, AllowList, Text};
+use crate::core::{LangScores, InternalQuery, Output, AllowList, Text, LowercaseText};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 use super::{LangProfile, LangProfileList};
@@ -8,7 +8,7 @@ use super::{LATIN_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, ARABIC_
 use super::utils::get_trigrams_with_positions;
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 
-pub fn detect(iquery: &InternalQuery) -> Option<Output> {
+pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
     let lang_scores = raw_detect(iquery);
     lang_scores.scores.first().map( |&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
@@ -16,9 +16,9 @@ pub fn detect(iquery: &InternalQuery) -> Option<Output> {
     })
 }
 
-pub fn raw_detect(iquery: &InternalQuery) -> LangScores {
+pub fn raw_detect(iquery: &mut InternalQuery) -> LangScores {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
-    calculate_scores_in_profiles(&iquery.text, &iquery.allow_list, lang_profile_list)
+    calculate_scores_in_profiles(&mut iquery.text, &iquery.allow_list, lang_profile_list)
 }
 
 fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
@@ -33,16 +33,13 @@ fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
 }
 
 fn calculate_scores_in_profiles(
-    text: &Text,
+    text: &mut Text,
     allow_list: &AllowList,
     lang_profile_list: LangProfileList,
 ) -> LangScores {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
 
-    // TODO:
-    // * pass text.lowercased
-    // * tweak get_trigrams_with_positions to accept lowecased text
-    let trigrams = get_trigrams_with_positions(text.original());
+    let trigrams = get_trigrams_with_positions(&text.lowercase());
 
     for &(lang, lang_trigrams) in lang_profile_list {
         if !allow_list.is_allowed(lang) {

@@ -1,5 +1,6 @@
 use crate::utils::is_stop_char;
 use crate::Lang;
+use crate::core::LowercaseText;
 
 const AFR: &'static str = "abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû";
 const AKA: &'static str = "abdefghiklmnoprstuwyɔɛ";
@@ -84,10 +85,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
-// TODO: accept only lowercased text
-pub fn alphabet_calculate_scores(text: &str) -> Vec<(Lang, f64)> {
-    let text = text.to_lowercase();
-
+pub fn alphabet_calculate_scores(text: &LowercaseText) -> Vec<(Lang, f64)> {
     let mut raw_scores = vec![
                 (Lang::Afr, 0i32),
                 (Lang::Aka, 0i32),

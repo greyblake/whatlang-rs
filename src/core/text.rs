@@ -1,13 +1,36 @@
+use std::ops::Deref;
+
+#[derive(Debug)]
+pub struct LowercaseText {
+    inner: String
+}
+
+impl LowercaseText {
+    pub fn new(original_text: &str) -> Self {
+        let inner = original_text.to_lowercase();
+        Self { inner }
+    }
+}
+
+impl Deref for LowercaseText {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
+}
+
+#[derive(Debug)]
 pub struct Text<'a> {
     original: &'a str,
-    lowercased: Option<String>
+    lowercase: Option<LowercaseText>
 }
 
 impl<'a> Text<'a> {
     pub fn new(original_text: &'a str) -> Self {
         Self {
             original: original_text,
-            lowercased: None
+            lowercase: None
         }
     }
 
@@ -15,12 +38,11 @@ impl<'a> Text<'a> {
         self.original
     }
 
-    pub fn lowercased(&mut self) -> &str {
-        if self.lowercased.is_none() {
-            let lowercased_text = self.original.to_lowercase();
-            self.lowercased = Some(lowercased_text);
+    pub fn lowercase(&mut self) -> &LowercaseText {
+        if self.lowercase.is_none() {
+            self.lowercase = Some(LowercaseText::new(self.original));
         }
-        self.lowercased.as_ref().unwrap()
+        self.lowercase.as_ref().unwrap()
     }
 }
 
@@ -32,7 +54,6 @@ mod tests {
     fn test_text() {
         let mut text = Text::new("Hello THERE");
         assert_eq!(text.original(), "Hello THERE");
-        assert_eq!(text.lowercased(), "hello there");
-        assert_eq!(text.lowercased(), "hello there");
+        assert_eq!(text.lowercase().deref(), "hello there");
     }
 }

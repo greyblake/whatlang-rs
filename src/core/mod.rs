@@ -8,7 +8,7 @@ mod detect;
 mod lang_scores;
 
 pub use method::Method;
-pub use text::Text;
+pub use text::{Text, LowercaseText};
 pub use options::Options;
 pub use allow_list::AllowList;
 pub use output::Output;

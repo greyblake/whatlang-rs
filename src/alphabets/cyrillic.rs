@@ -1,5 +1,6 @@
 use crate::utils::is_stop_char;
 use crate::Lang;
+use crate::core::LowercaseText;
 
 const BUL: &'static str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &'static str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -8,8 +9,7 @@ const BEL: &'static str = "абвгдежзйклмнопрстуфхцчшыь�
 const SRP: &'static str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
 const MKD: &'static str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
 
-pub fn alphabet_calculate_scores(text: &str) -> Vec<(Lang, f64)> {
-    let text = text.to_lowercase();
+pub fn alphabet_calculate_scores(text: &LowercaseText) -> Vec<(Lang, f64)> {
     let mut raw_scores = vec![
         (Lang::Bul, 0i32),
         (Lang::Rus, 0i32),
