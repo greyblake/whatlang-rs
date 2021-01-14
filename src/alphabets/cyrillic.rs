@@ -1,6 +1,7 @@
 use crate::utils::is_stop_char;
 use crate::Lang;
 use crate::core::LowercaseText;
+use super::RawOutcome;
 
 const BUL: &'static str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &'static str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -9,7 +10,7 @@ const BEL: &'static str = "абвгдежзйклмнопрстуфхцчшыь�
 const SRP: &'static str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
 const MKD: &'static str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
 
-pub fn alphabet_calculate_scores(text: &LowercaseText) -> Vec<(Lang, f64)> {
+pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
     let mut raw_scores = vec![
         (Lang::Bul, 0i32),
         (Lang::Rus, 0i32),
@@ -53,7 +54,11 @@ pub fn alphabet_calculate_scores(text: &LowercaseText) -> Vec<(Lang, f64)> {
         normalized_scores.push((lang, normalized_score));
     }
 
-    normalized_scores
+    RawOutcome {
+        count: max_raw_score,
+        raw_scores: raw_scores,
+        scores: normalized_scores,
+    }
 }
 
 fn get_lang_chars(lang: Lang) -> Vec<char> {

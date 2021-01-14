@@ -1,47 +1,13 @@
 mod cyrillic;
 mod latin;
+mod detection;
+
+pub use detection::{detect, raw_detect};
 
 use crate::Lang;
-use crate::core::{InternalQuery, Output, LangScores, LowercaseText};
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
-    let lang_scores = raw_detect(iquery);
-    lang_scores.scores.first().map( |&(lang, _)| {
-        let script = iquery.multi_lang_script.to_script();
-        Output::new(script, lang)
-    })
-}
-
-pub fn raw_detect(iquery: &mut InternalQuery) -> LangScores {
-    let text: &LowercaseText = iquery.text.lowercase();
-
-    use crate::scripts::grouping::MultiLangScript as MLS;
-    let scores = match iquery.multi_lang_script {
-        MLS::Cyrillic => cyrillic::alphabet_calculate_scores(text),
-        MLS::Latin => latin::alphabet_calculate_scores(text),
-        MLS::Arabic => {
-            // TODO: implement alphabets for Arabic script
-            vec![
-                (Lang::Ara, 1.0),
-                (Lang::Urd, 1.0),
-                (Lang::Pes, 1.0),
-            ]
-        },
-        MLS::Devanagari => {
-            // TODO: implement alphabets for Devanagari script
-            vec![
-                (Lang::Hin, 1.0),
-                (Lang::Mar, 1.0),
-                (Lang::Nep, 1.0),
-            ]
-        },
-        MLS::Hebrew => {
-            // TODO: implement alphabets for Hebrew script
-            vec![
-                (Lang::Heb, 1.0),
-                (Lang::Yid, 1.0),
-            ]
-        },
-    };
-    LangScores::new(scores)
+pub struct RawOutcome {
+    pub count: usize,
+    pub raw_scores: Vec<(Lang, usize)>,
+    pub scores: Vec<(Lang, f64)>,
 }
