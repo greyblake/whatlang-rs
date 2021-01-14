@@ -35,6 +35,12 @@ impl AllowList {
     }
 }
 
+impl Default for AllowList {
+    fn default() -> Self {
+        AllowList::All
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
