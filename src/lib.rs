@@ -53,7 +53,7 @@ pub use crate::lang::Lang;
 // pub use crate::options::Options;
 pub use crate::scripts::{detect_script, Script};
 
-pub use crate::core::{detect, detect_lang, Output};
+pub use crate::core::{detect, detect_lang, detect_with_options, Output, Method, Options};
 
 // pub use crate::detect::detect;
 // pub use crate::detect::detect_lang;

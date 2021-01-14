@@ -1,6 +1,7 @@
 use crate::Lang;
 
 // TODO: rename
+// * Filter
 // * FilterList
 // * FilterRule
 // * GuardList
