@@ -8,15 +8,20 @@ use super::{LATIN_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, ARABIC_
 use super::utils::get_trigrams_with_positions;
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 
+pub struct RawOutcome {
+    pub trigrams_count: usize,
+    pub lang_scores: LangScores
+}
+
 pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
-    let lang_scores = raw_detect(iquery);
+    let lang_scores = raw_detect(iquery).lang_scores;
     lang_scores.scores.first().map( |&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
         Output::new(script, lang)
     })
 }
 
-pub fn raw_detect(iquery: &mut InternalQuery) -> LangScores {
+pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
     calculate_scores_in_profiles(&mut iquery.text, &iquery.allow_list, lang_profile_list)
 }
@@ -36,10 +41,11 @@ fn calculate_scores_in_profiles(
     text: &mut Text,
     allow_list: &AllowList,
     lang_profile_list: LangProfileList,
-) -> LangScores {
+) -> RawOutcome {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
 
     let trigrams = get_trigrams_with_positions(&text.lowercase());
+    let trigrams_count = trigrams.len();
 
     for &(lang, lang_trigrams) in lang_profile_list {
         if !allow_list.is_allowed(lang) {
@@ -54,10 +60,13 @@ fn calculate_scores_in_profiles(
 
     let scores = lang_distances
         .iter()
-        .map(|&(lang, distance)| (lang, distance_to_score(trigrams.len() as u32, distance)))
+        .map(|&(lang, distance)| (lang, distance_to_score(distance)))
         .collect();
 
-    LangScores::new(scores)
+    RawOutcome {
+        trigrams_count,
+        lang_scores: LangScores::new(scores)
+    }
 }
 
 
@@ -78,7 +87,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
     }
 }
 
-fn distance_to_score(_trigrams_count: u32, distance: u32) -> f64 {
+fn distance_to_score(distance: u32) -> f64 {
     let similarity = MAX_TOTAL_DISTANCE - distance;
     similarity as f64 / MAX_TRIGRAM_DISTANCE as f64
 }
