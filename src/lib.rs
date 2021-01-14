@@ -38,7 +38,6 @@
 mod error;
 // mod info;
 mod lang;
-// mod options;
 mod scripts;
 mod trigrams;
 mod utils;
