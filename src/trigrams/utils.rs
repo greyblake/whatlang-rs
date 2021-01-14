@@ -3,11 +3,12 @@ use hashbrown::HashMap;
 use super::Trigram;
 use super::TEXT_TRIGRAMS_SIZE;
 use crate::utils::is_stop_char;
+use crate::core::LowercaseText;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
 #[allow(clippy::unnecessary_sort_by)]
-pub fn get_trigrams_with_positions(text: &str) -> HashMap<Trigram, u32> {
+pub fn get_trigrams_with_positions(text: &LowercaseText) -> HashMap<Trigram, u32> {
     // Sort in descending order by number of occurrences and trigrams
     let mut count_vec: Vec<_> = count(text)
         .into_iter()
@@ -23,7 +24,7 @@ pub fn get_trigrams_with_positions(text: &str) -> HashMap<Trigram, u32> {
         .collect()
 }
 
-fn count(text: &str) -> HashMap<Trigram, u32> {
+fn count(text: &LowercaseText) -> HashMap<Trigram, u32> {
     let hash_capacity = calculate_initial_hash_capacity(text);
     let mut counter_hash: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
 
@@ -31,7 +32,7 @@ fn count(text: &str) -> HashMap<Trigram, u32> {
     let mut chars_iter = text
         .chars()
         .map(to_trigram_char)
-        .flat_map(char::to_lowercase)
+        //.flat_map(char::to_lowercase)
         .chain(Some(' '));
     let mut c1 = ' ';
     // unwrap is safe, because we always chain a space character on the end of the iterator
@@ -103,7 +104,8 @@ mod tests {
     }
 
     fn assert_count(text: &str, pairs: &[(&str, u32)]) {
-        let result = count(text);
+        let lowercase_text = LowercaseText::new(text);
+        let result = count(&lowercase_text);
         for &(trigram_str, expected_n) in pairs.iter() {
             let chars: Vec<char> = trigram_str.clone().chars().collect();
             let trigram = Trigram(chars[0], chars[1], chars[2]);
@@ -139,7 +141,8 @@ mod tests {
 
     #[test]
     fn test_get_trigrams_with_positions() {
-        let res = get_trigrams_with_positions("xaaaaabbbbd");
+        let lowercase_text = LowercaseText::new("xaaaaabbbbd");
+        let res = get_trigrams_with_positions(&lowercase_text);
         assert_eq!(res[&Trigram('a', 'a', 'a')], 0);
         assert_eq!(res[&Trigram('b', 'b', 'b')], 1);
     }
