@@ -33,6 +33,12 @@ impl fmt::Display for Method {
     }
 }
 
+impl Default for Method {
+    fn default() -> Self {
+        Method::Combined
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
