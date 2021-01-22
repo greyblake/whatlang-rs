@@ -49,12 +49,5 @@ mod combined;
 // pub use crate::detector::Detector;
 // pub use crate::info::Info;
 pub use crate::lang::Lang;
-// pub use crate::options::Options;
 pub use crate::scripts::{detect_script, Script};
-
 pub use crate::core::{detect, detect_lang, detect_with_options, Output, Method, Options};
-
-// pub use crate::detect::detect;
-// pub use crate::detect::detect_lang;
-// pub use crate::detect::detect_with_options;
-// pub use crate::scripts::detect_script;
