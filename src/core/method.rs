@@ -1,5 +1,6 @@
 use std::fmt;
 use std::str::FromStr;
+use crate::error::Error;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Method {
@@ -9,15 +10,14 @@ pub enum Method {
 }
 
 impl FromStr for Method {
-    // TODO: implement normal error
-    type Err = String;
+    type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().trim() {
             "trigram" => Ok(Method::Trigram),
             "alphabet" => Ok(Method::Alphabet),
             "combined" => Ok(Method::Combined),
-            _ => Err(format!("Cannot obtain Method from {:?}", s)),
+            _ => Err(Error::ParseMethod(s.to_string())),
         }
     }
 }
