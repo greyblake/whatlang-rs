@@ -1,6 +1,6 @@
 use crate::Lang;
 use super::{cyrillic, latin};
-use crate::core::{InternalQuery, Output, LangScores, LowercaseText};
+use crate::core::{InternalQuery, Output, LowercaseText};
 use super::RawOutcome;
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {

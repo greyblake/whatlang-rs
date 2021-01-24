@@ -1,4 +1,4 @@
-use crate::core::{Options, Method, Query, InternalQuery, Output};
+use crate::core::{Options, Method, Query, Output};
 use crate::scripts::{detect_script, grouping::{ScriptLangGroup, MultiLangScript}};
 use crate::{trigrams, alphabets, combined};
 use crate::Lang;

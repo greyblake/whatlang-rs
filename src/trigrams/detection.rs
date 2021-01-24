@@ -1,6 +1,6 @@
 use hashbrown::HashMap;
 
-use crate::core::{LangScores, InternalQuery, Output, AllowList, Text, LowercaseText};
+use crate::core::{LangScores, InternalQuery, Output, AllowList, Text};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 use super::{LangProfile, LangProfileList};
