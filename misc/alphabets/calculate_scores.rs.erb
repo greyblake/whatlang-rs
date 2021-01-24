@@ -3,7 +3,7 @@ use crate::utils::is_stop_char;
 use crate::Lang;
 
 <% alphabets.each do |code, alphabet| -%>
-const <%= code.upcase %>: &'static str = "<%= alphabet %>";
+const <%= code.upcase %>: &str = "<%= alphabet %>";
 <% end %>
 
 fn get_lang_chars(lang: Lang) -> Vec<char> {

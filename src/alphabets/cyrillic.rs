@@ -3,12 +3,12 @@ use crate::Lang;
 use crate::core::LowercaseText;
 use super::RawOutcome;
 
-const BUL: &'static str = "абвгдежзийклмнопрстуфхцчшщъьюя";
-const RUS: &'static str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
-const UKR: &'static str = "абвгдежзийклмнопрстуфхцчшщьюяєіїґ";
-const BEL: &'static str = "абвгдежзйклмнопрстуфхцчшыьэюяёіў";
-const SRP: &'static str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
-const MKD: &'static str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
+const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
+const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
+const UKR: &str = "абвгдежзийклмнопрстуфхцчшщьюяєіїґ";
+const BEL: &str = "абвгдежзйклмнопрстуфхцчшыьэюяёіў";
+const SRP: &str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
+const MKD: &str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
 
 pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
     let mut raw_scores = vec![
