@@ -1,3 +1,4 @@
+use alloc::vec::Vec;
 use hashbrown::HashMap;
 
 use crate::constants::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
@@ -84,7 +85,7 @@ fn detect_lang_in_profiles(
     options: &Options,
     lang_profile_list: LangProfileList,
 ) -> Option<(Lang, f64)> {
-    let mut lang_distances: Vec<(Lang, u32)> = vec![];
+    let mut lang_distances: Vec<(Lang, u32)> = Vec::new();
     let trigrams = get_trigrams_with_positions(text);
 
     for &(ref lang, lang_trigrams) in lang_profile_list {

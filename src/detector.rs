@@ -1,3 +1,5 @@
+use alloc::vec::Vec;
+
 use crate::detect;
 use crate::info::Info;
 use crate::lang::Lang;

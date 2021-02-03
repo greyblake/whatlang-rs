@@ -31,6 +31,12 @@
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
 //!
+
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate core;
+extern crate alloc;
+
 mod constants;
 mod detect;
 mod detector;
