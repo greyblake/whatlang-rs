@@ -1,5 +1,5 @@
-use hashbrown::HashMap;
 use alloc::vec::Vec;
+use hashbrown::HashMap;
 
 use crate::constants::TEXT_TRIGRAMS_SIZE;
 use crate::utils::is_stop_char;

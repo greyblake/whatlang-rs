@@ -2,9 +2,9 @@
 //    This file is generated automatically.
 //    Edit misc/lang.rs.erb template instead of editing lang.rs file directly.
 
+use alloc::string::String;
 use core::fmt;
 use core::str::FromStr;
-use alloc::string::String;
 
 use crate::error::Error;
 use crate::trigrams::Trigram;
