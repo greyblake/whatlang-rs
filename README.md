@@ -1,4 +1,4 @@
-<p align="center"><img width="200" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/logo/whatlang-logo.svg" alt="Whatlang - rust library for natural language detection"></p>
+<p align="center"><img width="160" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/logo/whatlang-logo.svg" alt="Whatlang - rust library for natural language detection"></p>
 
 
 <h1 align="center">Whatlang</h1>
