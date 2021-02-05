@@ -1,11 +1,16 @@
-# Whatlang
+<p align="center"><img width="160" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/logo/whatlang-logo.svg" alt="Whatlang - rust library for natural language detection"></p>
 
-[![Build Status](https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master)](https://travis-ci.org/greyblake/whatlang-rs)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greyblake/whatlang-rs/master/LICENSE)
-[![Documentation](https://docs.rs/whatlang/badge.svg)](https://docs.rs/whatlang) [![Demo](https://img.shields.io/badge/online-demo-yellow.svg)](https://www.greyblake.com/whatlang)
+<h1 align="center">Whatlang</h1>
 
-Natural language detection for Rust with focus on simplicity and performance.
+<p align="center">Natural language detection for Rust with focus on simplicity and performance.</p>
 
+<p align="center">
+<a href="https://travis-ci.org/greyblake/whatlang-rs" rel="nofollow"><img src="https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master" alt="Build Status"></a>
+<a href="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/LICENSE" rel="nofollow"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+<a href="https://docs.rs/whatlang" rel="nofollow"><img src="https://docs.rs/whatlang/badge.svg" alt="Documentation"></a>
+<p>
+
+## Content
 * [Features](#features)
 * [Get started](#get-started)
 * [Documentation](https://docs.rs/whatlang)
@@ -124,4 +129,4 @@ cargo bench
 - [greyblake](https://github.com/greyblake) Potapov Sergey - creator, maintainer.
 - [Dr-Emann](https://github.com/Dr-Emann) Zachary Dremann - optimization and improvements
 - [BaptisteGelez](https://github.com/BaptisteGelez) Baptiste Gelez - improvements
-- [goodsauce](goodsauce) - improvements
+- [Vishesh Chopra](https://github.com/KarmicKonquest) - designed the logo
