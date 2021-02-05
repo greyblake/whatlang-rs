@@ -1,8 +1,9 @@
 <p align="center"><img width="200" src="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/misc/logo/whatlang-logo.svg" alt="Whatlang - rust library for natural language detection"></p>
 
 
+<h1 align="center">Whatlang</h1>
+
 <p align="center">
-<h1>Whatlang</h1>
 <a href="https://travis-ci.org/greyblake/whatlang-rs" rel="nofollow"><img src="https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master" alt="Build Status"></a>
 <a href="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/LICENSE" rel="nofollow"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 <a href="https://docs.rs/whatlang" rel="nofollow"><img src="https://docs.rs/whatlang/badge.svg" alt="Documentation"></a>
