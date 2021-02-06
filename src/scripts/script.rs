@@ -1,5 +1,5 @@
-use std::fmt;
-use std::str::FromStr;
+use core::fmt;
+use core::str::FromStr;
 
 use super::lang_mapping;
 use crate::error::Error;
@@ -125,6 +125,8 @@ impl FromStr for Script {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        #[cfg(not(feature = "std"))]
+        use crate::alloc::string::ToString;
         match s.to_lowercase().trim() {
             "latin" => Ok(Script::Latin),
             "cyrillic" => Ok(Script::Cyrillic),

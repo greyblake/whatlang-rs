@@ -2,8 +2,9 @@
 //    This file is generated automatically.
 //    Edit misc/lang.rs.erb template instead of editing lang.rs file directly.
 
-use std::fmt;
-use std::str::FromStr;
+use alloc::string::String;
+use core::fmt;
+use core::str::FromStr;
 
 use crate::error::Error;
 use crate::trigrams::Trigram;
@@ -19045,6 +19046,8 @@ impl FromStr for Lang {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        #[cfg(not(feature = "std"))]
+        use alloc::string::ToString;
         Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
     }
 }

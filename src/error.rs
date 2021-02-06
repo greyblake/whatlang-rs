@@ -1,5 +1,5 @@
-use std::error::Error as StdError;
-use std::fmt::{self, Display};
+use alloc::string::String;
+use core::fmt::{self, Display};
 
 #[derive(Debug)]
 pub enum Error {
@@ -20,4 +20,5 @@ impl Display for Error {
     }
 }
 
-impl StdError for Error {}
+#[cfg(feature = "std")]
+impl std::error::Error for Error {}

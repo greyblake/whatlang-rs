@@ -5,6 +5,7 @@ install:
   - rustup component add rustfmt
   - rustup component add clippy
 script:
+  - cargo check --no-default-features
   - cargo fmt -- --check
   - cargo clippy -- -D warnings
   - cargo test
