@@ -4,7 +4,7 @@ use super::utils::get_trigrams_with_positions;
 use super::{LangProfile, LangProfileList};
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
-use crate::core::{AllowList, InternalQuery, LangScores, Output, Text};
+use crate::core::{AllowList, Info, InternalQuery, LangScores, Text};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 
@@ -13,11 +13,11 @@ pub struct RawOutcome {
     pub lang_scores: LangScores,
 }
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
+pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let lang_scores = raw_detect(iquery).lang_scores;
     lang_scores.scores.first().map(|&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
-        Output::new(script, lang)
+        Info::new(script, lang)
     })
 }
 

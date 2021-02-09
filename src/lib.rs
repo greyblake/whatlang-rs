@@ -48,6 +48,6 @@ mod utils;
 
 // pub use crate::detector::Detector;
 // pub use crate::info::Info;
-pub use crate::core::{detect, detect_lang, detect_with_options, Method, Options, Output};
+pub use crate::core::{detect, detect_lang, detect_with_options, Info, Method, Options};
 pub use crate::lang::Lang;
 pub use crate::scripts::{detect_script, Script};

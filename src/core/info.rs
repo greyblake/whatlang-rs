@@ -5,12 +5,12 @@ use crate::{Lang, Script};
 // * Response
 // * Info
 // * DetectionResult ?
-pub struct Output {
+pub struct Info {
     script: Script,
     lang: Lang,
 }
 
-impl Output {
+impl Info {
     pub fn new(script: Script, lang: Lang) -> Self {
         Self { script, lang }
     }

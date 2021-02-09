@@ -1,13 +1,13 @@
 use crate::alphabets;
-use crate::core::{InternalQuery, LangScores, Output};
+use crate::core::{Info, InternalQuery, LangScores};
 use crate::trigrams;
 use crate::Lang;
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
+pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let lang_scores = raw_detect(iquery);
     lang_scores.scores.first().map(|&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
-        Output::new(script, lang)
+        Info::new(script, lang)
     })
 }
 
