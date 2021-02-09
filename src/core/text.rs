@@ -2,7 +2,7 @@ use std::ops::Deref;
 
 #[derive(Debug)]
 pub struct LowercaseText {
-    inner: String
+    inner: String,
 }
 
 impl LowercaseText {
@@ -23,14 +23,14 @@ impl Deref for LowercaseText {
 #[derive(Debug)]
 pub struct Text<'a> {
     original: &'a str,
-    lowercase: Option<LowercaseText>
+    lowercase: Option<LowercaseText>,
 }
 
 impl<'a> Text<'a> {
     pub fn new(original_text: &'a str) -> Self {
         Self {
             original: original_text,
-            lowercase: None
+            lowercase: None,
         }
     }
 

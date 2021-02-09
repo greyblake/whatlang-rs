@@ -1,11 +1,11 @@
-use crate::Lang;
-use super::{cyrillic, latin};
-use crate::core::{InternalQuery, Output, LowercaseText};
 use super::RawOutcome;
+use super::{cyrillic, latin};
+use crate::core::{InternalQuery, LowercaseText, Output};
+use crate::Lang;
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
     let raw_outcome = raw_detect(iquery);
-    raw_outcome.scores.first().map( |&(lang, _)| {
+    raw_outcome.scores.first().map(|&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
         Output::new(script, lang)
     })
@@ -36,6 +36,6 @@ fn build_mock(langs: Vec<Lang>) -> RawOutcome {
     RawOutcome {
         count: 1,
         raw_scores,
-        scores
+        scores,
     }
 }

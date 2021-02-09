@@ -1,11 +1,11 @@
-use crate::trigrams;
 use crate::alphabets;
-use crate::core::{Output, InternalQuery, LangScores};
+use crate::core::{InternalQuery, LangScores, Output};
+use crate::trigrams;
 use crate::Lang;
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Output> {
     let lang_scores = raw_detect(iquery);
-    lang_scores.scores.first().map( |&(lang, _)| {
+    lang_scores.scores.first().map(|&(lang, _)| {
         let script = iquery.multi_lang_script.to_script();
         Output::new(script, lang)
     })

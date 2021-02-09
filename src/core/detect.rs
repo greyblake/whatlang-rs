@@ -1,10 +1,13 @@
-use crate::core::{Options, Method, Query, Output};
-use crate::scripts::{detect_script, grouping::{ScriptLangGroup, MultiLangScript}};
-use crate::{trigrams, alphabets, combined};
+use crate::core::{Method, Options, Output, Query};
+use crate::scripts::{
+    detect_script,
+    grouping::{MultiLangScript, ScriptLangGroup},
+};
 use crate::Lang;
+use crate::{alphabets, combined, trigrams};
 
 pub fn detect_lang(text: &str) -> Option<Lang> {
-    detect(text).map(|output| output.lang() )
+    detect(text).map(|output| output.lang())
 }
 
 pub fn detect(text: &str) -> Option<Output> {
@@ -16,7 +19,7 @@ pub fn detect_with_options(text: &str, options: &Options) -> Option<Output> {
     let query = Query {
         text,
         allow_list: &options.allow_list,
-        method: options.method
+        method: options.method,
     };
     detect_by_query(&query)
 }
@@ -32,7 +35,10 @@ pub fn detect_by_query(query: &Query) -> Option<Output> {
     }
 }
 
-fn detect_by_query_based_on_script(query: &Query, multi_lang_script: MultiLangScript) -> Option<Output> {
+fn detect_by_query_based_on_script(
+    query: &Query,
+    multi_lang_script: MultiLangScript,
+) -> Option<Output> {
     let mut iquery = query.to_internal(multi_lang_script);
     match query.method {
         Method::Alphabet => alphabets::detect(&mut iquery),

@@ -1,7 +1,7 @@
+use super::RawOutcome;
+use crate::core::LowercaseText;
 use crate::utils::is_stop_char;
 use crate::Lang;
-use crate::core::LowercaseText;
-use super::RawOutcome;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";

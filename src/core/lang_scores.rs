@@ -1,7 +1,7 @@
 use crate::Lang;
 
 pub struct LangScores {
-    pub(crate) scores: Vec<(Lang, f64)>
+    pub(crate) scores: Vec<(Lang, f64)>,
 }
 
 impl LangScores {

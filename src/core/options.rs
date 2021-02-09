@@ -3,12 +3,15 @@ use super::{AllowList, Method};
 // TODO: write doc
 pub struct Options {
     pub(crate) allow_list: AllowList,
-    pub(crate) method: Method
+    pub(crate) method: Method,
 }
 
 impl Options {
     pub fn new() -> Self {
-        Self { allow_list: AllowList::All, method: Method::Combined }
+        Self {
+            allow_list: AllowList::All,
+            method: Method::Combined,
+        }
     }
 
     pub fn with_allow_list(allow_list: AllowList) -> Self {

@@ -29,7 +29,7 @@ impl AllowList {
 
     pub fn is_allowed(&self, lang: Lang) -> bool {
         match self {
-            Self::All=> true,
+            Self::All => true,
             Self::Only(ref whitelist) => whitelist.contains(&lang),
             Self::Except(ref blacklist) => !blacklist.contains(&lang),
         }

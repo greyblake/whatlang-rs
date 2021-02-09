@@ -38,16 +38,16 @@
 // mod detector;
 mod error;
 // mod info;
+mod alphabets;
+mod combined;
+mod core;
 mod lang;
 mod scripts;
 mod trigrams;
 mod utils;
-mod core;
-mod alphabets;
-mod combined;
 
 // pub use crate::detector::Detector;
 // pub use crate::info::Info;
+pub use crate::core::{detect, detect_lang, detect_with_options, Method, Options, Output};
 pub use crate::lang::Lang;
 pub use crate::scripts::{detect_script, Script};
-pub use crate::core::{detect, detect_lang, detect_with_options, Output, Method, Options};

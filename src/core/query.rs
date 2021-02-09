@@ -1,10 +1,10 @@
-use super::{Text, AllowList, Method};
+use super::{AllowList, Method, Text};
 use crate::scripts::grouping::MultiLangScript;
 
 pub struct Query<'a, 'b> {
     pub(crate) text: &'a str,
     pub(crate) allow_list: &'b AllowList,
-    pub(crate) method: Method
+    pub(crate) method: Method,
 }
 
 // TODO: find a better name?

@@ -4,7 +4,7 @@ pub mod utils;
 
 pub use profiles::*;
 
-pub use detection::{RawOutcome, raw_detect, detect};
+pub use detection::{detect, raw_detect, RawOutcome};
 
 #[derive(Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Clone, Copy)]
 pub struct Trigram(pub(crate) char, pub(crate) char, pub(crate) char);

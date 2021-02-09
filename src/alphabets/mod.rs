@@ -1,6 +1,6 @@
 mod cyrillic;
-mod latin;
 mod detection;
+mod latin;
 
 pub use detection::{detect, raw_detect};
 

@@ -1,6 +1,6 @@
+use crate::error::Error;
 use std::fmt;
 use std::str::FromStr;
-use crate::error::Error;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Method {
