@@ -14,10 +14,9 @@
 //! assert_eq!(info.lang(), Lang::Epo);
 //! assert_eq!(info.script(), Script::Latin);
 //!
-//! // TODO:
 //! // Confidence is in the range from 0 to 1.
-//! // assert_eq!(info.confidence(), 1.0);
-//! // assert!(info.is_reliable());
+//! assert_eq!(info.confidence(), 1.0);
+//! assert!(info.is_reliable());
 //! ```
 //!
 //! Using `Detector` with specified blacklist or whitelist:

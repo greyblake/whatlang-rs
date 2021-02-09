@@ -1,5 +1,6 @@
 use crate::Lang;
 
+#[derive(Debug)]
 pub struct LangScores {
     pub(crate) scores: Vec<(Lang, f64)>,
 }

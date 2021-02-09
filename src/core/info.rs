@@ -1,18 +1,21 @@
 use crate::{Lang, Script};
 
-// TODO:
-// Find a better name?:
-// * Response
-// * Info
-// * DetectionResult ?
+const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.9;
+
+#[derive(Debug)]
 pub struct Info {
     script: Script,
     lang: Lang,
+    confidence: f64,
 }
 
 impl Info {
-    pub fn new(script: Script, lang: Lang) -> Self {
-        Self { script, lang }
+    pub fn new(script: Script, lang: Lang, confidence: f64) -> Self {
+        Self {
+            script,
+            lang,
+            confidence,
+        }
     }
 
     pub fn lang(&self) -> Lang {
@@ -21,5 +24,13 @@ impl Info {
 
     pub fn script(&self) -> Script {
         self.script
+    }
+
+    pub fn confidence(&self) -> f64 {
+        self.confidence
+    }
+
+    pub fn is_reliable(&self) -> bool {
+        self.confidence > RELIABLE_CONFIDENCE_THRESHOLD
     }
 }

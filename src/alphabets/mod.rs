@@ -6,6 +6,7 @@ pub use detection::{detect, raw_detect};
 
 use crate::Lang;
 
+#[derive(Debug)]
 pub struct RawOutcome {
     pub count: usize,
     pub raw_scores: Vec<(Lang, usize)>,

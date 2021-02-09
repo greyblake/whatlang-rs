@@ -1,13 +1,24 @@
 use super::RawOutcome;
 use super::{cyrillic, latin};
-use crate::core::{Info, InternalQuery, LowercaseText};
+use crate::core::{calculate_confidence, Info, InternalQuery, LowercaseText};
 use crate::Lang;
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
-    raw_outcome.scores.first().map(|&(lang, _)| {
+    let RawOutcome { count, scores, .. } = raw_outcome;
+
+    let mut normalized_scores_iter = scores.into_iter();
+    let opt_lang_score1 = normalized_scores_iter.next();
+    let opt_lang_score2 = normalized_scores_iter.next();
+
+    opt_lang_score1.map(|(lang1, score1)| {
         let script = iquery.multi_lang_script.to_script();
-        Info::new(script, lang)
+        let confidence = if let Some((_, score2)) = opt_lang_score2 {
+            calculate_confidence(score1, score2, count)
+        } else {
+            1.0
+        };
+        Info::new(script, lang1, confidence)
     })
 }
 

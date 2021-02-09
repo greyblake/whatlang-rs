@@ -1,4 +1,5 @@
 mod allow_list;
+mod confidence;
 mod detect;
 mod info;
 mod lang_scores;
@@ -8,6 +9,7 @@ mod query;
 mod text;
 
 pub use allow_list::AllowList;
+pub use confidence::calculate_confidence;
 pub use info::Info;
 pub use lang_scores::LangScores;
 pub use method::Method;

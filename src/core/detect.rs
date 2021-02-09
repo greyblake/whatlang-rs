@@ -28,7 +28,7 @@ pub fn detect_by_query(query: &Query) -> Option<Info> {
     let script = detect_script(query.text)?;
 
     match script.to_lang_group() {
-        ScriptLangGroup::One(lang) => Some(Info::new(script, lang)),
+        ScriptLangGroup::One(lang) => Some(Info::new(script, lang, 1.0)),
         ScriptLangGroup::Multi(multi_lang_script) => {
             detect_by_query_based_on_script(query, multi_lang_script)
         }

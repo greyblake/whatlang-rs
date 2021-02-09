@@ -36,4 +36,7 @@ fn test_with_russian_text() {
     assert_eq!(info.lang().code(), "rus");
     assert_eq!(info.lang().eng_name(), "Russian");
     assert_eq!(info.lang().name(), "Русский");
+
+    assert_eq!(info.confidence(), 1.0);
+    assert!(info.is_reliable());
 }

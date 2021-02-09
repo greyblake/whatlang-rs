@@ -12,6 +12,7 @@ fn main() {
 
     if let Some(info) = detect(&text) {
         println!("Language: {}", info.lang());
+        println!("Info: {:?}", info);
     } else {
         println!("Cannot recognize a language :(");
     }

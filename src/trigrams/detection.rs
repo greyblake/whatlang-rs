@@ -4,20 +4,37 @@ use super::utils::get_trigrams_with_positions;
 use super::{LangProfile, LangProfileList};
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
-use crate::core::{AllowList, Info, InternalQuery, LangScores, Text};
+use crate::core::{calculate_confidence, AllowList, Info, InternalQuery, LangScores, Text};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 
+#[derive(Debug)]
 pub struct RawOutcome {
     pub trigrams_count: usize,
     pub lang_scores: LangScores,
 }
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
-    let lang_scores = raw_detect(iquery).lang_scores;
-    lang_scores.scores.first().map(|&(lang, _)| {
+    let raw_outcome = raw_detect(iquery);
+    let RawOutcome {
+        trigrams_count,
+        lang_scores,
+    } = raw_outcome;
+
+    let mut normalized_scores_iter = lang_scores.scores.into_iter();
+
+    let opt_lang_score1 = normalized_scores_iter.next();
+    let opt_lang_score2 = normalized_scores_iter.next();
+
+    // TODO: Logic is duplicated in alphabets. Consider refactoring
+    opt_lang_score1.map(|(lang1, score1)| {
         let script = iquery.multi_lang_script.to_script();
-        Info::new(script, lang)
+        let confidence = if let Some((_, score2)) = opt_lang_score2 {
+            calculate_confidence(score1, score2, trigrams_count)
+        } else {
+            1.0
+        };
+        Info::new(script, lang1, confidence)
     })
 }
 
