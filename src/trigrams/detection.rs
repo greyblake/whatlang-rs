@@ -108,6 +108,12 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
     }
 }
 
+// NOTE:
+// MAX_TOTAL_DISTANCE = 90_000
+// Even in case of very large text, the wining language has distance about 45_000 (half).
+// This results into best score of about 0.5.
+// On short texts the best score is extremely small. Consider normalization strategies
+// (see min_perfect_distance() below)
 fn distance_to_raw_score(distance: u32) -> f64 {
     let similarity = MAX_TOTAL_DISTANCE - distance;
     similarity as f64 / MAX_TOTAL_DISTANCE as f64
