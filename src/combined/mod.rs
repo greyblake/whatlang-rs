@@ -39,7 +39,7 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     let alphabet_scores = &alphabet_raw_outcome.scores;
 
     // TODO: Use normalized scores here
-    let trigram_scores = &trigram_raw_outcome.raw_scores;
+    let trigram_scores = &trigram_raw_outcome.scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
     trigram_scores.iter().for_each(|(lang, _)| {

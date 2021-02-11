@@ -11,18 +11,19 @@ use crate::Lang;
 #[derive(Debug)]
 pub struct RawOutcome {
     pub trigrams_count: usize,
-    pub raw_scores: Vec<(Lang, f64)>
-    // pub normalized_lang_scores: Vec<(Lang, f64)>
+    pub raw_distances: Vec<(Lang, u32)>,
+    pub scores: Vec<(Lang, f64)>,
 }
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
     let RawOutcome {
         trigrams_count,
-        raw_scores,
+        scores,
+        ..
     } = raw_outcome;
 
-    let mut raw_scores_iter = raw_scores.into_iter();
+    let mut raw_scores_iter = scores.into_iter();
 
     let opt_lang_score1 = raw_scores_iter.next();
     let opt_lang_score2 = raw_scores_iter.next();
@@ -78,14 +79,15 @@ fn calculate_scores_in_profiles(
 
     let raw_scores = lang_distances
         .iter()
-        .map(|&(lang, distance)| (lang, distance_to_score(distance)))
+        .map(|&(lang, distance)| (lang, distance_to_raw_score(distance)))
         .collect();
 
     // TODO: CALCULATE NORMALIZED SCORES
 
     RawOutcome {
         trigrams_count,
-        raw_scores,
+        scores: raw_scores,
+        raw_distances: lang_distances,
     }
 }
 
@@ -106,7 +108,45 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
     }
 }
 
-fn distance_to_score(distance: u32) -> f64 {
+fn distance_to_raw_score(distance: u32) -> f64 {
     let similarity = MAX_TOTAL_DISTANCE - distance;
-    similarity as f64 / MAX_TRIGRAM_DISTANCE as f64
+    similarity as f64 / MAX_TOTAL_DISTANCE as f64
+}
+
+// fn min_perfect_distance(count_trigrams: usize) -> usize {
+//     // 1 = 0 + 299*300
+//     // 2 = 0 + 1 + 298*300
+//     // 3 = 0 + 0 + 298*300
+//     // 4 = 3 + 2 + 1
+// }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_when_german_is_given() {
+        let text = "Die Ordnung muss für immer in diesem Codebase bleiben";
+        let mut iq = InternalQuery {
+            text: Text::new(text),
+            allow_list: &AllowList::all(),
+            multi_lang_script: MultiLangScript::Latin,
+        };
+        let raw_outcome = raw_detect(&mut iq);
+
+        assert_eq!(raw_outcome.trigrams_count, 50);
+
+        let &(first_lang, first_score) = raw_outcome.scores.first().unwrap();
+        let &(_last_lang, last_score) = raw_outcome.scores.last().unwrap();
+
+        assert_eq!(first_lang, Lang::Deu);
+
+        assert!(first_score >= 0.0);
+        assert!(first_score <= 1.0);
+
+        assert!(last_score >= 0.0);
+        assert!(last_score <= 1.0);
+
+        //println!("{:#?}", raw_outcome);
+    }
 }
