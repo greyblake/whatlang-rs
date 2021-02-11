@@ -1,11 +1,11 @@
 use crate::alphabets;
-use crate::core::{calculate_confidence, Info, InternalQuery, LangScores};
+use crate::core::{calculate_confidence, Info, InternalQuery};
 use crate::trigrams;
 use crate::Lang;
 
 #[derive(Debug)]
 pub struct RawOutcome {
-    lang_scores: LangScores,
+    scores: Vec<(Lang, f64)>,
     alphabet_raw_outcome: alphabets::RawOutcome,
     trigram_raw_outcome: trigrams::RawOutcome,
 }
@@ -14,8 +14,7 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
 
     let count = raw_outcome.trigram_raw_outcome.trigrams_count;
-    let lang_scores = raw_outcome.lang_scores;
-    let mut normalized_scores_iter = lang_scores.scores.into_iter();
+    let mut normalized_scores_iter = raw_outcome.scores.into_iter();
 
     let opt_lang_score1 = normalized_scores_iter.next();
     let opt_lang_score2 = normalized_scores_iter.next();
@@ -38,7 +37,9 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     let trigram_raw_outcome = trigrams::raw_detect(iquery);
 
     let alphabet_scores = &alphabet_raw_outcome.scores;
-    let trigram_scores = &trigram_raw_outcome.lang_scores.scores;
+
+    // TODO: Use normalized scores here
+    let trigram_scores = &trigram_raw_outcome.raw_scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
     trigram_scores.iter().for_each(|(lang, _)| {
@@ -69,9 +70,9 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     }
 
     scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
-    let lang_scores = LangScores::new(scores);
+
     RawOutcome {
-        lang_scores,
+        scores,
         alphabet_raw_outcome,
         trigram_raw_outcome,
     }

@@ -10,6 +10,12 @@ pub fn calculate_confidence(highest_score: f64, second_score: f64, count: usize)
         return highest_score;
     }
 
+    // if highest_score > 1.0 {
+    //     println!("{}", highest_score);
+    // }
+    // assert!(highest_score <= 1.0);
+    // assert!(second_score <= 1.0);
+
     // Hyperbola function. Everything that is above the function has confidence = 1.0
     // If rate is below, confidence is calculated proportionally.
     // Numbers 12.0 and 0.05 are obtained experimentally, so the function represents common sense.

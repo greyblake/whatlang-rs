@@ -4,27 +4,28 @@ use super::utils::get_trigrams_with_positions;
 use super::{LangProfile, LangProfileList};
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
-use crate::core::{calculate_confidence, AllowList, Info, InternalQuery, LangScores, Text};
+use crate::core::{calculate_confidence, AllowList, Info, InternalQuery, Text};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 
 #[derive(Debug)]
 pub struct RawOutcome {
     pub trigrams_count: usize,
-    pub lang_scores: LangScores,
+    pub raw_scores: Vec<(Lang, f64)>
+    // pub normalized_lang_scores: Vec<(Lang, f64)>
 }
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
     let RawOutcome {
         trigrams_count,
-        lang_scores,
+        raw_scores,
     } = raw_outcome;
 
-    let mut normalized_scores_iter = lang_scores.scores.into_iter();
+    let mut raw_scores_iter = raw_scores.into_iter();
 
-    let opt_lang_score1 = normalized_scores_iter.next();
-    let opt_lang_score2 = normalized_scores_iter.next();
+    let opt_lang_score1 = raw_scores_iter.next();
+    let opt_lang_score2 = raw_scores_iter.next();
 
     // TODO: Logic is duplicated in alphabets. Consider refactoring
     opt_lang_score1.map(|(lang1, score1)| {
@@ -75,14 +76,16 @@ fn calculate_scores_in_profiles(
     // Sort languages by distance
     lang_distances.sort_by_key(|key| key.1);
 
-    let scores = lang_distances
+    let raw_scores = lang_distances
         .iter()
         .map(|&(lang, distance)| (lang, distance_to_score(distance)))
         .collect();
 
+    // TODO: CALCULATE NORMALIZED SCORES
+
     RawOutcome {
         trigrams_count,
-        lang_scores: LangScores::new(scores),
+        raw_scores,
     }
 }
 

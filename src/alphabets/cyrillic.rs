@@ -1,6 +1,5 @@
 use super::RawOutcome;
 use crate::core::LowercaseText;
-use crate::utils::is_stop_char;
 use crate::Lang;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
