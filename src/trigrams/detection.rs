@@ -1,6 +1,6 @@
 use hashbrown::HashMap;
 
-use super::utils::get_trigrams_with_positions;
+use super::utils::{get_trigrams_with_positions, TrigramsWithPositions};
 use super::{LangProfile, LangProfileList};
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
@@ -63,29 +63,29 @@ fn calculate_scores_in_profiles(
 ) -> RawOutcome {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
 
-    let trigrams = get_trigrams_with_positions(&text.lowercase());
-    let trigrams_count = trigrams.len();
+    let TrigramsWithPositions { trigram_positions, .. } = get_trigrams_with_positions(&text.lowercase());
+    let unique_trigrams_count = trigram_positions.len();
 
     for &(lang, lang_trigrams) in lang_profile_list {
         if !allow_list.is_allowed(lang) {
             continue;
         }
-        let dist = calculate_distance(lang_trigrams, &trigrams);
+        let dist = calculate_distance(lang_trigrams, &trigram_positions);
         lang_distances.push(((lang), dist));
     }
 
     // Sort languages by distance
     lang_distances.sort_by_key(|key| key.1);
 
+    let max_dist = unique_trigrams_count as u32 * MAX_TRIGRAM_DISTANCE;
+
     let raw_scores = lang_distances
         .iter()
-        .map(|&(lang, distance)| (lang, distance_to_raw_score(distance)))
+        .map(|&(lang, distance)| (lang, distance_to_raw_score(distance, max_dist)))
         .collect();
 
-    // TODO: CALCULATE NORMALIZED SCORES
-
     RawOutcome {
-        trigrams_count,
+        trigrams_count: unique_trigrams_count,
         scores: raw_scores,
         raw_distances: lang_distances,
     }
@@ -101,30 +101,21 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
         };
         total_dist += dist;
     }
-    if total_dist < MAX_TOTAL_DISTANCE {
-        total_dist
-    } else {
-        MAX_TOTAL_DISTANCE
+
+    let count = text_trigrams.len() as u32;
+
+    if MAX_TRIGRAM_DISTANCE > count {
+        let delta = MAX_TRIGRAM_DISTANCE - count;
+        total_dist -= delta * MAX_TRIGRAM_DISTANCE;
     }
+
+    total_dist.clamp(0, MAX_TOTAL_DISTANCE)
 }
 
-// NOTE:
-// MAX_TOTAL_DISTANCE = 90_000
-// Even in case of very large text, the wining language has distance about 45_000 (half).
-// This results into best score of about 0.5.
-// On short texts the best score is extremely small. Consider normalization strategies
-// (see min_perfect_distance() below)
-fn distance_to_raw_score(distance: u32) -> f64 {
-    let similarity = MAX_TOTAL_DISTANCE - distance;
-    similarity as f64 / MAX_TOTAL_DISTANCE as f64
+fn distance_to_raw_score(distance: u32, max_distance: u32) -> f64 {
+    let similarity = max_distance - distance;
+    similarity as f64 / max_distance as f64
 }
-
-// fn min_perfect_distance(count_trigrams: usize) -> usize {
-//     // 1 = 0 + 299*300
-//     // 2 = 0 + 1 + 298*300
-//     // 3 = 0 + 0 + 298*300
-//     // 4 = 3 + 2 + 1
-// }
 
 #[cfg(test)]
 mod tests {
@@ -132,7 +123,7 @@ mod tests {
 
     #[test]
     fn test_when_german_is_given() {
-        let text = "Die Ordnung muss für immer in diesem Codebase bleiben";
+        let text = "Die Ordnung muss für immer in diesem Codebase bleiben" ;
         let mut iq = InternalQuery {
             text: Text::new(text),
             allow_list: &AllowList::all(),
@@ -152,7 +143,5 @@ mod tests {
 
         assert!(last_score >= 0.0);
         assert!(last_score <= 1.0);
-
-        //println!("{:#?}", raw_outcome);
     }
 }

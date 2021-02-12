@@ -7,10 +7,23 @@ use crate::utils::is_stop_char;
 
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
+pub struct TrigramsWithPositions {
+    pub(crate) total_trigrams: u32,
+    pub(crate) trigram_positions: HashMap<Trigram, u32>,
+}
+
+pub fn get_trigrams_with_positions(text: &LowercaseText) -> TrigramsWithPositions {
+    let CountResult { total_trigrams, trigram_occurances } = count(text);
+    let trigram_positions = trigram_occurances_to_positions(trigram_occurances);
+    TrigramsWithPositions {
+        total_trigrams, trigram_positions
+    }
+}
+
 #[allow(clippy::unnecessary_sort_by)]
-pub fn get_trigrams_with_positions(text: &LowercaseText) -> HashMap<Trigram, u32> {
+fn trigram_occurances_to_positions(trigram_occurances: HashMap<Trigram, u32>) -> HashMap<Trigram, u32> {
     // Sort in descending order by number of occurrences and trigrams
-    let mut count_vec: Vec<_> = count(text)
+    let mut count_vec: Vec<_> = trigram_occurances
         .into_iter()
         .map(|(trigram, count)| (count, trigram))
         .collect();
@@ -18,15 +31,21 @@ pub fn get_trigrams_with_positions(text: &LowercaseText) -> HashMap<Trigram, u32
 
     count_vec
         .into_iter()
-        .take(TEXT_TRIGRAMS_SIZE)
+        .take(TEXT_TRIGRAMS_SIZE)   // we're interested only in the first 600 (2 * MAX_TRIGRAM_DISTANCE)
         .enumerate()
         .map(|(i, (_, trigram))| (trigram, i as u32))
         .collect()
 }
 
-fn count(text: &LowercaseText) -> HashMap<Trigram, u32> {
+struct CountResult {
+    total_trigrams: u32,
+    trigram_occurances: HashMap<Trigram, u32>
+}
+
+fn count(text: &LowercaseText) -> CountResult {
     let hash_capacity = calculate_initial_hash_capacity(text);
-    let mut counter_hash: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
+    let mut trigram_occurances: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
+    let mut total_trigrams = 0;
 
     // iterate through the string and count trigrams
     let mut chars_iter = text
@@ -41,14 +60,15 @@ fn count(text: &LowercaseText) -> HashMap<Trigram, u32> {
         let c3 = cur_char;
         if !(c2 == ' ' && (c1 == ' ' || c3 == ' ')) {
             let trigram = Trigram(c1, c2, c3);
-            let count = counter_hash.entry(trigram).or_insert(0);
+            let count = trigram_occurances.entry(trigram).or_insert(0);
             *count += 1;
+            total_trigrams += 1;
         }
         c1 = c2;
         c2 = c3;
     }
 
-    counter_hash
+    CountResult { total_trigrams, trigram_occurances }
 }
 
 // Convert punctuations and digits to a space.
@@ -105,18 +125,18 @@ mod tests {
 
     fn assert_count(text: &str, pairs: &[(&str, u32)]) {
         let lowercase_text = LowercaseText::new(text);
-        let result = count(&lowercase_text);
+        let CountResult { total_trigrams, trigram_occurances } = count(&lowercase_text);
         for &(trigram_str, expected_n) in pairs.iter() {
             let chars: Vec<char> = trigram_str.clone().chars().collect();
             let trigram = Trigram(chars[0], chars[1], chars[2]);
-            let actual_n = result[&trigram];
+            let actual_n = trigram_occurances[&trigram];
             assert_eq!(
                 actual_n, expected_n,
                 "trigram '{:?}' expected to occur {} times, got {}",
                 trigram, expected_n, actual_n
             );
         }
-        assert_eq!(result.len(), pairs.len());
+        assert_eq!(trigram_occurances.len(), pairs.len());
     }
 
     #[test]
@@ -141,9 +161,11 @@ mod tests {
 
     #[test]
     fn test_get_trigrams_with_positions() {
-        let lowercase_text = LowercaseText::new("xaaaaabbbbd");
-        let res = get_trigrams_with_positions(&lowercase_text);
-        assert_eq!(res[&Trigram('a', 'a', 'a')], 0);
-        assert_eq!(res[&Trigram('b', 'b', 'b')], 1);
+        let lowercase_text = LowercaseText::new("xaaaaabbbb    d");
+        let TrigramsWithPositions { total_trigrams, trigram_positions } = get_trigrams_with_positions(&lowercase_text);
+
+        assert_eq!(trigram_positions[&Trigram('a', 'a', 'a')], 0);
+        assert_eq!(trigram_positions[&Trigram('b', 'b', 'b')], 1);
+        assert_eq!(total_trigrams, 11);
     }
 }
