@@ -37,8 +37,6 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     let trigram_raw_outcome = trigrams::raw_detect(iquery);
 
     let alphabet_scores = &alphabet_raw_outcome.scores;
-
-    // TODO: Use normalized scores here
     let trigram_scores = &trigram_raw_outcome.scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
@@ -47,6 +45,11 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
             all_langs.push(*lang);
         }
     });
+
+    let count = alphabet_raw_outcome.count;
+
+    let alphabet_weight = calc_alphabet_weight(count);
+    let trigram_weight = 1.0 - alphabet_weight;
 
     let mut scores = vec![];
 
@@ -61,11 +64,17 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
             .find(|(l, _)| l == &lang)
             .map(|x| x.1)
             .unwrap_or(0.0);
-        // NOTE: Magically adding big multiplier to trigram score
-        // improves overall result;
-        // * For cyrillic: 1000.0
-        // * For latin: 100.0
-        let score = a * (t + 100.0);
+
+        debug_assert!(a >= 0.0);
+        debug_assert!(a <= 1.0);
+        debug_assert!(t >= 0.0);
+        debug_assert!(t <= 1.0);
+
+        let score = a * alphabet_weight + t * trigram_weight;
+
+        debug_assert!(score >= 0.0);
+        debug_assert!(score <= 1.0);
+
         scores.push((lang, score));
     }
 
@@ -75,5 +84,47 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
         scores,
         alphabet_raw_outcome,
         trigram_raw_outcome,
+    }
+}
+
+// Function that calculates weight of alphabet score depending on number of characters in the given
+// text. The longer text the less significant alphabet weight is (and the more significant is
+// trigram weight).
+//
+// y = -(x/300) + 2/3
+// where:
+//   x - number of characters
+//   y = alphabet weight
+//
+//
+//          alphabet weight
+//          ^
+//          |
+//     2/3 -* (0; 2/3)
+//          | \_
+//          |   \_
+//          |     \_
+//          |       \_
+//          |         \  (100; 1/3)
+//     1/3 -|          *------------
+//          |
+//          +----------|------------> count
+//         0          100
+//
+fn calc_alphabet_weight(count: usize) -> f64 {
+    let weight = -(count as f64 / 300.0) + 2.0/3.0;
+    weight.clamp(1.0/3.0, 2.0/3.0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_calc_alphabet_weight() {
+        assert_eq!(calc_alphabet_weight(0), 2.0/3.0);
+        assert_eq!(calc_alphabet_weight(50), 0.5);
+        assert_eq!(calc_alphabet_weight(100), 1.0/3.0);
+        assert_eq!(calc_alphabet_weight(200), 1.0/3.0);
     }
 }

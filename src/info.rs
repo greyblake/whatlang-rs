@@ -1,7 +1,7 @@
 use crate::lang::Lang;
 use crate::scripts::Script;
 
-const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.8;
+const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.9;
 
 /// Represents a full outcome of language detection.
 #[derive(PartialEq, Debug, Clone, Copy)]
@@ -21,7 +21,7 @@ impl Info {
     }
 
     pub fn is_reliable(&self) -> bool {
-        self.confidence > RELIABLE_CONFIDENCE_THRESHOLD
+        self.confidence >= RELIABLE_CONFIDENCE_THRESHOLD
     }
 
     pub fn confidence(&self) -> f64 {
