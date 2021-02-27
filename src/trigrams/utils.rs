@@ -135,7 +135,7 @@ mod tests {
     fn assert_count(text: &str, pairs: &[(&str, u32)]) {
         let lowercase_text = LowercaseText::new(text);
         let CountResult {
-            total_trigrams,
+            total_trigrams: _,
             trigram_occurances,
         } = count(&lowercase_text);
         for &(trigram_str, expected_n) in pairs.iter() {

@@ -61,13 +61,13 @@ pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
 
     RawOutcome {
         count: max_raw_score,
-        raw_scores: raw_scores,
+        raw_scores,
         scores: normalized_scores,
     }
 }
 
 fn is_relevant(ch: char) -> bool {
-    ALL.chars().find(|&c| c == ch).is_some()
+    ALL.chars().any(|c| c == ch)
 }
 
 fn get_lang_chars(lang: Lang) -> Vec<char> {

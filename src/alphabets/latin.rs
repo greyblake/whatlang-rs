@@ -164,7 +164,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
 
     RawOutcome {
         count: max_raw_score,
-        raw_scores: raw_scores,
+        raw_scores,
         scores: normalized_scores,
     }
 }
