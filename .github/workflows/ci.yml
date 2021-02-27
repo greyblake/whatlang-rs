@@ -67,3 +67,21 @@ jobs:
         with:
           command: clippy
           args: -- -D warnings
+
+  package_build:
+    name: Package Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Build package
+        uses: actions-rs/cargo@v1
+        with:
+          command: package
+          args: --allow-dirty
