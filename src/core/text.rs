@@ -34,10 +34,6 @@ impl<'a> Text<'a> {
         }
     }
 
-    pub fn original(&self) -> &str {
-        self.original
-    }
-
     pub fn lowercase(&mut self) -> &LowercaseText {
         if self.lowercase.is_none() {
             self.lowercase = Some(LowercaseText::new(self.original));
@@ -53,7 +49,6 @@ mod tests {
     #[test]
     fn test_text() {
         let mut text = Text::new("Hello THERE");
-        assert_eq!(text.original(), "Hello THERE");
         assert_eq!(text.lowercase().deref(), "hello there");
     }
 }
