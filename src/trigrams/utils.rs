@@ -8,7 +8,7 @@ use crate::utils::is_stop_char;
 const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
 
 pub struct TrigramsWithPositions {
-    pub(crate) total_trigrams: u32,
+    pub(crate) _total_trigrams: u32,
     pub(crate) trigram_positions: HashMap<Trigram, u32>,
 }
 
@@ -19,7 +19,7 @@ pub fn get_trigrams_with_positions(text: &LowercaseText) -> TrigramsWithPosition
     } = count(text);
     let trigram_positions = trigram_occurances_to_positions(trigram_occurances);
     TrigramsWithPositions {
-        total_trigrams,
+        _total_trigrams: total_trigrams,
         trigram_positions,
     }
 }
@@ -175,12 +175,12 @@ mod tests {
     fn test_get_trigrams_with_positions() {
         let lowercase_text = LowercaseText::new("xaaaaabbbb    d");
         let TrigramsWithPositions {
-            total_trigrams,
+            _total_trigrams,
             trigram_positions,
         } = get_trigrams_with_positions(&lowercase_text);
 
         assert_eq!(trigram_positions[&Trigram('a', 'a', 'a')], 0);
         assert_eq!(trigram_positions[&Trigram('b', 'b', 'b')], 1);
-        assert_eq!(total_trigrams, 11);
+        assert_eq!(_total_trigrams, 11);
     }
 }
