@@ -30,14 +30,6 @@
 //! let detector = Detector::with_whitelist(whitelist);
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
-//! ```
-//!
-//!
-//! Breaking test (check CI):
-//! ```
-//! let lang = whatlang::detect_lang("Man soll weiterhin Deutsch lernen").unwrap();
-//! assert_eq!(lang, whatlang::Lang::Rus);
-//! ```
 //!
 mod constants;
 mod detect;
