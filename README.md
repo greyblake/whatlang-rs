@@ -5,8 +5,8 @@
 <p align="center">Natural language detection for Rust with focus on simplicity and performance.</p>
 
 <p align="center">
-<!-- TODO: Update badge to Github Actions -->
-<a href="https://travis-ci.org/greyblake/whatlang-rs" rel="nofollow"><img src="https://travis-ci.org/greyblake/whatlang-rs.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/greyblake/whatlang-rs/actions/workflows/ci.yml" rel="nofollow"><img src="https://github.com/greyblake/whatlang-rs/actions/workflows/ci.yml/badge.svg" alt="Build Status"></a>
+
 <a href="https://raw.githubusercontent.com/greyblake/whatlang-rs/master/LICENSE" rel="nofollow"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 <a href="https://docs.rs/whatlang" rel="nofollow"><img src="https://docs.rs/whatlang/badge.svg" alt="Documentation"></a>
 <p>
