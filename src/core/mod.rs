@@ -1,14 +1,14 @@
-mod filter_list;
 mod confidence;
 mod detect;
+mod filter_list;
 mod info;
 mod method;
 mod options;
 mod query;
 mod text;
 
-pub use filter_list::FilterList;
 pub use confidence::calculate_confidence;
+pub use filter_list::FilterList;
 pub use info::Info;
 pub use method::Method;
 pub use options::Options;

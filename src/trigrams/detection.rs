@@ -63,7 +63,9 @@ fn calculate_scores_in_profiles(
 ) -> RawOutcome {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
 
-    let TrigramsWithPositions { trigram_positions, .. } = get_trigrams_with_positions(&text.lowercase());
+    let TrigramsWithPositions {
+        trigram_positions, ..
+    } = get_trigrams_with_positions(&text.lowercase());
     let unique_trigrams_count = trigram_positions.len();
 
     for &(lang, lang_trigrams) in lang_profile_list {
@@ -123,7 +125,7 @@ mod tests {
 
     #[test]
     fn test_when_german_is_given() {
-        let text = "Die Ordnung muss für immer in diesem Codebase bleiben" ;
+        let text = "Die Ordnung muss für immer in diesem Codebase bleiben";
         let mut iq = InternalQuery {
             text: Text::new(text),
             filter_list: &FilterList::all(),

@@ -13,15 +13,21 @@ pub struct TrigramsWithPositions {
 }
 
 pub fn get_trigrams_with_positions(text: &LowercaseText) -> TrigramsWithPositions {
-    let CountResult { total_trigrams, trigram_occurances } = count(text);
+    let CountResult {
+        total_trigrams,
+        trigram_occurances,
+    } = count(text);
     let trigram_positions = trigram_occurances_to_positions(trigram_occurances);
     TrigramsWithPositions {
-        total_trigrams, trigram_positions
+        total_trigrams,
+        trigram_positions,
     }
 }
 
 #[allow(clippy::unnecessary_sort_by)]
-fn trigram_occurances_to_positions(trigram_occurances: HashMap<Trigram, u32>) -> HashMap<Trigram, u32> {
+fn trigram_occurances_to_positions(
+    trigram_occurances: HashMap<Trigram, u32>,
+) -> HashMap<Trigram, u32> {
     // Sort in descending order by number of occurrences and trigrams
     let mut count_vec: Vec<_> = trigram_occurances
         .into_iter()
@@ -31,7 +37,7 @@ fn trigram_occurances_to_positions(trigram_occurances: HashMap<Trigram, u32>) ->
 
     count_vec
         .into_iter()
-        .take(TEXT_TRIGRAMS_SIZE)   // we're interested only in the first 600 (2 * MAX_TRIGRAM_DISTANCE)
+        .take(TEXT_TRIGRAMS_SIZE) // we're interested only in the first 600 (2 * MAX_TRIGRAM_DISTANCE)
         .enumerate()
         .map(|(i, (_, trigram))| (trigram, i as u32))
         .collect()
@@ -39,7 +45,7 @@ fn trigram_occurances_to_positions(trigram_occurances: HashMap<Trigram, u32>) ->
 
 struct CountResult {
     total_trigrams: u32,
-    trigram_occurances: HashMap<Trigram, u32>
+    trigram_occurances: HashMap<Trigram, u32>,
 }
 
 fn count(text: &LowercaseText) -> CountResult {
@@ -68,7 +74,10 @@ fn count(text: &LowercaseText) -> CountResult {
         c2 = c3;
     }
 
-    CountResult { total_trigrams, trigram_occurances }
+    CountResult {
+        total_trigrams,
+        trigram_occurances,
+    }
 }
 
 // Convert punctuations and digits to a space.
@@ -125,7 +134,10 @@ mod tests {
 
     fn assert_count(text: &str, pairs: &[(&str, u32)]) {
         let lowercase_text = LowercaseText::new(text);
-        let CountResult { total_trigrams, trigram_occurances } = count(&lowercase_text);
+        let CountResult {
+            total_trigrams,
+            trigram_occurances,
+        } = count(&lowercase_text);
         for &(trigram_str, expected_n) in pairs.iter() {
             let chars: Vec<char> = trigram_str.clone().chars().collect();
             let trigram = Trigram(chars[0], chars[1], chars[2]);
@@ -162,7 +174,10 @@ mod tests {
     #[test]
     fn test_get_trigrams_with_positions() {
         let lowercase_text = LowercaseText::new("xaaaaabbbb    d");
-        let TrigramsWithPositions { total_trigrams, trigram_positions } = get_trigrams_with_positions(&lowercase_text);
+        let TrigramsWithPositions {
+            total_trigrams,
+            trigram_positions,
+        } = get_trigrams_with_positions(&lowercase_text);
 
         assert_eq!(trigram_positions[&Trigram('a', 'a', 'a')], 0);
         assert_eq!(trigram_positions[&Trigram('b', 'b', 'b')], 1);

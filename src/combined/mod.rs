@@ -112,8 +112,8 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
 //         0          100
 //
 fn calc_alphabet_weight(count: usize) -> f64 {
-    let weight = -(count as f64 / 300.0) + 2.0/3.0;
-    weight.clamp(1.0/3.0, 2.0/3.0)
+    let weight = -(count as f64 / 300.0) + 2.0 / 3.0;
+    weight.clamp(1.0 / 3.0, 2.0 / 3.0)
 }
 
 #[cfg(test)]
@@ -122,9 +122,9 @@ mod tests {
 
     #[test]
     fn test_calc_alphabet_weight() {
-        assert_eq!(calc_alphabet_weight(0), 2.0/3.0);
+        assert_eq!(calc_alphabet_weight(0), 2.0 / 3.0);
         assert_eq!(calc_alphabet_weight(50), 0.5);
-        assert_eq!(calc_alphabet_weight(100), 1.0/3.0);
-        assert_eq!(calc_alphabet_weight(200), 1.0/3.0);
+        assert_eq!(calc_alphabet_weight(100), 1.0 / 3.0);
+        assert_eq!(calc_alphabet_weight(200), 1.0 / 3.0);
     }
 }
