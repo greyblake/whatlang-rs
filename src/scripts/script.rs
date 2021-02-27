@@ -187,7 +187,8 @@ mod tests {
         let script_langs: Vec<Lang> = Script::all()
             .iter()
             .map(|script| script.langs())
-            .flatten().copied()
+            .flatten()
+            .copied()
             .collect();
 
         // Ensure all langs belong at least to one script
