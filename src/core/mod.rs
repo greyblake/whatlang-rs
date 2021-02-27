@@ -1,4 +1,4 @@
-mod allow_list;
+mod filter_list;
 mod confidence;
 mod detect;
 mod info;
@@ -7,7 +7,7 @@ mod options;
 mod query;
 mod text;
 
-pub use allow_list::AllowList;
+pub use filter_list::FilterList;
 pub use confidence::calculate_confidence;
 pub use info::Info;
 pub use method::Method;

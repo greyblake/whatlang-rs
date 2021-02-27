@@ -4,7 +4,7 @@ use super::utils::{get_trigrams_with_positions, TrigramsWithPositions};
 use super::{LangProfile, LangProfileList};
 use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
-use crate::core::{calculate_confidence, AllowList, Info, InternalQuery, Text};
+use crate::core::{calculate_confidence, FilterList, Info, InternalQuery, Text};
 use crate::scripts::grouping::MultiLangScript;
 use crate::Lang;
 
@@ -42,7 +42,7 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
 
 pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
-    calculate_scores_in_profiles(&mut iquery.text, &iquery.allow_list, lang_profile_list)
+    calculate_scores_in_profiles(&mut iquery.text, &iquery.filter_list, lang_profile_list)
 }
 
 fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
@@ -58,7 +58,7 @@ fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
 
 fn calculate_scores_in_profiles(
     text: &mut Text,
-    allow_list: &AllowList,
+    filter_list: &FilterList,
     lang_profile_list: LangProfileList,
 ) -> RawOutcome {
     let mut lang_distances: Vec<(Lang, u32)> = vec![];
@@ -67,7 +67,7 @@ fn calculate_scores_in_profiles(
     let unique_trigrams_count = trigram_positions.len();
 
     for &(lang, lang_trigrams) in lang_profile_list {
-        if !allow_list.is_allowed(lang) {
+        if !filter_list.is_allowed(lang) {
             continue;
         }
         let dist = calculate_distance(lang_trigrams, &trigram_positions);
@@ -126,7 +126,7 @@ mod tests {
         let text = "Die Ordnung muss für immer in diesem Codebase bleiben" ;
         let mut iq = InternalQuery {
             text: Text::new(text),
-            allow_list: &AllowList::all(),
+            filter_list: &FilterList::all(),
             multi_lang_script: MultiLangScript::Latin,
         };
         let raw_outcome = raw_detect(&mut iq);

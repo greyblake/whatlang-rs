@@ -18,7 +18,7 @@ pub fn detect(text: &str) -> Option<Info> {
 pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
     let query = Query {
         text,
-        allow_list: &options.allow_list,
+        filter_list: &options.filter_list,
         method: options.method,
     };
     detect_by_query(&query)

@@ -1,20 +1,13 @@
 use crate::Lang;
 
-// TODO: rename
-// * Filter
-// * FilterList
-// * FilterRule
-// * GuardList
-// * AccessList
-// * AllowList
 #[derive(Debug)]
-pub enum AllowList {
+pub enum FilterList {
     All,
     Only(Vec<Lang>),
     Except(Vec<Lang>),
 }
 
-impl AllowList {
+impl FilterList {
     pub fn all() -> Self {
         Self::All
     }
@@ -36,9 +29,9 @@ impl AllowList {
     }
 }
 
-impl Default for AllowList {
+impl Default for FilterList {
     fn default() -> Self {
-        AllowList::All
+        FilterList::All
     }
 }
 
@@ -48,13 +41,13 @@ mod tests {
 
     #[test]
     fn test_all() {
-        let list = AllowList::all();
+        let list = FilterList::all();
         assert!(list.is_allowed(Lang::Epo));
     }
 
     #[test]
     fn test_only() {
-        let list = AllowList::only(vec![Lang::Rus, Lang::Ukr]);
+        let list = FilterList::only(vec![Lang::Rus, Lang::Ukr]);
 
         assert!(!list.is_allowed(Lang::Epo));
         assert!(!list.is_allowed(Lang::Eng));
@@ -65,7 +58,7 @@ mod tests {
 
     #[test]
     fn test_except() {
-        let list = AllowList::except(vec![Lang::Rus, Lang::Ukr]);
+        let list = FilterList::except(vec![Lang::Rus, Lang::Ukr]);
 
         assert!(list.is_allowed(Lang::Epo));
         assert!(list.is_allowed(Lang::Eng));
