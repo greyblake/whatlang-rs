@@ -47,7 +47,7 @@ pub use crate::detector::Detector;
 pub use crate::info::Info;
 pub use crate::lang::Lang;
 pub use crate::options::Options;
-  pub use crate::scripts::Script;
+pub use crate::scripts::Script;
 
 pub use crate::detect::detect;
 pub use crate::detect::detect_lang;
