@@ -133,13 +133,6 @@ File.open(TRIGRAM_PROFILES_TARGET, 'w') { |out| out.write(template.result) }
 `cargo fmt` # Call cargo fmt to clean the generated code
 
 scripts.each do |script, data|
-  # langs = data
-  #   .map { |lang_data| lang_data[:code].capitalize }
-  #   .map { |code| "Lang::#{code}" }
-  # size = langs.size
-  # langs = "[#{langs.join(', ')}]"
-  # puts "const #{script.upcase}_LANGS: [Lang; #{size}] = #{langs};"
-
   puts script
   data.each do |lang_data|
     lang = langs.find { |l| lang_data[:code] == l.code }
