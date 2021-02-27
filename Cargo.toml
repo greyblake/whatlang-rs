@@ -19,6 +19,7 @@ include = [
 ]
 
 [badges]
+# TODO: Update badge to Github Actions
 travis-ci = { repository = "greyblake/whatlang-rs", branch = "master" }
 
 [dependencies]
