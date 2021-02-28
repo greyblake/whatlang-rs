@@ -26,12 +26,17 @@ impl MultiLangScript {
 pub enum ScriptLangGroup {
     Multi(MultiLangScript),
     One(Lang),
+
+    // Mandarin writing can be japanese in some cases.
+    // For now it's a hack.
+    // See https://github.com/greyblake/whatlang-rs/pull/45
+    Mandarin,
 }
 
 impl Script {
     pub fn to_lang_group(&self) -> ScriptLangGroup {
         use MultiLangScript as MLS;
-        use ScriptLangGroup::{Multi, One};
+        use ScriptLangGroup::{Mandarin, Multi, One};
 
         match *self {
             Script::Latin => Multi(MLS::Latin),
@@ -39,7 +44,7 @@ impl Script {
             Script::Arabic => Multi(MLS::Arabic),
             Script::Devanagari => Multi(MLS::Devanagari),
             Script::Hebrew => Multi(MLS::Hebrew),
-            Script::Mandarin => One(Lang::Cmn),
+            Script::Mandarin => Mandarin,
             Script::Bengali => One(Lang::Ben),
             Script::Hangul => One(Lang::Kor),
             Script::Georgian => One(Lang::Kat),

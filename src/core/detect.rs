@@ -32,6 +32,16 @@ pub fn detect_by_query(query: &Query) -> Option<Info> {
         ScriptLangGroup::Multi(multi_lang_script) => {
             detect_by_query_based_on_script(query, multi_lang_script)
         }
+        ScriptLangGroup::Mandarin => {
+            // Sometimes Mandarin can be Japanese.
+            // See https://github.com/greyblake/whatlang-rs/pull/45
+            let lang = if query.filter_list.is_allowed(Lang::Cmn) {
+                Lang::Cmn
+            } else {
+                Lang::Jpn
+            };
+            Some(Info::new(script, lang, 1.0))
+        }
     }
 }
 
@@ -114,31 +124,29 @@ mod tests {
         assert_eq!(info.lang(), Lang::Epo);
     }
 
-    // TODO: https://github.com/greyblake/whatlang-rs/issues/79
-    //
-    // #[test]
-    // fn test_detect_with_options_with_whitelist_mandarin_japanese() {
-    //     let text = "水";
+    #[test]
+    fn test_detect_with_options_with_whitelist_mandarin_japanese() {
+        let text = "水";
 
-    //     let jpn_opts = Options::new().set_filter_list(FilterList::only(vec![Lang::Jpn]));
-    //     let info = detect_with_options(text, &jpn_opts).unwrap();
-    //     assert_eq!(info.lang(), Lang::Jpn);
+        let jpn_opts = Options::new().set_filter_list(FilterList::only(vec![Lang::Jpn]));
+        let info = detect_with_options(text, &jpn_opts).unwrap();
+        assert_eq!(info.lang(), Lang::Jpn);
 
-    //     let cmn_opts = Options::new().set_filter_list(FilterList::only((vec![Lang::Cmn])));
-    //     let info = detect_with_options(text, &cmn_opts).unwrap();
-    //     assert_eq!(info.lang(), Lang::Cmn);
-    // }
+        let cmn_opts = Options::new().set_filter_list(FilterList::only((vec![Lang::Cmn])));
+        let info = detect_with_options(text, &cmn_opts).unwrap();
+        assert_eq!(info.lang(), Lang::Cmn);
+    }
 
-    // #[test]
-    // fn test_detect_with_options_with_blacklist_mandarin_japanese() {
-    //     let text = "水";
+    #[test]
+    fn test_detect_with_options_with_blacklist_mandarin_japanese() {
+        let text = "水";
 
-    //     let jpn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Jpn])));
-    //     let info = detect_with_options(text, &jpn_opts).unwrap();
-    //     assert_eq!(info.lang(), Lang::Cmn);
+        let jpn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Jpn])));
+        let info = detect_with_options(text, &jpn_opts).unwrap();
+        assert_eq!(info.lang(), Lang::Cmn);
 
-    //     let cmn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Cmn])));
-    //     let info = detect_with_options(text, &cmn_opts).unwrap();
-    //     assert_eq!(info.lang(), Lang::Jpn);
-    // }
+        let cmn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Cmn])));
+        let info = detect_with_options(text, &cmn_opts).unwrap();
+        assert_eq!(info.lang(), Lang::Jpn);
+    }
 }
