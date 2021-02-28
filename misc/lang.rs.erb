@@ -57,21 +57,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
     }
 }
 
-<% scripts.each do |script, langs| %>
-/// Languages for script <%= script %>
-pub static <%= script.upcase %>_LANGS: LangProfileList = &[
-    <% langs.each do |lang| %>
-        (
-            Lang::<%= lang[:code].capitalize %>,
-            &[
-	        <% lang[:trigrams].each do |t| %>
-                  Trigram('<%= t[0] %>','<%= t[1] %>','<%= t[2] %>'),<% end %>
-            ]
-        ),
-    <% end %>
-];
-<% end %>
-
 impl Lang {
     /// Get enum by ISO 639-3 code as a string.
     ///
@@ -122,11 +107,11 @@ impl Lang {
     /// # Example
     /// ```
     /// use whatlang::Lang;
-    /// for lang in Lang::values() {
+    /// for lang in Lang::all() {
     ///     println!("{}", lang);
     /// }
     /// ```
-    pub fn values() -> &'static [Lang] {
+    pub fn all() -> &'static [Lang] {
         &VALUES
     }
 }
@@ -144,11 +129,6 @@ impl FromStr for Lang {
         Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
     }
 }
-
-
-
-pub type LangProfile = &'static [Trigram];
-pub type LangProfileList = &'static [(Lang, LangProfile)];
 
 #[cfg(test)]
 mod tests {
@@ -182,16 +162,16 @@ mod tests {
     }
 
     #[test]
-    fn test_values_iter() {
-        assert_eq!(Lang::values().len(), <%= langs.size %>);
-        let values = Lang::values();
-        assert!(values.contains(&Lang::Ukr));
-        assert!(values.contains(&Lang::Swe));
+    fn test_all() {
+        assert_eq!(Lang::all().len(), <%= langs.size %>);
+        let all = Lang::all();
+        assert!(all.contains(&Lang::Ukr));
+        assert!(all.contains(&Lang::Swe));
     }
 
     #[test]
     fn test_from_str() {
-        for &lang in Lang::values() {
+        for &lang in Lang::all() {
             let s = lang.code();
             assert_eq!(s.parse::<Lang>().unwrap(), lang);
             assert_eq!(s.to_lowercase().parse::<Lang>().unwrap(), lang);

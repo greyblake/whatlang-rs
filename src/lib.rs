@@ -22,34 +22,31 @@
 //! Using `Detector` with specified blacklist or whitelist:
 //!
 //! ```
-//! use whatlang::{Detector, Lang};
+//! // TODO:
+//! // use whatlang::{Detector, Lang};
 //!
-//! let whitelist = vec![Lang::Eng, Lang::Rus];
+//! // let whitelist = vec![Lang::Eng, Lang::Rus];
 //!
-//! // You can also create detector using with_blacklist function
-//! let detector = Detector::with_whitelist(whitelist);
-//! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
-//! assert_eq!(lang, Some(Lang::Eng));
+//! // // You can also create detector using with_blacklist function
+//! // let detector = Detector::with_whitelist(whitelist);
+//! // let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
+//! // assert_eq!(lang, Some(Lang::Eng));
 //! ```
 //!
-mod constants;
-mod detect;
-mod detector;
+// mod detect;
+// mod detector;
 mod error;
-mod info;
+// mod info;
+mod alphabets;
+mod combined;
+mod core;
 mod lang;
-mod options;
 mod scripts;
 mod trigrams;
 mod utils;
 
-pub use crate::detector::Detector;
-pub use crate::info::Info;
+// pub use crate::detector::Detector;
+// pub use crate::info::Info;
+pub use crate::core::{detect, detect_lang, detect_with_options, Info, Method, Options};
 pub use crate::lang::Lang;
-pub use crate::options::Options;
-pub use crate::scripts::Script;
-
-pub use crate::detect::detect;
-pub use crate::detect::detect_lang;
-pub use crate::detect::detect_with_options;
-pub use crate::scripts::detect_script;
+pub use crate::scripts::{detect_script, Script};

@@ -1,7 +1,7 @@
 use super::Script;
 use crate::Lang;
 
-const LATIN_LANGS: [Lang; 45] = [
+const LATIN_LANGS: [Lang; 37] = [
     Lang::Spa,
     Lang::Eng,
     Lang::Por,
@@ -18,19 +18,11 @@ const LATIN_LANGS: [Lang; 45] = [
     Lang::Nld,
     Lang::Yor,
     Lang::Uzb,
-    Lang::Ceb,
-    Lang::Tgl,
     Lang::Hun,
     Lang::Aze,
     Lang::Ces,
-    Lang::Mlg,
-    Lang::Kin,
     Lang::Zul,
     Lang::Swe,
-    Lang::Som,
-    Lang::Ilo,
-    Lang::Uig,
-    Lang::Hat,
     Lang::Aka,
     Lang::Sna,
     Lang::Afr,
@@ -56,7 +48,7 @@ const CYRILLIC_LANGS: [Lang; 6] = [
     Lang::Bul,
     Lang::Mkd,
 ];
-const ARABIC_LANGS: [Lang; 4] = [Lang::Ara, Lang::Urd, Lang::Uig, Lang::Pes];
+const ARABIC_LANGS: [Lang; 3] = [Lang::Ara, Lang::Urd, Lang::Pes];
 const DEVANAGARI_LANGS: [Lang; 3] = [Lang::Hin, Lang::Mar, Lang::Nep];
 const HEBREW_LANGS: [Lang; 2] = [Lang::Heb, Lang::Yid];
 

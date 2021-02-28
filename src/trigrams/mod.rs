@@ -1,3 +1,14 @@
+pub mod detection;
+mod profiles;
+pub mod utils;
+
+pub use profiles::*;
+
+pub use detection::{detect, raw_detect, RawOutcome};
+
+#[derive(Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Clone, Copy)]
+pub struct Trigram(pub(crate) char, pub(crate) char, pub(crate) char);
+
 // Maximum distance(difference) for a trigram in a language profile and text profile.
 pub const MAX_TRIGRAM_DISTANCE: u32 = 300;
 

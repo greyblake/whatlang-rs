@@ -1,22 +1,32 @@
 ### Unreleased
-* [breaking] - Drop `Tir` (Tigrinya)
-* [breaking] - Drop `Hau` (Hausa)
-* [breaking] - Drop `Nya` (Chewa)
-* [breaking] - Drop `Bho` (Bhojpuri)
-* [breaking] - Drop `Ibo` (Igbo)
-* [breaking] - Drop `Mai` (Maithili)
-* [breaking] - Drop `Orm` (Oromo)
-* [breaking] - Drop `Run` (Rundi)
-* [breaking] - Drop `Srk` (Saraiki)
-* [breaking] - Drop `Kur` (Kurdish)
+* [breaking] - Drop languages:
+  * Tigrinya (`Tir`)
+  * Hausa (`Hau`)
+  * Chewa (`Nya`)
+  * Bhojpuri (`Bho`)
+  * Igbo (`Ibo`)
+  * Maithili (`Mai`)
+  * Oromo (`Orm`)
+  * Rundi (`Run`)
+  * Saraiki (`Srk`)
+  * Kurdish (`Kur`)
+  * Cebuano (`Ceb`)
+  * Malagasy (`Mlg`)
+  * Kinyarwanda (`Kin`)
+  * Somali (`Som`)
+  * Ilocano (`Ilo`)
+  * Uyghur (`Uig`)
+  * Tagalog ('Tgl')
+  * Haitian Creole (`Hat`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * Drop support of Cyrillic Azerbaijani and Turkmen
-* Add `Script::values()` to iterate over all scripts.
-* Add `Lang::values()` to iterate over all languages.
+* Add `Script::all()` to iterate over all scripts.
+* Add `Lang::all()` to iterate over all languages.
 * Add integration with `enum-map`
 * Implement `FromStr` for `Script` and `Lang`
 * Implement `Script::langs(&self) -> &[Lang]`
+* [breaking] Rename List -> FilterList
 
 ### v0.11.1 - 2020-11-28
 * Use Trigram tuple instead of heap allocated String. (~68% faster)

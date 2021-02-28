@@ -5,6 +5,7 @@ use std::fmt::{self, Display};
 pub enum Error {
     ParseScript(String),
     ParseLang(String),
+    ParseMethod(String),
 }
 
 impl Display for Error {
@@ -15,6 +16,9 @@ impl Display for Error {
             }
             Error::ParseLang(ref val) => {
                 write!(f, "Cannot parse str into whatlang::Lang: {:?}", val)
+            }
+            Error::ParseMethod(ref val) => {
+                write!(f, "Cannot parse str into whatlang::Method: {:?}", val)
             }
         }
     }
