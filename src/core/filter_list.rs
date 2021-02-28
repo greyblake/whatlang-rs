@@ -1,6 +1,6 @@
 use crate::Lang;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum FilterList {
     All,
     Only(Vec<Lang>),

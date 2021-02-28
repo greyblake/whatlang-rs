@@ -33,20 +33,15 @@
 //! // assert_eq!(lang, Some(Lang::Eng));
 //! ```
 //!
-// mod detect;
-// mod detector;
-mod error;
-// mod info;
 mod alphabets;
 mod combined;
 mod core;
+mod error;
 mod lang;
 mod scripts;
 mod trigrams;
 mod utils;
 
-// pub use crate::detector::Detector;
-// pub use crate::info::Info;
-pub use crate::core::{detect, detect_lang, detect_with_options, Info, Method, Options};
+pub use crate::core::{detect, detect_lang, detect_with_options, Detector, Info, Method, Options};
 pub use crate::lang::Lang;
 pub use crate::scripts::{detect_script, Script};

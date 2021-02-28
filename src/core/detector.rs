@@ -1,8 +1,9 @@
-use crate::detect;
-use crate::info::Info;
-use crate::lang::Lang;
-use crate::options::Options;
+use crate::core;
+use crate::core::FilterList;
+use crate::core::Info;
+use crate::core::Options;
 use crate::scripts::{detect_script, Script};
+use crate::Lang;
 
 /// Configurable structure that holds detection options and provides functions
 /// to detect language and script.
@@ -38,12 +39,12 @@ impl Detector {
     }
 
     pub fn with_whitelist(whitelist: Vec<Lang>) -> Self {
-        let opts = Options::new().set_whitelist(whitelist);
+        let opts = Options::new().set_filter_list(FilterList::only(whitelist));
         Self::with_options(opts)
     }
 
     pub fn with_blacklist(blacklist: Vec<Lang>) -> Self {
-        let opts = Options::new().set_blacklist(blacklist);
+        let opts = Options::new().set_filter_list(FilterList::except(blacklist));
         Self::with_options(opts)
     }
 
@@ -52,11 +53,11 @@ impl Detector {
     }
 
     pub fn detect(&self, text: &str) -> Option<Info> {
-        detect::detect_with_options(text, &self.options)
+        core::detect_with_options(text, &self.options)
     }
 
     pub fn detect_lang(&self, text: &str) -> Option<Lang> {
-        detect::detect_lang_with_options(text, &self.options)
+        core::detect_with_options(text, &self.options).map(|info| info.lang())
     }
 
     pub fn detect_script(&self, text: &str) -> Option<Script> {
@@ -92,7 +93,7 @@ mod tests {
         assert_eq!(output.is_some(), true);
 
         let info = output.unwrap();
-        assert_eq!(info.lang, Lang::Epo);
-        assert_eq!(info.script, Script::Latin);
+        assert_eq!(info.lang(), Lang::Epo);
+        assert_eq!(info.script(), Script::Latin);
     }
 }
