@@ -1,9 +1,9 @@
 use crate::core;
-use crate::core::Info;
-use crate::Lang;
-use crate::core::Options;
 use crate::core::FilterList;
+use crate::core::Info;
+use crate::core::Options;
 use crate::scripts::{detect_script, Script};
+use crate::Lang;
 
 /// Configurable structure that holds detection options and provides functions
 /// to detect language and script.
