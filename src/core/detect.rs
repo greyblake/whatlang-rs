@@ -46,3 +46,99 @@ fn detect_by_query_based_on_script(
         Method::Combined => combined::detect(&mut iquery),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::core::FilterList;
+    use crate::scripts::Script;
+
+    #[test]
+    fn test_detect_spanish() {
+        let text = "Además de todo lo anteriormente dicho, también encontramos...";
+        let output = detect(text);
+        assert_eq!(output.is_some(), true);
+
+        let info = output.unwrap();
+        assert_eq!(info.lang(), Lang::Spa);
+        assert_eq!(info.script(), Script::Latin);
+    }
+
+    #[test]
+    fn test_detect_lang_ukrainian() {
+        let text = "Та нічого, все нормально. А в тебе як?";
+        assert_eq!(detect_lang(text), Some(Lang::Ukr));
+    }
+
+    #[test]
+    fn test_detect_with_options_with_filter_list_except() {
+        let text = "I am begging pardon";
+
+        // without filter list
+        let output = detect_with_options(text, &Options::default());
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang(), Lang::Jav);
+
+        // with filter list
+        let filter_list =
+            FilterList::except(vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob]);
+        let options = Options::new().set_filter_list(filter_list);
+        let output = detect_with_options(text, &options);
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang(), Lang::Eng);
+    }
+
+    // TODO:  see https://github.com/greyblake/whatlang-rs/issues/78
+    // #[test]
+    // fn test_detect_with_options_with_filter_list_except_none() {
+    //     let text = "האקדמיה ללשון העברית";
+
+    //     // All languages with Hebrew script are filtered out, so result must be None
+    //     let filter_list = FilterList::except(vec![Lang::Heb, Lang::Yid]);
+    //     let options = Options::new().set_filter_list(filter_list);
+    //     let output = detect_with_options(text, &options);
+    //     assert_eq!(output, None);
+    // }
+
+    #[test]
+    fn test_detect_with_options_with_filter_list_only() {
+        let filter_list = FilterList::only(vec![Lang::Epo, Lang::Ukr]);
+        let options = Options::new().set_filter_list(filter_list);
+
+        let text = "Mi ne scias!";
+        let output = detect_with_options(text, &options);
+        assert_eq!(output.is_some(), true);
+        let info = output.unwrap();
+        assert_eq!(info.lang(), Lang::Epo);
+    }
+
+    // TODO: https://github.com/greyblake/whatlang-rs/issues/79
+    //
+    // #[test]
+    // fn test_detect_with_options_with_whitelist_mandarin_japanese() {
+    //     let text = "水";
+
+    //     let jpn_opts = Options::new().set_filter_list(FilterList::only(vec![Lang::Jpn]));
+    //     let info = detect_with_options(text, &jpn_opts).unwrap();
+    //     assert_eq!(info.lang(), Lang::Jpn);
+
+    //     let cmn_opts = Options::new().set_filter_list(FilterList::only((vec![Lang::Cmn])));
+    //     let info = detect_with_options(text, &cmn_opts).unwrap();
+    //     assert_eq!(info.lang(), Lang::Cmn);
+    // }
+
+    // #[test]
+    // fn test_detect_with_options_with_blacklist_mandarin_japanese() {
+    //     let text = "水";
+
+    //     let jpn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Jpn])));
+    //     let info = detect_with_options(text, &jpn_opts).unwrap();
+    //     assert_eq!(info.lang(), Lang::Cmn);
+
+    //     let cmn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Cmn])));
+    //     let info = detect_with_options(text, &cmn_opts).unwrap();
+    //     assert_eq!(info.lang(), Lang::Jpn);
+    // }
+}

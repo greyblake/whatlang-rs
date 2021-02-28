@@ -2,7 +2,7 @@ use crate::{Lang, Script};
 
 const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.9;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Info {
     script: Script,
     lang: Lang,
