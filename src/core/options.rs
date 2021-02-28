@@ -1,6 +1,6 @@
 use super::{FilterList, Method};
 
-// TODO: write doc
+#[derive(Debug, Clone)]
 pub struct Options {
     pub(crate) filter_list: FilterList,
     pub(crate) method: Method,
