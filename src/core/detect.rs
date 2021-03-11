@@ -101,16 +101,35 @@ mod tests {
     }
 
     // TODO:  see https://github.com/greyblake/whatlang-rs/issues/78
-    // #[test]
-    // fn test_detect_with_options_with_filter_list_except_none() {
-    //     let text = "האקדמיה ללשון העברית";
+    #[test]
+    fn test_detect_with_options_with_filter_list_except_none() {
+        {
+            // All languages with Hebrew script are filtered out, so result must be None
+            let text = "האקדמיה ללשון העברית";
+            let filter_list = FilterList::deny(vec![Lang::Heb, Lang::Yid]);
+            let options = Options::new().set_filter_list(filter_list);
+            let output = detect_with_options(text, &options);
+            assert_eq!(output, None);
+        }
 
-    //     // All languages with Hebrew script are filtered out, so result must be None
-    //     let filter_list = FilterList::except(vec![Lang::Heb, Lang::Yid]);
-    //     let options = Options::new().set_filter_list(filter_list);
-    //     let output = detect_with_options(text, &options);
-    //     assert_eq!(output, None);
-    // }
+        {
+            // All Cyrillic languages are filtered out
+            let text = "Мы хотим видеть дальше, чем окна дома напротив";
+            let filter_list = FilterList::deny(Script::Cyrillic.langs().to_owned());
+            let options = Options::new().set_filter_list(filter_list);
+            let output = detect_with_options(text, &options);
+            assert_eq!(output, None);
+        }
+
+        {
+            // All Latin languages are filtered out
+            let text = "Mit dem Wissen wächst der Zweifel";
+            let filter_list = FilterList::deny(Script::Latin.langs().to_owned());
+            let options = Options::new().set_filter_list(filter_list);
+            let output = detect_with_options(text, &options);
+            assert_eq!(output, None);
+        }
+    }
 
     #[test]
     fn test_detect_with_options_with_filter_list_only() {

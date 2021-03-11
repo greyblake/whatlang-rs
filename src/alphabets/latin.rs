@@ -1,7 +1,7 @@
 use super::RawOutcome;
-use crate::core::LowercaseText;
+use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
-use crate::Lang;
+use crate::{Lang, Script};
 
 const AFR: &str = "abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû";
 const AKA: &str = "abdefghiklmnoprstuwyɔɛ";
@@ -87,46 +87,13 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
-pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
-    let mut raw_scores = vec![
-        (Lang::Afr, 0i32),
-        (Lang::Aka, 0i32),
-        (Lang::Aze, 0i32),
-        (Lang::Cat, 0i32),
-        (Lang::Ces, 0i32),
-        (Lang::Dan, 0i32),
-        (Lang::Deu, 0i32),
-        (Lang::Eng, 0i32),
-        (Lang::Epo, 0i32),
-        (Lang::Est, 0i32),
-        (Lang::Fin, 0i32),
-        (Lang::Fra, 0i32),
-        (Lang::Hrv, 0i32),
-        (Lang::Hun, 0i32),
-        (Lang::Ind, 0i32),
-        (Lang::Ita, 0i32),
-        (Lang::Jav, 0i32),
-        (Lang::Lat, 0i32),
-        (Lang::Lav, 0i32),
-        (Lang::Lit, 0i32),
-        (Lang::Nld, 0i32),
-        (Lang::Nno, 0i32),
-        (Lang::Nob, 0i32),
-        (Lang::Pol, 0i32),
-        (Lang::Por, 0i32),
-        (Lang::Ron, 0i32),
-        (Lang::Slk, 0i32),
-        (Lang::Slv, 0i32),
-        (Lang::Sna, 0i32),
-        (Lang::Spa, 0i32),
-        (Lang::Swe, 0i32),
-        (Lang::Tuk, 0i32),
-        (Lang::Tur, 0i32),
-        (Lang::Uzb, 0i32),
-        (Lang::Vie, 0i32),
-        (Lang::Yor, 0i32),
-        (Lang::Zul, 0i32),
-    ];
+pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
+    let mut raw_scores: Vec<(Lang, i32)> = Script::Latin
+        .langs()
+        .iter()
+        .filter(|&&l| filter_list.is_allowed(l))
+        .map(|&l| (l, 0i32))
+        .collect();
 
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 

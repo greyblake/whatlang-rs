@@ -1,6 +1,7 @@
 use super::Outcome;
 use crate::utils::is_stop_char;
-use crate::Lang;
+use crate::core::{LowercaseText, FilterList};
+use crate::{Lang, Script};
 
 <% alphabets.each do |code, alphabet| -%>
 const <%= code.upcase %>: &str = "<%= alphabet %>";
