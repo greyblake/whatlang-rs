@@ -14,7 +14,7 @@ use crate::Lang;
 /// use whatlang::{Detector, Lang};
 ///
 /// // Create detector with whitelist
-/// let detector = Detector::with_whitelist(vec![Lang::Eng, Lang::Rus]);
+/// let detector = Detector::with_allowlist(vec![Lang::Eng, Lang::Rus]);
 /// let lang = detector.detect_lang("That is not Russian");
 /// assert_eq!(lang, Some(Lang::Eng));
 /// ```
@@ -24,7 +24,7 @@ use crate::Lang;
 /// ```
 /// use whatlang::{Detector, Lang};
 ///
-/// let detector = Detector::with_blacklist(vec![Lang::Eng, Lang::Ita]);
+/// let detector = Detector::with_denylist(vec![Lang::Eng, Lang::Ita]);
 /// let lang = detector.detect_lang("Jen la trinkejo fermitis, ni iras tra mallumo kaj pluvo.");
 /// assert_eq!(lang, Some(Lang::Epo));
 /// ```
@@ -38,13 +38,13 @@ impl Detector {
         Self::default()
     }
 
-    pub fn with_whitelist(whitelist: Vec<Lang>) -> Self {
-        let opts = Options::new().set_filter_list(FilterList::only(whitelist));
+    pub fn with_allowlist(list: Vec<Lang>) -> Self {
+        let opts = Options::new().set_filter_list(FilterList::allow(list));
         Self::with_options(opts)
     }
 
-    pub fn with_blacklist(blacklist: Vec<Lang>) -> Self {
-        let opts = Options::new().set_filter_list(FilterList::except(blacklist));
+    pub fn with_denylist(list: Vec<Lang>) -> Self {
+        let opts = Options::new().set_filter_list(FilterList::deny(list));
         Self::with_options(opts)
     }
 

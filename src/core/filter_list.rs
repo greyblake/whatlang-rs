@@ -3,8 +3,8 @@ use crate::Lang;
 #[derive(Debug, Clone)]
 pub enum FilterList {
     All,
-    Only(Vec<Lang>),
-    Except(Vec<Lang>),
+    Allow(Vec<Lang>),
+    Deny(Vec<Lang>),
 }
 
 impl FilterList {
@@ -12,19 +12,19 @@ impl FilterList {
         Self::All
     }
 
-    pub fn only(whitelist: Vec<Lang>) -> Self {
-        Self::Only(whitelist)
+    pub fn allow(whitelist: Vec<Lang>) -> Self {
+        Self::Allow(whitelist)
     }
 
-    pub fn except(blacklist: Vec<Lang>) -> Self {
-        Self::Except(blacklist)
+    pub fn deny(blacklist: Vec<Lang>) -> Self {
+        Self::Deny(blacklist)
     }
 
     pub fn is_allowed(&self, lang: Lang) -> bool {
         match self {
             Self::All => true,
-            Self::Only(ref whitelist) => whitelist.contains(&lang),
-            Self::Except(ref blacklist) => !blacklist.contains(&lang),
+            Self::Allow(ref whitelist) => whitelist.contains(&lang),
+            Self::Deny(ref blacklist) => !blacklist.contains(&lang),
         }
     }
 }
@@ -47,7 +47,7 @@ mod tests {
 
     #[test]
     fn test_only() {
-        let list = FilterList::only(vec![Lang::Rus, Lang::Ukr]);
+        let list = FilterList::allow(vec![Lang::Rus, Lang::Ukr]);
 
         assert!(!list.is_allowed(Lang::Epo));
         assert!(!list.is_allowed(Lang::Eng));
@@ -58,7 +58,7 @@ mod tests {
 
     #[test]
     fn test_except() {
-        let list = FilterList::except(vec![Lang::Rus, Lang::Ukr]);
+        let list = FilterList::deny(vec![Lang::Rus, Lang::Ukr]);
 
         assert!(list.is_allowed(Lang::Epo));
         assert!(list.is_allowed(Lang::Eng));
