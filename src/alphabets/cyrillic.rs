@@ -1,6 +1,6 @@
 use super::RawOutcome;
-use crate::core::LowercaseText;
-use crate::Lang;
+use crate::core::{FilterList, LowercaseText};
+use crate::{Lang, Script};
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -11,15 +11,13 @@ const MKD: &str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќ�
 
 const ALL: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяёєіїґўђјљњћџѓѕќ";
 
-pub fn alphabet_calculate_scores(text: &LowercaseText) -> RawOutcome {
-    let mut raw_scores = vec![
-        (Lang::Bul, 0i32),
-        (Lang::Rus, 0i32),
-        (Lang::Ukr, 0i32),
-        (Lang::Bel, 0i32),
-        (Lang::Srp, 0i32),
-        (Lang::Mkd, 0i32),
-    ];
+pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
+    let mut raw_scores: Vec<(Lang, i32)> = Script::Cyrillic
+        .langs()
+        .iter()
+        .filter(|&&l| filter_list.is_allowed(l))
+        .map(|&l| (l, 0i32))
+        .collect();
 
     let max_raw_score = text.chars().filter(|&ch| is_relevant(ch)).count();
 
@@ -108,7 +106,7 @@ mod tests {
             count,
             raw_scores,
             scores,
-        } = alphabet_calculate_scores(&text);
+        } = alphabet_calculate_scores(&text, &FilterList::default());
 
         assert_eq!(count, 0);
         assert_eq!(raw_scores.len(), CYRILLIC_LANGS.len());
@@ -132,7 +130,7 @@ mod tests {
             count,
             raw_scores,
             scores,
-        } = alphabet_calculate_scores(&text);
+        } = alphabet_calculate_scores(&text, &FilterList::default());
 
         assert_eq!(count, 4);
 
@@ -154,7 +152,7 @@ mod tests {
             count,
             raw_scores,
             scores,
-        } = alphabet_calculate_scores(&text);
+        } = alphabet_calculate_scores(&text, &FilterList::default());
 
         assert_eq!(count, 10);
 

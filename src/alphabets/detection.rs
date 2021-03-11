@@ -1,6 +1,6 @@
 use super::RawOutcome;
 use super::{cyrillic, latin};
-use crate::core::{calculate_confidence, Info, InternalQuery, LowercaseText};
+use crate::core::{calculate_confidence, FilterList, Info, InternalQuery, LowercaseText};
 use crate::Lang;
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
@@ -26,24 +26,28 @@ pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
     use crate::scripts::grouping::MultiLangScript as MLS;
 
     let text: &LowercaseText = iquery.text.lowercase();
+    let filter_list: &FilterList = &iquery.filter_list;
     match iquery.multi_lang_script {
-        MLS::Cyrillic => cyrillic::alphabet_calculate_scores(text),
-        MLS::Latin => latin::alphabet_calculate_scores(text),
+        MLS::Cyrillic => cyrillic::alphabet_calculate_scores(text, filter_list),
+        MLS::Latin => latin::alphabet_calculate_scores(text, filter_list),
 
         // TODO: implement alphabets for Arabic script
-        MLS::Arabic => build_mock(vec![Lang::Ara, Lang::Urd, Lang::Pes]),
+        MLS::Arabic => build_mock(vec![Lang::Ara, Lang::Urd, Lang::Pes], filter_list),
 
         // TODO: implement alphabets for Devanagari script
-        MLS::Devanagari => build_mock(vec![Lang::Hin, Lang::Mar, Lang::Nep]),
+        MLS::Devanagari => build_mock(vec![Lang::Hin, Lang::Mar, Lang::Nep], filter_list),
 
         // TODO: implement alphabets for Hebrew script
-        MLS::Hebrew => build_mock(vec![Lang::Heb, Lang::Yid]),
+        MLS::Hebrew => build_mock(vec![Lang::Heb, Lang::Yid], filter_list),
     }
 }
 
-fn build_mock(langs: Vec<Lang>) -> RawOutcome {
-    let raw_scores = langs.iter().map(|&l| (l, 1)).collect();
-    let scores = langs.iter().map(|&l| (l, 1.0)).collect();
+fn build_mock(langs: Vec<Lang>, filter_list: &FilterList) -> RawOutcome {
+    let filtered_langs = langs
+        .into_iter()
+        .filter(|lang| filter_list.is_allowed(*lang));
+    let raw_scores = filtered_langs.clone().map(|l| (l, 1)).collect();
+    let scores = filtered_langs.map(|l| (l, 1.0)).collect();
     RawOutcome {
         count: 1,
         raw_scores,
