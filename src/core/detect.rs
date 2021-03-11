@@ -92,7 +92,7 @@ mod tests {
 
         // with filter list
         let filter_list =
-            FilterList::except(vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob]);
+            FilterList::deny(vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob]);
         let options = Options::new().set_filter_list(filter_list);
         let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
@@ -114,7 +114,7 @@ mod tests {
 
     #[test]
     fn test_detect_with_options_with_filter_list_only() {
-        let filter_list = FilterList::only(vec![Lang::Epo, Lang::Ukr]);
+        let filter_list = FilterList::allow(vec![Lang::Epo, Lang::Ukr]);
         let options = Options::new().set_filter_list(filter_list);
 
         let text = "Mi ne scias!";
@@ -128,11 +128,11 @@ mod tests {
     fn test_detect_with_options_with_whitelist_mandarin_japanese() {
         let text = "水";
 
-        let jpn_opts = Options::new().set_filter_list(FilterList::only(vec![Lang::Jpn]));
+        let jpn_opts = Options::new().set_filter_list(FilterList::allow(vec![Lang::Jpn]));
         let info = detect_with_options(text, &jpn_opts).unwrap();
         assert_eq!(info.lang(), Lang::Jpn);
 
-        let cmn_opts = Options::new().set_filter_list(FilterList::only((vec![Lang::Cmn])));
+        let cmn_opts = Options::new().set_filter_list(FilterList::allow(vec![Lang::Cmn]));
         let info = detect_with_options(text, &cmn_opts).unwrap();
         assert_eq!(info.lang(), Lang::Cmn);
     }
@@ -141,11 +141,11 @@ mod tests {
     fn test_detect_with_options_with_blacklist_mandarin_japanese() {
         let text = "水";
 
-        let jpn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Jpn])));
+        let jpn_opts = Options::new().set_filter_list(FilterList::deny(vec![Lang::Jpn]));
         let info = detect_with_options(text, &jpn_opts).unwrap();
         assert_eq!(info.lang(), Lang::Cmn);
 
-        let cmn_opts = Options::new().set_filter_list(FilterList::except((vec![Lang::Cmn])));
+        let cmn_opts = Options::new().set_filter_list(FilterList::deny(vec![Lang::Cmn]));
         let info = detect_with_options(text, &cmn_opts).unwrap();
         assert_eq!(info.lang(), Lang::Jpn);
     }
