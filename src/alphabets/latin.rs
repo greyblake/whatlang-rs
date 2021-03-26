@@ -80,7 +80,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Yor => YOR,
         Lang::Zul => ZUL,
 
-        _ => panic!(format!("No alphabet for {}", lang)),
+        _ => panic!("No alphabet for {}", lang),
     };
     alphabet.chars().collect()
 }
