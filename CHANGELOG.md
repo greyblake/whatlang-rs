@@ -19,6 +19,7 @@
   * Tagalog ('Tgl')
   * Haitian Creole (`Hat`)
   * Nynorsk (`Nno`)
+  * Yoruba (`Yor`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * [breaking] Rename List -> FilterList

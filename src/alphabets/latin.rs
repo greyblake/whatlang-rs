@@ -38,7 +38,6 @@ const TUR: &str = "abcdefghijklmnopqrstuvwxyzçöüğış̇";
 const UZB: &str = "abcdefghijklmnopqrstuvxyzʻ";
 const VIE: &str =
     "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
-const YOR: &str = "abcdefghijklmnoprstuvwyzàáèéìíòóùúńɔɛ̀́ṣẹọ";
 const ZUL: &str = "abcdefghijklmnopqrstuvwxyz";
 
 fn get_lang_chars(lang: Lang) -> Vec<char> {
@@ -77,7 +76,6 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Tur => TUR,
         Lang::Uzb => UZB,
         Lang::Vie => VIE,
-        Lang::Yor => YOR,
         Lang::Zul => ZUL,
 
         _ => panic!("No alphabet for {}", lang),
