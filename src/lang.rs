@@ -182,44 +182,41 @@ pub enum Lang {
     /// မြန်မာစာ (Burmese)
     Mya = 55,
 
-    /// Yorùbá (Yoruba)
-    Yor = 56,
-
     /// नेपाली (Nepali)
-    Nep = 57,
+    Nep = 56,
 
     /// සිංහල (Sinhalese)
-    Sin = 58,
+    Sin = 57,
 
     /// ភាសាខ្មែរ (Khmer)
-    Khm = 59,
+    Khm = 58,
 
     /// Türkmençe (Turkmen)
-    Tuk = 60,
+    Tuk = 59,
 
     /// Akan (Akan)
-    Aka = 61,
+    Aka = 60,
 
     /// IsiZulu (Zulu)
-    Zul = 62,
+    Zul = 61,
 
     /// ChiShona (Shona)
-    Sna = 63,
+    Sna = 62,
 
     /// Afrikaans (Afrikaans)
-    Afr = 64,
+    Afr = 63,
 
     /// Lingua Latina (Latin)
-    Lat = 65,
+    Lat = 64,
 
     /// Slovenčina (Slovak)
-    Slk = 66,
+    Slk = 65,
 
     /// Català (Catalan)
-    Cat = 67,
+    Cat = 66,
 }
 
-const VALUES: [Lang; 68] = [
+const VALUES: [Lang; 67] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -276,7 +273,6 @@ const VALUES: [Lang; 68] = [
     Lang::Mal,
     Lang::Ori,
     Lang::Mya,
-    Lang::Yor,
     Lang::Nep,
     Lang::Sin,
     Lang::Khm,
@@ -348,7 +344,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "mal" => Some(Lang::Mal),
         "ori" => Some(Lang::Ori),
         "mya" => Some(Lang::Mya),
-        "yor" => Some(Lang::Yor),
         "nep" => Some(Lang::Nep),
         "sin" => Some(Lang::Sin),
         "khm" => Some(Lang::Khm),
@@ -422,7 +417,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Mal => "mal",
         Lang::Ori => "ori",
         Lang::Mya => "mya",
-        Lang::Yor => "yor",
         Lang::Nep => "nep",
         Lang::Sin => "sin",
         Lang::Khm => "khm",
@@ -495,7 +489,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Mal => "മലയാളം",
         Lang::Ori => "ଓଡ଼ିଆ",
         Lang::Mya => "မြန်မာစာ",
-        Lang::Yor => "Yorùbá",
         Lang::Nep => "नेपाली",
         Lang::Sin => "සිංහල",
         Lang::Khm => "ភាសាខ្មែរ",
@@ -568,7 +561,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Mal => "Malayalam",
         Lang::Ori => "Oriya",
         Lang::Mya => "Burmese",
-        Lang::Yor => "Yoruba",
         Lang::Nep => "Nepali",
         Lang::Sin => "Sinhalese",
         Lang::Khm => "Khmer",
@@ -689,7 +681,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 68);
+        assert_eq!(Lang::all().len(), 67);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
