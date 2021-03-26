@@ -24,7 +24,6 @@ const LAT: &str = "abcdefghijklmnopqrstuvwxyz";
 const LAV: &str = "abcdefghijklmnopqrstuvwxyzāčēģīķļņōŗšūž";
 const LIT: &str = "abcdefghijklmnopqrstuvwxyząčėęįšūųž";
 const NLD: &str = "abcdefghijklmnopqrstuvwxyzàèéëïĳ";
-const NNO: &str = "abcdefghijklmnopqrstuvwxyzåæø";
 const NOB: &str = "abcdefghijklmnopqrstuvwxyzåæø";
 const POL: &str = "abcdefghijklmnopqrstuvwxyzóąćęłńśźż";
 const POR: &str = "abcdefghijklmnopqrstuvwxyzàáâãçéêíóôõú";
@@ -65,7 +64,6 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Lav => LAV,
         Lang::Lit => LIT,
         Lang::Nld => NLD,
-        Lang::Nno => NNO,
         Lang::Nob => NOB,
         Lang::Pol => POL,
         Lang::Por => POR,
@@ -82,7 +80,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Yor => YOR,
         Lang::Zul => ZUL,
 
-        _ => panic!(format!("No alphabet for {}", lang)),
+        _ => panic!("No alphabet for {}", lang),
     };
     alphabet.chars().collect()
 }

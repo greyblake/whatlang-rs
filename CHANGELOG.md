@@ -18,6 +18,7 @@
   * Uyghur (`Uig`)
   * Tagalog ('Tgl')
   * Haitian Creole (`Hat`)
+  * Nynorsk (`Nno`)
 * [breaking] - Rename Yiddish: `Ydd` -> `Yid`
 * [breaking] - Rename Azerbaijani: `Azj` -> `Aze`
 * [breaking] Rename List -> FilterList

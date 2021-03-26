@@ -80,149 +80,146 @@ pub enum Lang {
     /// Bokmål (Bokmal)
     Nob = 21,
 
-    /// Nynorsk (Nynorsk)
-    Nno = 22,
-
     /// Dansk (Danish)
-    Dan = 23,
+    Dan = 22,
 
     /// Svenska (Swedish)
-    Swe = 24,
+    Swe = 23,
 
     /// Suomi (Finnish)
-    Fin = 25,
+    Fin = 24,
 
     /// Türkçe (Turkish)
-    Tur = 26,
+    Tur = 25,
 
     /// Nederlands (Dutch)
-    Nld = 27,
+    Nld = 26,
 
     /// Magyar (Hungarian)
-    Hun = 28,
+    Hun = 27,
 
     /// Čeština (Czech)
-    Ces = 29,
+    Ces = 28,
 
     /// Ελληνικά (Greek)
-    Ell = 30,
+    Ell = 29,
 
     /// Български (Bulgarian)
-    Bul = 31,
+    Bul = 30,
 
     /// Беларуская (Belarusian)
-    Bel = 32,
+    Bel = 31,
 
     /// मराठी (Marathi)
-    Mar = 33,
+    Mar = 32,
 
     /// ಕನ್ನಡ (Kannada)
-    Kan = 34,
+    Kan = 33,
 
     /// Română (Romanian)
-    Ron = 35,
+    Ron = 34,
 
     /// Slovenščina (Slovene)
-    Slv = 36,
+    Slv = 35,
 
     /// Hrvatski (Croatian)
-    Hrv = 37,
+    Hrv = 36,
 
     /// Српски (Serbian)
-    Srp = 38,
+    Srp = 37,
 
     /// Македонски (Macedonian)
-    Mkd = 39,
+    Mkd = 38,
 
     /// Lietuvių (Lithuanian)
-    Lit = 40,
+    Lit = 39,
 
     /// Latviešu (Latvian)
-    Lav = 41,
+    Lav = 40,
 
     /// Eesti (Estonian)
-    Est = 42,
+    Est = 41,
 
     /// தமிழ் (Tamil)
-    Tam = 43,
+    Tam = 42,
 
     /// Tiếng Việt (Vietnamese)
-    Vie = 44,
+    Vie = 43,
 
     /// اُردُو (Urdu)
-    Urd = 45,
+    Urd = 44,
 
     /// ภาษาไทย (Thai)
-    Tha = 46,
+    Tha = 45,
 
     /// ગુજરાતી (Gujarati)
-    Guj = 47,
+    Guj = 46,
 
     /// Oʻzbekcha (Uzbek)
-    Uzb = 48,
+    Uzb = 47,
 
     /// ਪੰਜਾਬੀ (Punjabi)
-    Pan = 49,
+    Pan = 48,
 
     /// Azərbaycanca (Azerbaijani)
-    Aze = 50,
+    Aze = 49,
 
     /// Bahasa Indonesia (Indonesian)
-    Ind = 51,
+    Ind = 50,
 
     /// తెలుగు (Telugu)
-    Tel = 52,
+    Tel = 51,
 
     /// فارسی (Persian)
-    Pes = 53,
+    Pes = 52,
 
     /// മലയാളം (Malayalam)
-    Mal = 54,
+    Mal = 53,
 
     /// ଓଡ଼ିଆ (Oriya)
-    Ori = 55,
+    Ori = 54,
 
     /// မြန်မာစာ (Burmese)
-    Mya = 56,
+    Mya = 55,
 
     /// Yorùbá (Yoruba)
-    Yor = 57,
+    Yor = 56,
 
     /// नेपाली (Nepali)
-    Nep = 58,
+    Nep = 57,
 
     /// සිංහල (Sinhalese)
-    Sin = 59,
+    Sin = 58,
 
     /// ភាសាខ្មែរ (Khmer)
-    Khm = 60,
+    Khm = 59,
 
     /// Türkmençe (Turkmen)
-    Tuk = 61,
+    Tuk = 60,
 
     /// Akan (Akan)
-    Aka = 62,
+    Aka = 61,
 
     /// IsiZulu (Zulu)
-    Zul = 63,
+    Zul = 62,
 
     /// ChiShona (Shona)
-    Sna = 64,
+    Sna = 63,
 
     /// Afrikaans (Afrikaans)
-    Afr = 65,
+    Afr = 64,
 
     /// Lingua Latina (Latin)
-    Lat = 66,
+    Lat = 65,
 
     /// Slovenčina (Slovak)
-    Slk = 67,
+    Slk = 66,
 
     /// Català (Catalan)
-    Cat = 68,
+    Cat = 67,
 }
 
-const VALUES: [Lang; 69] = [
+const VALUES: [Lang; 68] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -245,7 +242,6 @@ const VALUES: [Lang; 69] = [
     Lang::Jav,
     Lang::Kor,
     Lang::Nob,
-    Lang::Nno,
     Lang::Dan,
     Lang::Swe,
     Lang::Fin,
@@ -318,7 +314,6 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "jav" => Some(Lang::Jav),
         "kor" => Some(Lang::Kor),
         "nob" => Some(Lang::Nob),
-        "nno" => Some(Lang::Nno),
         "dan" => Some(Lang::Dan),
         "swe" => Some(Lang::Swe),
         "fin" => Some(Lang::Fin),
@@ -393,7 +388,6 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Jav => "jav",
         Lang::Kor => "kor",
         Lang::Nob => "nob",
-        Lang::Nno => "nno",
         Lang::Dan => "dan",
         Lang::Swe => "swe",
         Lang::Fin => "fin",
@@ -467,7 +461,6 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Jav => "Basa Jawa",
         Lang::Kor => "한국어",
         Lang::Nob => "Bokmål",
-        Lang::Nno => "Nynorsk",
         Lang::Dan => "Dansk",
         Lang::Swe => "Svenska",
         Lang::Fin => "Suomi",
@@ -541,7 +534,6 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Jav => "Javanese",
         Lang::Kor => "Korean",
         Lang::Nob => "Bokmal",
-        Lang::Nno => "Nynorsk",
         Lang::Dan => "Danish",
         Lang::Swe => "Swedish",
         Lang::Fin => "Finnish",
@@ -697,7 +689,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 69);
+        assert_eq!(Lang::all().len(), 68);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));

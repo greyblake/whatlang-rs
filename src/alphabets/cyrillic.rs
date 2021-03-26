@@ -77,7 +77,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Srp => SRP,
         Lang::Mkd => MKD,
 
-        _ => panic!(format!("No alphabet for {}", lang)),
+        _ => panic!("No alphabet for {}", lang),
     };
     alphabet.chars().collect()
 }
