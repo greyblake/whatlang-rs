@@ -30,7 +30,6 @@ and [documentation](https://docs.rs/whatlang/).
 | Javanese    | jav       | `Lang::Jav` |
 | Korean      | kor       | `Lang::Kor` |
 | Bokmal      | nob       | `Lang::Nob` |
-| Nynorsk     | nno       | `Lang::Nno` |
 | Danish      | dan       | `Lang::Dan` |
 | Swedish     | swe       | `Lang::Swe` |
 | Finnish     | fin       | `Lang::Fin` |
