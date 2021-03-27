@@ -33,7 +33,9 @@ pub fn detect_by_query(query: &Query) -> Option<Info> {
         ScriptLangGroup::Multi(multi_lang_script) => {
             detect_by_query_based_on_script(query, multi_lang_script)
         }
-        ScriptLangGroup::Mandarin => detect_lang_base_on_mandarin_script(query, &raw_script_info),
+        ScriptLangGroup::Mandarin => {
+            Some(detect_lang_base_on_mandarin_script(query, &raw_script_info))
+        }
     }
 }
 
@@ -51,10 +53,7 @@ fn detect_by_query_based_on_script(
 
 // Sometimes Mandarin can be Japanese.
 // See https://github.com/greyblake/whatlang-rs/pull/45
-fn detect_lang_base_on_mandarin_script(
-    query: &Query,
-    raw_script_info: &RawScriptInfo,
-) -> Option<Info> {
+fn detect_lang_base_on_mandarin_script(query: &Query, raw_script_info: &RawScriptInfo) -> Info {
     let (lang, confidence) = if query.filter_list.is_allowed(Lang::Cmn) {
         let mandrin_count = raw_script_info.count(Script::Mandarin);
         let katakana_count = raw_script_info.count(Script::Katakana);
@@ -78,7 +77,7 @@ fn detect_lang_base_on_mandarin_script(
     } else {
         (Lang::Jpn, 1.0)
     };
-    Some(Info::new(Script::Mandarin, lang, confidence))
+    Info::new(Script::Mandarin, lang, confidence)
 }
 
 #[cfg(test)]
