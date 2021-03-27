@@ -12,6 +12,43 @@ type ScriptCounter = (Script, fn(char) -> bool, usize);
 /// assert_eq!(script, Script::Cyrillic);
 /// ```
 pub fn detect_script(text: &str) -> Option<Script> {
+    let raw_info = raw_detect_script(text);
+    raw_info.main_script()
+}
+
+pub(crate) struct RawScriptInfo {
+    counters: Vec<(Script, usize)>,
+}
+
+impl RawScriptInfo {
+    fn new(mut counters: Vec<(Script, usize)>) -> Self {
+        counters.sort_by(|a, b| b.1.cmp(&a.1));
+        Self { counters }
+    }
+
+    pub(crate) fn main_script(&self) -> Option<Script> {
+        // expect - is safe because self.counters is never expected to be empty
+        // See raw_detect_script().
+        let pair = self.counters.first().expect("counters must not be empty");
+        if pair.1 > 0 {
+            Some(pair.0)
+        } else {
+            None
+        }
+    }
+
+    pub(crate) fn count(&self, script: Script) -> usize {
+        // expect - is safe because self.counters always have all scripts
+        // See raw_detect_script().
+        self.counters
+            .iter()
+            .find(|(s, _count)| *s == script)
+            .expect("count() failed because script is not found")
+            .1
+    }
+}
+
+pub(crate) fn raw_detect_script(text: &str) -> RawScriptInfo {
     let mut script_counters: [ScriptCounter; 24] = [
         (Script::Latin, is_latin, 0),
         (Script::Cyrillic, is_cyrillic, 0),
@@ -39,8 +76,6 @@ pub fn detect_script(text: &str) -> Option<Script> {
         (Script::Khmer, is_khmer, 0),
     ];
 
-    let half = text.chars().count() / 2;
-
     for ch in text.chars() {
         if is_stop_char(ch) {
             continue;
@@ -50,12 +85,9 @@ pub fn detect_script(text: &str) -> Option<Script> {
         // `swap` function, it would not be possible to do using normal iterator.
         for i in 0..script_counters.len() {
             let found = {
-                let (script, check_fn, ref mut count) = script_counters[i];
+                let (_script, check_fn, ref mut count) = script_counters[i];
                 if check_fn(ch) {
                     *count += 1;
-                    if *count > half {
-                        return Some(script);
-                    }
                     true
                 } else {
                     false
@@ -75,16 +107,12 @@ pub fn detect_script(text: &str) -> Option<Script> {
         }
     }
 
-    let (script, _, count) = script_counters
+    let counters: Vec<(Script, usize)> = script_counters
         .iter()
-        .cloned()
-        .max_by_key(|&(_, _, count)| count)
-        .unwrap();
-    if count != 0 {
-        Some(script)
-    } else {
-        None
-    }
+        .map(|&(script, _, count)| (script, count))
+        .collect();
+
+    RawScriptInfo::new(counters)
 }
 
 fn is_cyrillic(ch: char) -> bool {

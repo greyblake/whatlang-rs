@@ -40,3 +40,15 @@ fn test_with_russian_text() {
     assert_eq!(info.confidence(), 1.0);
     assert!(info.is_reliable());
 }
+
+#[test]
+fn test_japanese_with_mandarin_chars() {
+    let text = r#"
+        この間、川越城や松井田城などの諸城を拡張・改修 河越城の三の丸と八幡郭など拡張、松井田城の大道寺郭構築など
+    "#;
+
+    let info = detect(text).unwrap();
+    assert_eq!(info.script(), Script::Mandarin);
+    assert_eq!(info.lang(), Lang::Jpn);
+    assert!(info.is_reliable());
+}
