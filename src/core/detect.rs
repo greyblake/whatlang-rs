@@ -1,7 +1,7 @@
 use crate::core::{Info, Method, Options, Query};
 use crate::scripts::{
-    detect_script,
     grouping::{MultiLangScript, ScriptLangGroup},
+    raw_detect_script, RawScriptInfo, Script,
 };
 use crate::Lang;
 use crate::{alphabets, combined, trigrams};
@@ -25,23 +25,15 @@ pub fn detect_with_options(text: &str, options: &Options) -> Option<Info> {
 }
 
 pub fn detect_by_query(query: &Query) -> Option<Info> {
-    let script = detect_script(query.text)?;
+    let raw_script_info = raw_detect_script(query.text);
+    let script = raw_script_info.main_script()?;
 
     match script.to_lang_group() {
         ScriptLangGroup::One(lang) => Some(Info::new(script, lang, 1.0)),
         ScriptLangGroup::Multi(multi_lang_script) => {
             detect_by_query_based_on_script(query, multi_lang_script)
         }
-        ScriptLangGroup::Mandarin => {
-            // Sometimes Mandarin can be Japanese.
-            // See https://github.com/greyblake/whatlang-rs/pull/45
-            let lang = if query.filter_list.is_allowed(Lang::Cmn) {
-                Lang::Cmn
-            } else {
-                Lang::Jpn
-            };
-            Some(Info::new(script, lang, 1.0))
-        }
+        ScriptLangGroup::Mandarin => detect_lang_base_on_mandarin_script(query, &raw_script_info),
     }
 }
 
@@ -55,6 +47,38 @@ fn detect_by_query_based_on_script(
         Method::Trigram => trigrams::detect(&mut iquery),
         Method::Combined => combined::detect(&mut iquery),
     }
+}
+
+// Sometimes Mandarin can be Japanese.
+// See https://github.com/greyblake/whatlang-rs/pull/45
+fn detect_lang_base_on_mandarin_script(
+    query: &Query,
+    raw_script_info: &RawScriptInfo,
+) -> Option<Info> {
+    let (lang, confidence) = if query.filter_list.is_allowed(Lang::Cmn) {
+        let mandrin_count = raw_script_info.count(Script::Mandarin);
+        let katakana_count = raw_script_info.count(Script::Katakana);
+        let hiragana_count = raw_script_info.count(Script::Hiragana);
+        let japanese_count = katakana_count + hiragana_count;
+        let total = mandrin_count + hiragana_count;
+
+        let jpn_pct = japanese_count as f64 / total as f64;
+
+        // If at least 5% of characters are Japanese(Katakana or Hiragana) then it's likely to be Japanese language
+        // See https://github.com/greyblake/whatlang-rs/issues/88
+        if jpn_pct > 0.2 {
+            (Lang::Jpn, 1.0)
+        } else if jpn_pct > 0.05 {
+            (Lang::Jpn, 0.5)
+        } else if jpn_pct > 0.02 {
+            (Lang::Cmn, 0.5)
+        } else {
+            (Lang::Cmn, 1.0)
+        }
+    } else {
+        (Lang::Jpn, 1.0)
+    };
+    Some(Info::new(Script::Mandarin, lang, confidence))
 }
 
 #[cfg(test)]
