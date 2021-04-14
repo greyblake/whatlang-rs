@@ -8,6 +8,7 @@ pub enum FilterList {
 }
 
 impl FilterList {
+    #[cfg(feature = "dev")]
     pub fn all() -> Self {
         Self::All
     }
@@ -40,6 +41,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[cfg(feature = "dev")]
     fn test_all() {
         let list = FilterList::all();
         assert!(list.is_allowed(Lang::Epo));

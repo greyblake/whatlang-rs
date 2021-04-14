@@ -128,7 +128,7 @@ mod tests {
         let text = "Die Ordnung muss für immer in diesem Codebase bleiben";
         let mut iq = InternalQuery {
             text: Text::new(text),
-            filter_list: &FilterList::all(),
+            filter_list: &FilterList::default(),
             multi_lang_script: MultiLangScript::Latin,
         };
         let raw_outcome = raw_detect(&mut iq);

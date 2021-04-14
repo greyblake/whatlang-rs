@@ -30,6 +30,12 @@ jobs:
           command: test
           args: --features enum-map
 
+      - name: cargo test --features dev
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --features dev
+
   rustfmt:
     name: Rustfmt
     runs-on: ubuntu-latest
