@@ -48,7 +48,7 @@ impl Detector {
         Self::with_options(opts)
     }
 
-    pub fn with_options(options: Options) -> Self {
+    fn with_options(options: Options) -> Self {
         Detector { options }
     }
 
