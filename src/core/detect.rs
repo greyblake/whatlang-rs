@@ -6,10 +6,26 @@ use crate::scripts::{
 use crate::Lang;
 use crate::{alphabets, combined, trigrams};
 
+/// Detect only a language by a given text.
+///
+/// # Example
+/// ```
+/// use whatlang::{detect_lang, Lang};
+/// let lang = detect_lang("There is no reason not to learn Esperanto.").unwrap();
+/// assert_eq!(lang, Lang::Eng);
+/// ```
 pub fn detect_lang(text: &str) -> Option<Lang> {
     detect(text).map(|output| output.lang())
 }
 
+/// Detect a language and a script by a given text.
+///
+/// # Example
+/// ```
+/// use whatlang::{detect_lang, Lang};
+/// let lang = detect_lang("There is no reason not to learn Esperanto.").unwrap();
+/// assert_eq!(lang, Lang::Eng);
+/// ```
 pub fn detect(text: &str) -> Option<Info> {
     let opts = Options::default();
     detect_with_options(text, &opts)
@@ -167,7 +183,7 @@ mod tests {
     }
 
     #[test]
-    fn test_detect_with_options_with_whitelist_mandarin_japanese() {
+    fn test_detect_with_options_with_allowlist_mandarin_japanese() {
         let text = "水";
 
         let jpn_opts = Options::new().set_filter_list(FilterList::allow(vec![Lang::Jpn]));

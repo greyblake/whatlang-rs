@@ -8,12 +8,12 @@ use crate::Lang;
 /// Configurable structure that holds detection options and provides functions
 /// to detect language and script.
 /// # Examples
-/// Specifying a whitelist:
+/// Specifying an allowlist:
 ///
 /// ```
 /// use whatlang::{Detector, Lang};
 ///
-/// // Create detector with whitelist
+/// // Create detector with allowlist
 /// let detector = Detector::with_allowlist(vec![Lang::Eng, Lang::Rus]);
 /// let lang = detector.detect_lang("That is not Russian");
 /// assert_eq!(lang, Some(Lang::Eng));

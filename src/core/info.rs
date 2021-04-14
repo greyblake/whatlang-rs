@@ -2,6 +2,7 @@ use crate::{Lang, Script};
 
 const RELIABLE_CONFIDENCE_THRESHOLD: f64 = 0.9;
 
+/// Represents a full outcome of language detection.
 #[derive(Debug, PartialEq)]
 pub struct Info {
     script: Script,

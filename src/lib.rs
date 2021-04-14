@@ -24,13 +24,20 @@
 //! ```
 //! use whatlang::{Detector, Lang};
 //!
-//! let whitelist = vec![Lang::Eng, Lang::Rus];
+//! let allowlist = vec![Lang::Eng, Lang::Rus];
 //!
 //! // You can also create detector using with_denylist function
-//! let detector = Detector::with_allowlist(whitelist);
+//! let detector = Detector::with_allowlist(allowlist);
 //! let lang = detector.detect_lang("There is no reason not to learn Esperanto.");
 //! assert_eq!(lang, Some(Lang::Eng));
 //! ```
+//!
+//! # Features
+//!
+//! | Feature    | Description                                                                           |
+//! |------------|---------------------------------------------------------------------------------------|
+//! | `enum-map` | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
+//!
 //!
 mod alphabets;
 mod combined;

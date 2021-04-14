@@ -3,7 +3,8 @@ use crate::utils::is_stop_char;
 
 type ScriptCounter = (Script, fn(char) -> bool, usize);
 
-/// Detect only a script by a given text
+/// Detect only a script by a given text.
+/// Works much faster than a complete detection with `detect`.
 ///
 /// # Example
 /// ```

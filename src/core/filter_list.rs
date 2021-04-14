@@ -13,8 +13,8 @@ impl FilterList {
         Self::All
     }
 
-    pub fn allow(whitelist: Vec<Lang>) -> Self {
-        Self::Allow(whitelist)
+    pub fn allow(allowlist: Vec<Lang>) -> Self {
+        Self::Allow(allowlist)
     }
 
     pub fn deny(blacklist: Vec<Lang>) -> Self {
@@ -24,7 +24,7 @@ impl FilterList {
     pub fn is_allowed(&self, lang: Lang) -> bool {
         match self {
             Self::All => true,
-            Self::Allow(ref whitelist) => whitelist.contains(&lang),
+            Self::Allow(ref allowlist) => allowlist.contains(&lang),
             Self::Deny(ref blacklist) => !blacklist.contains(&lang),
         }
     }
