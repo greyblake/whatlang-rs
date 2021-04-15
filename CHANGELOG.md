@@ -30,6 +30,7 @@
 * Add integration with `enum-map`
 * Implement `FromStr` for `Script` and `Lang`
 * Implement `Script::langs(&self) -> &[Lang]`
+* About 7% slower than v0.11.1 due to new detection method introduced. It's still much faster than v0.11.0
 
 ### v0.11.1 - 2020-11-28
 * Use Trigram tuple instead of heap allocated String. (~68% faster)
