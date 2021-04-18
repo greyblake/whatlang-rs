@@ -17,8 +17,9 @@ pub fn detect_script(text: &str) -> Option<Script> {
     raw_info.main_script()
 }
 
-pub(crate) struct RawScriptInfo {
-    counters: Vec<(Script, usize)>,
+#[derive(Debug)]
+pub struct RawScriptInfo {
+    pub counters: Vec<(Script, usize)>,
 }
 
 impl RawScriptInfo {
@@ -49,7 +50,7 @@ impl RawScriptInfo {
     }
 }
 
-pub(crate) fn raw_detect_script(text: &str) -> RawScriptInfo {
+pub fn raw_detect_script(text: &str) -> RawScriptInfo {
     let mut script_counters: [ScriptCounter; 24] = [
         (Script::Latin, is_latin, 0),
         (Script::Cyrillic, is_cyrillic, 0),

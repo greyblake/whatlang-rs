@@ -1,5 +1,5 @@
 mod confidence;
-mod detect;
+pub(crate) mod detect;
 mod detector;
 mod filter_list;
 mod info;
