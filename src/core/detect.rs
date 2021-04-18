@@ -69,7 +69,7 @@ fn detect_by_query_based_on_script(
 
 // Sometimes Mandarin can be Japanese.
 // See https://github.com/greyblake/whatlang-rs/pull/45
-fn detect_lang_base_on_mandarin_script(query: &Query, raw_script_info: &RawScriptInfo) -> Info {
+pub(crate) fn detect_lang_base_on_mandarin_script(query: &Query, raw_script_info: &RawScriptInfo) -> Info {
     let (lang, confidence) = if query.filter_list.is_allowed(Lang::Cmn) {
         let mandrin_count = raw_script_info.count(Script::Mandarin);
         let katakana_count = raw_script_info.count(Script::Katakana);

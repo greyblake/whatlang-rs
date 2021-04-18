@@ -5,9 +5,9 @@ use crate::Lang;
 
 #[derive(Debug)]
 pub struct RawOutcome {
-    scores: Vec<(Lang, f64)>,
-    alphabet_raw_outcome: alphabets::RawOutcome,
-    trigram_raw_outcome: trigrams::RawOutcome,
+    pub scores: Vec<(Lang, f64)>,
+    pub alphabet_raw_outcome: alphabets::RawOutcome,
+    pub trigram_raw_outcome: trigrams::RawOutcome,
 }
 
 pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
