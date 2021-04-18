@@ -1,4 +1,4 @@
-### Unreleased
+### v0.12.0 - 2021-04-18
 * [breaking] - Drop languages:
   * Tigrinya (`Tir`)
   * Hausa (`Hau`)
