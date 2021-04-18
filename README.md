@@ -3,6 +3,7 @@
 <h1 align="center">Whatlang</h1>
 
 <p align="center">Natural language detection for Rust with focus on simplicity and performance.</p>
+<p align="center"><a href="https://whatlang.org/" target="_blank">Try online demo.</a></p>
 
 <p align="center">
 <a href="https://github.com/greyblake/whatlang-rs/actions/workflows/ci.yml" rel="nofollow"><img src="https://github.com/greyblake/whatlang-rs/actions/workflows/ci.yml/badge.svg" alt="Build Status"></a>
