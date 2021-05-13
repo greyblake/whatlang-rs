@@ -1,6 +1,5 @@
+use std::cell::{Ref, RefCell};
 use std::ops::Deref;
-use std::cell::RefCell;
-use std::cell::Ref;
 
 #[derive(Debug)]
 pub struct LowercaseText {
