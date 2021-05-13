@@ -59,11 +59,11 @@ fn detect_by_query_based_on_script(
     query: &Query,
     multi_lang_script: MultiLangScript,
 ) -> Option<Info> {
-    let mut iquery = query.to_internal(multi_lang_script);
+    let iquery = query.to_internal(multi_lang_script);
     match query.method {
-        Method::Alphabet => alphabets::detect(&mut iquery),
-        Method::Trigram => trigrams::detect(&mut iquery),
-        Method::Combined => combined::detect(&mut iquery),
+        Method::Alphabet => alphabets::detect(&iquery),
+        Method::Trigram => trigrams::detect(&iquery),
+        Method::Combined => combined::detect(&iquery),
     }
 }
 

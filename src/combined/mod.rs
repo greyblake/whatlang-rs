@@ -10,7 +10,7 @@ pub struct RawOutcome {
     pub trigram_raw_outcome: trigrams::RawOutcome,
 }
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
+pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
 
     let count = raw_outcome.trigram_raw_outcome.trigrams_count;
@@ -32,7 +32,7 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
 }
 
 // TODO: optimize!
-pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
+pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     let alphabet_raw_outcome = alphabets::raw_detect(iquery);
     let trigram_raw_outcome = trigrams::raw_detect(iquery);
 

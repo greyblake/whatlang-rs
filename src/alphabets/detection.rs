@@ -3,7 +3,7 @@ use super::{cyrillic, latin};
 use crate::core::{calculate_confidence, FilterList, Info, InternalQuery, LowercaseText};
 use crate::Lang;
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
+pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
     let RawOutcome { count, scores, .. } = raw_outcome;
 
@@ -22,10 +22,10 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     })
 }
 
-pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
+pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     use crate::scripts::grouping::MultiLangScript as MLS;
 
-    let text: &LowercaseText = iquery.text.lowercase();
+    let text: &LowercaseText = &iquery.text.lowercase();
     let filter_list: &FilterList = &iquery.filter_list;
     match iquery.multi_lang_script {
         MLS::Cyrillic => cyrillic::alphabet_calculate_scores(text, filter_list),

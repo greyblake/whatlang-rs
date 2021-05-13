@@ -15,7 +15,7 @@ pub struct RawOutcome {
     pub scores: Vec<(Lang, f64)>,
 }
 
-pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
+pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
     let RawOutcome {
         trigrams_count,
@@ -40,9 +40,9 @@ pub fn detect(iquery: &mut InternalQuery) -> Option<Info> {
     })
 }
 
-pub fn raw_detect(iquery: &mut InternalQuery) -> RawOutcome {
+pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
-    calculate_scores_in_profiles(&mut iquery.text, &iquery.filter_list, lang_profile_list)
+    calculate_scores_in_profiles(&iquery.text, &iquery.filter_list, lang_profile_list)
 }
 
 fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
@@ -57,7 +57,7 @@ fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
 }
 
 fn calculate_scores_in_profiles(
-    text: &mut Text,
+    text: &Text,
     filter_list: &FilterList,
     lang_profile_list: LangProfileList,
 ) -> RawOutcome {
@@ -126,12 +126,12 @@ mod tests {
     #[test]
     fn test_when_german_is_given() {
         let text = "Die Ordnung muss für immer in diesem Codebase bleiben";
-        let mut iq = InternalQuery {
+        let iq = InternalQuery {
             text: Text::new(text),
             filter_list: &FilterList::default(),
             multi_lang_script: MultiLangScript::Latin,
         };
-        let raw_outcome = raw_detect(&mut iq);
+        let raw_outcome = raw_detect(&iq);
 
         assert_eq!(raw_outcome.trigrams_count, 50);
 

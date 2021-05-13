@@ -41,8 +41,8 @@ pub fn raw_detect(text: &str) -> RawInfo {
         .map(|script| match script.to_lang_group() {
             ScriptLangGroup::One(lang) => RawLangInfo::OneScript(lang),
             ScriptLangGroup::Multi(multi_lang_script) => {
-                let mut iquery = query.to_internal(multi_lang_script);
-                let combined = combined_raw_detect(&mut iquery);
+                let iquery = query.to_internal(multi_lang_script);
+                let combined = combined_raw_detect(&iquery);
                 RawLangInfo::MultiScript(combined)
             }
             ScriptLangGroup::Mandarin => {
