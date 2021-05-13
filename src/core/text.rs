@@ -1,4 +1,6 @@
 use std::ops::Deref;
+use std::cell::RefCell;
+use std::cell::Ref;
 
 #[derive(Debug)]
 pub struct LowercaseText {
@@ -23,22 +25,25 @@ impl Deref for LowercaseText {
 #[derive(Debug)]
 pub struct Text<'a> {
     original: &'a str,
-    lowercase: Option<LowercaseText>,
+    lowercase: RefCell<Option<LowercaseText>>,
 }
 
 impl<'a> Text<'a> {
     pub fn new(original_text: &'a str) -> Self {
         Self {
             original: original_text,
-            lowercase: None,
+            lowercase: RefCell::new(None),
         }
     }
 
-    pub fn lowercase(&mut self) -> &LowercaseText {
-        if self.lowercase.is_none() {
-            self.lowercase = Some(LowercaseText::new(self.original));
+    pub fn lowercase(&self) -> Ref<'_, LowercaseText> {
+        if self.lowercase.borrow().is_none() {
+            let lowercase_text = LowercaseText::new(self.original);
+            self.lowercase.replace(Some(lowercase_text));
         }
-        self.lowercase.as_ref().unwrap()
+
+        let ref_opt_lowercase = self.lowercase.borrow();
+        Ref::map(ref_opt_lowercase, |r| r.as_ref().unwrap())
     }
 }
 
@@ -48,7 +53,7 @@ mod tests {
 
     #[test]
     fn test_text() {
-        let mut text = Text::new("Hello THERE");
-        assert_eq!(text.lowercase().deref(), "hello there");
+        let text = Text::new("Hello THERE");
+        assert_eq!(text.lowercase().deref().deref(), "hello there");
     }
 }
