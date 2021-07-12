@@ -77,7 +77,7 @@ For more details (e.g. how to blacklist some languages) please check the [docume
 The algorithm is based on the trigram language models, which is a particular case of n-grams.
 To understand the idea, please check the original whitepaper [Cavnar and Trenkle '94: N-Gram-Based Text Categorization'](https://www.researchgate.net/publication/2375544_N-Gram-Based_Text_Categorization).
 
-### How _is_reliable_ calculated?
+### How is `is_reliable` calculated?
 
 It is based on the following factors:
 * How many unique trigrams are in the given text
