@@ -11,7 +11,7 @@ pub enum MultiLangScript {
 }
 
 impl MultiLangScript {
-    pub fn to_script(&self) -> Script {
+    pub fn to_script(self) -> Script {
         match self {
             Self::Latin => Script::Latin,
             Self::Cyrillic => Script::Cyrillic,
@@ -34,11 +34,11 @@ pub enum ScriptLangGroup {
 }
 
 impl Script {
-    pub fn to_lang_group(&self) -> ScriptLangGroup {
+    pub fn to_lang_group(self) -> ScriptLangGroup {
         use MultiLangScript as MLS;
         use ScriptLangGroup::{Mandarin, Multi, One};
 
-        match *self {
+        match self {
             Script::Latin => Multi(MLS::Latin),
             Script::Cyrillic => Multi(MLS::Cyrillic),
             Script::Arabic => Multi(MLS::Arabic),
