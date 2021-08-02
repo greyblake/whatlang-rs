@@ -23,6 +23,7 @@
 * [Running benchmark](#running-benchmarks)
 * [Comparison with alternatives](#comparison-with-alternatives)
 * [Ports and clones](#ports-and-clones)
+* [Donations](#donations)
 * [Derivation](#derivation)
 * [License](#license)
 * [Contributors](#contributors)
@@ -115,6 +116,12 @@ cargo bench
 * [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
 * [whatlang-py](https://github.com/cathalgarvey/whatlang-py) - bindings for Python
 * [whatlang-rb](https://gitlab.com/KitaitiMakoto/whatlang-rb) - bindings for Ruby
+
+## Donations
+
+You can support the project by donating [NEAR tokens](https://near.org).
+
+Our NEAR wallet address is `whatlang.near`
 
 ## Derivation
 
