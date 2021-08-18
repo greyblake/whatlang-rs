@@ -26,7 +26,7 @@ pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     use crate::scripts::grouping::MultiLangScript as MLS;
 
     let text: &LowercaseText = &iquery.text.lowercase();
-    let filter_list: &FilterList = &iquery.filter_list;
+    let filter_list: &FilterList = iquery.filter_list;
     match iquery.multi_lang_script {
         MLS::Cyrillic => cyrillic::alphabet_calculate_scores(text, filter_list),
         MLS::Latin => latin::alphabet_calculate_scores(text, filter_list),

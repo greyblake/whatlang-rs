@@ -42,7 +42,7 @@ pub fn detect(iquery: &InternalQuery) -> Option<Info> {
 
 pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
-    calculate_scores_in_profiles(&iquery.text, &iquery.filter_list, lang_profile_list)
+    calculate_scores_in_profiles(&iquery.text, iquery.filter_list, lang_profile_list)
 }
 
 fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
