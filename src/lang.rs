@@ -214,9 +214,12 @@ pub enum Lang {
 
     /// Català (Catalan)
     Cat = 66,
+
+    /// Tagalog (Tagalog)
+    Tgl = 67,
 }
 
-const VALUES: [Lang; 67] = [
+const VALUES: [Lang; 68] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -284,6 +287,7 @@ const VALUES: [Lang; 67] = [
     Lang::Lat,
     Lang::Slk,
     Lang::Cat,
+    Lang::Tgl,
 ];
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -355,6 +359,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "lat" => Some(Lang::Lat),
         "slk" => Some(Lang::Slk),
         "cat" => Some(Lang::Cat),
+        "tgl" => Some(Lang::Tgl),
         _ => None,
     }
 }
@@ -428,6 +433,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Lat => "lat",
         Lang::Slk => "slk",
         Lang::Cat => "cat",
+        Lang::Tgl => "tgl",
     }
 }
 
@@ -500,6 +506,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Lat => "Lingua Latina",
         Lang::Slk => "Slovenčina",
         Lang::Cat => "Català",
+        Lang::Tgl => "Tagalog",
     }
 }
 
@@ -572,6 +579,7 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Lat => "Latin",
         Lang::Slk => "Slovak",
         Lang::Cat => "Catalan",
+        Lang::Tgl => "Tagalog",
     }
 }
 
@@ -681,7 +689,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 67);
+        assert_eq!(Lang::all().len(), 68);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
