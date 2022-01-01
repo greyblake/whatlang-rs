@@ -33,6 +33,7 @@ const SLV: &str = "abcdefghijklmnopqrstuvwxyzčšž";
 const SNA: &str = "abcdefghijklmnopqrstuvwxyz";
 const SPA: &str = "abcdefghijklmnopqrstuvwxyz¡¿áéíñóúü";
 const SWE: &str = "abcdefghijklmnopqrstuvwxyzäåö";
+const TGL: &str = "abcdefghijklmnopqrstuvwxyzáéíñóú";
 const TUK: &str = "abdefghijklmnoprstuwyzäçöüýňşž";
 const TUR: &str = "abcdefghijklmnopqrstuvwxyzçöüğış̇";
 const UZB: &str = "abcdefghijklmnopqrstuvxyzʻ";
@@ -72,6 +73,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
         Lang::Sna => SNA,
         Lang::Spa => SPA,
         Lang::Swe => SWE,
+        Lang::Tgl => TGL,
         Lang::Tuk => TUK,
         Lang::Tur => TUR,
         Lang::Uzb => UZB,
