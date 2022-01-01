@@ -130,11 +130,17 @@ mod tests {
         let output = detect_with_options(text, &Options::default());
         assert_eq!(output.is_some(), true);
         let info = output.unwrap();
-        assert_eq!(info.lang(), Lang::Jav);
+        assert_eq!(info.lang(), Lang::Tgl);
 
         // with filter list
-        let filter_list =
-            FilterList::deny(vec![Lang::Jav, Lang::Nld, Lang::Uzb, Lang::Swe, Lang::Nob]);
+        let filter_list = FilterList::deny(vec![
+            Lang::Jav,
+            Lang::Nld,
+            Lang::Uzb,
+            Lang::Swe,
+            Lang::Nob,
+            Lang::Tgl,
+        ]);
         let options = Options::new().set_filter_list(filter_list);
         let output = detect_with_options(text, &options);
         assert_eq!(output.is_some(), true);
