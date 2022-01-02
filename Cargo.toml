@@ -19,7 +19,7 @@ include = [
 ]
 
 [badges]
-github-actions = { repository = "greyblake/whatlang-rs", worklfow = "CI", branch = "master" }
+github-actions = { repository = "greyblake/whatlang-rs", workflow = "CI", branch = "master" }
 
 [dependencies]
 hashbrown = "0.7"
