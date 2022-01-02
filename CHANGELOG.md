@@ -1,3 +1,7 @@
+### v0.13.0 - 2022-01-02
+* [breaking] - Support of Tagalog (`Tgl`)
+* Rename `whatlang::Error` -> `whatlang::ParseError`
+
 ### v0.12.0 - 2021-04-18
 * [breaking] - Drop languages:
   * Tigrinya (`Tir`)

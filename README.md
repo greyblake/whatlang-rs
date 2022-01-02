@@ -138,3 +138,4 @@ Our NEAR wallet address is `whatlang.near`
 - [Dr-Emann](https://github.com/Dr-Emann) Zachary Dremann - optimization and improvements
 - [BaptisteGelez](https://github.com/BaptisteGelez) Baptiste Gelez - improvements
 - [Vishesh Chopra](https://github.com/KarmicKonquest) - designed the logo
+- [Joel Natividad](https://github.com/jqnatividad) - support of Tagalog
