@@ -2,26 +2,26 @@ use std::error::Error as StdError;
 use std::fmt::{self, Display};
 
 #[derive(Debug)]
-pub enum Error {
-    ParseScript(String),
-    ParseLang(String),
-    ParseMethod(String),
+pub enum ParseError {
+    Script(String),
+    Lang(String),
+    Method(String),
 }
 
-impl Display for Error {
+impl Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Error::ParseScript(ref val) => {
+            ParseError::Script(ref val) => {
                 write!(f, "Cannot parse str into whatlang::Script: {:?}", val)
             }
-            Error::ParseLang(ref val) => {
+            ParseError::Lang(ref val) => {
                 write!(f, "Cannot parse str into whatlang::Lang: {:?}", val)
             }
-            Error::ParseMethod(ref val) => {
+            ParseError::Method(ref val) => {
                 write!(f, "Cannot parse str into whatlang::Method: {:?}", val)
             }
         }
     }
 }
 
-impl StdError for Error {}
+impl StdError for ParseError {}

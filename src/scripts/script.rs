@@ -2,7 +2,7 @@ use std::fmt;
 use std::str::FromStr;
 
 use super::lang_mapping;
-use crate::error::Error;
+use crate::error::ParseError;
 use crate::Lang;
 
 #[cfg(feature = "enum-map")]
@@ -122,7 +122,7 @@ impl fmt::Display for Script {
 }
 
 impl FromStr for Script {
-    type Err = Error;
+    type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().trim() {
@@ -150,7 +150,7 @@ impl FromStr for Script {
             "myanmar" => Ok(Script::Myanmar),
             "sinhala" => Ok(Script::Sinhala),
             "khmer" => Ok(Script::Khmer),
-            _ => Err(Error::ParseScript(s.to_string())),
+            _ => Err(ParseError::Script(s.to_string())),
         }
     }
 }
@@ -178,7 +178,7 @@ mod tests {
         }
 
         let result = "foobar".parse::<Script>();
-        assert!(matches!(result, Err(Error::ParseScript(_))));
+        assert!(matches!(result, Err(ParseError::Script(_))));
     }
 
     #[test]

@@ -5,7 +5,7 @@
 use std::fmt;
 use std::str::FromStr;
 
-use crate::error::Error;
+use crate::error::ParseError;
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
@@ -649,10 +649,10 @@ impl fmt::Display for Lang {
 }
 
 impl FromStr for Lang {
-    type Err = Error;
+    type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
+        Lang::from_code(s).ok_or_else(|| ParseError::Lang(s.to_string()))
     }
 }
 
@@ -705,6 +705,6 @@ mod tests {
         }
 
         let result = "xyz".parse::<Lang>();
-        assert!(matches!(result, Err(Error::ParseLang(_))));
+        assert!(matches!(result, Err(ParseError::Lang(_))));
     }
 }

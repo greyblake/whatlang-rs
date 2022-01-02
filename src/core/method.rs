@@ -1,4 +1,4 @@
-use crate::error::Error;
+use crate::error::ParseError;
 use std::fmt;
 use std::str::FromStr;
 
@@ -10,14 +10,14 @@ pub enum Method {
 }
 
 impl FromStr for Method {
-    type Err = Error;
+    type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().trim() {
             "trigram" => Ok(Method::Trigram),
             "alphabet" => Ok(Method::Alphabet),
             "combined" => Ok(Method::Combined),
-            _ => Err(Error::ParseMethod(s.to_string())),
+            _ => Err(ParseError::Method(s.to_string())),
         }
     }
 }
