@@ -75,3 +75,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Latin       | lat       | `Lang::Lat` |
 | Slovak      | slk       | `Lang::Slk` |
 | Catalan     | cat       | `Lang::Cat` |
+| Tagalog     | tgl       | `Lang::Tgl` |
