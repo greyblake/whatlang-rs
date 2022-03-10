@@ -107,11 +107,11 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
     let char_lang = &*ALPHABET_LANG_MAP;
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
-    let mut raw_scores: Vec<(Lang, i32)> = Script::Latin
+    let mut raw_scores: Vec<(Lang, usize)> = Script::Latin
         .langs()
         .iter()
         .filter(|&&l| filter_list.is_allowed(l))
-        .map(|&l| (l, 0i32 - max_raw_score as i32))
+        .map(|&l| (l, 0))
         .collect();
 
     for ch in text.chars() {
@@ -130,18 +130,11 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     raw_scores.sort_unstable_by(|a, b| b.1.cmp(&a.1));
 
-    let raw_scores: Vec<(Lang, usize)> = raw_scores
-        .into_iter()
-        .map(|(l, s)| {
-            let score = if s < 0 { 0usize } else { s as usize };
-            (l, score)
-        })
-        .collect();
-
     let mut normalized_scores = vec![];
 
     for &(lang, raw_score) in &raw_scores {
-        let normalized_score = raw_score as f64 / max_raw_score as f64;
+        let normalized_score =
+            raw_score.saturating_sub(max_raw_score) as f64 / max_raw_score as f64;
         normalized_scores.push((lang, normalized_score));
     }
 
