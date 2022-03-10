@@ -24,7 +24,7 @@ pub struct RawScriptInfo {
 
 impl RawScriptInfo {
     fn new(mut counters: Vec<(Script, usize)>) -> Self {
-        counters.sort_by(|a, b| b.1.cmp(&a.1));
+        counters.sort_unstable_by(|a, b| b.1.cmp(&a.1));
         Self { counters }
     }
 

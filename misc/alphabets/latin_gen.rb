@@ -26,7 +26,7 @@ def load_alphabets
     alphabets[code] = normalize_alphabet(alphabet)
   end
 
-  alphabets.sort_by {|k, _| k }.to_h
+  alphabets.sort_unstable_by {|k, _| k }.to_h
 end
 
 

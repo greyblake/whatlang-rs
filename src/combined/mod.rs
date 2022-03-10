@@ -78,7 +78,7 @@ pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
         scores.push((lang, score));
     }
 
-    scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
+    scores.sort_unstable_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Less));
 
     RawOutcome {
         scores,

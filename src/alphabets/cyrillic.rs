@@ -35,7 +35,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         }
     }
 
-    raw_scores.sort_by(|a, b| b.1.cmp(&a.1));
+    raw_scores.sort_unstable_by(|a, b| b.1.cmp(&a.1));
 
     let raw_scores: Vec<(Lang, usize)> = raw_scores
         .into_iter()
