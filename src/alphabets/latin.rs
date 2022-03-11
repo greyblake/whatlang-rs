@@ -114,15 +114,22 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         .map(|&l| (l, 0))
         .collect();
 
+    let mut common_score = 0;
     for ch in text.chars() {
         if is_stop_char(ch) {
             continue;
         }
 
         if let Some((_, languages)) = char_lang.iter().find(|(c, _)| *c == ch) {
-            for lang in languages {
-                if let Some((_, score)) = raw_scores.iter_mut().find(|(l, _)| l == lang) {
-                    *score += 2;
+            // if this char is common to all Languages, add 2 to a common counter
+            // instead of iterating over all Languages counters.
+            if languages.len() == LATIN_ALPHABETS.len() {
+                common_score += 2;
+            } else {
+                for lang in languages {
+                    if let Some((_, score)) = raw_scores.iter_mut().find(|(l, _)| l == lang) {
+                        *score += 2;
+                    }
                 }
             }
         }
@@ -134,7 +141,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     for &(lang, raw_score) in &raw_scores {
         let normalized_score =
-            raw_score.saturating_sub(max_raw_score) as f64 / max_raw_score as f64;
+            (raw_score + common_score).saturating_sub(max_raw_score) as f64 / max_raw_score as f64;
         normalized_scores.push((lang, normalized_score));
     }
 
