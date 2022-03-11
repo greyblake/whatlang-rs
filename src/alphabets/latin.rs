@@ -100,6 +100,7 @@ pub static ALPHABET_LANG_MAP: Lazy<Vec<(char, Vec<Lang>)>> = Lazy::new(|| {
         char_lang.push((ch, languages));
     }
 
+    char_lang.sort_unstable_by_key(|(c, _)| *c);
     char_lang
 });
 
@@ -120,7 +121,8 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
             continue;
         }
 
-        if let Some((_, languages)) = char_lang.iter().find(|(c, _)| *c == ch) {
+        if let Ok(position) = char_lang.binary_search_by_key(&ch, |(c, _)| *c) {
+            let (_, languages) = &char_lang[position];
             // if this char is common to all Languages, add 2 to a common counter
             // instead of iterating over all Languages counters.
             if languages.len() == LATIN_ALPHABETS.len() {
