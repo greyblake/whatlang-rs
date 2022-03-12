@@ -141,10 +141,10 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     let mut normalized_scores = vec![];
 
-    for &(lang, raw_score) in &raw_scores {
-        let normalized_score =
-            (raw_score + common_score).saturating_sub(max_raw_score) as f64 / max_raw_score as f64;
-        normalized_scores.push((lang, normalized_score));
+    for (lang, raw_score) in raw_scores.iter_mut() {
+        *raw_score = (*raw_score + common_score).saturating_sub(max_raw_score);
+        let normalized_score = *raw_score as f64 / max_raw_score as f64;
+        normalized_scores.push((*lang, normalized_score));
     }
 
     RawOutcome {
