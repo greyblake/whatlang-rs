@@ -110,14 +110,17 @@ pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let (chars, langs) = &*ALPHABET_LANG_MAP;
-    let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
+    // let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
     // score of each character.
+    let mut max_raw_score = 0;
     let mut scores: Vec<_> = chars.iter().map(|_| 0).collect();
     for ch in text.chars() {
         if is_stop_char(ch) {
             continue;
         }
+
+        max_raw_score += 1;
 
         if let Ok(position) = chars.binary_search(&ch) {
             scores[position] += 2;
