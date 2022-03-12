@@ -110,7 +110,6 @@ pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let (chars, langs) = &*ALPHABET_LANG_MAP;
-    // let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
     // score of each character.
     let mut max_raw_score = 0;
@@ -127,12 +126,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         }
     }
 
-    let mut raw_scores: Vec<(Lang, usize)> = Script::Latin
-        .langs()
-        .iter()
-        .filter(|&&l| filter_list.is_allowed(l))
-        .map(|&l| (l, 0))
-        .collect();
+    let mut raw_scores: Vec<_> = (0..Lang::all().len()).into_iter().map(|_| 0).collect();
 
     let mut common_score = 0;
     for (position, char_score) in scores.into_iter().enumerate() {
@@ -144,13 +138,18 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
                 common_score += char_score;
             } else {
                 for lang in languages {
-                    if let Some((_, score)) = raw_scores.iter_mut().find(|(l, _)| l == lang) {
-                        *score += char_score;
-                    }
+                    raw_scores[*lang as usize] += char_score;
                 }
             }
         }
     }
+
+    let mut raw_scores: Vec<(Lang, usize)> = Script::Latin
+        .langs()
+        .iter()
+        .filter(|&&l| filter_list.is_allowed(l))
+        .map(|&l| (l, raw_scores[l as usize]))
+        .collect();
 
     raw_scores.sort_unstable_by(|a, b| b.1.cmp(&a.1));
 
