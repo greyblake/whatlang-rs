@@ -1,3 +1,5 @@
+use std::cmp::Reverse;
+
 use super::Outcome;
 use crate::utils::is_stop_char;
 use crate::core::{LowercaseText, FilterList};
@@ -43,7 +45,7 @@ pub fn alphabet_calculate_scores(text: &str) -> Outcome {
         }
     }
 
-    raw_scores.sort_unstable_by(|a, b| b.1.cmp(&a.1));
+    raw_scores.sort_unstable_by_key(|(_, score)| Reverse(*score));
 
     let raw_scores: Vec<(Lang, usize)> = raw_scores
         .into_iter()

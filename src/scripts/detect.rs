@@ -1,3 +1,5 @@
+use std::cmp::Reverse;
+
 use super::script::Script;
 use crate::utils::is_stop_char;
 
@@ -24,7 +26,7 @@ pub struct RawScriptInfo {
 
 impl RawScriptInfo {
     fn new(mut counters: Vec<(Script, usize)>) -> Self {
-        counters.sort_unstable_by(|a, b| b.1.cmp(&a.1));
+        counters.sort_unstable_by_key(|(_, score)| Reverse(*score));
         Self { counters }
     }
 

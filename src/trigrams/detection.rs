@@ -77,7 +77,7 @@ fn calculate_scores_in_profiles(
     }
 
     // Sort languages by distance
-    lang_distances.sort_unstable_by_key(|key| key.1);
+    lang_distances.sort_unstable_by_key(|(_, dist)| *dist);
 
     let max_dist = unique_trigrams_count as u32 * MAX_TRIGRAM_DISTANCE;
 
