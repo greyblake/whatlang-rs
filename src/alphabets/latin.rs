@@ -84,7 +84,7 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
 ];
 
 /// Inverted map binding a character to a set of languages.
-pub static ALPHABET_LANG_MAP: Lazy<Vec<(char, Vec<Lang>)>> = Lazy::new(|| {
+pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
     let mut map = HashMap::new();
 
     for (lang, alphabet) in LATIN_ALPHABETS {
@@ -94,19 +94,35 @@ pub static ALPHABET_LANG_MAP: Lazy<Vec<(char, Vec<Lang>)>> = Lazy::new(|| {
         }
     }
 
-    let mut char_lang = Vec::new();
-
-    for (ch, languages) in map {
-        char_lang.push((ch, languages));
-    }
+    let mut char_lang: Vec<_> = map.into_iter().collect();
 
     char_lang.sort_unstable_by_key(|(c, _)| *c);
-    char_lang
+
+    let mut chars = Vec::with_capacity(char_lang.len());
+    let mut langs = Vec::with_capacity(char_lang.len());
+    for (ch, languages) in char_lang {
+        chars.push(ch);
+        langs.push(languages);
+    }
+
+    (chars, langs)
 });
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
-    let char_lang = &*ALPHABET_LANG_MAP;
+    let (chars, langs) = &*ALPHABET_LANG_MAP;
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
+
+    // score of each character.
+    let mut scores: Vec<_> = chars.iter().map(|_| 0).collect();
+    for ch in text.chars() {
+        if is_stop_char(ch) {
+            continue;
+        }
+
+        if let Ok(position) = chars.binary_search(&ch) {
+            scores[position] += 2;
+        }
+    }
 
     let mut raw_scores: Vec<(Lang, usize)> = Script::Latin
         .langs()
@@ -116,21 +132,17 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         .collect();
 
     let mut common_score = 0;
-    for ch in text.chars() {
-        if is_stop_char(ch) {
-            continue;
-        }
-
-        if let Ok(position) = char_lang.binary_search_by_key(&ch, |(c, _)| *c) {
-            let (_, languages) = &char_lang[position];
-            // if this char is common to all Languages, add 2 to a common counter
-            // instead of iterating over all Languages counters.
+    for (position, char_score) in scores.into_iter().enumerate() {
+        if char_score > 0 {
+            let languages = &langs[position];
+            // if current character is common to all Languages, increment a common score
+            // instead of iterating over all Languages scores.
             if languages.len() == LATIN_ALPHABETS.len() {
-                common_score += 2;
+                common_score += char_score;
             } else {
                 for lang in languages {
                     if let Some((_, score)) = raw_scores.iter_mut().find(|(l, _)| l == lang) {
-                        *score += 2;
+                        *score += char_score;
                     }
                 }
             }
