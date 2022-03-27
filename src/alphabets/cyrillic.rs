@@ -1,6 +1,6 @@
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
-use crate::{Lang, Script};
+use crate::{alphabets, Lang, Script};
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -30,14 +30,6 @@ fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
         0usize
     } else {
         score as usize
-    }
-}
-
-fn normalize_score(raw_score: usize, max_raw_score: usize) -> f64 {
-    if raw_score == 0 {
-        0.0
-    } else {
-        raw_score as f64 / max_raw_score as f64
     }
 }
 
@@ -73,7 +65,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     let normalized_scores = raw_scores
         .iter()
-        .map(|&(lang, raw_score)| (lang, normalize_score(raw_score, max_raw_score)))
+        .map(|&(lang, raw_score)| (lang, alphabets::normalize_score(raw_score, max_raw_score)))
         .collect();
 
     RawOutcome {

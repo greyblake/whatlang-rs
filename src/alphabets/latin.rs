@@ -1,7 +1,7 @@
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
-use crate::{Lang, Script};
+use crate::{alphabets, Lang, Script};
 
 const AFR: &str = "abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû";
 const AKA: &str = "abdefghiklmnoprstuwyɔɛ";
@@ -108,15 +108,6 @@ fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
     }
 }
 
-fn normalize_score(raw_score: usize, max_raw_score: usize) -> f64 {
-    // TODO: merge with normalize_score from cyrillic.rs
-    if raw_score == 0 {
-        0.0
-    } else {
-        raw_score as f64 / max_raw_score as f64
-    }
-}
-
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
@@ -132,7 +123,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     let normalized_scores = raw_scores
         .iter()
-        .map(|&(lang, raw_score)| (lang, normalize_score(raw_score, max_raw_score)))
+        .map(|&(lang, raw_score)| (lang, alphabets::normalize_score(raw_score, max_raw_score)))
         .collect();
 
     RawOutcome {
