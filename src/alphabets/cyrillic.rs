@@ -12,6 +12,9 @@ const MKD: &str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќ�
 
 const ALL: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяёєіїґўђјљњћџѓѕќ";
 
+fn is_relevant(ch: char) -> bool {
+    ALL.chars().any(|c| c == ch)
+}
 fn calculate_char_score(ch: char, alphabet: &Vec<char>) -> i32 {
     if !is_relevant(ch) {
         0
@@ -21,6 +24,7 @@ fn calculate_char_score(ch: char, alphabet: &Vec<char>) -> i32 {
         -1
     }
 }
+
 fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
     let alphabet = get_lang_chars(*lang);
     let score: i32 = text
@@ -29,24 +33,6 @@ fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
         .sum();
 
     cmp::max(score, 0) as usize
-}
-
-fn is_relevant(ch: char) -> bool {
-    ALL.chars().any(|c| c == ch)
-}
-
-fn get_lang_chars(lang: Lang) -> Vec<char> {
-    let alphabet = match lang {
-        Lang::Bul => BUL,
-        Lang::Rus => RUS,
-        Lang::Ukr => UKR,
-        Lang::Bel => BEL,
-        Lang::Srp => SRP,
-        Lang::Mkd => MKD,
-
-        _ => panic!("No alphabet for {}", lang),
-    };
-    alphabet.chars().collect()
 }
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
@@ -72,6 +58,20 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         raw_scores,
         scores: normalized_scores,
     }
+}
+
+fn get_lang_chars(lang: Lang) -> Vec<char> {
+    let alphabet = match lang {
+        Lang::Bul => BUL,
+        Lang::Rus => RUS,
+        Lang::Ukr => UKR,
+        Lang::Bel => BEL,
+        Lang::Srp => SRP,
+        Lang::Mkd => MKD,
+
+        _ => panic!("No alphabet for {}", lang),
+    };
+    alphabet.chars().collect()
 }
 
 #[cfg(test)]
