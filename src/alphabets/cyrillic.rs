@@ -41,6 +41,24 @@ fn normalize_score(raw_score: usize, max_raw_score: usize) -> f64 {
     }
 }
 
+fn is_relevant(ch: char) -> bool {
+    ALL.chars().any(|c| c == ch)
+}
+
+fn get_lang_chars(lang: Lang) -> Vec<char> {
+    let alphabet = match lang {
+        Lang::Bul => BUL,
+        Lang::Rus => RUS,
+        Lang::Ukr => UKR,
+        Lang::Bel => BEL,
+        Lang::Srp => SRP,
+        Lang::Mkd => MKD,
+
+        _ => panic!("No alphabet for {}", lang),
+    };
+    alphabet.chars().collect()
+}
+
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let max_raw_score = text.chars().filter(|&ch| is_relevant(ch)).count();
     let raw_scores: Vec<(Lang, usize)> = Script::Cyrillic
@@ -63,24 +81,6 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         raw_scores,
         scores: normalized_scores,
     }
-}
-
-fn is_relevant(ch: char) -> bool {
-    ALL.chars().any(|c| c == ch)
-}
-
-fn get_lang_chars(lang: Lang) -> Vec<char> {
-    let alphabet = match lang {
-        Lang::Bul => BUL,
-        Lang::Rus => RUS,
-        Lang::Ukr => UKR,
-        Lang::Bel => BEL,
-        Lang::Srp => SRP,
-        Lang::Mkd => MKD,
-
-        _ => panic!("No alphabet for {}", lang),
-    };
-    alphabet.chars().collect()
 }
 
 #[cfg(test)]

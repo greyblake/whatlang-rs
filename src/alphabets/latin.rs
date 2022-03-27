@@ -85,47 +85,55 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
-pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
-    let mut raw_scores: Vec<(Lang, i32)> = Script::Latin
-        .langs()
-        .iter()
-        .filter(|&&l| filter_list.is_allowed(l))
-        .map(|&l| (l, 0i32))
-        .collect();
+fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
+    // TODO: merge with calculate_lang_score from cyrillic.rs
+    let alphabet = get_lang_chars(*lang);
+    let score: i32 = text
+        .chars()
+        .map(|ch| {
+            if !is_stop_char(ch) {
+                0
+            } else if alphabet.contains(&ch) {
+                1
+            } else {
+                -1
+            }
+        })
+        .sum();
 
+    if score < 0 {
+        0usize
+    } else {
+        score as usize
+    }
+}
+
+fn normalize_score(raw_score: usize, max_raw_score: usize) -> f64 {
+    // TODO: merge with normalize_score from cyrillic.rs
+    if raw_score == 0 {
+        0.0
+    } else {
+        raw_score as f64 / max_raw_score as f64
+    }
+}
+
+pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
-    for (lang, score) in &mut raw_scores {
-        let alphabet = get_lang_chars(*lang);
-
-        for ch in text.chars() {
-            if is_stop_char(ch) {
-                continue;
-            };
-            if alphabet.contains(&ch) {
-                *score += 1;
-            } else {
-                *score -= 1;
-            }
-        }
-    }
-
-    raw_scores.sort_by(|a, b| b.1.cmp(&a.1));
-
-    let raw_scores: Vec<(Lang, usize)> = raw_scores
-        .into_iter()
-        .map(|(l, s)| {
-            let score = if s < 0 { 0usize } else { s as usize };
-            (l, score)
-        })
+    let raw_scores: Vec<(Lang, usize)> = Script::Latin
+        .langs()
+        .iter()
+        .filter(|&&lang| filter_list.is_allowed(lang))
+        .map(|&lang| (lang, calculate_lang_score(&lang, text)))
         .collect();
 
-    let mut normalized_scores = vec![];
+    // FIXME: You never use the fact that vector is sorted, at least tests don't fail
+    // raw_scores.sort_by(|a, b| b.1.cmp(&a.1));
 
-    for &(lang, raw_score) in &raw_scores {
-        let normalized_score = raw_score as f64 / max_raw_score as f64;
-        normalized_scores.push((lang, normalized_score));
-    }
+    let normalized_scores = raw_scores
+        .iter()
+        .map(|&(lang, raw_score)| (lang, normalize_score(raw_score, max_raw_score)))
+        .collect();
 
     RawOutcome {
         count: max_raw_score,
