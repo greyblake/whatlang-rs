@@ -1,6 +1,7 @@
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::{alphabets, Lang, Script};
+use std::cmp;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -11,26 +12,23 @@ const MKD: &str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќ�
 
 const ALL: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяёєіїґўђјљњћџѓѕќ";
 
+fn calculate_char_score(ch: char, alphabet: &Vec<char>) -> i32 {
+    if !is_relevant(ch) {
+        0
+    } else if alphabet.contains(&ch) {
+        1
+    } else {
+        -1
+    }
+}
 fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
     let alphabet = get_lang_chars(*lang);
     let score: i32 = text
         .chars()
-        .map(|ch| {
-            if !is_relevant(ch) {
-                0
-            } else if alphabet.contains(&ch) {
-                1
-            } else {
-                -1
-            }
-        })
+        .map(|ch| calculate_char_score(ch, &alphabet))
         .sum();
 
-    if score < 0 {
-        0usize
-    } else {
-        score as usize
-    }
+    cmp::max(score, 0) as usize
 }
 
 fn is_relevant(ch: char) -> bool {
@@ -53,6 +51,7 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let max_raw_score = text.chars().filter(|&ch| is_relevant(ch)).count();
+
     let raw_scores: Vec<(Lang, usize)> = Script::Cyrillic
         .langs()
         .iter()

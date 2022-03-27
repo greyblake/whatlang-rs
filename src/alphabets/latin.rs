@@ -2,6 +2,7 @@ use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
 use crate::{alphabets, Lang, Script};
+use std::cmp;
 
 const AFR: &str = "abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû";
 const AKA: &str = "abdefghiklmnoprstuwyɔɛ";
@@ -85,30 +86,29 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
+fn calculate_char_score(ch: char, alphabet: &Vec<char>) -> i32 {
+    if !is_stop_char(ch) {
+        0
+    } else if alphabet.contains(&ch) {
+        1
+    } else {
+        -1
+    }
+}
+
 fn calculate_lang_score(lang: &Lang, text: &LowercaseText) -> usize {
     // TODO: merge with calculate_lang_score from cyrillic.rs
     let alphabet = get_lang_chars(*lang);
     let score: i32 = text
         .chars()
-        .map(|ch| {
-            if !is_stop_char(ch) {
-                0
-            } else if alphabet.contains(&ch) {
-                1
-            } else {
-                -1
-            }
-        })
+        .map(|ch| calculate_char_score(ch, &alphabet))
         .sum();
 
-    if score < 0 {
-        0usize
-    } else {
-        score as usize
-    }
+    cmp::max(score, 0) as usize
 }
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
+
     let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
 
     let raw_scores: Vec<(Lang, usize)> = Script::Latin
