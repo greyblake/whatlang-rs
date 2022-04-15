@@ -22,8 +22,8 @@ include = [
 github-actions = { repository = "greyblake/whatlang-rs", workflow = "CI", branch = "master" }
 
 [dependencies]
-hashbrown = "0.7"
-enum-map = { version = "0.6", optional = true }
+hashbrown = "0.11.2"
+enum-map = { version = "1.1.1", optional = true }
 
 [dev-dependencies]
 serde_json = "1.0.39"
