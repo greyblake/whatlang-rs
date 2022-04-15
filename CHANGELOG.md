@@ -1,3 +1,6 @@
+### v0.14.0 - 2022-04-15
+* Improve performance of `detect()` almost twice ([see PR](https://github.com/greyblake/whatlang-rs/pull/108))
+
 ### v0.13.0 - 2022-01-02
 * [breaking] - Support of Tagalog (`Tgl`)
 * Rename `whatlang::Error` -> `whatlang::ParseError`
