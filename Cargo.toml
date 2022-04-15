@@ -18,9 +18,6 @@ include = [
     "README.md"
 ]
 
-[badges]
-github-actions = { repository = "greyblake/whatlang-rs", workflow = "CI", branch = "master" }
-
 [dependencies]
 hashbrown = "0.12.0"
 once_cell = "1.10.0"
