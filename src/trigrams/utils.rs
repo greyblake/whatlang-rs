@@ -12,6 +12,7 @@ pub struct TrigramsWithPositions {
     pub(crate) trigram_positions: HashMap<Trigram, u32>,
 }
 
+#[inline]
 pub fn get_trigrams_with_positions(text: &LowercaseText) -> TrigramsWithPositions {
     let CountResult {
         total_trigrams,
@@ -24,6 +25,7 @@ pub fn get_trigrams_with_positions(text: &LowercaseText) -> TrigramsWithPosition
     }
 }
 
+#[inline]
 #[allow(clippy::unnecessary_sort_by)]
 fn trigram_occurances_to_positions(
     trigram_occurances: HashMap<Trigram, u32>,
@@ -48,6 +50,7 @@ struct CountResult {
     trigram_occurances: HashMap<Trigram, u32>,
 }
 
+#[inline]
 fn count(text: &LowercaseText) -> CountResult {
     let hash_capacity = calculate_initial_hash_capacity(text);
     let mut trigram_occurances: HashMap<Trigram, u32> = HashMap::with_capacity(hash_capacity);
@@ -92,6 +95,7 @@ fn to_trigram_char(ch: char) -> char {
 
 // In order to improve performance, define the initial capacity for trigrams hash map,
 // based on the size of the input text.
+#[inline]
 fn calculate_initial_hash_capacity(text: &str) -> usize {
     let len = text.len();
     if len > MAX_INITIAL_HASH_CAPACITY {

@@ -15,6 +15,7 @@ pub struct RawOutcome {
     pub scores: Vec<(Lang, f64)>,
 }
 
+#[inline]
 pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);
     let RawOutcome {
@@ -40,6 +41,7 @@ pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     })
 }
 
+#[inline]
 pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     let lang_profile_list = script_to_lang_profile_list(iquery.multi_lang_script);
     calculate_scores_in_profiles(&iquery.text, iquery.filter_list, lang_profile_list)
@@ -56,6 +58,7 @@ fn script_to_lang_profile_list(script: MultiLangScript) -> LangProfileList {
     }
 }
 
+#[inline]
 fn calculate_scores_in_profiles(
     text: &Text,
     filter_list: &FilterList,
@@ -93,6 +96,7 @@ fn calculate_scores_in_profiles(
     }
 }
 
+#[inline]
 fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigram, u32>) -> u32 {
     let mut total_dist = 0u32;
 
@@ -114,6 +118,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
     total_dist.clamp(0, MAX_TOTAL_DISTANCE)
 }
 
+#[inline]
 fn distance_to_raw_score(distance: u32, max_distance: u32) -> f64 {
     let similarity = max_distance - distance;
     similarity as f64 / max_distance as f64
