@@ -30,7 +30,7 @@
 
 
 ## Features
-* Supports [78 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* Supports [68 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
 * Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
@@ -42,7 +42,7 @@ Add to you `Cargo.toml`:
 ```
 [dependencies]
 
-whatlang = "0.12.0"
+whatlang = "0.14.0"
 ```
 
 Example:
@@ -104,7 +104,7 @@ cargo bench
 |                           | Whatlang   | CLD2        | CLD3           |
 | ------------------------- | ---------- | ----------- | -------------- |
 | Implementation language   | Rust       | C++         | C++            |
-| Languages                 | 87         | 83          | 107            |
+| Languages                 | 68         | 83          | 107            |
 | Algorithm                 | trigrams   | quadgrams   | neural network |
 | Supported Encoding        | UTF-8      | UTF-8       | ?              |
 | HTML support              | no         | yes         | ?              |
@@ -139,3 +139,5 @@ Our NEAR wallet address is `whatlang.near`
 - [BaptisteGelez](https://github.com/BaptisteGelez) Baptiste Gelez - improvements
 - [Vishesh Chopra](https://github.com/KarmicKonquest) - designed the logo
 - [Joel Natividad](https://github.com/jqnatividad) - support of Tagalog
+- [ManyTheFish](https://github.com/ManyTheFish) - crazy optimization
+- [Kerollmops](https://github.com/Kerollmops) Clément Renault - crazy optimization
