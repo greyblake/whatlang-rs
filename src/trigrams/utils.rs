@@ -35,7 +35,7 @@ fn trigram_occurances_to_positions(
         .into_iter()
         .map(|(trigram, count)| (count, trigram))
         .collect();
-    count_vec.sort_by(|a, b| b.cmp(a));
+    count_vec.sort_unstable_by(|a, b| b.cmp(a));
 
     count_vec
         .into_iter()
