@@ -77,11 +77,11 @@ impl Script {
     ///     println!("{}", script);
     /// }
     /// ```
-    pub fn all() -> &'static [Script] {
+    pub const fn all() -> &'static [Script] {
         &VALUES
     }
 
-    pub fn name(&self) -> &str {
+    pub const fn name(&self) -> &'static str {
         match *self {
             Script::Latin => "Latin",
             Script::Cyrillic => "Cyrillic",
@@ -110,7 +110,7 @@ impl Script {
         }
     }
 
-    pub fn langs(&self) -> &[Lang] {
+    pub const fn langs(&self) -> &'static [Lang] {
         lang_mapping::script_langs(*self)
     }
 }

@@ -364,7 +364,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     }
 }
 
-fn lang_to_code(lang: Lang) -> &'static str {
+const fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "epo",
         Lang::Eng => "eng",
@@ -437,7 +437,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
     }
 }
 
-fn lang_to_name(lang: Lang) -> &'static str {
+const fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "Esperanto",
         Lang::Eng => "English",
@@ -510,7 +510,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
     }
 }
 
-fn lang_to_eng_name(lang: Lang) -> &'static str {
+const fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         Lang::Epo => "Esperanto",
         Lang::Eng => "English",
@@ -602,7 +602,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.code(), "ukr");
     /// ```
-    pub fn code(&self) -> &'static str {
+    pub const fn code(&self) -> &'static str {
         lang_to_code(*self)
     }
 
@@ -613,7 +613,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.name(), "Українська");
     /// ```
-    pub fn name(self) -> &'static str {
+    pub const fn name(self) -> &'static str {
         lang_to_name(self)
     }
 
@@ -624,7 +624,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Deu.eng_name(), "German");
     /// ```
-    pub fn eng_name(self) -> &'static str {
+    pub const fn eng_name(self) -> &'static str {
         lang_to_eng_name(self)
     }
 

@@ -5,7 +5,7 @@
 use std::fmt;
 use std::str::FromStr;
 
-use crate::error::Error;
+use crate::error::ParseError;
 
 #[cfg(feature = "enum-map")]
 use enum_map::Enum;
@@ -35,21 +35,21 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
     }
 }
 
-fn lang_to_code(lang: Lang) -> &'static str {
+const fn lang_to_code(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
         Lang::<%= lang.code.capitalize %> => "<%= lang.code %>",<% end %>
     }
 }
 
-fn lang_to_name(lang: Lang) -> &'static str {
+const fn lang_to_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
         Lang::<%= lang.code.capitalize %> => "<%= lang.name %>",<% end %>
     }
 }
 
-fn lang_to_eng_name(lang: Lang) -> &'static str {
+const fn lang_to_eng_name(lang: Lang) -> &'static str {
     match lang {
         <% langs.each do |lang| %>
         Lang::<%= lang.code.capitalize %> => "<%= lang.eng_name %>",<% end %>
@@ -75,7 +75,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.code(), "ukr");
     /// ```
-    pub fn code(&self) -> &'static str {
+    pub const fn code(&self) -> &'static str {
         lang_to_code(*self)
     }
 
@@ -86,7 +86,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Ukr.name(), "Українська");
     /// ```
-    pub fn name(self) -> &'static str {
+    pub const fn name(self) -> &'static str {
         lang_to_name(self)
     }
 
@@ -97,7 +97,7 @@ impl Lang {
     /// use whatlang::Lang;
     /// assert_eq!(Lang::Deu.eng_name(), "German");
     /// ```
-    pub fn eng_name(self) -> &'static str {
+    pub const fn eng_name(self) -> &'static str {
         lang_to_eng_name(self)
     }
 
@@ -110,7 +110,7 @@ impl Lang {
     ///     println!("{}", lang);
     /// }
     /// ```
-    pub fn all() -> &'static [Lang] {
+    pub const fn all() -> &'static [Lang] {
         &VALUES
     }
 }
@@ -122,10 +122,10 @@ impl fmt::Display for Lang {
 }
 
 impl FromStr for Lang {
-    type Err = Error;
+    type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Lang::from_code(s).ok_or_else(|| Error::ParseLang(s.to_string()))
+        Lang::from_code(s).ok_or_else(|| ParseError::Lang(s.to_string()))
     }
 }
 
@@ -181,7 +181,7 @@ mod tests {
         assert!(
             matches!(
                 result,
-                Err(Error::ParseLang(_))
+                Err(ParseError::Lang(_))
             )
         );
     }

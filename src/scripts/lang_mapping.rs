@@ -51,7 +51,7 @@ const ARABIC_LANGS: [Lang; 3] = [Lang::Ara, Lang::Urd, Lang::Pes];
 const DEVANAGARI_LANGS: [Lang; 3] = [Lang::Hin, Lang::Mar, Lang::Nep];
 const HEBREW_LANGS: [Lang; 2] = [Lang::Heb, Lang::Yid];
 
-pub fn script_langs(script: Script) -> &'static [Lang] {
+pub const fn script_langs(script: Script) -> &'static [Lang] {
     match script {
         Script::Latin => &LATIN_LANGS,
         Script::Cyrillic => &CYRILLIC_LANGS,
