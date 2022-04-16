@@ -86,7 +86,7 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
 ];
 
 /// Inverted map binding a character to a set of languages.
-pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
+static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
     let mut map = HashMap::new();
 
     for (lang, alphabet) in LATIN_ALPHABETS {
