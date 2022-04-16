@@ -637,7 +637,7 @@ impl Lang {
     ///     println!("{}", lang);
     /// }
     /// ```
-    pub fn all() -> &'static [Lang] {
+    pub const fn all() -> &'static [Lang] {
         &VALUES
     }
 }
