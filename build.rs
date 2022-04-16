@@ -84,7 +84,6 @@ const LATIN_ALPHABETS: &[(&str, &str)] = &[
 
 fn main() {
     // Build latin lookup table
-
     let mut map = HashMap::new();
 
     for (lang, alphabet) in LATIN_ALPHABETS {

@@ -59,7 +59,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 
     raw_scores.sort_unstable_by_key(|(_, score)| Reverse(*score));
 
-    let mut normalized_scores = vec![];
+    let mut normalized_scores = Vec::with_capacity(raw_scores.len());
 
     for &(lang, raw_score) in raw_scores.iter() {
         let normalized_score = raw_score as f64 / max_raw_score as f64;
