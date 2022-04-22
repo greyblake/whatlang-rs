@@ -1,3 +1,6 @@
+## Unreleased
+* Update enum-map dependency to version 2
+
 ### v0.14.0 - 2022-04-15
 * Improve performance of `detect()` almost twice ([see PR](https://github.com/greyblake/whatlang-rs/pull/108))
 
