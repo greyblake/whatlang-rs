@@ -4,102 +4,23 @@ use std::collections::HashMap;
 use once_cell::sync::Lazy;
 
 use super::RawOutcome;
+use crate::alphabets::generic::{get_all_chars_in_langs, get_lang_chars, is_relevant_for_langs};
 use crate::core::{FilterList, LowercaseText};
-use crate::utils::is_stop_char;
 use crate::{Lang, Script};
-
-const AFR: &str = "abcdefghijklmnopqrstuvwxyzáèéêëíîïóôúû";
-const AKA: &str = "abdefghiklmnoprstuwyɔɛ";
-const AZE: &str = "abcdefghijklmnopqrstuvxyzçöüğışə̇";
-const CAT: &str = "abcdefghijklmnopqrstuvwxyz·àçèéíïòóúü";
-const CES: &str = "abcdefghijklmnopqrstuvwxyzáéóúýčďěňřšťůž";
-const DAN: &str = "abcdefghijklmnopqrstuvwxyzåæø";
-const DEU: &str = "abcdefghijklmnopqrstuvwxyzßäöü";
-const ENG: &str = "abcdefghijklmnopqrstuvwxyz";
-const EPO: &str = "abcdefghijklmnoprstuvzĉĝĥĵŝŭ";
-const EST: &str = "abcdefghijklmnopqrstuvwxyzäõöü";
-const FIN: &str = "abcdefghijklmnopqrstuvwxyzäöšž";
-const FRA: &str = "abcdefghijklmnopqrstuvwxyzàâçèéêëîïôùûüÿœ";
-const HRV: &str = "abcdefghijklmnopqrstuvwxyzćčđšž";
-const HUN: &str = "abcdefghijklmnopqrstuvwxyzáéíóöúüőű";
-const IND: &str = "abcdefghijklmnopqrstuvwxyz";
-const ITA: &str = "abcdefghijklmnopqrstuvwxyzàèéìòù";
-const JAV: &str = "abcdefghijklmnopqrstuvwxyzèé";
-const LAT: &str = "abcdefghijklmnopqrstuvwxyz";
-const LAV: &str = "abcdefghijklmnopqrstuvwxyzāčēģīķļņōŗšūž";
-const LIT: &str = "abcdefghijklmnopqrstuvwxyząčėęįšūųž";
-const NLD: &str = "abcdefghijklmnopqrstuvwxyzàèéëïĳ";
-const NOB: &str = "abcdefghijklmnopqrstuvwxyzåæø";
-const POL: &str = "abcdefghijklmnopqrstuvwxyzóąćęłńśźż";
-const POR: &str = "abcdefghijklmnopqrstuvwxyzàáâãçéêíóôõú";
-const RON: &str = "abcdefghijklmnopqrstuvwxyzâîăşţ";
-const SLK: &str = "abcdefghijklmnopqrstuvwxyzáäéíóôúýčďĺľňŕšťž";
-const SLV: &str = "abcdefghijklmnopqrstuvwxyzčšž";
-const SNA: &str = "abcdefghijklmnopqrstuvwxyz";
-const SPA: &str = "abcdefghijklmnopqrstuvwxyz¡¿áéíñóúü";
-const SWE: &str = "abcdefghijklmnopqrstuvwxyzäåö";
-const TGL: &str = "abcdefghijklmnopqrstuvwxyzáéíñóú";
-const TUK: &str = "abdefghijklmnoprstuwyzäçöüýňşž";
-const TUR: &str = "abcdefghijklmnopqrstuvwxyzçöüğış̇";
-const UZB: &str = "abcdefghijklmnopqrstuvxyzʻ";
-const VIE: &str =
-    "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
-const ZUL: &str = "abcdefghijklmnopqrstuvwxyz";
-
-const LATIN_ALPHABETS: &[(Lang, &str)] = &[
-    (Lang::Afr, AFR),
-    (Lang::Aka, AKA),
-    (Lang::Aze, AZE),
-    (Lang::Cat, CAT),
-    (Lang::Ces, CES),
-    (Lang::Dan, DAN),
-    (Lang::Deu, DEU),
-    (Lang::Eng, ENG),
-    (Lang::Epo, EPO),
-    (Lang::Est, EST),
-    (Lang::Fin, FIN),
-    (Lang::Fra, FRA),
-    (Lang::Hrv, HRV),
-    (Lang::Hun, HUN),
-    (Lang::Ind, IND),
-    (Lang::Ita, ITA),
-    (Lang::Jav, JAV),
-    (Lang::Lat, LAT),
-    (Lang::Lav, LAV),
-    (Lang::Lit, LIT),
-    (Lang::Nld, NLD),
-    (Lang::Nob, NOB),
-    (Lang::Pol, POL),
-    (Lang::Por, POR),
-    (Lang::Ron, RON),
-    (Lang::Slk, SLK),
-    (Lang::Slv, SLV),
-    (Lang::Sna, SNA),
-    (Lang::Spa, SPA),
-    (Lang::Swe, SWE),
-    (Lang::Tgl, TGL),
-    (Lang::Tuk, TUK),
-    (Lang::Tur, TUR),
-    (Lang::Uzb, UZB),
-    (Lang::Vie, VIE),
-    (Lang::Zul, ZUL),
-];
 
 /// Inverted map binding a character to a set of languages.
 pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
-    let latin_alphabets = Script::Latin.langs();
+    let all_langs = Script::Latin.langs();
 
     let mut map = HashMap::new();
-
-    for (lang, alphabet) in LATIN_ALPHABETS {
-        for c in alphabet.chars() {
-            let entry = map.entry(c).or_insert_with(Vec::new);
+    for lang in all_langs {
+        let alphabet = get_lang_chars(&lang);
+        for c in alphabet.iter() {
+            let entry = map.entry(*c).or_insert_with(Vec::new);
             entry.push(*lang);
         }
     }
-
     let mut char_lang: Vec<_> = map.into_iter().collect();
-
     char_lang.sort_unstable_by_key(|(c, _)| *c);
 
     let mut chars = Vec::with_capacity(char_lang.len());
@@ -113,15 +34,17 @@ pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
 });
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
+    let all_langs = Script::Latin.langs();
+    let all_chars_in_langs = get_all_chars_in_langs(all_langs);
+
     let (chars, langs) = &*ALPHABET_LANG_MAP;
-    let latin_alphabets = Script::Latin.langs();
 
     // score of each character.
     let mut char_scores = vec![0; chars.len()];
     let mut max_raw_score = 0;
     // iterate over the text and scores characters.
     for ch in text.chars() {
-        if is_stop_char(ch) {
+        if !is_relevant_for_langs(&ch, &all_chars_in_langs) {
             continue;
         }
 
@@ -143,7 +66,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
             let languages = &langs[position];
             // if current character is common to all Languages, increment a common score
             // instead of iterating over all Languages scores.
-            if languages.len() == latin_alphabets.len() {
+            if languages.len() == all_langs.len() {
                 common_score += char_score;
             } else {
                 for &lang in languages {
@@ -154,7 +77,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
     }
 
     // remap languages with theirs scores.
-    let mut raw_scores: Vec<(Lang, usize)> = latin_alphabets
+    let mut raw_scores: Vec<(Lang, usize)> = all_langs
         .iter()
         .filter(|&&l| filter_list.is_allowed(l))
         .map(|&l| {
