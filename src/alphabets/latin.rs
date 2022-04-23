@@ -9,9 +9,7 @@ use crate::core::{FilterList, LowercaseText};
 use crate::{Lang, Script};
 
 /// Inverted map binding a character to a set of languages.
-pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
-    let all_langs = Script::Latin.langs();
-
+pub fn get_alphabet_lang_map(all_langs: &[Lang]) -> (Vec<char>, Vec<Vec<Lang>>) {
     let mut map = HashMap::new();
     for lang in all_langs {
         let alphabet = get_lang_chars(&lang);
@@ -31,13 +29,14 @@ pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
     }
 
     (chars, langs)
-});
+}
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let all_langs = Script::Latin.langs();
     let all_chars_in_langs = get_all_chars_in_langs(all_langs);
 
-    let (chars, langs) = &*ALPHABET_LANG_MAP;
+    // let (chars, langs) = &*ALPHABET_LANG_MAP;
+    let (chars, langs) = get_alphabet_lang_map(all_langs);
 
     // score of each character.
     let mut char_scores = vec![0; chars.len()];
