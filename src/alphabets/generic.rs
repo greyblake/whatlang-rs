@@ -49,7 +49,7 @@ const VIE: &str =
     "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
 const ZUL: &str = "abcdefghijklmnopqrstuvwxyz";
 
-pub fn get_lang_chars(lang: Lang) -> Vec<char> {
+pub fn get_lang_chars(lang: &Lang) -> Vec<char> {
     let alphabet = match lang {
         Lang::Bul => BUL,
         Lang::Rus => RUS,
@@ -101,7 +101,7 @@ pub fn get_lang_chars(lang: Lang) -> Vec<char> {
 pub fn get_all_chars_in_langs(langs: &[Lang]) -> HashSet<char> {
     langs
         .iter()
-        .flat_map(|&lang| get_lang_chars(lang))
+        .flat_map(|&lang| get_lang_chars(&lang))
         .collect()
 }
 
@@ -116,8 +116,8 @@ mod tests {
 
     #[test]
     fn test_get_lang_chars() {
-        assert_eq!(get_lang_chars(Lang::Bul).len(), 30);
-        assert_eq!(get_lang_chars(Lang::Rus).len(), 33);
+        assert_eq!(get_lang_chars(&Lang::Bul).len(), 30);
+        assert_eq!(get_lang_chars(&Lang::Rus).len(), 33);
         //     TODO: finish tests
     }
 
@@ -161,7 +161,7 @@ pub fn alphabet_calculate_scores_generic(
         .count();
 
     for (lang, score) in &mut raw_scores {
-        let alphabet = get_lang_chars(*lang);
+        let alphabet = get_lang_chars(lang);
 
         for ch in text.chars() {
             // if !is_relevant(ch) {
