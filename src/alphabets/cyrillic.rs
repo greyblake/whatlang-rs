@@ -5,7 +5,7 @@ use crate::Script;
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let all_langs = Script::Cyrillic.langs();
-    generic::alphabet_calculate_scores_generic_slow(text, filter_list, all_langs)
+    generic::alphabet_calculate_scores_generic(text, filter_list, all_langs)
 }
 
 #[cfg(test)]
