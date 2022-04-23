@@ -87,6 +87,8 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
 
 /// Inverted map binding a character to a set of languages.
 pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
+    let latin_alphabets = Script::Latin.langs();
+
     let mut map = HashMap::new();
 
     for (lang, alphabet) in LATIN_ALPHABETS {
@@ -112,6 +114,7 @@ pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> = Lazy::new(|| {
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     let (chars, langs) = &*ALPHABET_LANG_MAP;
+    let latin_alphabets = Script::Latin.langs();
 
     // score of each character.
     let mut char_scores = vec![0; chars.len()];
@@ -140,7 +143,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
             let languages = &langs[position];
             // if current character is common to all Languages, increment a common score
             // instead of iterating over all Languages scores.
-            if languages.len() == LATIN_ALPHABETS.len() {
+            if languages.len() == latin_alphabets.len() {
                 common_score += char_score;
             } else {
                 for &lang in languages {
@@ -151,8 +154,7 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
     }
 
     // remap languages with theirs scores.
-    let mut raw_scores: Vec<(Lang, usize)> = Script::Latin
-        .langs()
+    let mut raw_scores: Vec<(Lang, usize)> = latin_alphabets
         .iter()
         .filter(|&&l| filter_list.is_allowed(l))
         .map(|&l| {
@@ -166,7 +168,11 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
     let mut normalized_scores = vec![];
 
     for &(lang, raw_score) in raw_scores.iter() {
-        let normalized_score = raw_score as f64 / max_raw_score as f64;
+        let normalized_score = if raw_score == 0 {
+            0.0
+        } else {
+            raw_score as f64 / max_raw_score as f64
+        };
         normalized_scores.push((lang, normalized_score));
     }
 
