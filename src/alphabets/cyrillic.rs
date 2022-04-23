@@ -1,6 +1,7 @@
 use std::cmp::Reverse;
 
 use super::RawOutcome;
+use crate::alphabets::generic::{get_all_chars_in_langs, get_lang_chars, is_relevant_for_langs};
 use crate::core::{FilterList, LowercaseText};
 use crate::{Lang, Script};
 
@@ -21,13 +22,21 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
         .map(|&l| (l, 0i32))
         .collect();
 
-    let max_raw_score = text.chars().filter(|&ch| is_relevant(ch)).count();
+    let all_langs = Script::Cyrillic.langs();
+    let all_chars_in_langs = get_all_chars_in_langs(all_langs);
+
+    // let max_raw_score = text.chars().filter(|&ch| is_relevant(ch)).count();
+    let max_raw_score = text
+        .chars()
+        .filter(|&ch| is_relevant_for_langs(&ch, &all_chars_in_langs))
+        .count();
 
     for (lang, score) in &mut raw_scores {
         let alphabet = get_lang_chars(*lang);
 
         for ch in text.chars() {
-            if !is_relevant(ch) {
+            // if !is_relevant(ch) {
+            if !is_relevant_for_langs(&ch, &all_chars_in_langs) {
                 continue;
             } else if alphabet.contains(&ch) {
                 *score += 1;
@@ -66,23 +75,23 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
     }
 }
 
-fn is_relevant(ch: char) -> bool {
-    ALL.chars().any(|c| c == ch)
-}
-
-fn get_lang_chars(lang: Lang) -> Vec<char> {
-    let alphabet = match lang {
-        Lang::Bul => BUL,
-        Lang::Rus => RUS,
-        Lang::Ukr => UKR,
-        Lang::Bel => BEL,
-        Lang::Srp => SRP,
-        Lang::Mkd => MKD,
-
-        _ => panic!("No alphabet for {}", lang),
-    };
-    alphabet.chars().collect()
-}
+// fn is_relevant(ch: char) -> bool {
+//     ALL.chars().any(|c| c == ch)
+// }
+//
+// fn get_lang_chars(lang: Lang) -> Vec<char> {
+//     let alphabet = match lang {
+//         Lang::Bul => BUL,
+//         Lang::Rus => RUS,
+//         Lang::Ukr => UKR,
+//         Lang::Bel => BEL,
+//         Lang::Srp => SRP,
+//         Lang::Mkd => MKD,
+//
+//         _ => panic!("No alphabet for {}", lang),
+//     };
+//     alphabet.chars().collect()
+// }
 
 #[cfg(test)]
 mod tests {

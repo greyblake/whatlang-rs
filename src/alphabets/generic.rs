@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use crate::Lang;
+use std::collections::HashSet;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -46,7 +46,7 @@ const VIE: &str =
     "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
 const ZUL: &str = "abcdefghijklmnopqrstuvwxyz";
 
-fn get_lang_chars(lang: Lang) -> Vec<char> {
+pub fn get_lang_chars(lang: Lang) -> Vec<char> {
     let alphabet = match lang {
         Lang::Bul => BUL,
         Lang::Rus => RUS,
@@ -95,19 +95,21 @@ fn get_lang_chars(lang: Lang) -> Vec<char> {
     alphabet.chars().collect()
 }
 
-pub fn get_all_chars_in_langs(langs: Vec<Lang>) -> HashSet<char> {
-    langs.iter().flat_map(|&lang| get_lang_chars(lang)).collect()
+pub fn get_all_chars_in_langs(langs: &[Lang]) -> HashSet<char> {
+    langs
+        .iter()
+        .flat_map(|&lang| get_lang_chars(lang))
+        .collect()
 }
 
 pub fn is_relevant_for_langs(ch: &char, chars: &HashSet<char>) -> bool {
     chars.contains(ch)
 }
 
-
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn test_get_lang_chars() {
@@ -118,8 +120,14 @@ mod tests {
 
     #[test]
     fn test_get_all_chars_in_langs() {
-        assert_eq!(get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus]).len(), 33);
-        assert_eq!(get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus, Lang::Ukr]).len(), 37);
+        assert_eq!(
+            get_all_chars_in_langs(&vec![Lang::Bul, Lang::Rus]).len(),
+            33
+        );
+        assert_eq!(
+            get_all_chars_in_langs(&vec![Lang::Bul, Lang::Rus, Lang::Ukr]).len(),
+            37
+        );
         // TODO: finish tests
     }
 
