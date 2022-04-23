@@ -1,4 +1,4 @@
-use hashbrown::HashSet;
+use std::collections::HashSet;
 use crate::Lang;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
@@ -99,23 +99,34 @@ pub fn get_all_chars_in_langs(langs: Vec<Lang>) -> HashSet<char> {
     langs.iter().flat_map(|&lang| get_lang_chars(lang)).collect()
 }
 
+pub fn is_relevant_for_langs(ch: &char, chars: &HashSet<char>) -> bool {
+    chars.contains(ch)
+}
+
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashSet;
     use super::*;
 
     #[test]
     fn test_get_lang_chars() {
-
-        assert_eq!( get_lang_chars(Lang::Bul).len() , 30);
-        assert_eq!( get_lang_chars(Lang::Rus).len() , 33);
-    //     TODO: finish tests
+        assert_eq!(get_lang_chars(Lang::Bul).len(), 30);
+        assert_eq!(get_lang_chars(Lang::Rus).len(), 33);
+        //     TODO: finish tests
     }
 
     #[test]
     fn test_get_all_chars_in_langs() {
-        assert_eq!( get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus]).len() , 33);
-        assert_eq!( get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus, Lang::Ukr]).len() , 37);
+        assert_eq!(get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus]).len(), 33);
+        assert_eq!(get_all_chars_in_langs(vec![Lang::Bul, Lang::Rus, Lang::Ukr]).len(), 37);
         // TODO: finish tests
+    }
+
+    #[test]
+    fn test_is_relevant_for_langs() {
+        let chars: HashSet<char> = vec!['a', 'b'].into_iter().collect();
+        assert_eq!(is_relevant_for_langs(&'a', &chars), true);
+        assert_eq!(is_relevant_for_langs(&'c', &chars), false);
     }
 }
