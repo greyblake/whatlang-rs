@@ -1,4 +1,7 @@
+use crate::alphabets::RawOutcome;
+use crate::core::{FilterList, LowercaseText};
 use crate::Lang;
+use std::cmp::Reverse;
 use std::collections::HashSet;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
@@ -136,5 +139,67 @@ mod tests {
         let chars: HashSet<char> = vec!['a', 'b'].into_iter().collect();
         assert_eq!(is_relevant_for_langs(&'a', &chars), true);
         assert_eq!(is_relevant_for_langs(&'c', &chars), false);
+    }
+}
+
+pub fn alphabet_calculate_scores_generic(
+    text: &LowercaseText,
+    filter_list: &FilterList,
+    all_langs: &[Lang],
+) -> RawOutcome {
+    let all_chars_in_langs = get_all_chars_in_langs(all_langs);
+
+    let mut raw_scores: Vec<(Lang, i32)> = all_langs
+        .iter()
+        .filter(|&&l| filter_list.is_allowed(l))
+        .map(|&l| (l, 0i32))
+        .collect();
+
+    let max_raw_score = text
+        .chars()
+        .filter(|&ch| is_relevant_for_langs(&ch, &all_chars_in_langs))
+        .count();
+
+    for (lang, score) in &mut raw_scores {
+        let alphabet = get_lang_chars(*lang);
+
+        for ch in text.chars() {
+            // if !is_relevant(ch) {
+            if !is_relevant_for_langs(&ch, &all_chars_in_langs) {
+                continue;
+            } else if alphabet.contains(&ch) {
+                *score += 1;
+            } else {
+                *score -= 1;
+            }
+        }
+    }
+
+    raw_scores.sort_unstable_by_key(|(_, score)| Reverse(*score));
+
+    let raw_scores: Vec<(Lang, usize)> = raw_scores
+        .into_iter()
+        .map(|(l, s)| {
+            let score = if s < 0 { 0usize } else { s as usize };
+            (l, score)
+        })
+        .collect();
+
+    let mut normalized_scores = vec![];
+
+    for &(lang, raw_score) in &raw_scores {
+        // avoid devision by zero
+        let normalized_score = if raw_score == 0 {
+            0.0
+        } else {
+            raw_score as f64 / max_raw_score as f64
+        };
+        normalized_scores.push((lang, normalized_score));
+    }
+
+    RawOutcome {
+        count: max_raw_score,
+        raw_scores,
+        scores: normalized_scores,
     }
 }
