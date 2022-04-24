@@ -1,3 +1,4 @@
+pub(crate) mod common;
 pub(crate) mod cyrillic;
 pub(crate) mod detection;
 pub(crate) mod latin;
