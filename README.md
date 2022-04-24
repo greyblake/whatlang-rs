@@ -96,7 +96,7 @@ For more details, please check a blog article [Introduction to Rust Whatlang Lib
 This is mostly useful to test performance optimizations.
 
 ```
-cargo bench
+cargo bench --all-features
 ```
 
 ## Comparison with alternatives
