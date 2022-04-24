@@ -181,6 +181,65 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 mod tests {
     use super::*;
 
+    // Old naive implementation, that is not very effective but easy to understand
+    fn naive_alphabet_calculate_scores(
+        text: &LowercaseText,
+        filter_list: &FilterList,
+    ) -> RawOutcome {
+        let mut raw_scores: Vec<(Lang, i32)> = Script::Latin
+            .langs()
+            .iter()
+            .filter(|&&l| filter_list.is_allowed(l))
+            .map(|&l| (l, 0i32))
+            .collect();
+
+        let max_raw_score = text.chars().filter(|&ch| !is_stop_char(ch)).count();
+
+        for (lang, score) in &mut raw_scores {
+            let alphabet: Vec<char> = LATIN_ALPHABETS
+                .iter()
+                .find(|(l, _)| l == lang)
+                .unwrap()
+                .1
+                .chars()
+                .collect();
+
+            for ch in text.chars() {
+                if is_stop_char(ch) {
+                    continue;
+                };
+                if alphabet.contains(&ch) {
+                    *score += 1;
+                } else {
+                    *score -= 1;
+                }
+            }
+        }
+
+        raw_scores.sort_by(|a, b| b.1.cmp(&a.1));
+
+        let raw_scores: Vec<(Lang, usize)> = raw_scores
+            .into_iter()
+            .map(|(l, s)| {
+                let score = if s < 0 { 0usize } else { s as usize };
+                (l, score)
+            })
+            .collect();
+
+        let mut normalized_scores = vec![];
+
+        for &(lang, raw_score) in &raw_scores {
+            let normalized_score = raw_score as f64 / max_raw_score as f64;
+            normalized_scores.push((lang, normalized_score));
+        }
+
+        RawOutcome {
+            count: max_raw_score,
+            raw_scores,
+            scores: normalized_scores,
+        }
+    }
+
     #[test]
     fn test_alphabet_calculate_scores_against_harmaja_hauras() {
         let text =
@@ -209,5 +268,55 @@ mod tests {
         assert_eq!(scores_for(Lang::Fin), 1.0);
         assert_eq!(scores_for(Lang::Deu), 1.0);
         assert_eq!(scores_for(Lang::Epo), 0.84);
+    }
+
+    #[test]
+    fn test_works_as_the_old_naive_implementation() {
+        let filter = FilterList::All;
+        let texts = [
+            "Tyrkiske språk eller turkotatariske språk er en språkgruppe bestående av minst 35 språk",
+            "René Descartes est un mathématicien, physicien et philosophe français, né le 31 mars 1596 à La Haye-en-Touraine",
+            "Die Sonne scheint in das Büro der Grabdenkmalsfirma Heinrich Kroll & Söhne. Es ist April 923, und das Geschäf geht gut.",
+        ];
+
+        for text in texts {
+            let lowercase_text = LowercaseText::new(text);
+            let outcome = alphabet_calculate_scores(&lowercase_text, &filter);
+            let naive_outcome = naive_alphabet_calculate_scores(&lowercase_text, &filter);
+
+            // We can just compare outcome against naive_outcome, because ordering maybe different,
+            // what is acceptable.
+            assert_eq!(
+                outcome.count, naive_outcome.count,
+                "count failed. Text: {}",
+                text
+            );
+            for (lang, raw_naive_score) in naive_outcome.raw_scores.into_iter() {
+                let lookup_raw_score = |lang| {
+                    outcome
+                        .raw_scores
+                        .iter()
+                        .find(|(l, _)| *l == lang)
+                        .unwrap()
+                        .1
+                };
+                let raw_score = lookup_raw_score(lang);
+                assert_eq!(
+                    raw_score, raw_naive_score,
+                    "raw_score VS raw_naive_score failed. Lang={}, Text: {}",
+                    lang, text
+                );
+            }
+            for (lang, naive_score) in naive_outcome.scores.into_iter() {
+                let lookup_score =
+                    |lang| outcome.scores.iter().find(|(l, _)| *l == lang).unwrap().1;
+                let score = lookup_score(lang);
+                assert_eq!(
+                    score, naive_score,
+                    "score VS naive_score failed. Lang={}, Text: {}",
+                    lang, text
+                );
+            }
+        }
     }
 }
