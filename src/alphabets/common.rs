@@ -1,8 +1,9 @@
+//! It's a hard-core optimized implementation of a relatively simple algorithm.
+//! The explanation of the algorithm can be found in the parent module [crate::alphabets].
+
 use std::cmp::Reverse;
 use std::collections::HashMap;
-
 use once_cell::sync::Lazy;
-
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
