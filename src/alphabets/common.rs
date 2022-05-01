@@ -1,13 +1,13 @@
 //! It's a hard-core optimized implementation of a relatively simple algorithm.
 //! The explanation of the algorithm can be found in the parent module [crate::alphabets].
 
-use std::cmp::Reverse;
-use std::collections::HashMap;
-use once_cell::sync::Lazy;
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
 use crate::{Lang, Script};
+use once_cell::sync::Lazy;
+use std::cmp::Reverse;
+use std::collections::HashMap;
 
 /// Inverted map binding a character to a set of languages.
 pub fn build_inverted_map(alphabets: &[(Lang, &str)]) -> (Vec<char>, Vec<Vec<Lang>>) {

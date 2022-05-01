@@ -35,8 +35,8 @@ pub(crate) mod cyrillic;
 pub(crate) mod detection;
 pub(crate) mod latin;
 
-pub use detection::{detect, raw_detect};
 use crate::Lang;
+pub use detection::{detect, raw_detect};
 
 #[derive(Debug)]
 pub struct RawOutcome {
