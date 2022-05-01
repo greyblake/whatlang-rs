@@ -1,5 +1,6 @@
-## Unreleased
+### v0.15.0 - 2022-05-01
 * Update enum-map dependency to version 2
+* Optimize alphabet method for Cyrillic: almost 2x improved performance for Cyrillic languages and 7% for the average `detect()` benchmark.
 
 ### v0.14.0 - 2022-04-15
 * Improve performance of `detect()` almost twice ([see PR](https://github.com/greyblake/whatlang-rs/pull/108))
