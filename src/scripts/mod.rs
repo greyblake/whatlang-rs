@@ -1,3 +1,4 @@
+pub(crate) mod chars;
 mod detect;
 pub(crate) mod grouping;
 mod lang_mapping;

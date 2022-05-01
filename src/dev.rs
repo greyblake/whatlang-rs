@@ -9,9 +9,13 @@ pub use crate::lang::Lang;
 pub use crate::scripts::{detect_script, raw_detect_script, RawScriptInfo, Script};
 pub use crate::trigrams::{raw_detect as trigrams_raw_detect, RawOutcome as RawTrigramsInfo};
 
+pub use crate::alphabets::cyrillic::alphabet_calculate_scores as alphabet_cyrillic_calculate_scores;
+pub use crate::alphabets::latin::alphabet_calculate_scores as alphabet_latin_calculate_scores;
+pub use crate::core::{FilterList, LowercaseText};
+
 // private imports
 use crate::core::detect::detect_lang_base_on_mandarin_script;
-use crate::core::{FilterList, Query};
+use crate::core::Query;
 use crate::scripts::grouping::ScriptLangGroup;
 
 #[derive(Debug)]

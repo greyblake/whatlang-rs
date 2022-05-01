@@ -91,13 +91,12 @@ This function is a hyperbola and it looks like the following one:
 
 For more details, please check a blog article [Introduction to Rust Whatlang Library and Natural Language Identification Algorithms](https://www.greyblake.com/blog/2017-07-30-introduction-to-rust-whatlang-library-and-natural-language-identification-algorithms/).
 
-## Running benchmarks
+## Make tasks
 
-This is mostly useful to test performance optimizations.
-
-```
-cargo bench
-```
+* `make bench` - run performance benchmarks
+* `make doc` - generate and open doc
+* `make test` - run tests
+* `make watch` - watch changes and run tests
 
 ## Comparison with alternatives
 
