@@ -61,6 +61,7 @@ impl Script {
             Script::Sinhala => One(Lang::Sin),
             Script::Khmer => One(Lang::Khm),
             Script::Ethiopic => One(Lang::Amh),
+            Script::Armenian => One(Lang::Hye),
             Script::Katakana | Script::Hiragana => One(Lang::Jpn),
         }
     }

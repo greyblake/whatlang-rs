@@ -76,3 +76,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Slovak      | slk       | `Lang::Slk` |
 | Catalan     | cat       | `Lang::Cat` |
 | Tagalog     | tgl       | `Lang::Tgl` |
+| Armenian    | hye       | `Lang::Hye` |

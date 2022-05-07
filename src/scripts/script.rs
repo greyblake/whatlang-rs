@@ -14,6 +14,7 @@ use enum_map::Enum;
 pub enum Script {
     // Keep this in alphabetic order (for C bindings)
     Arabic,
+    Armenian,
     Bengali,
     Cyrillic,
     Devanagari,
@@ -40,8 +41,9 @@ pub enum Script {
 }
 
 // Array of all existing Script values.
-const VALUES: [Script; 24] = [
+const VALUES: [Script; 25] = [
     Script::Arabic,
+    Script::Armenian,
     Script::Bengali,
     Script::Cyrillic,
     Script::Devanagari,
@@ -107,6 +109,7 @@ impl Script {
             Script::Myanmar => "Myanmar",
             Script::Sinhala => "Sinhala",
             Script::Khmer => "Khmer",
+            Script::Armenian => "Armenian",
         }
     }
 
@@ -150,6 +153,7 @@ impl FromStr for Script {
             "myanmar" => Ok(Script::Myanmar),
             "sinhala" => Ok(Script::Sinhala),
             "khmer" => Ok(Script::Khmer),
+            "armenian" => Ok(Script::Armenian),
             _ => Err(ParseError::Script(s.to_string())),
         }
     }
@@ -161,7 +165,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Script::all().len(), 24);
+        assert_eq!(Script::all().len(), 25);
         let all = Script::all();
         assert!(all.contains(&Script::Cyrillic));
         assert!(all.contains(&Script::Arabic));
