@@ -162,6 +162,14 @@ pub(crate) fn is_khmer(ch: char) -> bool {
     matches!(ch, '\u{1780}'..='\u{17FF}' | '\u{19E0}'..='\u{19FF}')
 }
 
+// See:
+// * https://en.wikipedia.org/wiki/Armenian_alphabet
+// * https://www.unicode.org/charts/PDF/U0530.pdf
+// * https://www.unicode.org/charts/PDF/UFB00.pdf
+pub(crate) fn is_armenian(ch: char) -> bool {
+    matches!(ch, '\u{0530}'..='\u{058F}' | '\u{FB13}'..='\u{FB17}')
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -278,5 +286,15 @@ mod tests {
         assert_eq!(is_oriya('ଐ'), true);
         assert_eq!(is_oriya('୷'), true);
         assert_eq!(is_oriya('౿'), false);
+    }
+
+    #[test]
+    fn test_is_armenian() {
+        assert_eq!(is_armenian('რ'), false); // Georgian
+        assert_eq!(is_armenian('Ш'), false); // Cyrillic
+        assert_eq!(is_armenian('ա'), true);
+        assert_eq!(is_armenian('Ա'), true);
+        assert_eq!(is_armenian('Փ'), true);
+        assert_eq!(is_armenian('և'), true);
     }
 }

@@ -54,7 +54,7 @@ impl RawScriptInfo {
 }
 
 pub fn raw_detect_script(text: &str) -> RawScriptInfo {
-    let mut script_counters: [ScriptCounter; 24] = [
+    let mut script_counters: [ScriptCounter; 25] = [
         (Script::Latin, chars::is_latin, 0),
         (Script::Cyrillic, chars::is_cyrillic, 0),
         (Script::Arabic, chars::is_arabic, 0),
@@ -79,6 +79,7 @@ pub fn raw_detect_script(text: &str) -> RawScriptInfo {
         (Script::Myanmar, chars::is_myanmar, 0),
         (Script::Sinhala, chars::is_sinhala, 0),
         (Script::Khmer, chars::is_khmer, 0),
+        (Script::Armenian, chars::is_armenian, 0),
     ];
 
     for ch in text.chars() {

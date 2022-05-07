@@ -75,6 +75,7 @@ pub fn script_langs(script: Script) -> &'static [Lang] {
         Script::Sinhala => &[Lang::Sin],
         Script::Khmer => &[Lang::Khm],
         Script::Ethiopic => &[Lang::Amh],
+        Script::Armenian => &[Lang::Hye],
         Script::Katakana | Script::Hiragana => &[Lang::Jpn],
     }
 }
