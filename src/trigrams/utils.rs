@@ -1,4 +1,4 @@
-use hashbrown::HashMap;
+use std::collections::HashMap;
 
 use super::Trigram;
 use super::TEXT_TRIGRAMS_SIZE;

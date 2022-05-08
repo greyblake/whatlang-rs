@@ -1,4 +1,4 @@
-use hashbrown::HashMap;
+use std::collections::HashMap;
 
 use super::utils::{get_trigrams_with_positions, TrigramsWithPositions};
 use super::{LangProfile, LangProfileList};
