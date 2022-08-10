@@ -11,6 +11,8 @@
 <a href="https://docs.rs/whatlang" rel="nofollow"><img src="https://docs.rs/whatlang/badge.svg" alt="Documentation"></a>
 <p>
 
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua/)
+
 ## Content
 * [Features](#features)
 * [Get started](#get-started)
@@ -38,18 +40,9 @@
 
 ## Get started
 
-Add to you `Cargo.toml`:
-```
-[dependencies]
-
-whatlang = "0.15.0"
-```
-
 Example:
 
 ```rust
-extern crate whatlang;
-
 use whatlang::{detect, Lang, Script};
 
 fn main() {
