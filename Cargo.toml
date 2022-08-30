@@ -1,6 +1,6 @@
 [package]
 name = "whatlang"
-version = "0.16.0"
+version = "0.16.1"
 authors = ["Sergey Potapov <blake131313@gmail.com>"]
 edition = "2018"
 description = "Fast and lightweight language identification library for Rust."

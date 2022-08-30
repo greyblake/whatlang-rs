@@ -1,3 +1,6 @@
+### v0.16.1 - 2022-08-30
+* Fix bug in Czech alphabet (improved quality of Czech language detection)
+
 ### v0.16.0 - 2022-05-07
 * [breaking] Add Armenian script (`Script::Armenian`) and language (`Lang::Hye`)
 

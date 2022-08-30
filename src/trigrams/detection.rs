@@ -102,7 +102,7 @@ fn calculate_distance(lang_trigrams: LangProfile, text_trigrams: &HashMap<Trigra
 
     for (i, &trigram) in lang_trigrams.iter().enumerate() {
         let dist = match text_trigrams.get(&trigram) {
-            Some(&n) => (n as i32 - i as i32).abs() as u32,
+            Some(&n) => (n as i32 - i as i32).unsigned_abs(),
             None => MAX_TRIGRAM_DISTANCE,
         };
         total_dist += dist;
