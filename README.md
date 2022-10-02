@@ -16,6 +16,7 @@
 ## Content
 * [Features](#features)
 * [Get started](#get-started)
+* [Who uses Whatlang?](#who-uses-whatlang)
 * [Documentation](https://docs.rs/whatlang)
 * [Supported languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * [Feature toggles](#feature-toggles)
@@ -58,11 +59,20 @@ fn main() {
 
 For more details (e.g. how to blacklist some languages) please check the [documentation](https://docs.rs/whatlang).
 
+## Who uses Whatlang?
+
+Whatlang is used within the following big projects as direct or indirect dependency for language recognition.
+You're gonna be in a great company using Whatlang:
+
+* [Sonic](https://github.com/valeriansaliou/sonic) - fast, lightweight and schema-less search backend in Rust.
+* [Meilisearch](https://github.com/meilisearch) - an open-source, easy-to-use, blazingly fast, and hyper-relevant search engine built in Rust.
+
 ## Feature toggles
 
 | Feature    | Description                                                                           |
 |------------|---------------------------------------------------------------------------------------|
 | `enum-map` | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
+| `dev`      | Enables `whatlang::dev` module which provides some internal API.<br/> It exists for profiling purposes and normal users are discouraged to to rely on this API.  |
 
 ## How does it work?
 
