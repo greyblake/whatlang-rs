@@ -1,3 +1,6 @@
+### v0.16.2 - 2022-10-23
+* Support [Arbitrary](https://crates.io/crates/arbitrary)
+
 ### v0.16.1 - 2022-08-30
 * Fix bug in Czech alphabet (improved quality of Czech language detection)
 
