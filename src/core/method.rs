@@ -2,6 +2,7 @@ use crate::error::ParseError;
 use std::fmt;
 use std::str::FromStr;
 
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Method {
     Trigram,

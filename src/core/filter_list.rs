@@ -1,5 +1,6 @@
 use crate::Lang;
 
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(Debug, Clone)]
 pub enum FilterList {
     All,

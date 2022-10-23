@@ -7,11 +7,9 @@ use std::str::FromStr;
 
 use crate::error::ParseError;
 
-#[cfg(feature = "enum-map")]
-use enum_map::Enum;
-
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
-#[cfg_attr(feature = "enum-map", derive(Enum))]
+#[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
     <% langs.each_with_index do |lang, index| %>
