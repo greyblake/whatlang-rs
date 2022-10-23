@@ -74,11 +74,11 @@ pub(crate) fn detect_lang_base_on_mandarin_script(
     raw_script_info: &RawScriptInfo,
 ) -> Info {
     let (lang, confidence) = if query.filter_list.is_allowed(Lang::Cmn) {
-        let mandrin_count = raw_script_info.count(Script::Mandarin);
+        let mandarin_count = raw_script_info.count(Script::Mandarin);
         let katakana_count = raw_script_info.count(Script::Katakana);
         let hiragana_count = raw_script_info.count(Script::Hiragana);
         let japanese_count = katakana_count + hiragana_count;
-        let total = mandrin_count + hiragana_count;
+        let total = mandarin_count + japanese_count;
 
         let jpn_pct = japanese_count as f64 / total as f64;
 
