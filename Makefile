@@ -9,4 +9,4 @@ bench:
 test:
 	cargo test --all-features
 test-fuzz:
-	ARBTEST_BUDGET_MS=60000 cargo test --all-features --release
+	ARBTEST_BUDGET_MS=6000000 cargo test --all-features --release
