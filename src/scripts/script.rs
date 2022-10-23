@@ -5,11 +5,9 @@ use super::lang_mapping;
 use crate::error::ParseError;
 use crate::Lang;
 
-#[cfg(feature = "enum-map")]
-use enum_map::Enum;
-
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
-#[cfg_attr(feature = "enum-map", derive(Enum))]
+#[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy)]
 pub enum Script {
     // Keep this in alphabetic order (for C bindings)

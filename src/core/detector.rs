@@ -28,6 +28,7 @@ use crate::Lang;
 /// let lang = detector.detect_lang("Jen la trinkejo fermitis, ni iras tra mallumo kaj pluvo.");
 /// assert_eq!(lang, Some(Lang::Epo));
 /// ```
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(Debug, Clone, Default)]
 pub struct Detector {
     options: Options,

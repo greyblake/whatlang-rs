@@ -1,5 +1,6 @@
 use super::{FilterList, Method};
 
+#[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
 #[derive(Debug, Clone)]
 pub struct Options {
     pub(crate) filter_list: FilterList,
