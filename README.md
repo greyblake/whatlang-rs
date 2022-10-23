@@ -69,10 +69,11 @@ You're gonna be in a great company using Whatlang:
 
 ## Feature toggles
 
-| Feature    | Description                                                                           |
-|------------|---------------------------------------------------------------------------------------|
-| `enum-map` | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
-| `dev`      | Enables `whatlang::dev` module which provides some internal API.<br/> It exists for profiling purposes and normal users are discouraged to to rely on this API.  |
+| Feature     | Description                                                                           |
+|-------------|---------------------------------------------------------------------------------------|
+| `enum-map`  | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
+| `arbitrary` | Support [Arbitrary](https://crates.io/crates/arbitrary) |
+| `dev`       | Enables `whatlang::dev` module which provides some internal API.<br/> It exists for profiling purposes and normal users are discouraged to to rely on this API.  |
 
 ## How does it work?
 
