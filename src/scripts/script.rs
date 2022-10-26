@@ -8,7 +8,7 @@ use crate::Lang;
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]
 #[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
-#[derive(PartialEq, Eq, Debug, Clone, Copy)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub enum Script {
     // Keep this in alphabetic order (for C bindings)
     Arabic,
