@@ -35,3 +35,21 @@ impl Info {
         self.confidence > RELIABLE_CONFIDENCE_THRESHOLD
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_is_realiable() {
+        let mut info = Info {
+            script: Script::Greek,
+            lang: Lang::Ell,
+            confidence: 0.0,
+        };
+        assert_eq!(info.is_reliable(), false);
+
+        info.confidence = 1.0;
+        assert_eq!(info.is_reliable(), true);
+    }
+}
