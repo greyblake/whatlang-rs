@@ -713,4 +713,12 @@ mod tests {
         let result = "xyz".parse::<Lang>();
         assert!(matches!(result, Err(ParseError::Lang(_))));
     }
+
+    #[test]
+    fn test_lang_display() {
+        assert_eq!(Lang::Epo.to_string(), "Esperanto");
+        assert_eq!(Lang::Ukr.to_string(), "Українська");
+        assert_eq!(Lang::Deu.to_string(), "Deutsch");
+        assert_eq!(Lang::Eng.to_string(), "English");
+    }
 }

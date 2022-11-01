@@ -60,3 +60,24 @@ pub fn raw_detect(text: &str) -> RawInfo {
         lang_info,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_raw_detect() {
+        let zapovit = r#"
+            Як умру, то поховайте
+            Мене на могилі,
+            Серед степу широкого,
+            На Вкраїні милій,
+            Щоб лани широкополі,
+            І Дніпро, і кручі
+            Було видно, було чути,
+            Як реве ревучий.
+        "#;
+        let info = raw_detect(&zapovit);
+        assert_eq!(info.script_info.counters[0].0, Script::Cyrillic);
+    }
+}

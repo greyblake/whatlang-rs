@@ -198,4 +198,11 @@ mod tests {
             assert!(script_langs.contains(&lang));
         }
     }
+
+    #[test]
+    fn test_script_display() {
+        assert_eq!(Script::Georgian.to_string(), "Georgian");
+        assert_eq!(Script::Cyrillic.to_string(), "Cyrillic");
+        assert_eq!(Script::Arabic.to_string(), "Arabic");
+    }
 }

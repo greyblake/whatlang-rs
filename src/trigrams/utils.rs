@@ -5,8 +5,6 @@ use super::TEXT_TRIGRAMS_SIZE;
 use crate::core::LowercaseText;
 use crate::utils::is_stop_char;
 
-const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
-
 pub struct TrigramsWithPositions {
     pub(crate) _total_trigrams: u32,
     pub(crate) trigram_positions: HashMap<Trigram, u32>,
@@ -97,6 +95,8 @@ fn to_trigram_char(ch: char) -> char {
 // based on the size of the input text.
 #[inline]
 fn calculate_initial_hash_capacity(text: &str) -> usize {
+    const MAX_INITIAL_HASH_CAPACITY: usize = 2048;
+
     let len = text.len();
     if len > MAX_INITIAL_HASH_CAPACITY {
         MAX_INITIAL_HASH_CAPACITY
