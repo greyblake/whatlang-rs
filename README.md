@@ -119,6 +119,7 @@ For more details, please check a blog article [Introduction to Rust Whatlang Lib
 * [whatlanggo](https://github.com/abadojack/whatlanggo) - whatlang clone for Go language
 * [whatlang-py](https://github.com/cathalgarvey/whatlang-py) - bindings for Python
 * [whatlang-rb](https://gitlab.com/KitaitiMakoto/whatlang-rb) - bindings for Ruby
+* [whatlangex](https://github.com/pierrelegall/whatlangex) - bindings for Elixir
 
 ## Donations
 
