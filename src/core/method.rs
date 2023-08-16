@@ -3,10 +3,11 @@ use std::fmt;
 use std::str::FromStr;
 
 #[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum Method {
     Trigram,
     Alphabet,
+    #[default]
     Combined,
 }
 
@@ -31,12 +32,6 @@ impl fmt::Display for Method {
             Method::Combined => "Combined",
         };
         write!(f, "{}", name)
-    }
-}
-
-impl Default for Method {
-    fn default() -> Self {
-        Method::Combined
     }
 }
 

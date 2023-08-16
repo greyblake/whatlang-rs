@@ -1,8 +1,9 @@
 use crate::Lang;
 
 #[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub enum FilterList {
+    #[default]
     All,
     Allow(Vec<Lang>),
     Deny(Vec<Lang>),
@@ -28,12 +29,6 @@ impl FilterList {
             Self::Allow(ref allowlist) => allowlist.contains(&lang),
             Self::Deny(ref denylist) => !denylist.contains(&lang),
         }
-    }
-}
-
-impl Default for FilterList {
-    fn default() -> Self {
-        FilterList::All
     }
 }
 
