@@ -72,7 +72,8 @@ You're gonna be in a great company using Whatlang:
 | Feature     | Description                                                                           |
 |-------------|---------------------------------------------------------------------------------------|
 | `enum-map`  | `Lang` and `Script` implement `Enum` trait from [enum-map](https://docs.rs/enum-map/) |
-| `arbitrary` | Support [Arbitrary](https://crates.io/crates/arbitrary) |
+| `arbitrary` | Support [Arbitrary](https://crates.io/crates/arbitrary)                               |
+| `serde`     | Implements `Serialize` and `Deserialize` for `Lang` and `Script`                      |
 | `dev`       | Enables `whatlang::dev` module which provides some internal API.<br/> It exists for profiling purposes and normal users are discouraged to to rely on this API.  |
 
 ## How does it work?
