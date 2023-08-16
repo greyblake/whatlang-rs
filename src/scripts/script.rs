@@ -8,6 +8,7 @@ use crate::Lang;
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]
 #[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub enum Script {
     // Keep this in alphabetic order (for C bindings)
@@ -204,5 +205,15 @@ mod tests {
         assert_eq!(Script::Georgian.to_string(), "Georgian");
         assert_eq!(Script::Cyrillic.to_string(), "Cyrillic");
         assert_eq!(Script::Arabic.to_string(), "Arabic");
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn test_serialize_and_deserialize() {
+        let scripts = vec![Script::Georgian, Script::Cyrillic];
+        let json_scripts = serde_json::to_string(&scripts).unwrap();
+        assert_eq!(json_scripts, r#"["Georgian","Cyrillic"]"#);
+        let parsed_scripts: Vec<Script> = serde_json::from_str(&json_scripts).unwrap();
+        assert_eq!(parsed_scripts, scripts);
     }
 }
