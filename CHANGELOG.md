@@ -1,3 +1,6 @@
+### Next
+* Add `serde` feature (`Serialize` and `Deserialize` for `Lang` and `Script`).
+
 ### v0.16.2 - 2022-10-23
 * Support [Arbitrary](https://crates.io/crates/arbitrary)
 

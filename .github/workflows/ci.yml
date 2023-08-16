@@ -42,6 +42,12 @@ jobs:
           command: test
           args: --features arbitrary
 
+      - name: cargo test --all-features
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --all-features
+
   rustfmt:
     name: Rustfmt
     runs-on: ubuntu-latest
