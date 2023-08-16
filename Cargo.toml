@@ -1,8 +1,8 @@
 [package]
 name = "whatlang"
-version = "0.16.2"
-authors = ["Sergey Potapov <blake131313@gmail.com>"]
-edition = "2018"
+version = "0.16.3"
+authors = ["Serhii Potapov <blake131313@gmail.com>"]
+edition = "2021"
 description = "Fast and lightweight language identification library for Rust."
 keywords = ["language", "nlp", "lang", "whatlang", "text"]
 license = "MIT"

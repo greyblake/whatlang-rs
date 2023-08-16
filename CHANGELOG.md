@@ -1,4 +1,4 @@
-### Next
+### v0.16.3 - 2023-08-16
 * Add `serde` feature (`Serialize` and `Deserialize` for `Lang` and `Script`).
 
 ### v0.16.2 - 2022-10-23
