@@ -33,25 +33,25 @@ pub fn detect(iquery: &InternalQuery) -> Option<Info> {
 
 // TODO: optimize!
 pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
-    let alphabet_raw_outcome = alphabets::raw_detect(iquery);
-    let trigram_raw_outcome = trigrams::raw_detect(iquery);
+    let alphabet_raw_outcome: alphabets::RawOutcome = alphabets::raw_detect(iquery);
+    let trigram_raw_outcome: trigrams::RawOutcome = trigrams::raw_detect(iquery);
 
-    let alphabet_scores = &alphabet_raw_outcome.scores;
-    let trigram_scores = &trigram_raw_outcome.scores;
+    let alphabet_scores: &Vec<(Lang, f64)> = &alphabet_raw_outcome.scores;
+    let trigram_scores: &Vec<(Lang, f64)> = &trigram_raw_outcome.scores;
 
     let mut all_langs: Vec<Lang> = alphabet_scores.iter().map(|x| x.0).collect();
-    trigram_scores.iter().for_each(|(lang, _)| {
+    for (lang, _) in trigram_scores.iter() {
         if !all_langs.contains(lang) {
             all_langs.push(*lang);
         }
-    });
+    }
 
     let count = alphabet_raw_outcome.count;
 
     let alphabet_weight = calc_alphabet_weight(count);
     let trigram_weight = 1.0 - alphabet_weight;
 
-    let mut scores = vec![];
+    let mut scores = Vec::with_capacity(alphabet_scores.len() + trigram_scores.len());
 
     for lang in all_langs {
         let a: f64 = alphabet_scores
