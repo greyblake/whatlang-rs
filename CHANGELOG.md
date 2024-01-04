@@ -1,3 +1,6 @@
+### v0.16.4 - 2024-01-04
+* Remove remove ahash 0.7.6 from dependencies (cargo audit)
+
 ### v0.16.3 - 2023-08-16
 * Add `serde` feature (`Serialize` and `Deserialize` for `Lang` and `Script`).
 
