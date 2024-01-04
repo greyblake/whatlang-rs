@@ -51,7 +51,7 @@ pub fn raw_detect(iquery: &InternalQuery) -> RawOutcome {
     let alphabet_weight = calc_alphabet_weight(count);
     let trigram_weight = 1.0 - alphabet_weight;
 
-    let mut scores = Vec::with_capacity(alphabet_scores.len() + trigram_scores.len());
+    let mut scores = Vec::with_capacity(all_langs.len());
 
     for lang in all_langs {
         let a: f64 = alphabet_scores
