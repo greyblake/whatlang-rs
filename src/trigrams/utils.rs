@@ -143,7 +143,7 @@ mod tests {
             trigram_occurances,
         } = count(&lowercase_text);
         for &(trigram_str, expected_n) in pairs.iter() {
-            let chars: Vec<char> = trigram_str.clone().chars().collect();
+            let chars: Vec<char> = trigram_str.chars().collect();
             let trigram = Trigram(chars[0], chars[1], chars[2]);
             let actual_n = trigram_occurances[&trigram];
             assert_eq!(
