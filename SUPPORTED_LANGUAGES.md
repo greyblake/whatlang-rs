@@ -77,3 +77,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Catalan     | cat       | `Lang::Cat` |
 | Tagalog     | tgl       | `Lang::Tgl` |
 | Armenian    | hye       | `Lang::Hye` |
+| Welsh       | cym       | `Lang::Cym` |

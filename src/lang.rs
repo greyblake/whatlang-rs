@@ -223,9 +223,12 @@ pub enum Lang {
 
     /// Հայերեն (Armenian)
     Hye = 68,
+
+    /// Cymraeg (Welsh)
+    Cym = 69,
 }
 
-const VALUES: [Lang; 69] = [
+const VALUES: [Lang; 70] = [
     Lang::Epo,
     Lang::Eng,
     Lang::Rus,
@@ -295,6 +298,7 @@ const VALUES: [Lang; 69] = [
     Lang::Cat,
     Lang::Tgl,
     Lang::Hye,
+    Lang::Cym,
 ];
 
 fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
@@ -368,6 +372,7 @@ fn lang_from_code<S: Into<String>>(code: S) -> Option<Lang> {
         "cat" => Some(Lang::Cat),
         "tgl" => Some(Lang::Tgl),
         "hye" => Some(Lang::Hye),
+        "cym" => Some(Lang::Cym),
         _ => None,
     }
 }
@@ -443,6 +448,7 @@ fn lang_to_code(lang: Lang) -> &'static str {
         Lang::Cat => "cat",
         Lang::Tgl => "tgl",
         Lang::Hye => "hye",
+        Lang::Cym => "cym",
     }
 }
 
@@ -517,6 +523,7 @@ fn lang_to_name(lang: Lang) -> &'static str {
         Lang::Cat => "Català",
         Lang::Tgl => "Tagalog",
         Lang::Hye => "Հայերեն",
+        Lang::Cym => "Cymraeg",
     }
 }
 
@@ -591,6 +598,7 @@ fn lang_to_eng_name(lang: Lang) -> &'static str {
         Lang::Cat => "Catalan",
         Lang::Tgl => "Tagalog",
         Lang::Hye => "Armenian",
+        Lang::Cym => "Welsh",
     }
 }
 
@@ -700,7 +708,7 @@ mod tests {
 
     #[test]
     fn test_all() {
-        assert_eq!(Lang::all().len(), 69);
+        assert_eq!(Lang::all().len(), 70);
         let all = Lang::all();
         assert!(all.contains(&Lang::Ukr));
         assert!(all.contains(&Lang::Swe));
@@ -726,7 +734,6 @@ mod tests {
         assert_eq!(Lang::Deu.to_string(), "Deutsch");
         assert_eq!(Lang::Eng.to_string(), "English");
     }
-
     #[cfg(feature = "serde")]
     #[test]
     fn test_serialize_and_deserialize() {
