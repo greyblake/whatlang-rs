@@ -10,6 +10,11 @@ use crate::error::ParseError;
 /// Represents a language following [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) standard.
 #[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]
 #[cfg_attr(feature = "arbitrary", derive(::arbitrary::Arbitrary))]
+#[cfg_attr(
+    feature = "serde",
+    derive(::serde::Serialize, ::serde::Deserialize),
+    serde(rename_all = "lowercase")
+)]
 #[derive(PartialEq, Eq, Debug, Hash, Clone, Copy)]
 pub enum Lang {
     <% langs.each_with_index do |lang, index| %>
@@ -190,5 +195,15 @@ mod tests {
         assert_eq!(Lang::Ukr.to_string(), "Українська");
         assert_eq!(Lang::Deu.to_string(), "Deutsch");
         assert_eq!(Lang::Eng.to_string(), "English");
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn test_serialize_and_deserialize() {
+        let langs = vec![Lang::Epo, Lang::Ukr, Lang::Spa];
+        let json_langs = serde_json::to_string(&langs).unwrap();
+        assert_eq!(json_langs, r#"["epo","ukr","spa"]"#);
+        let parsed_langs: Vec<Lang> = serde_json::from_str(&json_langs).unwrap();
+        assert_eq!(parsed_langs, langs);
     }
 }

@@ -734,6 +734,7 @@ mod tests {
         assert_eq!(Lang::Deu.to_string(), "Deutsch");
         assert_eq!(Lang::Eng.to_string(), "English");
     }
+
     #[cfg(feature = "serde")]
     #[test]
     fn test_serialize_and_deserialize() {
