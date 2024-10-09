@@ -33,7 +33,7 @@
 
 
 ## Features
-* Supports [69 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
+* Supports [70 languages](https://github.com/greyblake/whatlang-rs/blob/master/SUPPORTED_LANGUAGES.md)
 * 100% written in Rust
 * Lightweight, fast and simple
 * Recognizes not only a language, but also a script (Latin, Cyrillic, etc)
@@ -108,7 +108,7 @@ For more details, please check a blog article [Introduction to Rust Whatlang Lib
 |                           | Whatlang   | CLD2        | CLD3           |
 | ------------------------- | ---------- | ----------- | -------------- |
 | Implementation language   | Rust       | C++         | C++            |
-| Languages                 | 68         | 83          | 107            |
+| Languages                 | 70         | 83          | 107            |
 | Algorithm                 | trigrams   | quadgrams   | neural network |
 | Supported Encoding        | UTF-8      | UTF-8       | ?              |
 | HTML support              | no         | yes         | ?              |
