@@ -10,6 +10,7 @@ const AKA: &str = "abdefghiklmnoprstuwyɔɛ";
 const AZE: &str = "abcdefghijklmnopqrstuvxyzçöüğışə̇";
 const CAT: &str = "abcdefghijklmnopqrstuvwxyz·àçèéíïòóúü";
 const CES: &str = "abcdefghijklmnopqrstuvwxyzáéíóúýčďěňřšťůž";
+const CYM: &str = "abcdefghijklmnopqrstuvwxyzàáâäèéêëìíîïòóôöùúûüýÿŵŷẁẃẅỳ";
 const DAN: &str = "abcdefghijklmnopqrstuvwxyzåæø";
 const DEU: &str = "abcdefghijklmnopqrstuvwxyzßäöü";
 const ENG: &str = "abcdefghijklmnopqrstuvwxyz";
@@ -49,6 +50,7 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
     (Lang::Aze, AZE),
     (Lang::Cat, CAT),
     (Lang::Ces, CES),
+    (Lang::Cym, CYM),
     (Lang::Dan, DAN),
     (Lang::Deu, DEU),
     (Lang::Eng, ENG),
@@ -163,8 +165,8 @@ mod tests {
 
         let outcome = alphabet_calculate_scores(&text, &filter);
         assert_eq!(outcome.count, 50);
-        assert_eq!(outcome.raw_scores.len(), 36);
-        assert_eq!(outcome.scores.len(), 36);
+        assert_eq!(outcome.raw_scores.len(), 37);
+        assert_eq!(outcome.scores.len(), 37);
 
         let raw_scores_for = |lang: Lang| {
             outcome
