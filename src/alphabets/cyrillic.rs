@@ -2,7 +2,7 @@ use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::{Lang, Script};
-use once_cell::sync::Lazy;
+use std::sync::LazyLock;
 
 const BUL: &str = "абвгдежзийклмнопрстуфхцчшщъьюя";
 const RUS: &str = "абвгдежзийклмнопрстуфхцчшщъыьэюяё";
@@ -21,8 +21,8 @@ const CYRILLIC_ALPHABETS: &[(Lang, &str)] = &[
 ];
 
 /// Inverted map binding a character to a set of languages.
-static CYRILLIC_ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> =
-    Lazy::new(|| build_inverted_map(CYRILLIC_ALPHABETS));
+static CYRILLIC_ALPHABET_LANG_MAP: LazyLock<(Vec<char>, Vec<Vec<Lang>>)> =
+    LazyLock::new(|| build_inverted_map(CYRILLIC_ALPHABETS));
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     generic_alphabet_calculate_scores(
