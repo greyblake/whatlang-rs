@@ -5,9 +5,9 @@ use super::RawOutcome;
 use crate::core::{FilterList, LowercaseText};
 use crate::utils::is_stop_char;
 use crate::{Lang, Script};
-use std::sync::LazyLock;
 use std::cmp::Reverse;
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 /// Inverted map binding a character to a set of languages.
 pub fn build_inverted_map(alphabets: &[(Lang, &str)]) -> (Vec<char>, Vec<Vec<Lang>>) {
