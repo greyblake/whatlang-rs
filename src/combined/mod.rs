@@ -6,6 +6,7 @@ use crate::Lang;
 #[derive(Debug)]
 pub struct RawOutcome {
     pub scores: Vec<(Lang, f64)>,
+    #[allow(dead_code)]
     pub alphabet_raw_outcome: alphabets::RawOutcome,
     pub trigram_raw_outcome: trigrams::RawOutcome,
 }

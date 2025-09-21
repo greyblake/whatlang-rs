@@ -11,6 +11,7 @@ use crate::Lang;
 #[derive(Debug)]
 pub struct RawOutcome {
     pub trigrams_count: usize,
+    #[allow(dead_code)]
     pub raw_distances: Vec<(Lang, u32)>,
     pub scores: Vec<(Lang, f64)>,
 }

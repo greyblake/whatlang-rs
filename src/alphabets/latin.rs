@@ -1,4 +1,4 @@
-use once_cell::sync::Lazy;
+use std::sync::LazyLock;
 
 use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use super::RawOutcome;
@@ -83,8 +83,8 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
 ];
 
 /// Inverted map binding a character to a set of languages.
-pub static ALPHABET_LANG_MAP: Lazy<(Vec<char>, Vec<Vec<Lang>>)> =
-    Lazy::new(|| build_inverted_map(LATIN_ALPHABETS));
+pub static ALPHABET_LANG_MAP: LazyLock<(Vec<char>, Vec<Vec<Lang>>)> =
+    LazyLock::new(|| build_inverted_map(LATIN_ALPHABETS));
 
 pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList) -> RawOutcome {
     generic_alphabet_calculate_scores(Script::Latin, &ALPHABET_LANG_MAP, text, filter_list)
