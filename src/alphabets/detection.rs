@@ -1,7 +1,7 @@
 use super::RawOutcome;
 use super::{cyrillic, latin};
-use crate::core::{calculate_confidence, FilterList, Info, InternalQuery, LowercaseText};
 use crate::Lang;
+use crate::core::{FilterList, Info, InternalQuery, LowercaseText, calculate_confidence};
 
 pub fn detect(iquery: &InternalQuery) -> Option<Info> {
     let raw_outcome = raw_detect(iquery);

@@ -35,11 +35,7 @@ impl RawScriptInfo {
         // expect - is safe because self.counters is never expected to be empty
         // See raw_detect_script().
         let pair = self.counters.first().expect("counters must not be empty");
-        if pair.1 > 0 {
-            Some(pair.0)
-        } else {
-            None
-        }
+        if pair.1 > 0 { Some(pair.0) } else { None }
     }
 
     pub(crate) fn count(&self, script: Script) -> usize {

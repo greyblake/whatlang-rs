@@ -1,8 +1,8 @@
 // NOTE:
 //    This file is generated automatically.
 
-use crate::trigrams::Trigram;
 use crate::Lang;
+use crate::trigrams::Trigram;
 
 pub type LangProfile = &'static [Trigram];
 pub type LangProfileList = &'static [(Lang, LangProfile)];
