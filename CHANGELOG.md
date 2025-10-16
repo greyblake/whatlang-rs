@@ -1,3 +1,7 @@
+### v0.17.0 - 2025-10-16
+* Support Welsh
+* Bump hashbrown to 15
+
 ### v0.16.4 - 2024-01-04
 * Remove remove ahash 0.7.6 from dependencies (cargo audit)
 
