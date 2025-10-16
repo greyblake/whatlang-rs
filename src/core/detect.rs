@@ -140,6 +140,7 @@ mod tests {
             Lang::Swe,
             Lang::Nob,
             Lang::Tgl,
+            Lang::Cym,
         ]);
         let options = Options::new().set_filter_list(filter_list);
         let output = detect_with_options(text, &options);

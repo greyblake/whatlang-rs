@@ -35,6 +35,7 @@ latin_based:
   est: "ÄÖÕÜäöõü"
   lat: ""
   tgl: "áéíñóú"
+  cym: "ÂÊÎÔÛŴŶÁÉÍÏâêîôûŵŷáéíïÓÚẂÝÀÈÌÒÙẀỲÄËÖÜẄŸóúẃýàèìòùẁỳäëöüẅÿ"
 others:
   tuk: "ABÇDEÄFGHIJŽKLMNŇOÖPRSŞTUÜWYÝZ"
   epo: "ABCĈDEFGĜHĤIJĴKLMNOPRSŜTUŬVZ"
