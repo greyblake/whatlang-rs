@@ -1,5 +1,8 @@
+### v0.18.0 - 2025-10-16
+* [BREAKING] Update to Rust edition 2024
+
 ### v0.17.0 - 2025-10-16
-* Support Welsh
+* [BREAKING] Support Welsh
 * Bump hashbrown to 15
 
 ### v0.16.4 - 2024-01-04
