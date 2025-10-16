@@ -2,8 +2,8 @@ use std::fmt;
 use std::str::FromStr;
 
 use super::lang_mapping;
-use crate::error::ParseError;
 use crate::Lang;
+use crate::error::ParseError;
 
 /// Represents a writing system (Latin, Cyrillic, Arabic, etc).
 #[cfg_attr(feature = "enum-map", derive(::enum_map::Enum))]

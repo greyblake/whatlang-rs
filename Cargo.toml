@@ -2,7 +2,7 @@
 name = "whatlang"
 version = "0.17.0"
 authors = ["Serhii Potapov <blake131313@gmail.com>"]
-edition = "2021"
+edition = "2024"
 description = "Fast and lightweight language identification library for Rust."
 keywords = ["language", "nlp", "lang", "whatlang", "text"]
 license = "MIT"

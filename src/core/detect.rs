@@ -1,9 +1,10 @@
+use crate::Lang;
 use crate::core::{Info, Method, Options, Query};
 use crate::scripts::{
+    RawScriptInfo, Script,
     grouping::{MultiLangScript, ScriptLangGroup},
-    raw_detect_script, RawScriptInfo, Script,
+    raw_detect_script,
 };
-use crate::Lang;
 use crate::{alphabets, combined, trigrams};
 
 /// Detect only a language by a given text.

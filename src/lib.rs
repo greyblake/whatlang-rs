@@ -53,6 +53,6 @@ mod utils;
 #[cfg(feature = "dev")]
 pub mod dev;
 
-pub use crate::core::{detect, detect_lang, Detector, Info};
+pub use crate::core::{Detector, Info, detect, detect_lang};
 pub use crate::lang::Lang;
-pub use crate::scripts::{detect_script, Script};
+pub use crate::scripts::{Script, detect_script};

@@ -1,12 +1,12 @@
 use hashbrown::HashMap;
 
-use super::utils::{get_trigrams_with_positions, TrigramsWithPositions};
-use super::{LangProfile, LangProfileList};
-use super::{Trigram, MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE};
+use super::utils::{TrigramsWithPositions, get_trigrams_with_positions};
 use super::{ARABIC_LANGS, CYRILLIC_LANGS, DEVANAGARI_LANGS, HEBREW_LANGS, LATIN_LANGS};
-use crate::core::{calculate_confidence, FilterList, Info, InternalQuery, Text};
-use crate::scripts::grouping::MultiLangScript;
+use super::{LangProfile, LangProfileList};
+use super::{MAX_TOTAL_DISTANCE, MAX_TRIGRAM_DISTANCE, Trigram};
 use crate::Lang;
+use crate::core::{FilterList, Info, InternalQuery, Text, calculate_confidence};
+use crate::scripts::grouping::MultiLangScript;
 
 #[derive(Debug)]
 pub struct RawOutcome {

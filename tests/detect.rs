@@ -1,7 +1,7 @@
 extern crate serde_json;
 extern crate whatlang;
 
-use whatlang::{detect, detect_lang, Lang, Script};
+use whatlang::{Lang, Script, detect, detect_lang};
 
 use std::collections::HashMap;
 

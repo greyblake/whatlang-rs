@@ -1,7 +1,7 @@
 use std::sync::LazyLock;
 
-use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use super::RawOutcome;
+use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use crate::core::{FilterList, LowercaseText};
 use crate::{Lang, Script};
 
@@ -95,8 +95,8 @@ pub fn alphabet_calculate_scores(text: &LowercaseText, filter_list: &FilterList)
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::utils::is_stop_char;
     use crate::Script;
+    use crate::utils::is_stop_char;
 
     // Old naive implementation, that is not very effective but easy to understand
     fn naive_alphabet_calculate_scores(

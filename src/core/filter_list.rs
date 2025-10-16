@@ -26,8 +26,8 @@ impl FilterList {
     pub fn is_allowed(&self, lang: Lang) -> bool {
         match self {
             Self::All => true,
-            Self::Allow(ref allowlist) => allowlist.contains(&lang),
-            Self::Deny(ref denylist) => !denylist.contains(&lang),
+            Self::Allow(allowlist) => allowlist.contains(&lang),
+            Self::Deny(denylist) => !denylist.contains(&lang),
         }
     }
 }

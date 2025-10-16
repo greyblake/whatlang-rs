@@ -11,13 +11,13 @@ pub enum ParseError {
 impl Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            ParseError::Script(ref val) => {
+            ParseError::Script(val) => {
                 write!(f, "Cannot parse str into whatlang::Script: {:?}", val)
             }
-            ParseError::Lang(ref val) => {
+            ParseError::Lang(val) => {
                 write!(f, "Cannot parse str into whatlang::Lang: {:?}", val)
             }
-            ParseError::Method(ref val) => {
+            ParseError::Method(val) => {
                 write!(f, "Cannot parse str into whatlang::Method: {:?}", val)
             }
         }

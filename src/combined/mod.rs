@@ -1,7 +1,7 @@
-use crate::alphabets;
-use crate::core::{calculate_confidence, Info, InternalQuery};
-use crate::trigrams;
 use crate::Lang;
+use crate::alphabets;
+use crate::core::{Info, InternalQuery, calculate_confidence};
+use crate::trigrams;
 
 #[derive(Debug)]
 pub struct RawOutcome {

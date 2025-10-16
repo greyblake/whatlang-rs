@@ -4,7 +4,7 @@ extern crate bencher;
 use bencher::Bencher;
 use std::collections::HashMap;
 use whatlang::dev::{
-    alphabet_cyrillic_calculate_scores, alphabet_latin_calculate_scores, FilterList, LowercaseText,
+    FilterList, LowercaseText, alphabet_cyrillic_calculate_scores, alphabet_latin_calculate_scores,
 };
 use whatlang::{detect, detect_script};
 

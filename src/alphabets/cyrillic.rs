@@ -1,5 +1,5 @@
-use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use super::RawOutcome;
+use super::common::{build_inverted_map, generic_alphabet_calculate_scores};
 use crate::core::{FilterList, LowercaseText};
 use crate::{Lang, Script};
 use std::sync::LazyLock;

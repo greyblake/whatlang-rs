@@ -1,7 +1,7 @@
 use hashbrown::HashMap;
 
-use super::Trigram;
 use super::TEXT_TRIGRAMS_SIZE;
+use super::Trigram;
 use crate::core::LowercaseText;
 use crate::utils::is_stop_char;
 
@@ -84,11 +84,7 @@ fn count(text: &LowercaseText) -> CountResult {
 // Convert punctuations and digits to a space.
 #[inline]
 fn to_trigram_char(ch: char) -> char {
-    if is_stop_char(ch) {
-        ' '
-    } else {
-        ch
-    }
+    if is_stop_char(ch) { ' ' } else { ch }
 }
 
 // In order to improve performance, define the initial capacity for trigrams hash map,
