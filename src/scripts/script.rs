@@ -115,6 +115,78 @@ impl Script {
     pub fn langs(&self) -> &[Lang] {
         lang_mapping::script_langs(*self)
     }
+
+    /// Returns the [bcp47] subtag as [registerd with IANA][registry] for the given script.
+    ///
+    /// [bcp47]: https://datatracker.ietf.org/doc/bcp47/
+    /// [registry]: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
+    pub fn bcp47_subtag(&self) -> &str {
+        match *self {
+            Script::Latin => "Latn",
+            Script::Cyrillic => "Cyrl",
+            Script::Arabic => "Arab",
+            Script::Devanagari => "Deva",
+            Script::Hiragana => "Hira",
+            Script::Katakana => "Kana",
+            Script::Ethiopic => "Ethi",
+            Script::Hebrew => "Hebr",
+            Script::Bengali => "Beng",
+            Script::Georgian => "Geor",
+            Script::Mandarin => "Hani",
+            Script::Hangul => "Hang",
+            Script::Greek => "Grek",
+            Script::Kannada => "Knda",
+            Script::Tamil => "Taml",
+            Script::Thai => "Thai",
+            Script::Gujarati => "Gujr",
+            Script::Gurmukhi => "Guru",
+            Script::Telugu => "Telu",
+            Script::Malayalam => "Mlym",
+            Script::Oriya => "Orya",
+            Script::Myanmar => "Mymr",
+            Script::Sinhala => "Sinh",
+            Script::Khmer => "Khmr",
+            Script::Armenian => "Armn",
+        }
+    }
+
+    /// Takes the a [script subtag as registerd with IANA][registry] and returns the matching variant if available. Only exact matches and subsets are recognized.
+    ///
+    /// The following subsets are recognized:
+    /// * `hans`, `hant` -> [Script::Mandarin] (`hani`)
+    /// * `jamo` -> [Script::Hangul] (`hang`)
+    ///
+    /// [registry]: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
+    pub fn from_bcp47_subtag(subtag: &str) -> Result<Self, ParseError> {
+        match subtag.to_lowercase().trim() {
+            "latn" => Ok(Script::Latin),
+            "cyrl" => Ok(Script::Cyrillic),
+            "arab" => Ok(Script::Arabic),
+            "deva" => Ok(Script::Devanagari),
+            "hira" => Ok(Script::Hiragana),
+            "kana" => Ok(Script::Katakana),
+            "ethi" => Ok(Script::Ethiopic),
+            "hebr" => Ok(Script::Hebrew),
+            "beng" => Ok(Script::Bengali),
+            "geor" => Ok(Script::Georgian),
+            "hani" | "hans" | "hant" => Ok(Script::Mandarin),
+            "hang" | "jamo" => Ok(Script::Hangul),
+            "grek" => Ok(Script::Greek),
+            "knda" => Ok(Script::Kannada),
+            "taml" => Ok(Script::Tamil),
+            "thai" => Ok(Script::Thai),
+            "gujr" => Ok(Script::Gujarati),
+            "guru" => Ok(Script::Gurmukhi),
+            "telu" => Ok(Script::Telugu),
+            "mlym" => Ok(Script::Malayalam),
+            "orya" => Ok(Script::Oriya),
+            "mymr" => Ok(Script::Myanmar),
+            "sinh" => Ok(Script::Sinhala),
+            "khmr" => Ok(Script::Khmer),
+            "armn" => Ok(Script::Armenian),
+            _ => Err(ParseError::ScriptFromBcp47(subtag.to_string())),
+        }
+    }
 }
 
 impl fmt::Display for Script {
@@ -182,6 +254,25 @@ mod tests {
 
         let result = "foobar".parse::<Script>();
         assert!(matches!(result, Err(ParseError::Script(_))));
+    }
+
+    #[test]
+    fn test_from_bcp47() {
+        for &script in Script::all() {
+            let s = script.bcp47_subtag();
+            assert_eq!(Script::from_bcp47_subtag(s).unwrap(), script);
+            assert_eq!(
+                Script::from_bcp47_subtag(&s.to_lowercase()).unwrap(),
+                script
+            );
+            assert_eq!(
+                Script::from_bcp47_subtag(&s.to_uppercase()).unwrap(),
+                script
+            );
+        }
+
+        let result = Script::from_bcp47_subtag("foobar");
+        assert!(matches!(result, Err(ParseError::ScriptFromBcp47(_))));
     }
 
     #[test]
