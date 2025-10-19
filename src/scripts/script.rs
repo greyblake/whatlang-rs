@@ -82,6 +82,7 @@ impl Script {
         &VALUES
     }
 
+	/// Return the english name of the language, matching the enum variant name.
     pub fn name(&self) -> &str {
         match *self {
             Script::Latin => "Latin",
@@ -112,6 +113,7 @@ impl Script {
         }
     }
 
+	/// Return all plausible languages for this script.
     pub fn langs(&self) -> &[Lang] {
         lang_mapping::script_langs(*self)
     }
