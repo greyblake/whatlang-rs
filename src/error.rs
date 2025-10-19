@@ -3,6 +3,7 @@ use std::fmt::{self, Display};
 
 #[derive(Debug)]
 pub enum ParseError {
+    ScriptFromBcp47(String),
     Script(String),
     Lang(String),
     Method(String),
@@ -11,6 +12,13 @@ pub enum ParseError {
 impl Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
+            ParseError::ScriptFromBcp47(val) => {
+                write!(
+                    f,
+                    "Cannot parse bcp47 subtag str into whatlang::Script: {:?}",
+                    val
+                )
+            }
             ParseError::Script(val) => {
                 write!(f, "Cannot parse str into whatlang::Script: {:?}", val)
             }
