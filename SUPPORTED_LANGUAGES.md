@@ -78,3 +78,4 @@ and [documentation](https://docs.rs/whatlang/).
 | Tagalog     | tgl       | `Lang::Tgl` |
 | Armenian    | hye       | `Lang::Hye` |
 | Welsh       | cym       | `Lang::Cym` |
+| Kyrgyz      | kir       | `Lang::Kir` |
