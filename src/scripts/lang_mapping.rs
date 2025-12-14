@@ -40,13 +40,14 @@ const LATIN_LANGS: [Lang; 37] = [
     Lang::Lat,
     Lang::Cym,
 ];
-const CYRILLIC_LANGS: [Lang; 6] = [
+const CYRILLIC_LANGS: [Lang; 7] = [
     Lang::Rus,
     Lang::Ukr,
     Lang::Srp,
     Lang::Bel,
     Lang::Bul,
     Lang::Mkd,
+    Lang::Kir,
 ];
 const ARABIC_LANGS: [Lang; 3] = [Lang::Ara, Lang::Urd, Lang::Pes];
 const DEVANAGARI_LANGS: [Lang; 3] = [Lang::Hin, Lang::Mar, Lang::Nep];
