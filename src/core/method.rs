@@ -31,7 +31,7 @@ impl fmt::Display for Method {
             Method::Alphabet => "Alphabet",
             Method::Combined => "Combined",
         };
-        write!(f, "{}", name)
+        write!(f, "{name}")
     }
 }
 

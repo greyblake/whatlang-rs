@@ -12,13 +12,13 @@ impl Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             ParseError::Script(val) => {
-                write!(f, "Cannot parse str into whatlang::Script: {:?}", val)
+                write!(f, "Cannot parse str into whatlang::Script: {val:?}")
             }
             ParseError::Lang(val) => {
-                write!(f, "Cannot parse str into whatlang::Lang: {:?}", val)
+                write!(f, "Cannot parse str into whatlang::Lang: {val:?}")
             }
             ParseError::Method(val) => {
-                write!(f, "Cannot parse str into whatlang::Method: {:?}", val)
+                write!(f, "Cannot parse str into whatlang::Method: {val:?}")
             }
         }
     }
