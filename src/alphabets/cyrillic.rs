@@ -10,6 +10,7 @@ const UKR: &str = "абвгдежзийклмнопрстуфхцчшщьюяє�
 const BEL: &str = "абвгдежзйклмнопрстуфхцчшыьэюяёіў";
 const SRP: &str = "абвгдежзиклмнопрстуфхцчшђјљњћџ";
 const MKD: &str = "абвгдежзиклмнопрстуфхцчшѓѕјљњќџ";
+const KIR: &str = "абвгдеёжзийклмнңоөпрстуүфхцчшщъыьэюя";
 
 const CYRILLIC_ALPHABETS: &[(Lang, &str)] = &[
     (Lang::Bul, BUL),
@@ -18,6 +19,7 @@ const CYRILLIC_ALPHABETS: &[(Lang, &str)] = &[
     (Lang::Bel, BEL),
     (Lang::Srp, SRP),
     (Lang::Mkd, MKD),
+    (Lang::Kir, KIR),
 ];
 
 /// Inverted map binding a character to a set of languages.
