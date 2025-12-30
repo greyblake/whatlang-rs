@@ -43,6 +43,7 @@ const UZB: &str = "abcdefghijklmnopqrstuvxyzʻ";
 const VIE: &str =
     "abcdefghijklmnopqrstuvwxyzàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ";
 const ZUL: &str = "abcdefghijklmnopqrstuvwxyz";
+const VEC: &str = "abcdefghilmnopqrstuvxyzàèéòóùł";
 
 const LATIN_ALPHABETS: &[(Lang, &str)] = &[
     (Lang::Afr, AFR),
@@ -81,6 +82,7 @@ const LATIN_ALPHABETS: &[(Lang, &str)] = &[
     (Lang::Tur, TUR),
     (Lang::Uzb, UZB),
     (Lang::Vie, VIE),
+    (Lang::Vec, VEC),
     (Lang::Zul, ZUL),
 ];
 
@@ -165,8 +167,8 @@ mod tests {
 
         let outcome = alphabet_calculate_scores(&text, &filter);
         assert_eq!(outcome.count, 50);
-        assert_eq!(outcome.raw_scores.len(), 37);
-        assert_eq!(outcome.scores.len(), 37);
+        assert_eq!(outcome.raw_scores.len(), 38);
+        assert_eq!(outcome.scores.len(), 38);
 
         let raw_scores_for = |lang: Lang| {
             outcome
