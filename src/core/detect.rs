@@ -141,6 +141,7 @@ mod tests {
             Lang::Swe,
             Lang::Nob,
             Lang::Tgl,
+            Lang::Vec,
             Lang::Cym,
         ]);
         let options = Options::new().set_filter_list(filter_list);
